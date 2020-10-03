@@ -1,0 +1,12 @@
+D:\vs\Test2\Test2\bin\Debug\Test2.exe
+D:\vs\Test2\Test2\bin\Debug\Test2.pdb
+D:\vs\Test2\Test2\obj\Debug\Test2.csprojAssemblyReference.cache
+D:\vs\Test2\Test2\obj\Debug\Test2.csproj.CoreCompileInputs.cache
+D:\vs\Test2\Test2\obj\Debug\Test2.exe
+D:\vs\Test2\Test2\obj\Debug\Test2.pdb
+D:\VirtualBox VMs\TEMP\Test2 — копия\Test2\bin\Debug\Test2.exe
+D:\VirtualBox VMs\TEMP\Test2 — копия\Test2\bin\Debug\Test2.pdb
+D:\VirtualBox VMs\TEMP\Test2 — копия\Test2\obj\Debug\Test2.csproj.CoreCompileInputs.cache
+D:\VirtualBox VMs\TEMP\Test2 — копия\Test2\obj\Debug\Test2.exe
+D:\VirtualBox VMs\TEMP\Test2 — копия\Test2\obj\Debug\Test2.pdb
+D:\VirtualBox VMs\TEMP\Test2 — копия\Test2\obj\Debug\Test2.csprojAssemblyReference.cache
