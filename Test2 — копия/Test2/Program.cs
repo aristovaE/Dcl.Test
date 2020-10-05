@@ -37,12 +37,6 @@ namespace Test2
             //PostMessage(handle, WM_COMMAND, 2, 0); // File->New subtitle
             var window = AutomationElement.FromHandle(process.MainWindowHandle);
 
-            //var transformPattern = (TransformPattern)window.GetCurrentPattern(TransformPattern.Pattern);
-            //transformPattern.Resize(300, 300);
-            //// сохраним изменённый файл под новым именем
-            //// вызовем File -> Save as... (на русскоязычной системе понадобятся другие строки!)
-            
- 
 
             //Определяем текст
             StringBuilder builder = new StringBuilder(100);
@@ -60,11 +54,6 @@ namespace Test2
             fileMenu.GetPattern<ExpandCollapsePattern>().Expand();
             Thread.Sleep(100);
 
-            //// нашли пункт Save As
-            //var saveAsMenu = fileMenu.FirstDescendantByTypeAndName(ControlType.MenuItem, "Открыть ДТ");
-            //// и выполнили его
-            //saveAsMenu.GetPattern<InvokePattern>().Invoke();
-            //Thread.Sleep(100);
         }
         
         #region native FindWindow, IsIconic, SetForegroundWindow, ShowWindow
