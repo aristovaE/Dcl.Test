@@ -1,5 +1,4 @@
-﻿#define WM_COMMAND                      0x0111;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
