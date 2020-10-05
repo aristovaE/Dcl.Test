@@ -30,27 +30,17 @@ namespace Test2
             }
             Thread.Sleep(1000);
            
-            // находим бегущий notepad
+
             var process = Process.GetProcessesByName("DCL").FirstOrDefault();
            // IntPtr handle = process.MainWindowHandle;
             IntPtr HMENU = GetMenu(process.MainWindowHandle); //не работает
             //PostMessage(handle, WM_COMMAND, 2, 0); // File->New subtitle
             var window = AutomationElement.FromHandle(process.MainWindowHandle);
 
-
-            //Определяем текст
-            StringBuilder builder = new StringBuilder(100);
-            GetWindowText(hwnd, builder, builder.Capacity);
-            string text = builder.ToString();
-
-            //Определяем класс
-            StringBuilder buffer = new StringBuilder(256);
-            GetClassName(hwnd, buffer, buffer.Capacity);
-            string className = buffer.ToString();
-            Thread.Sleep(5000);
+            //Thread.Sleep(5000);
             var menuBar = window.FirstChildByType(ControlType.MenuBar);
             var fileMenu = menuBar.FirstDescendantByTypeAndName(ControlType.MenuItem, "Документ");
-            // раскрыли меню File:
+            // раскрыли меню 
             fileMenu.GetPattern<ExpandCollapsePattern>().Expand();
             Thread.Sleep(100);
 
@@ -109,14 +99,12 @@ namespace Test2
         static public AutomationElement FirstDescendantByTypeAndName(
             this AutomationElement element, ControlType ct, string name)
         {
-            AutomationElement first=element.FindFirst(
+            return element.FindFirst(
                 TreeScope.Descendants,
                 new AndCondition(
                     new PropertyCondition(AutomationElement.ControlTypeProperty, ct),
                     new PropertyCondition(AutomationElement.NameProperty, name)));
-            if (first == null)
-                return null;
-            else return first;
+           
         }
 
         static public AutomationElement FindWindowFrom(AutomationElement control)
