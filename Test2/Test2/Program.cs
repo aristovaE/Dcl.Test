@@ -12,6 +12,7 @@ namespace Test2
         {
             //Process.Start();
             IntPtr hwnd = FindWindow(null, "ВЭД-Декларант");
+            //"ВЭД-Декларант (незарегистрированная версия) 9.97 от 01.10.2020 (10000000/220719/0000005) - ТОЛЬКО ЧТЕНИЕ - [ДТ (основной лист)]"
             //Console.WriteLine("hwnd: " + hwnd);
             if (IsIconic(hwnd))
             {
@@ -22,7 +23,6 @@ namespace Test2
                 SetForegroundWindow(hwnd);
 
             }
-            Console.WriteLine("вааау а ты и правда садистка");
             Console.ReadKey();
 
         }
