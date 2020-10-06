@@ -18,7 +18,7 @@ namespace Test2
         static void Main(string[] args)
         {
             IntPtr hwnd = FindWindow(null, "ВЭД-Декларант");
-            //"ВЭД-Декларант (незарегистрированная версия) 9.97 от 01.10.2020 (10000000/220719/0000005) - ТОЛЬКО ЧТЕНИЕ - [ДТ (основной лист)]"
+            //"ВЭД-Декларант (расширенная версия) 9.97 от 01.10.2020 (10000000/220719/0000005) - ТОЛЬКО ЧТЕНИЕ - [ДТ (основной лист)]"
             
             if (IsIconic(hwnd))
             {
@@ -30,21 +30,31 @@ namespace Test2
             }
 
             //var process = Process.GetProcessesByName("DCL").FirstOrDefault();
-            Thread.Sleep(5000);
+            Thread.Sleep(1000);
             // Получаем hwnd окна
-            IntPtr hWnd = WindowFromPoint(System.Windows.Forms.Cursor.Position);
+            IntPtr hWnd = WindowFromPoint(System.Windows.Forms.Cursor.Position);// окно рабочей области БЕЗ меню
 
-            //Определяем текст
-            StringBuilder builder = new StringBuilder(100);
-            GetWindowText(hWnd, builder, builder.Capacity);
-            string text = builder.ToString();
+            //симуляция передвижения мыши 
 
-            //Определяем класс
-            StringBuilder buffer = new StringBuilder(256);
-            GetClassName(hWnd, buffer, buffer.Capacity);
-            string className = buffer.ToString();
-            //  PostMessage(hwnd, WM_COMMAND, 2, 0); // WM_COMMAND??? https://stackoverflow.com/questions/9397700/c-sharp-winapi-clicking-on-menu-items
+            //MoveMouse(hWnd, SystemInformation.VirtualScreen.Width, SystemInformation.VirtualScreen.Height); //не работает - нет меню в области
+            
+            //Нажатие кнопок меню через сочетания клавиш
+            SendKeys.SendWait("%д");
+            Thread.Sleep(1000);
+            SendKeys.SendWait("в");
+            Thread.Sleep(1000);
+            SendKeys.SendWait("~");
+        }
 
+        private static void MoveMouse(IntPtr hWnd,int screenWidth, int screenHeight)
+        {
+            Point p = new Point();
+            
+                p.X = Convert.ToInt16(17);
+                p.Y = Convert.ToInt16(23); //координаты из inspect exe
+                ClientToScreen(hWnd, ref p);
+                SetCursorPos(p.X, p.Y);
+                Thread.Sleep(1000);
         }
 
         #region native FindWindow, IsIconic, SetForegroundWindow, ShowWindow
@@ -59,11 +69,19 @@ namespace Test2
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool SetForegroundWindow(IntPtr hWnd);
 
-        [DllImport("user32.dll")] public static extern IntPtr WindowFromPoint(Point pt);
+        [DllImport("user32.dll")] 
+        public static extern IntPtr WindowFromPoint(Point pt);
 
         [DllImport("user32.dll")]
-        public static extern IntPtr PostMessage(IntPtr hWnd, System.Messaging.Message msg, int wParam, int lParam);
+        public static extern long SetCursorPos(int x, int y);
+
+        [DllImport("user32.dll")]
+        public static extern bool ClientToScreen(IntPtr hWnd, ref Point point);
+
        
+        // [DllImport("user32.dll")]
+        // public static extern IntPtr PostMessage(IntPtr hWnd, System.Messaging.Message msg, int wParam, int lParam);
+
         [DllImport("user32.dll")]
         static extern IntPtr GetMenu(IntPtr hWnd);
 
@@ -71,11 +89,11 @@ namespace Test2
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool ShowWindow(IntPtr hWnd, int showWindowCommand);
 
-        [DllImport("user32", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
+        //[DllImport("user32", SetLastError = true, CharSet = CharSet.Auto)]
+        //public static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
 
-        [DllImport("user32", CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
+        //[DllImport("user32", CharSet = CharSet.Auto, SetLastError = true)]
+        //public static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
 
         #endregion
 
