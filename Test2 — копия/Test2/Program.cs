@@ -41,33 +41,29 @@ namespace Test2
             {
                 SetForegroundWindow(hwnd);
             }
-            
-            //System.Windows.Forms.Cursor.Position = new Point(500, 30); //окно меню
+
             //var process = Process.GetProcessesByName("DCL").FirstOrDefault();
-            IntPtr windowDCL = WindowFromPoint(System.Windows.Forms.Cursor.Position);   // окно области где сейчас находится курсор (= new Point(500, 30) - верхнее меню)
+            //IntPtr windowDCL = WindowFromPoint(System.Windows.Forms.Cursor.Position);   // окно области где сейчас находится курсор (= new Point(500, 30) - верхнее меню)
 
-
-
-            SendMessageAndClick();
-            //MoveMouseAndClick(windowDCLMenu,47,30);
-            //ClickMenu(windowDCL);
-            //EnterShortcuts();
+            //SendMessageAndClick(47, 30);  //наведение мыши через SendMessage
+            //SendMessageAndClick(96, 76);
+            MoveMouseAndClick(47, 30);
+            MoveMouseAndClick(96, 76); //наведение мыши через mouse_event
+            //EnterShortcuts(); //ввод комбинаций клавиш для открытия меню
+            //EnterKey(); //ввод значений в активное поле
         }
 
         /// <summary>
         /// Открытие меню - Документ (sendMessage)
         /// </summary>
-        private static void SendMessageAndClick()
+        private static void SendMessageAndClick(int pX, int pY)
         {
-            IntPtr windowDCLMenu = WindowFromPoint(System.Windows.Forms.Cursor.Position = new Point(47, 30)); //Меню - Документ
-            SendMessage(windowDCLMenu, WM_MOUSEMOVE, (IntPtr)0, MakeParam(47, 30));
-            DoMouseLeftClick(47, 30);
+            IntPtr windowDCLMenu = WindowFromPoint(System.Windows.Forms.Cursor.Position = new Point(pX, pY)); //Меню - Документ
+            SendMessage(windowDCLMenu, WM_MOUSEMOVE, (IntPtr)0, MakeParam(pX, pY));
+            DoMouseLeftClick(pX, pY);
             //SendMessage(windowDCLMenu, WM_LBUTTONDOWN, (IntPtr)0, MakeParam(47, 30));
             //SendMessage(windowDCLMenu, WM_LBUTTONUP, (IntPtr)0, MakeParam(47, 30));
             Thread.Sleep(1000);
-            windowDCLMenu = WindowFromPoint(System.Windows.Forms.Cursor.Position = new Point(96,76));
-            SendMessage(windowDCLMenu, WM_MOUSEMOVE, (IntPtr)0, MakeParam(96, 76));
-            DoMouseLeftClick(96, 76);
         }
 
         /// <summary>
@@ -106,26 +102,18 @@ namespace Test2
         }
 
         /// <summary>
-        /// Нажатие кнопок меню через наведение мышкой 
-        /// </summary>
-        private static void Click(IntPtr hwnd)
-        {
-            MoveMouseAndClick(hwnd, 47, 30); //Меню  - "Документ"
-            MoveMouseAndClick(hwnd, 96, 76); //"Выбрать ДТ"
-        }
-
-        /// <summary>
         /// симуляция передвижения мыши
         /// </summary>
         /// <param name="hWnd"></param>
         /// <param name="screenWidth"></param>
         /// <param name="screenHeight"></param>
-        private static void MoveMouseAndClick(IntPtr hWnd,int pX, int pY)
+        private static void MoveMouseAndClick(int pX, int pY)
         {
+            IntPtr windowDCLMenu = WindowFromPoint(System.Windows.Forms.Cursor.Position = new Point(pX, pY));
             Point p = new Point();
             p.X = Convert.ToInt16(pX);  //координаты из inspect exe
             p.Y = Convert.ToInt16(pY);  //поле How found : Mouse Move(47,30) при наведении мышкой на нужное поле
-            ClientToScreen(hWnd, ref p);
+            //ClientToScreen(windowDCLMenu, ref p);
             SetCursorPos(p.X, p.Y);
             Thread.Sleep(1000);
             DoMouseLeftClick(p.X, p.Y);
@@ -141,6 +129,8 @@ namespace Test2
             mouse_event(MOUSEEVENTF_LEFTDOWN, x, y, 0, 0);
             mouse_event(MOUSEEVENTF_LEFTUP, x, y, 0, 0);
         }
+
+
         /// <summary>
         /// "помещение разных значений в старшие и в младшие биты"
         /// </summary>
