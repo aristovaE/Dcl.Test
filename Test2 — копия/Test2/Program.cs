@@ -28,18 +28,17 @@ namespace Test2
             {
                 SetForegroundWindow(hwnd);
             }
-
-            //var process = Process.GetProcessesByName("DCL").FirstOrDefault();
-            IntPtr windowDCL = WindowFromPoint(System.Windows.Forms.Cursor.Position);// окно области где сейчас находится курсор(либо меню, либо область работы с ДТ)
-            Thread.Sleep(1000);
-
-            //работает при запуске из VS
-            MoveMouseAndClick(windowDCL, 47, 30); //Меню  - "Документ"
-            MoveMouseAndClick(windowDCL, 96, 76); //"Выбрать ДТ"
             
+            //System.Windows.Forms.Cursor.Position = new Point(500, 30); //окно меню
+            //var process = Process.GetProcessesByName("DCL").FirstOrDefault();
+            IntPtr windowDCL = WindowFromPoint(System.Windows.Forms.Cursor.Position= new Point(500, 30));   // окно области где сейчас находится курсор (верхнее меню)
+
+            //ClickMenu(windowDCL);
             //  UseShortcuts();
 
-
+            //ввод в поле, где находится фокус с открытой ДТ (ИНН)
+            keybd_event(VK_3, 0, 0, 0); //цифра 3
+            keybd_event(VK_3, 0, KEYEVENTF_KEYUP, 0);
         }
         /// <summary>
         /// Нажатие кнопок меню через сочетания клавиш (заранее переключиться на русскую раскладку)
@@ -54,6 +53,16 @@ namespace Test2
             Thread.Sleep(2000);
             SendKeys.SendWait("{ESC}"); //Выход
         }
+
+        /// <summary>
+        /// Нажатие кнопок меню через наведение мышкой 
+        /// </summary>
+        private static void ClickMenu(IntPtr hwnd)
+        {
+            MoveMouseAndClick(hwnd, 47, 30); //Меню  - "Документ"
+            MoveMouseAndClick(hwnd, 96, 76); //"Выбрать ДТ"
+        }
+
         /// <summary>
         /// симуляция передвижения мыши
         /// </summary>
@@ -67,6 +76,8 @@ namespace Test2
             p.Y = Convert.ToInt16(pY);  //поле How found : Mouse Move(47,30) при наведении мышкой на нужное поле
             ClientToScreen(hWnd, ref p);
             SetCursorPos(p.X, p.Y);
+            //System.Windows.Forms.Cursor.Position = new Point(pX, pY);
+            Thread.Sleep(2000);
             DoMouseLeftClick(p.X, p.Y);
             Thread.Sleep(1000);
         }
@@ -116,8 +127,11 @@ namespace Test2
         public const int MOUSEEVENTF_LEFTDOWN = 0x02;
         public const int MOUSEEVENTF_LEFTUP = 0x04;
 
-        //[DllImport("user32.dll")]
-        //static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, int dwExtraInfo);
+        [DllImport("user32.dll")]
+        public static extern void keybd_event(byte bVk, byte bScan, UInt32 dwFlags, int dwExtraInfo);
+
+        public const UInt32 KEYEVENTF_EXTENDEDKEY = 1;
+        public const UInt32 KEYEVENTF_KEYUP = 2;
 
         // [DllImport("user32.dll")]
         // public static extern IntPtr PostMessage(IntPtr hWnd, System.Messaging.Message msg, int wParam, int lParam);
@@ -137,11 +151,12 @@ namespace Test2
         [DllImport("user32.dll")]
         static extern int GetMenuString(IntPtr hMenu, uint uIDItem, [Out] StringBuilder lpString, int nMaxCount, uint uFlag);
         internal const UInt32 MF_BYCOMMAND = 0x00000000;
+        const byte VK_3 = 0x33;
 
         [DllImport("user32.dll")]
         static extern int GetMenuItemCount(IntPtr hMenu);
         [DllImport("user32.dll")]
-        static extern bool IsMenu(IntPtr hMenu);
+        static extern bool IsMenu(IntPtr hMenu);       
         #endregion
 
     }
