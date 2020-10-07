@@ -15,10 +15,23 @@ namespace Test2
 {
     class Program
     {
+        internal const UInt32 MF_BYCOMMAND = 0x00000000;
+        public const int MOUSEEVENTF_LEFTDOWN = 0x02;
+        public const int MOUSEEVENTF_LEFTUP = 0x04;
+        public const int WM_MOUSEMOVE = 0x0200;
+        public const int WM_LBUTTONDOWN = 0x0201;
+        public const int WM_LBUTTONUP = 0x0202;
+        const byte VK_3 = 0x33;
+        const byte VK_ALT = 0x12;
+        const byte VK_L = 0x4C;
+        public const UInt32 KEYEVENTF_EXTENDEDKEY = 1;
+        public const UInt32 KEYEVENTF_KEYUP = 2;
+        public const UInt32 MF_BYPOSITION = 0x00000400;
+
         static void Main(string[] args)
         {
             IntPtr hwnd = FindWindow(null, "ВЭД-Декларант");
-            //"ВЭД-Декларант (расширенная версия) 9.97 от 01.10.2020 (10000000/220719/0000005) - ТОЛЬКО ЧТЕНИЕ - [ДТ (основной лист)]"
+            //"ВЭД-Декларант (расширенная версия) 9.97 от 01.10.2020 (10000000/220719/0000004) - [ДТ (основной лист)]"
             
             if (IsIconic(hwnd))
             {
@@ -31,10 +44,30 @@ namespace Test2
             
             //System.Windows.Forms.Cursor.Position = new Point(500, 30); //окно меню
             //var process = Process.GetProcessesByName("DCL").FirstOrDefault();
-            IntPtr windowDCL = WindowFromPoint(System.Windows.Forms.Cursor.Position= new Point(500, 30));   // окно области где сейчас находится курсор (верхнее меню)
+            IntPtr windowDCL = WindowFromPoint(System.Windows.Forms.Cursor.Position);   // окно области где сейчас находится курсор (= new Point(500, 30) - верхнее меню)
 
+
+
+            SendMessageAndClick();
+            //MoveMouseAndClick(windowDCLMenu,47,30);
             //ClickMenu(windowDCL);
-            EnterShortcuts();
+            //EnterShortcuts();
+        }
+
+        /// <summary>
+        /// Открытие меню - Документ (sendMessage)
+        /// </summary>
+        private static void SendMessageAndClick()
+        {
+            IntPtr windowDCLMenu = WindowFromPoint(System.Windows.Forms.Cursor.Position = new Point(47, 30)); //Меню - Документ
+            SendMessage(windowDCLMenu, WM_MOUSEMOVE, (IntPtr)0, MakeParam(47, 30));
+            DoMouseLeftClick(47, 30);
+            //SendMessage(windowDCLMenu, WM_LBUTTONDOWN, (IntPtr)0, MakeParam(47, 30));
+            //SendMessage(windowDCLMenu, WM_LBUTTONUP, (IntPtr)0, MakeParam(47, 30));
+            Thread.Sleep(1000);
+            windowDCLMenu = WindowFromPoint(System.Windows.Forms.Cursor.Position = new Point(96,76));
+            SendMessage(windowDCLMenu, WM_MOUSEMOVE, (IntPtr)0, MakeParam(96, 76));
+            DoMouseLeftClick(96, 76);
         }
 
         /// <summary>
@@ -47,7 +80,7 @@ namespace Test2
             keybd_event(VK_3, 0, KEYEVENTF_KEYUP, 0);
         }
         /// <summary>
-        /// Ввод цифр в поля ДТ
+        /// Открытие меню - Документ (сочетание клавиш (keybd_event))
         /// </summary>
         private static void EnterShortcuts()
         {
@@ -75,7 +108,7 @@ namespace Test2
         /// <summary>
         /// Нажатие кнопок меню через наведение мышкой 
         /// </summary>
-        private static void ClickMenu(IntPtr hwnd)
+        private static void Click(IntPtr hwnd)
         {
             MoveMouseAndClick(hwnd, 47, 30); //Меню  - "Документ"
             MoveMouseAndClick(hwnd, 96, 76); //"Выбрать ДТ"
@@ -94,26 +127,31 @@ namespace Test2
             p.Y = Convert.ToInt16(pY);  //поле How found : Mouse Move(47,30) при наведении мышкой на нужное поле
             ClientToScreen(hWnd, ref p);
             SetCursorPos(p.X, p.Y);
-            //System.Windows.Forms.Cursor.Position = new Point(pX, pY);
-            Thread.Sleep(2000);
+            Thread.Sleep(1000);
             DoMouseLeftClick(p.X, p.Y);
             Thread.Sleep(1000);
         }
-        private static void MoveMouse(IntPtr hWnd)
-        {
-            Point p = new Point();
-            p.X = Convert.ToInt16(0);  //координаты из inspect exe
-            p.Y = Convert.ToInt16(0);  //поле How found : Mouse Move(47,30) при наведении мышкой на нужное поле
-            ClientToScreen(hWnd, ref p);
-            SetCursorPos(p.X, p.Y);
-            Thread.Sleep(1000);
-        }
+        /// <summary>
+        /// Нажатие ЛКМ
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
         private static void DoMouseLeftClick(int x, int y)
         {
             mouse_event(MOUSEEVENTF_LEFTDOWN, x, y, 0, 0);
             mouse_event(MOUSEEVENTF_LEFTUP, x, y, 0, 0);
         }
-        
+        /// <summary>
+        /// "помещение разных значений в старшие и в младшие биты"
+        /// </summary>
+        /// <param name="low"></param>
+        /// <param name="hight"></param>
+        /// <returns></returns>
+        public static IntPtr MakeParam(int low, int hight)
+        {
+            return (IntPtr)((low & 0xFFFF) | (hight << 16));
+        }
+
         #region native FindWindow, IsIconic, SetForegroundWindow, ShowWindow
         [DllImport("user32.dll", SetLastError = true)]
         static extern IntPtr FindWindow(String lpClassName, String windowName);
@@ -142,23 +180,14 @@ namespace Test2
         [DllImport("user32.dll")]
         public static extern void mouse_event(int dsFlags, int dx, int dy, int cButtins, int dsExtraInfo);
 
-        public const int MOUSEEVENTF_LEFTDOWN = 0x02;
-        public const int MOUSEEVENTF_LEFTUP = 0x04;
-
         [DllImport("user32.dll")]
         public static extern void keybd_event(byte bVk, byte bScan, UInt32 dwFlags, int dwExtraInfo);
-
-        public const UInt32 KEYEVENTF_EXTENDEDKEY = 1;
-        public const UInt32 KEYEVENTF_KEYUP = 2;
 
         // [DllImport("user32.dll")]
         // public static extern IntPtr PostMessage(IntPtr hWnd, System.Messaging.Message msg, int wParam, int lParam);
 
         [DllImport("user32.dll")]
         static extern IntPtr GetMenu(IntPtr hWnd);
-
-        public const UInt32 MF_BYPOSITION = 0x00000400;
-
 
         //[DllImport("user32", SetLastError = true, CharSet = CharSet.Auto)]
         //public static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
@@ -168,15 +197,15 @@ namespace Test2
 
         [DllImport("user32.dll")]
         static extern int GetMenuString(IntPtr hMenu, uint uIDItem, [Out] StringBuilder lpString, int nMaxCount, uint uFlag);
-        internal const UInt32 MF_BYCOMMAND = 0x00000000;
-        const byte VK_3 = 0x33;
-        const byte VK_ALT = 0x12;
-        const byte VK_L = 0x4C;
+        
 
         [DllImport("user32.dll")]
         static extern int GetMenuItemCount(IntPtr hMenu);
         [DllImport("user32.dll")]
-        static extern bool IsMenu(IntPtr hMenu);       
+        static extern bool IsMenu(IntPtr hMenu);    
+        [DllImport("User32.dll")]
+        public static extern Int32 SendMessage(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
+
         #endregion
 
     }
