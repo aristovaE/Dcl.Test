@@ -34,12 +34,30 @@ namespace Test2
             IntPtr windowDCL = WindowFromPoint(System.Windows.Forms.Cursor.Position= new Point(500, 30));   // окно области где сейчас находится курсор (верхнее меню)
 
             //ClickMenu(windowDCL);
-            //  UseShortcuts();
+            EnterShortcuts();
+        }
 
+        /// <summary>
+        /// Ввод цифр в поля ДТ
+        /// </summary>
+        private static void EnterKey()
+        {
             //ввод в поле, где находится фокус с открытой ДТ (ИНН)
             keybd_event(VK_3, 0, 0, 0); //цифра 3
             keybd_event(VK_3, 0, KEYEVENTF_KEYUP, 0);
         }
+        /// <summary>
+        /// Ввод цифр в поля ДТ
+        /// </summary>
+        private static void EnterShortcuts()
+        {
+            //Ввод комбинации Alt+д для открытия меню - Документ
+            keybd_event(VK_ALT, 0, 0, 0); //клавиша Alt
+            keybd_event(VK_L, 0, 0, 0); //буква Д
+            keybd_event(VK_ALT, 0, KEYEVENTF_KEYUP, 0);
+            keybd_event(VK_L, 0, KEYEVENTF_KEYUP, 0);
+        }
+
         /// <summary>
         /// Нажатие кнопок меню через сочетания клавиш (заранее переключиться на русскую раскладку)
         /// </summary>
@@ -152,6 +170,8 @@ namespace Test2
         static extern int GetMenuString(IntPtr hMenu, uint uIDItem, [Out] StringBuilder lpString, int nMaxCount, uint uFlag);
         internal const UInt32 MF_BYCOMMAND = 0x00000000;
         const byte VK_3 = 0x33;
+        const byte VK_ALT = 0x12;
+        const byte VK_L = 0x4C;
 
         [DllImport("user32.dll")]
         static extern int GetMenuItemCount(IntPtr hMenu);
