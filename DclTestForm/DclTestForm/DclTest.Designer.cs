@@ -64,6 +64,7 @@
             this.doAll_btn.TabIndex = 2;
             this.doAll_btn.Text = "Выполнить";
             this.doAll_btn.UseVisualStyleBackColor = true;
+            this.doAll_btn.Click += new System.EventHandler(this.doAll_btn_Click);
             // 
             // openDT_lbl
             // 

@@ -6,3 +6,4 @@ D:\VirtualBox VMs\TEMP\DclTestForm\DclTestForm\obj\Debug\DclTestForm.csproj.Gene
 D:\VirtualBox VMs\TEMP\DclTestForm\DclTestForm\obj\Debug\DclTestForm.csproj.CoreCompileInputs.cache
 D:\VirtualBox VMs\TEMP\DclTestForm\DclTestForm\obj\Debug\DclTestForm.exe
 D:\VirtualBox VMs\TEMP\DclTestForm\DclTestForm\obj\Debug\DclTestForm.pdb
+D:\VirtualBox VMs\TEMP\DclTestForm\DclTestForm\obj\Debug\DclTestForm.csprojAssemblyReference.cache

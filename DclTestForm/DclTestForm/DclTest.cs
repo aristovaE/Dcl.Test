@@ -30,6 +30,18 @@ namespace DclTestForm
             MoveMouseAndClick(1700, 880);
             //EnterShortcuts();             //ввод комбинаций клавиш для открытия меню
         }
+        private void enterKey_btn_Click(object sender, EventArgs e)
+        {
+            OpenDCL();
+            for (int i = 0; i < 3; i++)
+                EnterKey(VK_3);
+        }
+
+        private void doAll_btn_Click(object sender, EventArgs e)
+        {
+            enterKey_btn_Click(sender, e);
+            openDT_btn_Click(sender, e);
+        }
 
         /// <summary>
         /// Открытие меню - Документ (sendMessage)
@@ -145,7 +157,7 @@ namespace DclTestForm
             return (IntPtr)((low & 0xFFFF) | (hight << 16));
         }
 
-        #region native FindWindow, IsIconic, SetForegroundWindow, ShowWindow
+        #region native FindWindow, IsIconic, SetForegroundWindow, ShowWindow, WindowFromPoint, SetCursorPos, mouse_event, keybd_event, SendMessage, all const bytes and ints
         [DllImport("user32.dll", SetLastError = true)]
         static extern IntPtr FindWindow(String lpClassName, String windowName);
 
@@ -167,8 +179,8 @@ namespace DclTestForm
         [DllImport("user32.dll")]
         public static extern long SetCursorPos(int x, int y);
 
-        [DllImport("user32.dll")]
-        public static extern bool ClientToScreen(IntPtr hWnd, ref Point point);
+        //[DllImport("user32.dll")]
+        //public static extern bool ClientToScreen(IntPtr hWnd, ref Point point);
 
         [DllImport("user32.dll")]
         public static extern void mouse_event(int dsFlags, int dx, int dy, int cButtins, int dsExtraInfo);
@@ -179,8 +191,8 @@ namespace DclTestForm
         // [DllImport("user32.dll")]
         // public static extern IntPtr PostMessage(IntPtr hWnd, System.Messaging.Message msg, int wParam, int lParam);
 
-        [DllImport("user32.dll")]
-        static extern IntPtr GetMenu(IntPtr hWnd);
+        //[DllImport("user32.dll")]
+        //static extern IntPtr GetMenu(IntPtr hWnd);
 
         //[DllImport("user32", SetLastError = true, CharSet = CharSet.Auto)]
         //public static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
@@ -188,14 +200,14 @@ namespace DclTestForm
         //[DllImport("user32", CharSet = CharSet.Auto, SetLastError = true)]
         //public static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
 
-        [DllImport("user32.dll")]
-        static extern int GetMenuString(IntPtr hMenu, uint uIDItem, [Out] StringBuilder lpString, int nMaxCount, uint uFlag);
+        //[DllImport("user32.dll")]
+        //static extern int GetMenuString(IntPtr hMenu, uint uIDItem, [Out] StringBuilder lpString, int nMaxCount, uint uFlag);
 
 
-        [DllImport("user32.dll")]
-        static extern int GetMenuItemCount(IntPtr hMenu);
-        [DllImport("user32.dll")]
-        static extern bool IsMenu(IntPtr hMenu);
+        //[DllImport("user32.dll")]
+        //static extern int GetMenuItemCount(IntPtr hMenu);
+        //[DllImport("user32.dll")]
+        //static extern bool IsMenu(IntPtr hMenu);
         [DllImport("User32.dll")]
         public static extern Int32 SendMessage(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
 
@@ -216,12 +228,5 @@ namespace DclTestForm
         public const UInt32 KEYEVENTF_KEYUP = 2;
         public const UInt32 MF_BYPOSITION = 0x00000400;
         #endregion
-
-        private void enterKey_btn_Click(object sender, EventArgs e)
-        {
-            OpenDCL();
-            for (int i = 0; i < 3; i++)
-                EnterKey(VK_3);
-        }
     }
 }
