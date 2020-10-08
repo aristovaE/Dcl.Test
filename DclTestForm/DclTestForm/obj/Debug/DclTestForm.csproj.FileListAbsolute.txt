@@ -1,9 +1,8 @@
 D:\VirtualBox VMs\TEMP\DclTestForm\DclTestForm\bin\Debug\DclTestForm.exe
 D:\VirtualBox VMs\TEMP\DclTestForm\DclTestForm\bin\Debug\DclTestForm.pdb
-D:\VirtualBox VMs\TEMP\DclTestForm\DclTestForm\obj\Debug\DclTestForm.DclTest.resources
 D:\VirtualBox VMs\TEMP\DclTestForm\DclTestForm\obj\Debug\DclTestForm.Properties.Resources.resources
 D:\VirtualBox VMs\TEMP\DclTestForm\DclTestForm\obj\Debug\DclTestForm.csproj.GenerateResource.cache
 D:\VirtualBox VMs\TEMP\DclTestForm\DclTestForm\obj\Debug\DclTestForm.csproj.CoreCompileInputs.cache
 D:\VirtualBox VMs\TEMP\DclTestForm\DclTestForm\obj\Debug\DclTestForm.exe
 D:\VirtualBox VMs\TEMP\DclTestForm\DclTestForm\obj\Debug\DclTestForm.pdb
-D:\VirtualBox VMs\TEMP\DclTestForm\DclTestForm\obj\Debug\DclTestForm.csprojAssemblyReference.cache
+D:\VirtualBox VMs\TEMP\DclTestForm\DclTestForm\obj\Debug\DclTestForm.DclTestForm.resources

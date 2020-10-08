@@ -15,7 +15,7 @@ namespace DclTestForm
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new DclTest());
+            Application.Run(new DclTestForm());
         }
     }
 }

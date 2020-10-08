@@ -1,6 +1,6 @@
 ﻿namespace DclTestForm
 {
-    partial class DclTest
+    partial class DclTestForm
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -34,11 +34,14 @@
             this.openDT_lbl = new System.Windows.Forms.Label();
             this.enterKey_lbl = new System.Windows.Forms.Label();
             this.doAll_lbl = new System.Windows.Forms.Label();
+            this.nextControl_btn = new System.Windows.Forms.Button();
+            this.nextControl_lbl = new System.Windows.Forms.Label();
+            this.howToOpenDT_cmb = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // openDT_btn
             // 
-            this.openDT_btn.Location = new System.Drawing.Point(112, 63);
+            this.openDT_btn.Location = new System.Drawing.Point(248, 60);
             this.openDT_btn.Name = "openDT_btn";
             this.openDT_btn.Size = new System.Drawing.Size(90, 30);
             this.openDT_btn.TabIndex = 0;
@@ -48,7 +51,7 @@
             // 
             // enterKey_btn
             // 
-            this.enterKey_btn.Location = new System.Drawing.Point(112, 99);
+            this.enterKey_btn.Location = new System.Drawing.Point(248, 96);
             this.enterKey_btn.Name = "enterKey_btn";
             this.enterKey_btn.Size = new System.Drawing.Size(90, 30);
             this.enterKey_btn.TabIndex = 1;
@@ -58,7 +61,7 @@
             // 
             // doAll_btn
             // 
-            this.doAll_btn.Location = new System.Drawing.Point(112, 135);
+            this.doAll_btn.Location = new System.Drawing.Point(248, 132);
             this.doAll_btn.Name = "doAll_btn";
             this.doAll_btn.Size = new System.Drawing.Size(90, 30);
             this.doAll_btn.TabIndex = 2;
@@ -69,7 +72,7 @@
             // openDT_lbl
             // 
             this.openDT_lbl.AutoSize = true;
-            this.openDT_lbl.Location = new System.Drawing.Point(13, 72);
+            this.openDT_lbl.Location = new System.Drawing.Point(22, 69);
             this.openDT_lbl.Name = "openDT_lbl";
             this.openDT_lbl.Size = new System.Drawing.Size(70, 13);
             this.openDT_lbl.TabIndex = 3;
@@ -78,7 +81,7 @@
             // enterKey_lbl
             // 
             this.enterKey_lbl.AutoSize = true;
-            this.enterKey_lbl.Location = new System.Drawing.Point(13, 108);
+            this.enterKey_lbl.Location = new System.Drawing.Point(22, 105);
             this.enterKey_lbl.Name = "enterKey_lbl";
             this.enterKey_lbl.Size = new System.Drawing.Size(74, 13);
             this.enterKey_lbl.TabIndex = 4;
@@ -87,24 +90,57 @@
             // doAll_lbl
             // 
             this.doAll_lbl.AutoSize = true;
-            this.doAll_lbl.Location = new System.Drawing.Point(13, 144);
+            this.doAll_lbl.Location = new System.Drawing.Point(22, 141);
             this.doAll_lbl.Name = "doAll_lbl";
             this.doAll_lbl.Size = new System.Drawing.Size(84, 13);
             this.doAll_lbl.TabIndex = 5;
             this.doAll_lbl.Text = "Выполнить всё";
             // 
-            // DclTest
+            // nextControl_btn
+            // 
+            this.nextControl_btn.Location = new System.Drawing.Point(248, 12);
+            this.nextControl_btn.Name = "nextControl_btn";
+            this.nextControl_btn.Size = new System.Drawing.Size(90, 30);
+            this.nextControl_btn.TabIndex = 7;
+            this.nextControl_btn.Text = "Перейти";
+            this.nextControl_btn.UseVisualStyleBackColor = true;
+            this.nextControl_btn.Click += new System.EventHandler(this.nextControl_btn_Click);
+            // 
+            // nextControl_lbl
+            // 
+            this.nextControl_lbl.AutoSize = true;
+            this.nextControl_lbl.Location = new System.Drawing.Point(22, 21);
+            this.nextControl_lbl.Name = "nextControl_lbl";
+            this.nextControl_lbl.Size = new System.Drawing.Size(93, 13);
+            this.nextControl_lbl.TabIndex = 8;
+            this.nextControl_lbl.Text = "Следующее поле";
+            // 
+            // howToOpenDT_cmb
+            // 
+            this.howToOpenDT_cmb.FormattingEnabled = true;
+            this.howToOpenDT_cmb.Items.AddRange(new object[] {
+            "Комбинациями клавиш",
+            "Координатами"});
+            this.howToOpenDT_cmb.Location = new System.Drawing.Point(111, 66);
+            this.howToOpenDT_cmb.Name = "howToOpenDT_cmb";
+            this.howToOpenDT_cmb.Size = new System.Drawing.Size(121, 21);
+            this.howToOpenDT_cmb.TabIndex = 9;
+            // 
+            // DclTestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(218, 183);
+            this.ClientSize = new System.Drawing.Size(360, 189);
+            this.Controls.Add(this.howToOpenDT_cmb);
+            this.Controls.Add(this.nextControl_lbl);
+            this.Controls.Add(this.nextControl_btn);
             this.Controls.Add(this.doAll_lbl);
             this.Controls.Add(this.enterKey_lbl);
             this.Controls.Add(this.openDT_lbl);
             this.Controls.Add(this.doAll_btn);
             this.Controls.Add(this.enterKey_btn);
             this.Controls.Add(this.openDT_btn);
-            this.Name = "DclTest";
+            this.Name = "DclTestForm";
             this.Text = "DclTest";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -119,6 +155,9 @@
         private System.Windows.Forms.Label openDT_lbl;
         private System.Windows.Forms.Label enterKey_lbl;
         private System.Windows.Forms.Label doAll_lbl;
+        private System.Windows.Forms.Button nextControl_btn;
+        private System.Windows.Forms.Label nextControl_lbl;
+        private System.Windows.Forms.ComboBox howToOpenDT_cmb;
     }
 }
 

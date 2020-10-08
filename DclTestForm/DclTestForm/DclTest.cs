@@ -11,29 +11,39 @@ using System.Windows.Forms;
 
 namespace DclTestForm
 {
-    public partial class DclTest : Form
+    public partial class DclTestForm : Form
     {
-        public DclTest()
+        public DclTestForm()
         {
             InitializeComponent();
         }
 
         private void openDT_btn_Click(object sender, EventArgs e)
         {
-            OpenDCL();
-            //SendMessageAndClick(47, 30);    //наведение мыши через SendMessage
-            //SendMessageAndClick(96, 76);
-            //Thread.Sleep(2000);
-            //SendMessageAndClick(1700, 880); //"Отмена"
-            MoveMouseAndClick(47, 30);    //наведение мыши через mouse_event
-            MoveMouseAndClick(96, 76);
-            MoveMouseAndClick(1700, 880);
-            //EnterShortcuts();             //ввод комбинаций клавиш для открытия меню
+            if (howToOpenDT_cmb.SelectedIndex == 0)
+            {
+                OpenDCL();
+                EnterShortcuts();             //ввод комбинаций клавиш для открытия меню
+            }
+
+            else if (howToOpenDT_cmb.SelectedIndex == 1)
+            {
+                OpenDCL();
+                //SendMessageAndClick(47, 30);    //наведение мыши через SendMessage
+                //SendMessageAndClick(96, 76);
+                //SendMessageAndClick(1700, 880); //"Отмена"
+              //  CheckIsIt(47, 30);
+                MoveMouseAndClick(47, 30);    //наведение мыши через mouse_event
+               // CheckIsIt(96, 76);
+                MoveMouseAndClick(96, 76);
+                //CheckIsIt(1700, 880);
+                MoveMouseAndClick(1700, 880);
+            }
         }
         private void enterKey_btn_Click(object sender, EventArgs e)
         {
             OpenDCL();
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 5; i++)
                 EnterKey(VK_3);
         }
 
@@ -86,10 +96,11 @@ namespace DclTestForm
         /// </summary>
         private static void EnterShortcuts()
         {
+           
             //Ввод комбинации Alt+д для открытия меню - Документ
             keybd_event(VK_ALT, 0, 0, 0); //клавиша Alt
             keybd_event(VK_L, 0, 0, 0); //буква Д
-            keybd_event(VK_ALT, 0, KEYEVENTF_KEYUP, 0);
+            keybd_event(VK_ALT, 0, KEYEVENTF_KEYUP, 0); 
             keybd_event(VK_L, 0, KEYEVENTF_KEYUP, 0);
             Thread.Sleep(1000);
             keybd_event(VK_D, 0, 0, 0); //буква В
@@ -97,10 +108,31 @@ namespace DclTestForm
             Thread.Sleep(1000);
             keybd_event(VK_RETURN, 0, 0, 0); // Enter
             keybd_event(VK_RETURN, 0, KEYEVENTF_KEYUP, 0);
-            Thread.Sleep(1000);
-            keybd_event(VK_RETURN, 0, 0, 0); // Escape
-            keybd_event(VK_RETURN, 0, KEYEVENTF_KEYUP, 0);
+            Thread.Sleep(2000);
+            keybd_event(VK_ESCAPE, 0, 0, 0); // Escape
+            keybd_event(VK_ESCAPE, 0, KEYEVENTF_KEYUP, 0);
+            
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void CheckIsIt(int pX, int pY)
+        {
+            IntPtr windowDCLMenu = WindowFromPoint(System.Windows.Forms.Cursor.Position = new Point(pX, pY)); //Меню - Документ
+            
+            //Определяем текст
+            StringBuilder builder = new StringBuilder(100);
+            GetWindowText(windowDCLMenu, builder, builder.Capacity);
+            StringBuilder szClassName = new StringBuilder(256);
+            GetClassName(windowDCLMenu, szClassName, 256);
+           // label1.Text = szClassName.ToString();
+            //Определяем класс
+            StringBuilder buffer = new StringBuilder(256);
+            GetClassName(windowDCLMenu, buffer, buffer.Capacity);
+            //label2.Text = buffer.ToString();
+        }
+
 
         ///// <summary>
         ///// Нажатие кнопок меню через сочетания клавиш (заранее переключиться на русскую раскладку)
@@ -130,6 +162,7 @@ namespace DclTestForm
             p.Y = Convert.ToInt16(pY);  //поле How found : Mouse Move(47,30) при наведении мышкой на нужное поле
             //ClientToScreen(windowDCLMenu, ref p);
             SetCursorPos(p.X, p.Y);
+            
             Thread.Sleep(1000);
             DoMouseLeftClick(p.X, p.Y);
             Thread.Sleep(1000);
@@ -194,11 +227,11 @@ namespace DclTestForm
         //[DllImport("user32.dll")]
         //static extern IntPtr GetMenu(IntPtr hWnd);
 
-        //[DllImport("user32", SetLastError = true, CharSet = CharSet.Auto)]
-        //public static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
+        [DllImport("user32", SetLastError = true, CharSet = CharSet.Auto)]
+        public static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
 
-        //[DllImport("user32", CharSet = CharSet.Auto, SetLastError = true)]
-        //public static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
+        [DllImport("user32", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
 
         //[DllImport("user32.dll")]
         //static extern int GetMenuString(IntPtr hMenu, uint uIDItem, [Out] StringBuilder lpString, int nMaxCount, uint uFlag);
@@ -224,9 +257,20 @@ namespace DclTestForm
         const byte VK_D = 0x44;
         const byte VK_RETURN = 0x0D;
         const byte VK_ESCAPE = 0x1B;
+        const byte VK_LEFT = 0x25;
+        const byte VK_UP = 0x26;
+        const byte VK_RIGHT = 0x27;
+        const byte VK_DOWN = 0x28;
+        const byte VK_TAB = 0x9;
         public const UInt32 KEYEVENTF_EXTENDEDKEY = 1;
         public const UInt32 KEYEVENTF_KEYUP = 2;
         public const UInt32 MF_BYPOSITION = 0x00000400;
         #endregion
+
+        private void nextControl_btn_Click(object sender, EventArgs e)
+        {
+            OpenDCL();
+            keybd_event(VK_TAB, 0, 0, 0); //клавиша Tab
+        }
     }
 }
