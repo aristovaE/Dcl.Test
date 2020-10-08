@@ -54,6 +54,7 @@
             this.enterKey_btn.TabIndex = 1;
             this.enterKey_btn.Text = "Выполнить";
             this.enterKey_btn.UseVisualStyleBackColor = true;
+            this.enterKey_btn.Click += new System.EventHandler(this.enterKey_btn_Click);
             // 
             // doAll_btn
             // 
@@ -91,7 +92,7 @@
             this.doAll_lbl.TabIndex = 5;
             this.doAll_lbl.Text = "Выполнить всё";
             // 
-            // Form1
+            // DclTest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -102,7 +103,7 @@
             this.Controls.Add(this.doAll_btn);
             this.Controls.Add(this.enterKey_btn);
             this.Controls.Add(this.openDT_btn);
-            this.Name = "Form1";
+            this.Name = "DclTest";
             this.Text = "DclTest";
             this.ResumeLayout(false);
             this.PerformLayout();

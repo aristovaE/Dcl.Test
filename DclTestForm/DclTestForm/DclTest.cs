@@ -21,12 +21,13 @@ namespace DclTestForm
         private void openDT_btn_Click(object sender, EventArgs e)
         {
             OpenDCL();
-            SendMessageAndClick(47, 30);    //наведение мыши через SendMessage
-            SendMessageAndClick(96, 76);
-            Thread.Sleep(1000);
-            SendMessageAndClick(1700, 930);
-            //MoveMouseAndClick(47, 30);    //наведение мыши через mouse_event
-            //MoveMouseAndClick(96, 76);
+            //SendMessageAndClick(47, 30);    //наведение мыши через SendMessage
+            //SendMessageAndClick(96, 76);
+            //Thread.Sleep(2000);
+            //SendMessageAndClick(1700, 880); //"Отмена"
+            MoveMouseAndClick(47, 30);    //наведение мыши через mouse_event
+            MoveMouseAndClick(96, 76);
+            MoveMouseAndClick(1700, 880);
             //EnterShortcuts();             //ввод комбинаций клавиш для открытия меню
         }
 
@@ -61,17 +62,12 @@ namespace DclTestForm
         /// <summary>
         /// Ввод цифр в поля ДТ
         /// </summary>
-        private static void EnterKey()
+        private static void EnterKey(byte key)
         {
             //ввод в поле, где находится фокус с открытой ДТ (ИНН)
-            keybd_event(VK_3, 0, 0, 0); //цифра 3
-            keybd_event(VK_3, 0, KEYEVENTF_KEYUP, 0);
-            Thread.Sleep(200);
-            keybd_event(VK_3, 0, 0, 0); //цифра 3
-            keybd_event(VK_3, 0, KEYEVENTF_KEYUP, 0);
-            Thread.Sleep(200);
-            keybd_event(VK_3, 0, 0, 0); //цифра 3
-            keybd_event(VK_3, 0, KEYEVENTF_KEYUP, 0);
+            keybd_event(key, 0, 0, 0); //цифра 3
+            keybd_event(key, 0, KEYEVENTF_KEYUP, 0);
+            Thread.Sleep(500);
         }
         /// <summary>
         /// Открытие меню - Документ (сочетание клавиш (keybd_event))
@@ -88,6 +84,9 @@ namespace DclTestForm
             keybd_event(VK_D, 0, KEYEVENTF_KEYUP, 0);
             Thread.Sleep(1000);
             keybd_event(VK_RETURN, 0, 0, 0); // Enter
+            keybd_event(VK_RETURN, 0, KEYEVENTF_KEYUP, 0);
+            Thread.Sleep(1000);
+            keybd_event(VK_RETURN, 0, 0, 0); // Escape
             keybd_event(VK_RETURN, 0, KEYEVENTF_KEYUP, 0);
         }
 
@@ -212,9 +211,17 @@ namespace DclTestForm
         const byte VK_L = 0x4C;
         const byte VK_D = 0x44;
         const byte VK_RETURN = 0x0D;
+        const byte VK_ESCAPE = 0x1B;
         public const UInt32 KEYEVENTF_EXTENDEDKEY = 1;
         public const UInt32 KEYEVENTF_KEYUP = 2;
         public const UInt32 MF_BYPOSITION = 0x00000400;
         #endregion
+
+        private void enterKey_btn_Click(object sender, EventArgs e)
+        {
+            OpenDCL();
+            for (int i = 0; i < 3; i++)
+                EnterKey(VK_3);
+        }
     }
 }
