@@ -21,9 +21,11 @@ namespace Test2
         public const int WM_MOUSEMOVE = 0x0200;
         public const int WM_LBUTTONDOWN = 0x0201;
         public const int WM_LBUTTONUP = 0x0202;
-        const byte VK_3 = 0x33;
+        const byte VK_3 = 0x33; 
         const byte VK_ALT = 0x12;
         const byte VK_L = 0x4C;
+        const byte VK_D = 0x44;
+        const byte VK_RETURN = 0x0D;
         public const UInt32 KEYEVENTF_EXTENDEDKEY = 1;
         public const UInt32 KEYEVENTF_KEYUP = 2;
         public const UInt32 MF_BYPOSITION = 0x00000400;
@@ -45,12 +47,12 @@ namespace Test2
             //var process = Process.GetProcessesByName("DCL").FirstOrDefault();
             //IntPtr windowDCL = WindowFromPoint(System.Windows.Forms.Cursor.Position);   // окно области где сейчас находится курсор (= new Point(500, 30) - верхнее меню)
 
-            //SendMessageAndClick(47, 30);  //наведение мыши через SendMessage
+            //SendMessageAndClick(47, 30);    //наведение мыши через SendMessage
             //SendMessageAndClick(96, 76);
-            MoveMouseAndClick(47, 30);
-            MoveMouseAndClick(96, 76); //наведение мыши через mouse_event
-            //EnterShortcuts(); //ввод комбинаций клавиш для открытия меню
-            //EnterKey(); //ввод значений в активное поле
+            //MoveMouseAndClick(47, 30);    //наведение мыши через mouse_event
+            //MoveMouseAndClick(96, 76);
+            //EnterShortcuts();             //ввод комбинаций клавиш для открытия меню
+            EnterKey();                   //ввод значений в активное поле
         }
 
         /// <summary>
@@ -61,8 +63,6 @@ namespace Test2
             IntPtr windowDCLMenu = WindowFromPoint(System.Windows.Forms.Cursor.Position = new Point(pX, pY)); //Меню - Документ
             SendMessage(windowDCLMenu, WM_MOUSEMOVE, (IntPtr)0, MakeParam(pX, pY));
             DoMouseLeftClick(pX, pY);
-            //SendMessage(windowDCLMenu, WM_LBUTTONDOWN, (IntPtr)0, MakeParam(47, 30));
-            //SendMessage(windowDCLMenu, WM_LBUTTONUP, (IntPtr)0, MakeParam(47, 30));
             Thread.Sleep(1000);
         }
 
@@ -72,6 +72,12 @@ namespace Test2
         private static void EnterKey()
         {
             //ввод в поле, где находится фокус с открытой ДТ (ИНН)
+            keybd_event(VK_3, 0, 0, 0); //цифра 3
+            keybd_event(VK_3, 0, KEYEVENTF_KEYUP, 0);
+            Thread.Sleep(200);
+            keybd_event(VK_3, 0, 0, 0); //цифра 3
+            keybd_event(VK_3, 0, KEYEVENTF_KEYUP, 0);
+            Thread.Sleep(200);
             keybd_event(VK_3, 0, 0, 0); //цифра 3
             keybd_event(VK_3, 0, KEYEVENTF_KEYUP, 0);
         }
@@ -85,6 +91,12 @@ namespace Test2
             keybd_event(VK_L, 0, 0, 0); //буква Д
             keybd_event(VK_ALT, 0, KEYEVENTF_KEYUP, 0);
             keybd_event(VK_L, 0, KEYEVENTF_KEYUP, 0);
+            Thread.Sleep(1000);
+            keybd_event(VK_D, 0, 0, 0); //буква В
+            keybd_event(VK_D, 0, KEYEVENTF_KEYUP, 0);
+            Thread.Sleep(1000);
+            keybd_event(VK_RETURN, 0, 0, 0); // Enter
+            keybd_event(VK_RETURN, 0, KEYEVENTF_KEYUP, 0);
         }
 
         /// <summary>
