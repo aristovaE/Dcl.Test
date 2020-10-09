@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Activities;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -59,6 +61,7 @@ namespace DclTestForm
         private static void OpenDCL()
         {
             IntPtr hwnd = FindWindow(null, "ВЭД-Декларант");
+
             //"ВЭД-Декларант (расширенная версия) 9.97 от 01.10.2020 (10000000/220719/0000004) - [ДТ (основной лист)]"
             if (IsIconic(hwnd))
             {
@@ -68,7 +71,90 @@ namespace DclTestForm
             {
                 SetForegroundWindow(hwnd);
             }
+            var DCLHandles = GetAllWindows(hwnd); // все окна?
+            List<IntPtr> listcw = new List<IntPtr>(GetChildWindows(hwnd)); //выдает только одно окно
+            foreach (IntPtr ip in listcw) {
+                List<IntPtr> listcwnew = new List<IntPtr>(GetChildWindows(ip)); //выдает только одно окно
+            }
         }
+        private static ArrayList GetAllWindows(IntPtr hwnd)
+        {
+            var windowHandles = new ArrayList();
+            EnumedWindow callBackPtr = GetWindowHandle;
+            EnumWindows(callBackPtr, windowHandles);
+            EnumChildWindows(hwnd, callBackPtr, windowHandles);
+            return windowHandles;
+        }
+
+        private delegate bool EnumedWindow(IntPtr handleWindow, ArrayList handles);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool EnumWindows(EnumedWindow lpEnumFunc, ArrayList lParam);
+
+        [DllImport("user32")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool EnumChildWindows(IntPtr window, EnumedWindow callback, ArrayList lParam);
+
+        private static bool GetWindowHandle(IntPtr windowHandle, ArrayList windowHandles)
+        {
+            windowHandles.Add(windowHandle);
+            return true;
+        }
+        /////////////////////////////////////////////////////////////////
+        [DllImport("user32")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool EnumChildWindows(IntPtr window, EnumWindowProc callback, IntPtr i);
+
+        /// <summary>
+        /// Returns a list of child windows
+        /// </summary>
+        /// <param name="parent">Parent of the windows to return</param>
+        /// <returns>List of child windows</returns>
+        public static List<IntPtr> GetChildWindows(IntPtr parent)
+        {
+            List<IntPtr> result = new List<IntPtr>();
+            GCHandle listHandle = GCHandle.Alloc(result);
+            try
+            {
+                EnumWindowProc childProc = new EnumWindowProc(EnumWindow);
+                EnumChildWindows(parent, childProc, GCHandle.ToIntPtr(listHandle));
+            }
+            finally
+            {
+                if (listHandle.IsAllocated)
+                    listHandle.Free();
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Callback method to be used when enumerating windows.
+        /// </summary>
+        /// <param name="handle">Handle of the next window</param>
+        /// <param name="pointer">Pointer to a GCHandle that holds a reference to the list to fill</param>
+        /// <returns>True to continue the enumeration, false to bail</returns>
+        private static bool EnumWindow(IntPtr handle, IntPtr pointer)
+        {
+            GCHandle gch = GCHandle.FromIntPtr(pointer);
+            List<IntPtr> list = gch.Target as List<IntPtr>;
+            if (list == null)
+            {
+                throw new InvalidCastException("GCHandle Target could not be cast as List<IntPtr>");
+            }
+            list.Add(handle);
+            //  You can modify this to check to see if you want to cancel the operation, then return a null here
+            return true;
+        }
+
+        /// <summary>
+        /// Delegate for the EnumChildWindows method
+        /// </summary>
+        /// <param name="hWnd">Window handle</param>
+        /// <param name="parameter">Caller-defined variable; we use it for a pointer to our list</param>
+        /// <returns>True to continue enumerating, false to bail.</returns>
+        public delegate bool EnumWindowProc(IntPtr hWnd, IntPtr parameter);
+
 
         /// <summary>
         /// Открытие меню - Документ (sendMessage)
@@ -76,6 +162,7 @@ namespace DclTestForm
         private static void SendMessageAndClick(int pX, int pY)
         {
             IntPtr windowDCLMenu = WindowFromPoint(System.Windows.Forms.Cursor.Position = new Point(pX, pY)); //Меню - Документ
+
             SendMessage(windowDCLMenu, WM_MOUSEMOVE, (IntPtr)0, MakeParam(pX, pY));
             DoMouseLeftClick(pX, pY);
             Thread.Sleep(1000);
@@ -117,20 +204,33 @@ namespace DclTestForm
         /// <summary>
         /// 
         /// </summary>
-        private void CheckIsIt(int pX, int pY)
+        private void CheckIsIt()
         {
-            IntPtr windowDCLMenu = WindowFromPoint(System.Windows.Forms.Cursor.Position = new Point(pX, pY)); //Меню - Документ
+            IntPtr windowDCLMenu = WindowFromPoint(System.Windows.Forms.Cursor.Position); //Меню - Документ
             
-            //Определяем текст
-            StringBuilder builder = new StringBuilder(100);
-            GetWindowText(windowDCLMenu, builder, builder.Capacity);
-            StringBuilder szClassName = new StringBuilder(256);
-            GetClassName(windowDCLMenu, szClassName, 256);
-           // label1.Text = szClassName.ToString();
-            //Определяем класс
-            StringBuilder buffer = new StringBuilder(256);
-            GetClassName(windowDCLMenu, buffer, buffer.Capacity);
-            //label2.Text = buffer.ToString();
+            // //Определяем текст
+            // StringBuilder builder = new StringBuilder(100);
+            // GetWindowText(windowDCLMenu, builder, builder.Capacity);
+            // StringBuilder szClassName = new StringBuilder(256);
+            // GetClassName(windowDCLMenu, szClassName, 256);
+            //// label1.Text = szClassName.ToString();
+            // //Определяем класс
+            // StringBuilder buffer = new StringBuilder(256);
+            // GetClassName(windowDCLMenu, buffer, buffer.Capacity);
+            // //label2.Text = buffer.ToString();
+
+            //foreach (Control control in windowDCLMenu)
+            //{
+            //    r.Size = control.Size;
+            //    r.Location = control.Location;
+            //    Label lb = control as Label;
+            //    if (lb != null)
+            //    {
+            //        //rectList.Add(r);
+            //    }
+            //    else { }
+            //        //statList.Add(r);
+            //}
         }
 
 
@@ -157,6 +257,7 @@ namespace DclTestForm
         private static void MoveMouseAndClick(int pX, int pY)
         {
             IntPtr windowDCLMenu = WindowFromPoint(System.Windows.Forms.Cursor.Position = new Point(pX, pY));
+            IntPtr windowDCLChild = ChildWindowFromPoint(windowDCLMenu,System.Windows.Forms.Cursor.Position = new Point(pX, pY),0); //Меню - Документ
             Point p = new Point();
             p.X = Convert.ToInt16(pX);  //координаты из inspect exe
             p.Y = Convert.ToInt16(pY);  //поле How found : Mouse Move(47,30) при наведении мышкой на нужное поле
@@ -189,7 +290,40 @@ namespace DclTestForm
         {
             return (IntPtr)((low & 0xFFFF) | (hight << 16));
         }
+        
+        //private static ArrayList GetAllWindows(IntPtr windowHandle)
+        //{
+        //    var windowHandles = new ArrayList();
+        //    EnumedWindow callBackPtr = GetWindowHandle;
+        //    EnumWindows(callBackPtr, windowHandles);
+        //    EnumChildWindows(windowHandle, callBackPtr, windowHandles);
+        //    return windowHandles;
+        //}
 
+        //private delegate bool EnumedWindow(IntPtr handleWindow, ArrayList handles);
+
+        //[DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        //[return: MarshalAs(UnmanagedType.Bool)]
+        //private static extern bool EnumWindows(EnumedWindow lpEnumFunc, ArrayList lParam);
+
+        //[DllImport("user32")]
+        //[return: MarshalAs(UnmanagedType.Bool)]
+        //private static extern bool EnumChildWindows(IntPtr window, EnumedWindow callback, ArrayList lParam);
+
+        [DllImport("user32.dll")]
+        static extern IntPtr ChildWindowFromPoint(IntPtr hWndParent, Point pt, uint uFlags);
+
+        //private static bool GetWindowHandle(IntPtr windowHandle, ArrayList windowHandles)
+        //{
+        //    windowHandles.Add(windowHandle);
+        //    return true;
+        //}
+        public delegate bool EnumWindowsProc(IntPtr hwnd, IntPtr lParam);
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool EnumChildWindows(IntPtr hwndParent, EnumWindowsProc lpEnumFunc, IntPtr lParam);
+        
         #region native FindWindow, IsIconic, SetForegroundWindow, ShowWindow, WindowFromPoint, SetCursorPos, mouse_event, keybd_event, SendMessage, all const bytes and ints
         [DllImport("user32.dll", SetLastError = true)]
         static extern IntPtr FindWindow(String lpClassName, String windowName);
@@ -227,12 +361,6 @@ namespace DclTestForm
         //[DllImport("user32.dll")]
         //static extern IntPtr GetMenu(IntPtr hWnd);
 
-        [DllImport("user32", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
-
-        [DllImport("user32", CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
-
         //[DllImport("user32.dll")]
         //static extern int GetMenuString(IntPtr hMenu, uint uIDItem, [Out] StringBuilder lpString, int nMaxCount, uint uFlag);
 
@@ -244,6 +372,24 @@ namespace DclTestForm
         [DllImport("User32.dll")]
         public static extern Int32 SendMessage(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
 
+       
+        //static extern bool EnumChildWindows(IntPtr hWndParent, EnumWindowsProc lpEnumFunc, IntPtr lParam);
+
+        //[DllImport("user32.dll", SetLastError = true)]
+        //[return: MarshalAs(UnmanagedType.Bool)]
+        //static extern bool IsWindowVisible(IntPtr hWnd);
+
+        //[DllImport("user32.dll", SetLastError = true)]
+        //static extern IntPtr GetParent(IntPtr hWnd);
+
+        //[DllImport("user32.dll", SetLastError = true)]
+        //static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
+
+        //[DllImport("user32.dll", SetLastError = true)]
+        //static extern int GetClassName(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
+
+        //[DllImport("user32.dll", SetLastError = true)]
+        //static extern int GetWindowTextLength(IntPtr hWnd);
 
         internal const UInt32 MF_BYCOMMAND = 0x00000000;
         public const int MOUSEEVENTF_LEFTDOWN = 0x02;
@@ -269,7 +415,8 @@ namespace DclTestForm
 
         private void nextControl_btn_Click(object sender, EventArgs e)
         {
-            OpenDCL();
+                OpenDCL();
+            CheckIsIt();
             keybd_event(VK_TAB, 0, 0, 0); //клавиша Tab
         }
     }
