@@ -37,6 +37,7 @@
             this.nextControl_btn = new System.Windows.Forms.Button();
             this.nextControl_lbl = new System.Windows.Forms.Label();
             this.howToOpenDT_cmb = new System.Windows.Forms.ComboBox();
+            this.enterKey_tb = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // openDT_btn
@@ -55,7 +56,7 @@
             this.enterKey_btn.Name = "enterKey_btn";
             this.enterKey_btn.Size = new System.Drawing.Size(90, 30);
             this.enterKey_btn.TabIndex = 1;
-            this.enterKey_btn.Text = "Выполнить";
+            this.enterKey_btn.Text = "Ввести";
             this.enterKey_btn.UseVisualStyleBackColor = true;
             this.enterKey_btn.Click += new System.EventHandler(this.enterKey_btn_Click);
             // 
@@ -83,9 +84,9 @@
             this.enterKey_lbl.AutoSize = true;
             this.enterKey_lbl.Location = new System.Drawing.Point(22, 105);
             this.enterKey_lbl.Name = "enterKey_lbl";
-            this.enterKey_lbl.Size = new System.Drawing.Size(74, 13);
+            this.enterKey_lbl.Size = new System.Drawing.Size(87, 13);
             this.enterKey_lbl.TabIndex = 4;
-            this.enterKey_lbl.Text = "Ввести \"333\"";
+            this.enterKey_lbl.Text = "Поле для ввода";
             // 
             // doAll_lbl
             // 
@@ -121,16 +122,24 @@
             this.howToOpenDT_cmb.Items.AddRange(new object[] {
             "Комбинациями клавиш",
             "Координатами"});
-            this.howToOpenDT_cmb.Location = new System.Drawing.Point(111, 66);
+            this.howToOpenDT_cmb.Location = new System.Drawing.Point(121, 66);
             this.howToOpenDT_cmb.Name = "howToOpenDT_cmb";
             this.howToOpenDT_cmb.Size = new System.Drawing.Size(121, 21);
             this.howToOpenDT_cmb.TabIndex = 9;
+            // 
+            // enterKey_tb
+            // 
+            this.enterKey_tb.Location = new System.Drawing.Point(121, 102);
+            this.enterKey_tb.Name = "enterKey_tb";
+            this.enterKey_tb.Size = new System.Drawing.Size(121, 20);
+            this.enterKey_tb.TabIndex = 10;
             // 
             // DclTestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(360, 189);
+            this.Controls.Add(this.enterKey_tb);
             this.Controls.Add(this.howToOpenDT_cmb);
             this.Controls.Add(this.nextControl_lbl);
             this.Controls.Add(this.nextControl_btn);
@@ -158,6 +167,7 @@
         private System.Windows.Forms.Button nextControl_btn;
         private System.Windows.Forms.Label nextControl_lbl;
         private System.Windows.Forms.ComboBox howToOpenDT_cmb;
+        private System.Windows.Forms.TextBox enterKey_tb;
     }
 }
 
