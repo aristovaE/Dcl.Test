@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -31,23 +32,22 @@ namespace DclTestForm
             else if (howToOpenDT_cmb.SelectedIndex == 1)
             {
                 OpenDCL();
-                //SendMessageAndClick(47, 30);    //наведение мыши через SendMessage
-                //SendMessageAndClick(96, 76);
-                //SendMessageAndClick(1700, 880); //"Отмена"
-              //  CheckIsIt(47, 30);
-                MoveMouseAndClick(47, 30);    //наведение мыши через mouse_event
-               // CheckIsIt(96, 76);
-                MoveMouseAndClick(96, 76);
-                //CheckIsIt(1700, 880);
-                MoveMouseAndClick(1700, 880);
+                SendMessageAndClick(47, 30);    //наведение мыши через SendMessage
+                SendMessageAndClick(96, 76);
+                SendMessageAndClick(1700, 900); //"Отмена"
+                // MoveMouseAndClick(47, 30);    //наведение мыши через mouse_event
+                // MoveMouseAndClick(96, 76);
+                // MoveMouseAndClick(1700, 880);
             }
         }
         private void enterKey_btn_Click(object sender, EventArgs e)
         {
             OpenDCL();
-            byte[] byteToString = System.Text.Encoding.UTF8.GetBytes(enterKey_tb.Text);
-            foreach(byte key in byteToString)
+            byte[] byteToString = Encoding.GetEncoding(1251).GetBytes(enterKey_tb.Text);
+            
+            foreach (byte key in byteToString)
                 EnterKey(key);
+           
         }
 
         private void doAll_btn_Click(object sender, EventArgs e)
@@ -154,14 +154,28 @@ namespace DclTestForm
         /// <returns>True to continue enumerating, false to bail.</returns>
         public delegate bool EnumWindowProc(IntPtr hWnd, IntPtr parameter);
 
-
+        [DllImport("user32.dll")]
+        static extern IntPtr GetMenu(IntPtr hWnd);
+        [DllImport("user32.dll")]
+        static extern int GetMenuString(IntPtr hMenu, uint uIDItem, [Out] StringBuilder lpString, int nMaxCount, uint uFlag);
+        [DllImport("user32.dll")]
+        static extern uint GetMenuItemCount(IntPtr hMenu);
         /// <summary>
         /// Открытие меню - Документ (sendMessage)
         /// </summary>
         private static void SendMessageAndClick(int pX, int pY)
         {
             IntPtr windowDCLMenu = WindowFromPoint(System.Windows.Forms.Cursor.Position = new Point(pX, pY)); //Меню - Документ
-
+            if (GetControlText(windowDCLMenu) != null)
+            {
+                IntPtr hMenu = GetMenu(windowDCLMenu);
+                StringBuilder menuName = new StringBuilder(0x20);
+                for (uint i = GetMenuItemCount(hMenu) - 1; i >= 0; i--)
+                {
+                   
+                    GetMenuString(hMenu, i, menuName, menuName.Capacity, MF_BYPOSITION);
+                }
+            }
             SendMessage(windowDCLMenu, WM_MOUSEMOVE, (IntPtr)0, MakeParam(pX, pY));
             DoMouseLeftClick(pX, pY);
             Thread.Sleep(1000);
@@ -173,7 +187,7 @@ namespace DclTestForm
         private static void EnterKey(byte key)
         {
             //ввод в поле, где находится фокус с открытой ДТ (ИНН)
-            keybd_event(key, 0, 0, 0); //цифра 3
+            keybd_event(key, 0, 0, 0); //цифра 
             keybd_event(key, 0, KEYEVENTF_KEYUP, 0);
             Thread.Sleep(500);
         }
@@ -231,16 +245,28 @@ namespace DclTestForm
             mouse_event(MOUSEEVENTF_LEFTUP, x, y, 0, 0);
         }
 
+        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
+
+        delegate bool EnumThreadDelegate(IntPtr hWnd, IntPtr lParam);
+
+        [DllImport("user32.dll")]
+        static extern bool EnumThreadWindows(int dwThreadId, EnumThreadDelegate lpfn, IntPtr lParam);
+
+       
+
         private static void GetTreeViewOfChild(IntPtr hwnd) //попробовать сделать тривью процессов которые относятся к декларанту
         {
-            var listcw = new List<IntPtr>();
-           //while(GetWindow(hwnd, 5)!=null)
-           // {
-           //     listcw.Add(GetWindow(hwnd, 5));
-           //     hwnd = GetWindow(hwnd, 5);
-           // }
-
+            
         }
+
+        static string GetClassName(IntPtr hWnd)
+        {
+            StringBuilder className = new StringBuilder(256);
+            int nRet = GetClassName(hWnd, className, className.Capacity);
+            return nRet != 0 ? className.ToString() : null;
+        }
+
         /// <summary>
         /// "помещение разных значений в старшие и в младшие биты"
         /// </summary>
@@ -251,8 +277,25 @@ namespace DclTestForm
         {
             return (IntPtr)((low & 0xFFFF) | (hight << 16));
         }
-        
-       
+
+        /// <summary>
+        /// Заголовок (caption) окна
+        /// </summary>
+        /// <param name="hWnd"></param>
+        /// <returns></returns>
+        public static string GetControlText(IntPtr hWnd)
+        {
+
+            // Get the size of the string required to hold the window title (including trailing null.) 
+            Int32 titleSize = SendMessage((int)hWnd, WM_GETTEXTLENGTH, 0, 0).ToInt32();
+            // If titleSize is 0, there is no title so return an empty string (or null)
+            if (titleSize == 0)
+                return String.Empty;
+            StringBuilder title = new StringBuilder(titleSize + 1);
+            SendMessage(hWnd, (int)WM_GETTEXT, title.Capacity, title);
+
+            return title.ToString();
+        }
 
         [DllImport("user32.dll")]
         static extern IntPtr ChildWindowFromPoint(IntPtr hWndParent, Point pt, uint uFlags);
@@ -291,16 +334,23 @@ namespace DclTestForm
         [DllImport("User32.dll")]
         public static extern Int32 SendMessage(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
 
+        [DllImport("user32.dll", EntryPoint = "SendMessage", CharSet = System.Runtime.InteropServices.CharSet.Auto)]
+        public static extern bool SendMessage(IntPtr hWnd, uint Msg, int wParam, StringBuilder lParam);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern IntPtr SendMessage(int hWnd, int Msg, int wparam, int lparam);
+
         [DllImport("User32.dll")]
         public static extern IntPtr GetWindow(IntPtr hwnd, uint uCmd);
 
-        internal const UInt32 MF_BYCOMMAND = 0x00000000;
         public const int MOUSEEVENTF_LEFTDOWN = 0x02;
         public const int MOUSEEVENTF_LEFTUP = 0x04;
         public const int WM_MOUSEMOVE = 0x0200;
         public const int WM_LBUTTONDOWN = 0x0201;
         public const int WM_LBUTTONUP = 0x0202;
-        const byte VK_3 = 0x33;
+        //const byte VK_3 = 0x33;
+        const int WM_GETTEXT = 0x000D;
+        const int WM_GETTEXTLENGTH = 0x000E;
         const byte VK_ALT = 0x12;
         const byte VK_L = 0x4C;
         const byte VK_D = 0x44;
@@ -313,7 +363,8 @@ namespace DclTestForm
         const byte VK_TAB = 0x9;
         public const UInt32 KEYEVENTF_EXTENDEDKEY = 1;
         public const UInt32 KEYEVENTF_KEYUP = 2;
-        public const UInt32 MF_BYPOSITION = 0x00000400;
+        internal const UInt32 MF_BYCOMMAND = 0x00000000;
+        internal const UInt32 MF_BYPOSITION = 0x00000400;
         #endregion
 
         private void nextControl_btn_Click(object sender, EventArgs e)
