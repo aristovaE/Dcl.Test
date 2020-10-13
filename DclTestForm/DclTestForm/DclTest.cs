@@ -49,7 +49,7 @@ namespace DclTestForm
                 EnterKey(key);
            
         }
-
+        
         private void doAll_btn_Click(object sender, EventArgs e)
         {
             enterKey_btn_Click(sender, e);
@@ -84,7 +84,12 @@ namespace DclTestForm
             EnumChildWindows(hwnd, callBackPtr, windowHandles);
             return windowHandles;
         }
+        public delegate bool EnumWindowsProc(IntPtr hwnd, IntPtr lParam);
 
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool EnumChildWindows(IntPtr hwndParent, EnumWindowsProc lpEnumFunc, IntPtr lParam);
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         private delegate bool EnumedWindow(IntPtr handleWindow, ArrayList handles);
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
@@ -300,8 +305,6 @@ namespace DclTestForm
         [DllImport("user32.dll")]
         static extern IntPtr ChildWindowFromPoint(IntPtr hWndParent, Point pt, uint uFlags);
 
-        public delegate bool EnumWindowsProc(IntPtr hwnd, IntPtr lParam);
-
         #region native FindWindow, IsIconic, SetForegroundWindow, ShowWindow, WindowFromPoint, SetCursorPos, mouse_event, keybd_event, SendMessage, all const bytes and ints
         [DllImport("user32.dll", SetLastError = true)]
         static extern IntPtr FindWindow(String lpClassName, String windowName);
@@ -371,6 +374,196 @@ namespace DclTestForm
         {
             OpenDCL();
             keybd_event(VK_TAB, 0, 0, 0); //клавиша Tab
+        }
+
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, IntPtr lpszWindow);
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetForegroundWindow();
+        /// <summary>
+        /// Gets the handle to the horizontal scroll bar.
+        /// </summary>
+        /// <param name="parentControl">The parent window of the scrollbar.</param>
+        /// <returns>Handle to the scrollbar window.</returns>
+        private IntPtr GetHandleToHorizontalScrollBar(Control parent)
+        {
+            // Locals
+            IntPtr childHandle;
+            string appDomainHexedHash;
+
+            // Get the hexadecimal value of AppDomain hash code.
+            // This value is dynamically appended to the window class name of the child window
+            // for .NET Windows Forms.  This name is viewable via the Spy++ tool.
+            appDomainHexedHash = AppDomain.CurrentDomain.GetHashCode().ToString("x");
+
+            // Find window handle
+            childHandle = FindWindowEx(
+                parent.Handle,    // Parent handle
+                IntPtr.Zero,    // Child window after which to seek
+                "WindowsForms10.SCROLLBAR.app.0." + appDomainHexedHash, // Class name to seek (viewable in the Spy++ tool)
+                IntPtr.Zero);    // Window title to seek
+
+            // Return handle
+            return childHandle;
+        }
+
+        private List<string> GetUrlFromIE(IntPtr windowHandle)
+        {
+            
+            IntPtr childHandle;
+            List<string> strUrlToReturn =new List<string>();
+
+            //try to get a handle to IE's toolbar container
+            childHandle = FindWindowEx(windowHandle, IntPtr.Zero, "MDIClient", IntPtr.Zero);
+            if (childHandle != IntPtr.Zero)
+            {
+                //get a handle to address bar
+                childHandle = FindWindowEx(childHandle, IntPtr.Zero, "ThunderRT6FormDC", IntPtr.Zero);
+                if (childHandle != IntPtr.Zero)
+                {
+                    
+                    // get a handle to combo box
+                    childHandle = FindWindowEx(childHandle, IntPtr.Zero, "ThunderRT6Frame", IntPtr.Zero);
+                        
+                            //get handle to edit
+                            IntPtr childHandlee = FindWindowEx(childHandle, IntPtr.Zero, "ThunderRT6TextBox", IntPtr.Zero);
+                            if (childHandlee != IntPtr.Zero)
+                            {
+                                strUrlToReturn.Add(GetControlText(childHandle));
+                            }
+                        
+                    else
+                    {
+                        IntPtr dlgHandle = GetWindow(childHandle, (uint)GetWindowType.GW_HWNDNEXT);
+                        if (dlgHandle != IntPtr.Zero)
+                        {
+                            //get handle to edit
+                            IntPtr dlgHandlee = FindWindowEx(dlgHandle, IntPtr.Zero, "ThunderRT6TextBox", IntPtr.Zero);
+                            if (dlgHandlee != IntPtr.Zero)
+                            {
+                                strUrlToReturn.Add(GetControlText(dlgHandle));
+                            }
+
+                            else
+                            {
+                                dlgHandle = GetWindow(dlgHandle, (uint)GetWindowType.GW_HWNDNEXT);
+                                if (childHandle != IntPtr.Zero)
+                                {
+                                    //get handle to edit
+                                    childHandle = FindWindowEx(dlgHandle, IntPtr.Zero, "ThunderRT6TextBox", IntPtr.Zero);
+                                    if (childHandle != IntPtr.Zero)
+                                    {
+                                        WhileNextWindow(childHandle,strUrlToReturn);
+                                        
+                                    }
+                                    else
+                                    {
+                                        dlgHandle = GetWindow(childHandle, (uint)GetWindowType.GW_HWNDNEXT);
+                                        if (childHandle != IntPtr.Zero)
+                                        {
+                                            //get handle to edit
+                                            childHandle = FindWindowEx(dlgHandle, IntPtr.Zero, "ThunderRT6TextBox", IntPtr.Zero);
+                                            if (childHandle != IntPtr.Zero)
+                                            {
+                                                //strUrlToReturn = GetControlText(childHandle);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    
+                }
+            }
+            return strUrlToReturn;
+        }
+
+        public static void WhileNextWindow(IntPtr first,List<string> list)
+        {
+            IntPtr second = GetWindow(first, (uint)GetWindowType.GW_HWNDNEXT);
+            if (second == IntPtr.Zero)
+                return;
+            // childHandle = FindWindowEx(second, IntPtr.Zero, "ThunderRT6TextBox", IntPtr.Zero);
+            int nRet;
+            // Pre-allocate 256 characters, since this is the maximum class name length.
+            StringBuilder ClassName = new StringBuilder(256);
+            //Get the window class name
+            nRet = GetClassName(second, ClassName, ClassName.Capacity);
+            
+            //while (GetControlText(second) ==null || GetControlText(second) ==""|| ClassName.ToString() != "ThunderRT6TextBox")
+            //{
+            //    WhileNextWindow(second,list);
+            //}
+            if (GetControlText(second) != null || GetControlText(second) != "")
+            {
+                if (ClassName.ToString() == "ThunderRT6TextBox")
+                { list.Add(GetControlText(second)); }
+                WhileNextWindow(second, list); //переход на следующий контрол
+            }
+        }
+        public enum GetWindowType : uint
+        {
+            /// <summary>
+            /// The retrieved handle identifies the window of the same type that is highest in the Z order.
+            /// <para/>
+            /// If the specified window is a topmost window, the handle identifies a topmost window.
+            /// If the specified window is a top-level window, the handle identifies a top-level window.
+            /// If the specified window is a child window, the handle identifies a sibling window.
+            /// </summary>
+            GW_HWNDFIRST = 0,
+            /// <summary>
+            /// The retrieved handle identifies the window of the same type that is lowest in the Z order.
+            /// <para />
+            /// If the specified window is a topmost window, the handle identifies a topmost window.
+            /// If the specified window is a top-level window, the handle identifies a top-level window.
+            /// If the specified window is a child window, the handle identifies a sibling window.
+            /// </summary>
+            GW_HWNDLAST = 1,
+            /// <summary>
+            /// The retrieved handle identifies the window below the specified window in the Z order.
+            /// <para />
+            /// If the specified window is a topmost window, the handle identifies a topmost window.
+            /// If the specified window is a top-level window, the handle identifies a top-level window.
+            /// If the specified window is a child window, the handle identifies a sibling window.
+            /// </summary>
+            GW_HWNDNEXT = 2,
+            /// <summary>
+            /// The retrieved handle identifies the window above the specified window in the Z order.
+            /// <para />
+            /// If the specified window is a topmost window, the handle identifies a topmost window.
+            /// If the specified window is a top-level window, the handle identifies a top-level window.
+            /// If the specified window is a child window, the handle identifies a sibling window.
+            /// </summary>
+            GW_HWNDPREV = 3,
+            /// <summary>
+            /// The retrieved handle identifies the specified window's owner window, if any.
+            /// </summary>
+            GW_OWNER = 4,
+            /// <summary>
+            /// The retrieved handle identifies the child window at the top of the Z order,
+            /// if the specified window is a parent window; otherwise, the retrieved handle is NULL.
+            /// The function examines only child windows of the specified window. It does not examine descendant windows.
+            /// </summary>
+            GW_CHILD = 5,
+            /// <summary>
+            /// The retrieved handle identifies the enabled popup window owned by the specified window (the
+            /// search uses the first such window found using GW_HWNDNEXT); otherwise, if there are no enabled
+            /// popup windows, the retrieved handle is that of the specified window.
+            /// </summary>
+            GW_ENABLEDPOPUP = 6
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            OpenDCL();
+            IntPtr windowDCLMenu = WindowFromPoint(System.Windows.Forms.Cursor.Position = new Point(47, 30));//Меню - Документ
+            List <string> controlcaption = GetUrlFromIE(windowDCLMenu);
+            foreach (string pole in controlcaption)
+            {
+                if (pole != "")
+                    richTextBox1.Text += pole + "\n";
+            }
         }
     }
 }
