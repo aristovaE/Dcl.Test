@@ -38,8 +38,9 @@
             this.nextControl_lbl = new System.Windows.Forms.Label();
             this.howToOpenDT_cmb = new System.Windows.Forms.ComboBox();
             this.enterKey_tb = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.showAllTextBoxes_btn = new System.Windows.Forms.Button();
+            this.editTextBox_btn = new System.Windows.Forms.Button();
+            this.listView1 = new System.Windows.Forms.ListView();
             this.SuspendLayout();
             // 
             // openDT_btn
@@ -136,31 +137,44 @@
             this.enterKey_tb.Size = new System.Drawing.Size(121, 20);
             this.enterKey_tb.TabIndex = 10;
             // 
-            // button1
+            // showAllTextBoxes_btn
             // 
-            this.button1.Location = new System.Drawing.Point(248, 168);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(90, 30);
-            this.button1.TabIndex = 11;
-            this.button1.Text = "Вывести";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.showAllTextBoxes_btn.Location = new System.Drawing.Point(248, 185);
+            this.showAllTextBoxes_btn.Name = "showAllTextBoxes_btn";
+            this.showAllTextBoxes_btn.Size = new System.Drawing.Size(90, 30);
+            this.showAllTextBoxes_btn.TabIndex = 11;
+            this.showAllTextBoxes_btn.Text = "Вывести";
+            this.showAllTextBoxes_btn.UseVisualStyleBackColor = true;
+            this.showAllTextBoxes_btn.Click += new System.EventHandler(this.showAllTextBoxes_btn_Click);
             // 
-            // richTextBox1
+            // editTextBox_btn
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(25, 168);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(217, 139);
-            this.richTextBox1.TabIndex = 12;
-            this.richTextBox1.Text = "";
+            this.editTextBox_btn.Location = new System.Drawing.Point(249, 221);
+            this.editTextBox_btn.Name = "editTextBox_btn";
+            this.editTextBox_btn.Size = new System.Drawing.Size(89, 30);
+            this.editTextBox_btn.TabIndex = 13;
+            this.editTextBox_btn.Text = "Ввести";
+            this.editTextBox_btn.UseVisualStyleBackColor = true;
+            // 
+            // listView1
+            // 
+            this.listView1.Alignment = System.Windows.Forms.ListViewAlignment.Left;
+            this.listView1.HideSelection = false;
+            this.listView1.Location = new System.Drawing.Point(25, 185);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(217, 122);
+            this.listView1.TabIndex = 14;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.List;
             // 
             // DclTestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(360, 319);
-            this.Controls.Add(this.richTextBox1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.editTextBox_btn);
+            this.Controls.Add(this.showAllTextBoxes_btn);
             this.Controls.Add(this.enterKey_tb);
             this.Controls.Add(this.howToOpenDT_cmb);
             this.Controls.Add(this.nextControl_lbl);
@@ -190,8 +204,9 @@
         private System.Windows.Forms.Label nextControl_lbl;
         private System.Windows.Forms.ComboBox howToOpenDT_cmb;
         private System.Windows.Forms.TextBox enterKey_tb;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.Button showAllTextBoxes_btn;
+        private System.Windows.Forms.Button editTextBox_btn;
+        private System.Windows.Forms.ListView listView1;
     }
 }
 

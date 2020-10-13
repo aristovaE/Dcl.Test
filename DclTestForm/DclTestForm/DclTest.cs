@@ -458,16 +458,7 @@ namespace DclTestForm
                                     }
                                     else
                                     {
-                                        dlgHandle = GetWindow(childHandle, (uint)GetWindowType.GW_HWNDNEXT);
-                                        if (childHandle != IntPtr.Zero)
-                                        {
-                                            //get handle to edit
-                                            childHandle = FindWindowEx(dlgHandle, IntPtr.Zero, "ThunderRT6TextBox", IntPtr.Zero);
-                                            if (childHandle != IntPtr.Zero)
-                                            {
-                                                //strUrlToReturn = GetControlText(childHandle);
-                                            }
-                                        }
+                                        
                                     }
                                 }
                             }
@@ -492,10 +483,6 @@ namespace DclTestForm
             //Get the window class name
             nRet = GetClassName(second, ClassName, ClassName.Capacity);
             
-            //while (GetControlText(second) ==null || GetControlText(second) ==""|| ClassName.ToString() != "ThunderRT6TextBox")
-            //{
-            //    WhileNextWindow(second,list);
-            //}
             if (GetControlText(second) != null || GetControlText(second) != "")
             {
                 if (ClassName.ToString() == "ThunderRT6TextBox")
@@ -554,15 +541,16 @@ namespace DclTestForm
             /// </summary>
             GW_ENABLEDPOPUP = 6
         }
-        private void button1_Click(object sender, EventArgs e)
+        
+        private void showAllTextBoxes_btn_Click(object sender, EventArgs e)
         {
             OpenDCL();
             IntPtr windowDCLMenu = WindowFromPoint(System.Windows.Forms.Cursor.Position = new Point(47, 30));//Меню - Документ
-            List <string> controlcaption = GetUrlFromIE(windowDCLMenu);
+            List<string> controlcaption = GetUrlFromIE(windowDCLMenu);
             foreach (string pole in controlcaption)
             {
                 if (pole != "")
-                    richTextBox1.Text += pole + "\n";
+                    listView1.Items.Add(pole);
             }
         }
     }
