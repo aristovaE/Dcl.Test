@@ -6,10 +6,10 @@ using System.Windows.Forms;
 
 namespace DclTestForm
 {
-    class TextBoxInfo
+    public class TextBoxInfo
     {
-        IntPtr handle;
-        string caption;
+       public IntPtr handle;
+        public string caption;
         //rect? coords? type???
 
         public TextBoxInfo(IntPtr handle, string caption)

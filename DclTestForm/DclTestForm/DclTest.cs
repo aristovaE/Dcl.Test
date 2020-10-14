@@ -378,41 +378,12 @@ namespace DclTestForm
 
         [DllImport("user32.dll", SetLastError = true)]
         static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, IntPtr lpszWindow);
-        [DllImport("user32.dll")]
-        private static extern IntPtr GetForegroundWindow();
-        /// <summary>
-        /// Gets the handle to the horizontal scroll bar.
-        /// </summary>
-        /// <param name="parentControl">The parent window of the scrollbar.</param>
-        /// <returns>Handle to the scrollbar window.</returns>
-        private IntPtr GetHandleToHorizontalScrollBar(Control parent)
-        {
-            // Locals
-            IntPtr childHandle;
-            string appDomainHexedHash;
 
-            // Get the hexadecimal value of AppDomain hash code.
-            // This value is dynamically appended to the window class name of the child window
-            // for .NET Windows Forms.  This name is viewable via the Spy++ tool.
-            appDomainHexedHash = AppDomain.CurrentDomain.GetHashCode().ToString("x");
-
-            // Find window handle
-            childHandle = FindWindowEx(
-                parent.Handle,    // Parent handle
-                IntPtr.Zero,    // Child window after which to seek
-                "WindowsForms10.SCROLLBAR.app.0." + appDomainHexedHash, // Class name to seek (viewable in the Spy++ tool)
-                IntPtr.Zero);    // Window title to seek
-
-            // Return handle
-            return childHandle;
-        }
-
-        private List<string> GetUrlFromIE(IntPtr windowHandle)
+        private List<TextBoxInfo> GetUrlFromIE(IntPtr windowHandle)
         {
             
             IntPtr childHandle;
-            List<string> strUrlToReturn =new List<string>();
-
+            List<TextBoxInfo> collectionTextBox = new List<TextBoxInfo>();
             //try to get a handle to IE's toolbar container
             childHandle = FindWindowEx(windowHandle, IntPtr.Zero, "MDIClient", IntPtr.Zero);
             if (childHandle != IntPtr.Zero)
@@ -429,7 +400,7 @@ namespace DclTestForm
                             IntPtr childHandlee = FindWindowEx(childHandle, IntPtr.Zero, "ThunderRT6TextBox", IntPtr.Zero);
                             if (childHandlee != IntPtr.Zero)
                             {
-                                strUrlToReturn.Add(GetControlText(childHandle));
+                                //strUrlToReturn.Add(GetControlText(childHandle));
                             }
                         
                     else
@@ -441,7 +412,7 @@ namespace DclTestForm
                             IntPtr dlgHandlee = FindWindowEx(dlgHandle, IntPtr.Zero, "ThunderRT6TextBox", IntPtr.Zero);
                             if (dlgHandlee != IntPtr.Zero)
                             {
-                                strUrlToReturn.Add(GetControlText(dlgHandle));
+                                //strUrlToReturn.Add(GetControlText(dlgHandle));
                             }
 
                             else
@@ -453,7 +424,9 @@ namespace DclTestForm
                                     childHandle = FindWindowEx(dlgHandle, IntPtr.Zero, "ThunderRT6TextBox", IntPtr.Zero);
                                     if (childHandle != IntPtr.Zero)
                                     {
-                                        WhileNextWindow(childHandle,strUrlToReturn);
+                                        
+                                        WhileNextWindow(childHandle, collectionTextBox);
+                                        
                                         
                                     }
                                     else
@@ -468,10 +441,10 @@ namespace DclTestForm
                     
                 }
             }
-            return strUrlToReturn;
+            return collectionTextBox;
         }
-
-        public static void WhileNextWindow(IntPtr first,List<string> list)
+       
+        public static void WhileNextWindow(IntPtr first,List<TextBoxInfo> collectionTextBox)
         {
             IntPtr second = GetWindow(first, (uint)GetWindowType.GW_HWNDNEXT);
             if (second == IntPtr.Zero)
@@ -486,8 +459,10 @@ namespace DclTestForm
             if (GetControlText(second) != null || GetControlText(second) != "")
             {
                 if (ClassName.ToString() == "ThunderRT6TextBox")
-                { list.Add(GetControlText(second)); }
-                WhileNextWindow(second, list); //переход на следующий контрол
+                { 
+                    collectionTextBox.Add(new TextBoxInfo(second, GetControlText(second)));
+                }
+                WhileNextWindow(second, collectionTextBox); //переход на следующий контрол
             }
         }
         public enum GetWindowType : uint
@@ -546,12 +521,34 @@ namespace DclTestForm
         {
             OpenDCL();
             IntPtr windowDCLMenu = WindowFromPoint(System.Windows.Forms.Cursor.Position = new Point(47, 30));//Меню - Документ
-            List<string> controlcaption = GetUrlFromIE(windowDCLMenu);
-            foreach (string pole in controlcaption)
+            List<TextBoxInfo> collectionTextBox = GetUrlFromIE(windowDCLMenu);
+            foreach (TextBoxInfo tbi in collectionTextBox)
             {
-                if (pole != "")
-                    listView1.Items.Add(pole);
+                if (tbi.caption != "")
+                    controlList.Items.Add(tbi.caption);
             }
+        }
+
+        private void nextControlRight_btn_Click(object sender, EventArgs e)
+        {
+            OpenDCL();
+            //keybd_event(VK_ALT, 0, 0, 0); //клавиша Alt
+            //keybd_event(VK_L, 0, 0, 0); //буква Д
+            //keybd_event(VK_ALT, 0, KEYEVENTF_KEYUP, 0);
+            //keybd_event(VK_L, 0, KEYEVENTF_KEYUP, 0);
+            keybd_event(VK_RIGHT, 0, 0, 0); //стрелка вправо
+            keybd_event(VK_RIGHT, 0, KEYEVENTF_KEYUP, 0);
+        }
+
+        private void nextControlDown_btn_Click(object sender, EventArgs e)
+        {
+            OpenDCL();
+            keybd_event(VK_ALT, 0, 0, 0); //клавиша Alt
+            keybd_event(VK_L, 0, 0, 0); //буква Д
+            keybd_event(VK_ALT, 0, KEYEVENTF_KEYUP, 0);
+            keybd_event(VK_L, 0, KEYEVENTF_KEYUP, 0);
+            keybd_event(VK_DOWN, 0, 0, 0); //стрелка вниз
+            keybd_event(VK_DOWN, 0, KEYEVENTF_KEYUP, 0);
         }
     }
 }
