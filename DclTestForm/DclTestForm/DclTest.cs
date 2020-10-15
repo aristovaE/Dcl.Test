@@ -378,10 +378,22 @@ namespace DclTestForm
             keybd_event(VK_TAB, 0, 0, 0); //клавиша Tab
             keybd_event(VK_TAB, 0, KEYEVENTF_KEYUP, 0);
             
-            TextBoxInfo currentControl = new TextBoxInfo(GetFocus(), GetControlText(GetFocus()));
-            propertyOfControl.SelectedObject = currentControl;
+            //TextBoxInfo currentControl = new TextBoxInfo(GetFocus(), GetControlText(GetFocus()));
+            //propertyOfControl.SelectedObject = currentControl;
         }
+        private void prevControlDT_btn_Click(object sender, EventArgs e)
+        {
+            OpenDCL();
 
+            keybd_event(VK_SHIFT, 0, 0, 0); //клавиша Tab
+            keybd_event(VK_TAB, 0, 0, 0);
+            keybd_event(VK_SHIFT, 0, KEYEVENTF_KEYUP, 0);
+            keybd_event(VK_TAB, 0, KEYEVENTF_KEYUP, 0);
+
+            //TextBoxInfo currentControl = new TextBoxInfo(GetFocus(), GetControlText(GetFocus()));
+            //propertyOfControl.SelectedObject = currentControl;
+
+        }
         [DllImport("user32.dll", SetLastError = true)]
         static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, IntPtr lpszWindow);
 
@@ -390,23 +402,16 @@ namespace DclTestForm
             
             IntPtr childHandle;
             List<TextBoxInfo> collectionTextBox = new List<TextBoxInfo>();
-            //try to get a handle to IE's toolbar container
             childHandle = FindWindowEx(windowHandle, IntPtr.Zero, "MDIClient", IntPtr.Zero);
             if (childHandle != IntPtr.Zero)
             {
-                //get a handle to address bar
                 childHandle = FindWindowEx(childHandle, IntPtr.Zero, "ThunderRT6FormDC", IntPtr.Zero);
                 if (childHandle != IntPtr.Zero)
                 {
-                    
-                    // get a handle to combo box
                     childHandle = FindWindowEx(childHandle, IntPtr.Zero, "ThunderRT6Frame", IntPtr.Zero);
-                        
-                            //get handle to edit
                     IntPtr childHandlee = FindWindowEx(childHandle, IntPtr.Zero, "ThunderRT6TextBox", IntPtr.Zero);
                     if (childHandlee != IntPtr.Zero)
                     {
-                        //strUrlToReturn.Add(GetControlText(childHandle));
                     }
 
                     else
@@ -414,11 +419,9 @@ namespace DclTestForm
                         IntPtr dlgHandle = GetWindow(childHandle, (uint)GetWindowType.GW_HWNDNEXT);
                         if (dlgHandle != IntPtr.Zero)
                         {
-                            //get handle to edit
                             IntPtr dlgHandlee = FindWindowEx(dlgHandle, IntPtr.Zero, "ThunderRT6TextBox", IntPtr.Zero);
                             if (dlgHandlee != IntPtr.Zero)
                             {
-                                //strUrlToReturn.Add(GetControlText(dlgHandle));
                             }
 
                             else
@@ -426,7 +429,6 @@ namespace DclTestForm
                                 dlgHandle = GetWindow(dlgHandle, (uint)GetWindowType.GW_HWNDNEXT);
                                 if (childHandle != IntPtr.Zero)
                                 {
-                                    //get handle to edit
                                     childHandle = FindWindowEx(dlgHandle, IntPtr.Zero, "ThunderRT6TextBox", IntPtr.Zero);
                                     if (childHandle != IntPtr.Zero)
                                     {
@@ -439,9 +441,7 @@ namespace DclTestForm
                                 }
                             }
                         }
-                    }
-
-                    
+                    }                    
                 }
             }
             return collectionTextBox;
@@ -449,14 +449,12 @@ namespace DclTestForm
        
         public static void WhileNextWindow(IntPtr first,List<TextBoxInfo> collectionTextBox)
         {
+
             IntPtr second = GetWindow(first, (uint)GetWindowType.GW_HWNDNEXT);
             if (second == IntPtr.Zero)
                 return;
-            // childHandle = FindWindowEx(second, IntPtr.Zero, "ThunderRT6TextBox", IntPtr.Zero);
             int nRet;
-            // Pre-allocate 256 characters, since this is the maximum class name length.
             StringBuilder ClassName = new StringBuilder(256);
-            //Get the window class name
             nRet = GetClassName(second, ClassName, ClassName.Capacity);
             
             if (GetControlText(second) != null || GetControlText(second) != "")
@@ -525,7 +523,10 @@ namespace DclTestForm
             OpenDCL();
             controlList.Clear();
             IntPtr windowDCLMenu = WindowFromPoint(System.Windows.Forms.Cursor.Position = new Point(47, 30));//Меню - Документ
-            List<TextBoxInfo> collectionTextBox = GetUrlFromIE(windowDCLMenu);
+            IntPtr firstControl = findFirstTextBox(windowDCLMenu);
+            List<TextBoxInfo> collectionTextBox = new List<TextBoxInfo>();
+            WhileNextWindow(firstControl, collectionTextBox);
+            //List<TextBoxInfo> collectionTextBox = GetUrlFromIE(windowDCLMenu);
             foreach (TextBoxInfo tbi in collectionTextBox)
             {
                 if (tbi.caption != "")
@@ -564,6 +565,19 @@ namespace DclTestForm
             {
                 TextBoxInfo tbi = (TextBoxInfo)controlList.SelectedItems[0].Tag;
                 propertyOfControl.SelectedObject = tbi;
+                OpenDCL();
+                IntPtr windowDCLMenu = WindowFromPoint(System.Windows.Forms.Cursor.Position = new Point(47, 30));//Меню - Документ
+                IntPtr firstControl = findFirstTextBox(windowDCLMenu);
+                List<TextBoxInfo> collectionTextBox = new List<TextBoxInfo>();
+                WhileNextWindow(firstControl, collectionTextBox);
+                TextBoxInfo toFind = (TextBoxInfo)propertyOfControl.SelectedObject;
+                foreach (TextBoxInfo textbox in collectionTextBox)
+                {
+                    if (toFind.handle == textbox.handle)
+                    {
+                        SetFocus(toFind.handle);
+                    }
+                }
             }
         }
 
@@ -573,21 +587,8 @@ namespace DclTestForm
         [DllImport("user32.dll")]
         private static extern IntPtr GetForegroundWindow();
         [DllImport("user32.dll")]
-        static extern bool AttachThreadInput(uint idAttach, uint idAttachTo,
-   bool fAttach);
-        private void prevControlDT_btn_Click(object sender, EventArgs e)
-        {
-            OpenDCL();
-           
-            keybd_event(VK_SHIFT, 0, 0, 0); //клавиша Tab
-            keybd_event(VK_TAB, 0, 0, 0);
-            keybd_event(VK_SHIFT, 0, KEYEVENTF_KEYUP, 0);
-            keybd_event(VK_TAB, 0, KEYEVENTF_KEYUP, 0);
-            
-            TextBoxInfo currentControl = new TextBoxInfo(GetFocus(), GetControlText(GetFocus()));
-            propertyOfControl.SelectedObject = currentControl;
-
-        }
+        static extern bool AttachThreadInput(uint idAttach, uint idAttachTo, bool fAttach);
+        
         [DllImport("user32.dll", SetLastError = true)]
         static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
         [DllImport("user32.dll", SetLastError = true)]
@@ -600,6 +601,71 @@ namespace DclTestForm
             propertyOfControl.SelectedObject = currentControl;
         }
 
-        
+        private void findControl_btn_Click(object sender, EventArgs e)
+        {
+            OpenDCL();
+            IntPtr windowDCLMenu = WindowFromPoint(System.Windows.Forms.Cursor.Position = new Point(47, 30));//Меню - Документ
+            IntPtr firstControl = findFirstTextBox(windowDCLMenu);
+            List<TextBoxInfo> collectionTextBox = new List<TextBoxInfo>();
+            WhileNextWindow(firstControl, collectionTextBox);
+            TextBoxInfo toFind = (TextBoxInfo)propertyOfControl.SelectedObject;
+            foreach(TextBoxInfo tbi in collectionTextBox)
+            {
+                if (toFind.handle==tbi.handle)
+                {
+                    SetFocus(toFind.handle);
+                }
+            }
+        }
+
+        private IntPtr findFirstTextBox(IntPtr windowHandle)
+        {
+            IntPtr childHandle;
+            List<TextBoxInfo> collectionTextBox = new List<TextBoxInfo>();
+            childHandle = FindWindowEx(windowHandle, IntPtr.Zero, "MDIClient", IntPtr.Zero);
+            if (childHandle != IntPtr.Zero)
+            {
+                childHandle = FindWindowEx(childHandle, IntPtr.Zero, "ThunderRT6FormDC", IntPtr.Zero);
+                if (childHandle != IntPtr.Zero)
+                {
+                    childHandle = FindWindowEx(childHandle, IntPtr.Zero, "ThunderRT6Frame", IntPtr.Zero);
+                    IntPtr childHandlee = FindWindowEx(childHandle, IntPtr.Zero, "ThunderRT6TextBox", IntPtr.Zero);
+                    if (childHandlee != IntPtr.Zero)
+                    {
+                    }
+
+                    else
+                    {
+                        IntPtr dlgHandle = GetWindow(childHandle, (uint)GetWindowType.GW_HWNDNEXT);
+                        if (dlgHandle != IntPtr.Zero)
+                        {
+                            IntPtr dlgHandlee = FindWindowEx(dlgHandle, IntPtr.Zero, "ThunderRT6TextBox", IntPtr.Zero);
+                            if (dlgHandlee != IntPtr.Zero)
+                            {
+                            }
+
+                            else
+                            {
+                                dlgHandle = GetWindow(dlgHandle, (uint)GetWindowType.GW_HWNDNEXT);
+                                if (childHandle != IntPtr.Zero)
+                                {
+                                    childHandle = FindWindowEx(dlgHandle, IntPtr.Zero, "ThunderRT6TextBox", IntPtr.Zero);
+                                    if (childHandle != IntPtr.Zero)
+                                    {
+                                        return childHandle;
+                                        //WhileNextWindow(childHandle, collectionTextBox);
+                                    }
+                                    else
+                                    {
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return childHandle;
+        }
     }
 }

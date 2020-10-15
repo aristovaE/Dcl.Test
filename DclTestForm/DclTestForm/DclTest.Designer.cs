@@ -48,6 +48,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.prevControlDT_btn = new System.Windows.Forms.Button();
             this.showOnPropGrid_btn = new System.Windows.Forms.Button();
+            this.findControl_btn = new System.Windows.Forms.Button();
             this.navigation_gb.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -248,11 +249,22 @@
             this.showOnPropGrid_btn.UseVisualStyleBackColor = true;
             this.showOnPropGrid_btn.Click += new System.EventHandler(this.showOnPropGrid_btn_Click);
             // 
+            // findControl_btn
+            // 
+            this.findControl_btn.Location = new System.Drawing.Point(305, 274);
+            this.findControl_btn.Name = "findControl_btn";
+            this.findControl_btn.Size = new System.Drawing.Size(75, 23);
+            this.findControl_btn.TabIndex = 21;
+            this.findControl_btn.Text = "Найти";
+            this.findControl_btn.UseVisualStyleBackColor = true;
+            this.findControl_btn.Click += new System.EventHandler(this.findControl_btn_Click);
+            // 
             // DclTestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(392, 440);
+            this.Controls.Add(this.findControl_btn);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.propertyOfControl);
             this.Controls.Add(this.navigation_gb);
@@ -297,6 +309,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button prevControlDT_btn;
         private System.Windows.Forms.Button showOnPropGrid_btn;
+        private System.Windows.Forms.Button findControl_btn;
     }
 }
 
