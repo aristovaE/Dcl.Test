@@ -62,7 +62,7 @@ namespace DclTestForm
         private static void OpenDCL()
         {
             IntPtr hwnd = FindWindow(null, "ВЭД-Декларант");
-
+            uint ThreadID1 = GetWindowThreadProcessId(GetForegroundWindow(),out uint id );
             //"ВЭД-Декларант (расширенная версия) 9.97 от 01.10.2020 (10000000/220719/0000004) - [ДТ (основной лист)]"
             if (IsIconic(hwnd))
             {
@@ -72,9 +72,9 @@ namespace DclTestForm
             {
                 SetForegroundWindow(hwnd);
             }
-            var DCLHandles = GetAllWindows(hwnd); // все окна?
-            List<IntPtr> listcw = new List<IntPtr>(GetChildWindows(hwnd)); //выдает только одно окно
-            GetTreeViewOfChild(hwnd);
+            uint ThreadID2 = GetWindowThreadProcessId(hwnd, out uint idd);
+            AttachThreadInput(ThreadID1, ThreadID2, true);
+
         }
         private static ArrayList GetAllWindows(IntPtr hwnd)
         {
@@ -171,16 +171,16 @@ namespace DclTestForm
         private static void SendMessageAndClick(int pX, int pY)
         {
             IntPtr windowDCLMenu = WindowFromPoint(System.Windows.Forms.Cursor.Position = new Point(pX, pY)); //Меню - Документ
-            if (GetControlText(windowDCLMenu) != null)
-            {
-                IntPtr hMenu = GetMenu(windowDCLMenu);
-                StringBuilder menuName = new StringBuilder(0x20);
-                for (uint i = GetMenuItemCount(hMenu) - 1; i >= 0; i--)
-                {
+            //if (GetControlText(windowDCLMenu) != null)
+            //{
+            //    IntPtr hMenu = GetMenu(windowDCLMenu);
+            //    StringBuilder menuName = new StringBuilder(0x20);
+            //    for (uint i = GetMenuItemCount(hMenu) - 1; i >= 0; i--)
+            //    {
                    
-                    GetMenuString(hMenu, i, menuName, menuName.Capacity, MF_BYPOSITION);
-                }
-            }
+            //        GetMenuString(hMenu, i, menuName, menuName.Capacity, MF_BYPOSITION);
+            //    }
+            //}
             SendMessage(windowDCLMenu, WM_MOUSEMOVE, (IntPtr)0, MakeParam(pX, pY));
             DoMouseLeftClick(pX, pY);
             Thread.Sleep(1000);
@@ -364,6 +364,7 @@ namespace DclTestForm
         const byte VK_RIGHT = 0x27;
         const byte VK_DOWN = 0x28;
         const byte VK_TAB = 0x9;
+        const byte VK_SHIFT = 0x10;
         public const UInt32 KEYEVENTF_EXTENDEDKEY = 1;
         public const UInt32 KEYEVENTF_KEYUP = 2;
         internal const UInt32 MF_BYCOMMAND = 0x00000000;
@@ -373,7 +374,12 @@ namespace DclTestForm
         private void nextControl_btn_Click(object sender, EventArgs e)
         {
             OpenDCL();
+           
             keybd_event(VK_TAB, 0, 0, 0); //клавиша Tab
+            keybd_event(VK_TAB, 0, KEYEVENTF_KEYUP, 0);
+            
+            TextBoxInfo currentControl = new TextBoxInfo(GetFocus(), GetControlText(GetFocus()));
+            propertyOfControl.SelectedObject = currentControl;
         }
 
         [DllImport("user32.dll", SetLastError = true)]
@@ -397,12 +403,12 @@ namespace DclTestForm
                     childHandle = FindWindowEx(childHandle, IntPtr.Zero, "ThunderRT6Frame", IntPtr.Zero);
                         
                             //get handle to edit
-                            IntPtr childHandlee = FindWindowEx(childHandle, IntPtr.Zero, "ThunderRT6TextBox", IntPtr.Zero);
-                            if (childHandlee != IntPtr.Zero)
-                            {
-                                //strUrlToReturn.Add(GetControlText(childHandle));
-                            }
-                        
+                    IntPtr childHandlee = FindWindowEx(childHandle, IntPtr.Zero, "ThunderRT6TextBox", IntPtr.Zero);
+                    if (childHandlee != IntPtr.Zero)
+                    {
+                        //strUrlToReturn.Add(GetControlText(childHandle));
+                    }
+
                     else
                     {
                         IntPtr dlgHandle = GetWindow(childHandle, (uint)GetWindowType.GW_HWNDNEXT);
@@ -424,14 +430,11 @@ namespace DclTestForm
                                     childHandle = FindWindowEx(dlgHandle, IntPtr.Zero, "ThunderRT6TextBox", IntPtr.Zero);
                                     if (childHandle != IntPtr.Zero)
                                     {
-                                        
                                         WhileNextWindow(childHandle, collectionTextBox);
-                                        
-                                        
                                     }
                                     else
                                     {
-                                        
+
                                     }
                                 }
                             }
@@ -520,12 +523,16 @@ namespace DclTestForm
         private void showAllTextBoxes_btn_Click(object sender, EventArgs e)
         {
             OpenDCL();
+            controlList.Clear();
             IntPtr windowDCLMenu = WindowFromPoint(System.Windows.Forms.Cursor.Position = new Point(47, 30));//Меню - Документ
             List<TextBoxInfo> collectionTextBox = GetUrlFromIE(windowDCLMenu);
             foreach (TextBoxInfo tbi in collectionTextBox)
             {
                 if (tbi.caption != "")
+                {
                     controlList.Items.Add(tbi.caption);
+                    controlList.Items[controlList.Items.Count - 1].Tag = tbi;
+                }
             }
         }
 
@@ -550,5 +557,49 @@ namespace DclTestForm
             keybd_event(VK_DOWN, 0, 0, 0); //стрелка вниз
             keybd_event(VK_DOWN, 0, KEYEVENTF_KEYUP, 0);
         }
+
+        private void controlList_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (controlList.SelectedItems.Count != 0)
+            {
+                TextBoxInfo tbi = (TextBoxInfo)controlList.SelectedItems[0].Tag;
+                propertyOfControl.SelectedObject = tbi;
+            }
+        }
+
+        [DllImport("user32.dll")]
+        static extern IntPtr GetFocus();
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetForegroundWindow();
+        [DllImport("user32.dll")]
+        static extern bool AttachThreadInput(uint idAttach, uint idAttachTo,
+   bool fAttach);
+        private void prevControlDT_btn_Click(object sender, EventArgs e)
+        {
+            OpenDCL();
+           
+            keybd_event(VK_SHIFT, 0, 0, 0); //клавиша Tab
+            keybd_event(VK_TAB, 0, 0, 0);
+            keybd_event(VK_SHIFT, 0, KEYEVENTF_KEYUP, 0);
+            keybd_event(VK_TAB, 0, KEYEVENTF_KEYUP, 0);
+            
+            TextBoxInfo currentControl = new TextBoxInfo(GetFocus(), GetControlText(GetFocus()));
+            propertyOfControl.SelectedObject = currentControl;
+
+        }
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern IntPtr SetFocus(IntPtr hWnd);
+        
+        private void showOnPropGrid_btn_Click(object sender, EventArgs e)
+        {
+            OpenDCL();
+            TextBoxInfo currentControl = new TextBoxInfo(GetFocus(), GetControlText(GetFocus()));
+            propertyOfControl.SelectedObject = currentControl;
+        }
+
+        
     }
 }
