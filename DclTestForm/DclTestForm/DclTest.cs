@@ -40,14 +40,31 @@ namespace DclTestForm
                 // MoveMouseAndClick(1700, 880);
             }
         }
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern int GetWindowThreadProcessId([In] IntPtr hWnd, [Out, Optional] IntPtr lpdwProcessId);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern ushort GetKeyboardLayout([In] int idThread);
+        public const int WM_SETTEXT = 0x000C;
+        /// <summary>
+        /// Вернёт Id раскладки.
+        /// </summary>
+        ushort GetKeyboardLayout()
+        {
+            return GetKeyboardLayout(GetWindowThreadProcessId(GetForegroundWindow(), IntPtr.Zero));
+        }
         private void enterKey_btn_Click(object sender, EventArgs e)
         {
             OpenDCL();
-            byte[] byteToString = Encoding.GetEncoding(1251).GetBytes(enterKey_tb.Text);
-            
-            foreach (byte key in byteToString)
-                EnterKey(key);
-           
+            //byte[] byteToString = Encoding.GetEncoding(1251).GetBytes(enterKey_tb.Text);
+
+            //foreach (byte key in byteToString)
+            //    EnterKey(key);
+            StringBuilder sb = new StringBuilder(enterKey_tb.Text);
+            SendMessage(GetFocus(), WM_SETTEXT, 0, sb);
+            //SendKeys.SendWait(enterKey_tb.Text);//посылает нужные нажатия клавиш
+            //SendKeys.Flush();
+
         }
         
         private void doAll_btn_Click(object sender, EventArgs e)
@@ -64,6 +81,9 @@ namespace DclTestForm
             IntPtr hwnd = FindWindow(null, "ВЭД-Декларант");
             uint ThreadID1 = GetWindowThreadProcessId(GetForegroundWindow(),out uint id );
             //"ВЭД-Декларант (расширенная версия) 9.97 от 01.10.2020 (10000000/220719/0000004) - [ДТ (основной лист)]"
+           
+            uint ThreadID2 = GetWindowThreadProcessId(hwnd, out uint idd);
+            AttachThreadInput(ThreadID1, ThreadID2, true);
             if (IsIconic(hwnd))
             {
                 ShowWindow(hwnd, 9); //9 - restore
@@ -72,8 +92,6 @@ namespace DclTestForm
             {
                 SetForegroundWindow(hwnd);
             }
-            uint ThreadID2 = GetWindowThreadProcessId(hwnd, out uint idd);
-            AttachThreadInput(ThreadID1, ThreadID2, true);
 
         }
         private static ArrayList GetAllWindows(IntPtr hwnd)
@@ -369,6 +387,8 @@ namespace DclTestForm
         public const UInt32 KEYEVENTF_KEYUP = 2;
         internal const UInt32 MF_BYCOMMAND = 0x00000000;
         internal const UInt32 MF_BYPOSITION = 0x00000400;
+        //SendMessage(Handle, EM_SETSEL, 0, -1);
+        //SendMessage(Handle, WM_CLEAR, 0, 0);
         #endregion
 
         private void nextControl_btn_Click(object sender, EventArgs e)
@@ -666,6 +686,35 @@ namespace DclTestForm
                 }
             }
             return childHandle;
+        }
+        const int EM_SETSEL = 0x00B1;
+        const int WM_CLEAR = 0x0303;
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        public static extern IntPtr SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        private void propertyOfControl_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
+        {
+            OpenDCL();
+            IntPtr windowDCLMenu = WindowFromPoint(System.Windows.Forms.Cursor.Position = new Point(47, 30));
+            IntPtr firstControl = findFirstTextBox(windowDCLMenu);
+            List<TextBoxInfo> collectionTextBox = new List<TextBoxInfo>();
+            WhileNextWindow(firstControl, collectionTextBox);
+            TextBoxInfo toFind = (TextBoxInfo)propertyOfControl.SelectedObject;
+            foreach (TextBoxInfo tbi in collectionTextBox)
+            {
+                if (toFind.handle == tbi.handle)
+                {
+                    SetFocus(toFind.handle);
+                    SendMessage(toFind.handle, EM_SETSEL, 0, -1);
+
+                    SendMessage(toFind.handle, WM_CLEAR, 0, 0);
+
+                    byte[] byteToString = Encoding.GetEncoding(1251).GetBytes(toFind.caption);
+
+                    foreach (byte key in byteToString)
+                        EnterKey(key);
+                }
+            }
         }
     }
 }

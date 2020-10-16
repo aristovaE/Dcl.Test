@@ -43,11 +43,11 @@
             this.nextControlMenu_lbl = new System.Windows.Forms.Label();
             this.nextControlRight_btn = new System.Windows.Forms.Button();
             this.navigation_gb = new System.Windows.Forms.GroupBox();
+            this.showOnPropGrid_btn = new System.Windows.Forms.Button();
+            this.prevControlDT_btn = new System.Windows.Forms.Button();
             this.nextControlDown_btn = new System.Windows.Forms.Button();
             this.propertyOfControl = new System.Windows.Forms.PropertyGrid();
             this.label1 = new System.Windows.Forms.Label();
-            this.prevControlDT_btn = new System.Windows.Forms.Button();
-            this.showOnPropGrid_btn = new System.Windows.Forms.Button();
             this.findControl_btn = new System.Windows.Forms.Button();
             this.navigation_gb.SuspendLayout();
             this.SuspendLayout();
@@ -203,6 +203,26 @@
             this.navigation_gb.TabStop = false;
             this.navigation_gb.Text = "Навигация по:";
             // 
+            // showOnPropGrid_btn
+            // 
+            this.showOnPropGrid_btn.Location = new System.Drawing.Point(243, 29);
+            this.showOnPropGrid_btn.Name = "showOnPropGrid_btn";
+            this.showOnPropGrid_btn.Size = new System.Drawing.Size(75, 25);
+            this.showOnPropGrid_btn.TabIndex = 20;
+            this.showOnPropGrid_btn.Text = "Показать";
+            this.showOnPropGrid_btn.UseVisualStyleBackColor = true;
+            this.showOnPropGrid_btn.Click += new System.EventHandler(this.showOnPropGrid_btn_Click);
+            // 
+            // prevControlDT_btn
+            // 
+            this.prevControlDT_btn.Location = new System.Drawing.Point(181, 29);
+            this.prevControlDT_btn.Name = "prevControlDT_btn";
+            this.prevControlDT_btn.Size = new System.Drawing.Size(36, 25);
+            this.prevControlDT_btn.TabIndex = 19;
+            this.prevControlDT_btn.Text = "←";
+            this.prevControlDT_btn.UseVisualStyleBackColor = true;
+            this.prevControlDT_btn.Click += new System.EventHandler(this.prevControlDT_btn_Click);
+            // 
             // nextControlDown_btn
             // 
             this.nextControlDown_btn.Location = new System.Drawing.Point(181, 54);
@@ -219,6 +239,7 @@
             this.propertyOfControl.Name = "propertyOfControl";
             this.propertyOfControl.Size = new System.Drawing.Size(196, 130);
             this.propertyOfControl.TabIndex = 19;
+            this.propertyOfControl.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.propertyOfControl_PropertyValueChanged);
             // 
             // label1
             // 
@@ -228,26 +249,6 @@
             this.label1.Size = new System.Drawing.Size(72, 13);
             this.label1.TabIndex = 20;
             this.label1.Text = "Все поля ДТ";
-            // 
-            // prevControlDT_btn
-            // 
-            this.prevControlDT_btn.Location = new System.Drawing.Point(181, 29);
-            this.prevControlDT_btn.Name = "prevControlDT_btn";
-            this.prevControlDT_btn.Size = new System.Drawing.Size(36, 25);
-            this.prevControlDT_btn.TabIndex = 19;
-            this.prevControlDT_btn.Text = "←";
-            this.prevControlDT_btn.UseVisualStyleBackColor = true;
-            this.prevControlDT_btn.Click += new System.EventHandler(this.prevControlDT_btn_Click);
-            // 
-            // showOnPropGrid_btn
-            // 
-            this.showOnPropGrid_btn.Location = new System.Drawing.Point(243, 29);
-            this.showOnPropGrid_btn.Name = "showOnPropGrid_btn";
-            this.showOnPropGrid_btn.Size = new System.Drawing.Size(75, 25);
-            this.showOnPropGrid_btn.TabIndex = 20;
-            this.showOnPropGrid_btn.Text = "Показать";
-            this.showOnPropGrid_btn.UseVisualStyleBackColor = true;
-            this.showOnPropGrid_btn.Click += new System.EventHandler(this.showOnPropGrid_btn_Click);
             // 
             // findControl_btn
             // 
