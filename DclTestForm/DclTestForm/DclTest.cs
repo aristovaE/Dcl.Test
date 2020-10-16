@@ -706,13 +706,9 @@ namespace DclTestForm
                 {
                     SetFocus(toFind.handle);
                     SendMessage(toFind.handle, EM_SETSEL, 0, -1);
-
                     SendMessage(toFind.handle, WM_CLEAR, 0, 0);
-
-                    byte[] byteToString = Encoding.GetEncoding(1251).GetBytes(toFind.caption);
-
-                    foreach (byte key in byteToString)
-                        EnterKey(key);
+                    StringBuilder sb = new StringBuilder(toFind.caption);
+                    SendMessage(GetFocus(), WM_SETTEXT, 0, sb);
                 }
             }
         }
