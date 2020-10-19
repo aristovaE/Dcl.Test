@@ -65,7 +65,7 @@ namespace DclTestForm
         /// <summary>
         /// Открытие меню - Документ (sendMessage)
         /// </summary>
-        private static void OpenDCL()
+        private static IntPtr OpenDCL()
         {
             IntPtr hwnd = FindWindow(null, "ВЭД-Декларант");
             uint ThreadID1 = GetWindowThreadProcessId(GetForegroundWindow(),out uint id );
@@ -81,7 +81,7 @@ namespace DclTestForm
             {
                 SetForegroundWindow(hwnd);
             }
-
+            return hwnd;
         }
 
         /// <summary>
@@ -174,7 +174,6 @@ namespace DclTestForm
         /// <returns></returns>
         public static string GetControlText(IntPtr hWnd)
         {
-
             // Get the size of the string required to hold the window title (including trailing null.) 
             Int32 titleSize = SendMessage((int)hWnd, WM_GETTEXTLENGTH, 0, 0).ToInt32();
             // If titleSize is 0, there is no title so return an empty string (or null)
@@ -189,7 +188,6 @@ namespace DclTestForm
         private void nextControl_btn_Click(object sender, EventArgs e)
         {
             OpenDCL();
-           
             keybd_event(VK_TAB, 0, 0, 0); //клавиша Tab
             keybd_event(VK_TAB, 0, KEYEVENTF_KEYUP, 0);
             
@@ -199,7 +197,6 @@ namespace DclTestForm
         private void prevControlDT_btn_Click(object sender, EventArgs e)
         {
             OpenDCL();
-
             keybd_event(VK_SHIFT, 0, 0, 0); //клавиша Tab
             keybd_event(VK_TAB, 0, 0, 0);
             keybd_event(VK_SHIFT, 0, KEYEVENTF_KEYUP, 0);
@@ -303,23 +300,6 @@ namespace DclTestForm
             propertyOfControl.SelectedObject = currentControl;
         }
 
-        private void findControl_btn_Click(object sender, EventArgs e)
-        {
-            OpenDCL();
-            IntPtr windowDCLMenu = WindowFromPoint(System.Windows.Forms.Cursor.Position = new Point(47, 30));//Меню - Документ
-            IntPtr firstControl = findFirstTextBox(windowDCLMenu);
-            List<TextBoxInfo> collectionTextBox = new List<TextBoxInfo>();
-            WhileNextWindow(firstControl, collectionTextBox);
-            TextBoxInfo toFind = (TextBoxInfo)propertyOfControl.SelectedObject;
-            foreach(TextBoxInfo tbi in collectionTextBox)
-            {
-                if (toFind.handle==tbi.handle)
-                {
-                    SetFocus(toFind.handle);
-                }
-            }
-        }
-
         private IntPtr findFirstTextBox(IntPtr windowHandle)
         {
             IntPtr childHandle;
@@ -384,11 +364,49 @@ namespace DclTestForm
                 {
                     SetFocus(toFind.handle);
                     SendMessage(toFind.handle, EM_SETSEL, 0, -1);
-                    SendMessage(toFind.handle, WM_CLEAR, 0, 0);
                     StringBuilder sb = new StringBuilder(toFind.caption);
                     SendMessage(GetFocus(), WM_SETTEXT, 0, sb);
                 }
             }
+        }
+        private void findAndRenameNext_btn_Click(object sender, EventArgs e)
+        {
+            OpenDCL();
+            IntPtr windowDCLMenu = WindowFromPoint(System.Windows.Forms.Cursor.Position = new Point(47, 30));//Меню - Документ
+            IntPtr firstControl = findFirstTextBox(windowDCLMenu);
+            List<TextBoxInfo> collectionTextBox = new List<TextBoxInfo>();
+            WhileNextWindow(firstControl, collectionTextBox);
+            IntPtr prevHandle = IntPtr.Zero;
+            foreach (TextBoxInfo tbi in collectionTextBox)
+            {
+                if (tbi.caption == "ООО \"СТМ\"")
+                {
+                    SetFocus(tbi.handle);
+                    keybd_event(VK_TAB, 0, 0, 0); //клавиша Tab
+                    keybd_event(VK_TAB, 0, KEYEVENTF_KEYUP, 0);
+                    SendKeys.SendWait("ГОРОД");          //работает
+                    SendKeys.Flush();
+                    //SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder("ГОРОД")); //не работает
+                    break;
+                }
+            }
+        }
+
+        private void getWindowRect_btn_Click(object sender, EventArgs e)
+        {
+            OpenDCL();
+            IntPtr windowDCLMenu = WindowFromPoint(System.Windows.Forms.Cursor.Position = new Point(47, 30));//Меню - Документ
+            RECT rct;
+
+            if (!GetWindowRect(windowDCLMenu, out rct))
+            {
+                MessageBox.Show("ERROR");
+                return;
+            }
+
+            int widthOfDCL = rct.xBottomRight - rct.xUpLeft + 1;
+            int heightOfDCL = rct.yBottomRight - rct.yUpLeft + 1;
+            label2.Text = $"Ширина: {widthOfDCL}; Высота: {heightOfDCL}. ({rct.xUpLeft},{rct.yUpLeft};{rct.xBottomRight},{rct.yBottomRight})";
         }
 
         #region native FindWindow, IsIconic, SetForegroundWindow, ShowWindow, WindowFromPoint, SetCursorPos, mouse_event, keybd_event, SendMessage, all const bytes and ints
@@ -449,7 +467,18 @@ namespace DclTestForm
 
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
         static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
-
+        
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetWindowRect(IntPtr hwnd, out RECT lpRect);
+        [StructLayout(LayoutKind.Sequential)]
+        public struct RECT
+        {
+            public int xUpLeft;        // x position of upper-left corner
+            public int yUpLeft;         // y position of upper-left corner
+            public int xBottomRight;       // x position of lower-right corner
+            public int yBottomRight;      // y position of lower-right corner
+        }
 
         public const int MOUSEEVENTF_LEFTDOWN = 0x02;
         public const int MOUSEEVENTF_LEFTUP = 0x04;
@@ -476,8 +505,6 @@ namespace DclTestForm
         public const UInt32 KEYEVENTF_KEYUP = 2;
         internal const UInt32 MF_BYCOMMAND = 0x00000000;
         internal const UInt32 MF_BYPOSITION = 0x00000400;
-        //SendMessage(Handle, EM_SETSEL, 0, -1);
-        //SendMessage(Handle, WM_CLEAR, 0, 0);
 
         public enum GetWindowType : uint
         {

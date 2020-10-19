@@ -40,21 +40,20 @@
             this.enterKey_tb = new System.Windows.Forms.TextBox();
             this.showAllTextBoxes_btn = new System.Windows.Forms.Button();
             this.controlList = new System.Windows.Forms.ListView();
-            this.nextControlMenu_lbl = new System.Windows.Forms.Label();
-            this.nextControlRight_btn = new System.Windows.Forms.Button();
             this.navigation_gb = new System.Windows.Forms.GroupBox();
             this.showOnPropGrid_btn = new System.Windows.Forms.Button();
             this.prevControlDT_btn = new System.Windows.Forms.Button();
-            this.nextControlDown_btn = new System.Windows.Forms.Button();
             this.propertyOfControl = new System.Windows.Forms.PropertyGrid();
             this.label1 = new System.Windows.Forms.Label();
-            this.findControl_btn = new System.Windows.Forms.Button();
+            this.findAndRenameNext_btn = new System.Windows.Forms.Button();
+            this.getWindowRect_btn = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.navigation_gb.SuspendLayout();
             this.SuspendLayout();
             // 
             // openDT_btn
             // 
-            this.openDT_btn.Location = new System.Drawing.Point(305, 135);
+            this.openDT_btn.Location = new System.Drawing.Point(305, 99);
             this.openDT_btn.Name = "openDT_btn";
             this.openDT_btn.Size = new System.Drawing.Size(75, 25);
             this.openDT_btn.TabIndex = 0;
@@ -64,7 +63,7 @@
             // 
             // enterKey_btn
             // 
-            this.enterKey_btn.Location = new System.Drawing.Point(305, 166);
+            this.enterKey_btn.Location = new System.Drawing.Point(305, 130);
             this.enterKey_btn.Name = "enterKey_btn";
             this.enterKey_btn.Size = new System.Drawing.Size(75, 25);
             this.enterKey_btn.TabIndex = 1;
@@ -74,7 +73,7 @@
             // 
             // doAll_btn
             // 
-            this.doAll_btn.Location = new System.Drawing.Point(305, 197);
+            this.doAll_btn.Location = new System.Drawing.Point(305, 161);
             this.doAll_btn.Name = "doAll_btn";
             this.doAll_btn.Size = new System.Drawing.Size(75, 25);
             this.doAll_btn.TabIndex = 2;
@@ -85,7 +84,7 @@
             // openDT_lbl
             // 
             this.openDT_lbl.AutoSize = true;
-            this.openDT_lbl.Location = new System.Drawing.Point(22, 141);
+            this.openDT_lbl.Location = new System.Drawing.Point(22, 105);
             this.openDT_lbl.Name = "openDT_lbl";
             this.openDT_lbl.Size = new System.Drawing.Size(70, 13);
             this.openDT_lbl.TabIndex = 3;
@@ -94,7 +93,7 @@
             // enterKey_lbl
             // 
             this.enterKey_lbl.AutoSize = true;
-            this.enterKey_lbl.Location = new System.Drawing.Point(22, 172);
+            this.enterKey_lbl.Location = new System.Drawing.Point(22, 136);
             this.enterKey_lbl.Name = "enterKey_lbl";
             this.enterKey_lbl.Size = new System.Drawing.Size(87, 13);
             this.enterKey_lbl.TabIndex = 4;
@@ -103,7 +102,7 @@
             // doAll_lbl
             // 
             this.doAll_lbl.AutoSize = true;
-            this.doAll_lbl.Location = new System.Drawing.Point(22, 203);
+            this.doAll_lbl.Location = new System.Drawing.Point(22, 167);
             this.doAll_lbl.Name = "doAll_lbl";
             this.doAll_lbl.Size = new System.Drawing.Size(84, 13);
             this.doAll_lbl.TabIndex = 5;
@@ -134,21 +133,21 @@
             this.howToOpenDT_cmb.Items.AddRange(new object[] {
             "Комбинациями клавиш",
             "Координатами"});
-            this.howToOpenDT_cmb.Location = new System.Drawing.Point(115, 138);
+            this.howToOpenDT_cmb.Location = new System.Drawing.Point(115, 102);
             this.howToOpenDT_cmb.Name = "howToOpenDT_cmb";
             this.howToOpenDT_cmb.Size = new System.Drawing.Size(184, 21);
             this.howToOpenDT_cmb.TabIndex = 9;
             // 
             // enterKey_tb
             // 
-            this.enterKey_tb.Location = new System.Drawing.Point(115, 169);
+            this.enterKey_tb.Location = new System.Drawing.Point(115, 133);
             this.enterKey_tb.Name = "enterKey_tb";
             this.enterKey_tb.Size = new System.Drawing.Size(184, 20);
             this.enterKey_tb.TabIndex = 10;
             // 
             // showAllTextBoxes_btn
             // 
-            this.showAllTextBoxes_btn.Location = new System.Drawing.Point(305, 242);
+            this.showAllTextBoxes_btn.Location = new System.Drawing.Point(103, 207);
             this.showAllTextBoxes_btn.Name = "showAllTextBoxes_btn";
             this.showAllTextBoxes_btn.Size = new System.Drawing.Size(75, 25);
             this.showAllTextBoxes_btn.TabIndex = 11;
@@ -160,45 +159,23 @@
             // 
             this.controlList.Alignment = System.Windows.Forms.ListViewAlignment.Left;
             this.controlList.HideSelection = false;
-            this.controlList.Location = new System.Drawing.Point(25, 248);
+            this.controlList.Location = new System.Drawing.Point(25, 238);
             this.controlList.Name = "controlList";
-            this.controlList.Size = new System.Drawing.Size(153, 160);
+            this.controlList.Size = new System.Drawing.Size(153, 134);
             this.controlList.TabIndex = 14;
             this.controlList.UseCompatibleStateImageBehavior = false;
             this.controlList.View = System.Windows.Forms.View.List;
             this.controlList.MouseClick += new System.Windows.Forms.MouseEventHandler(this.controlList_MouseClick);
             // 
-            // nextControlMenu_lbl
-            // 
-            this.nextControlMenu_lbl.AutoSize = true;
-            this.nextControlMenu_lbl.Location = new System.Drawing.Point(20, 60);
-            this.nextControlMenu_lbl.Name = "nextControlMenu_lbl";
-            this.nextControlMenu_lbl.Size = new System.Drawing.Size(80, 13);
-            this.nextControlMenu_lbl.TabIndex = 17;
-            this.nextControlMenu_lbl.Text = "пунктам меню";
-            // 
-            // nextControlRight_btn
-            // 
-            this.nextControlRight_btn.Location = new System.Drawing.Point(142, 54);
-            this.nextControlRight_btn.Name = "nextControlRight_btn";
-            this.nextControlRight_btn.Size = new System.Drawing.Size(36, 25);
-            this.nextControlRight_btn.TabIndex = 16;
-            this.nextControlRight_btn.Text = "→";
-            this.nextControlRight_btn.UseVisualStyleBackColor = true;
-            this.nextControlRight_btn.Click += new System.EventHandler(this.nextControlRight_btn_Click);
-            // 
             // navigation_gb
             // 
             this.navigation_gb.Controls.Add(this.showOnPropGrid_btn);
             this.navigation_gb.Controls.Add(this.prevControlDT_btn);
-            this.navigation_gb.Controls.Add(this.nextControlDown_btn);
             this.navigation_gb.Controls.Add(this.nextControlDT_btn);
-            this.navigation_gb.Controls.Add(this.nextControlMenu_lbl);
             this.navigation_gb.Controls.Add(this.nextControlDT_lbl);
-            this.navigation_gb.Controls.Add(this.nextControlRight_btn);
             this.navigation_gb.Location = new System.Drawing.Point(25, 9);
             this.navigation_gb.Name = "navigation_gb";
-            this.navigation_gb.Size = new System.Drawing.Size(355, 97);
+            this.navigation_gb.Size = new System.Drawing.Size(355, 75);
             this.navigation_gb.TabIndex = 18;
             this.navigation_gb.TabStop = false;
             this.navigation_gb.Text = "Навигация по:";
@@ -223,19 +200,9 @@
             this.prevControlDT_btn.UseVisualStyleBackColor = true;
             this.prevControlDT_btn.Click += new System.EventHandler(this.prevControlDT_btn_Click);
             // 
-            // nextControlDown_btn
-            // 
-            this.nextControlDown_btn.Location = new System.Drawing.Point(181, 54);
-            this.nextControlDown_btn.Name = "nextControlDown_btn";
-            this.nextControlDown_btn.Size = new System.Drawing.Size(36, 25);
-            this.nextControlDown_btn.TabIndex = 18;
-            this.nextControlDown_btn.Text = "↓";
-            this.nextControlDown_btn.UseVisualStyleBackColor = true;
-            this.nextControlDown_btn.Click += new System.EventHandler(this.nextControlDown_btn_Click);
-            // 
             // propertyOfControl
             // 
-            this.propertyOfControl.Location = new System.Drawing.Point(184, 279);
+            this.propertyOfControl.Location = new System.Drawing.Point(184, 243);
             this.propertyOfControl.Name = "propertyOfControl";
             this.propertyOfControl.Size = new System.Drawing.Size(196, 130);
             this.propertyOfControl.TabIndex = 19;
@@ -244,28 +211,49 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(203, 248);
+            this.label1.Location = new System.Drawing.Point(26, 218);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(72, 13);
             this.label1.TabIndex = 20;
             this.label1.Text = "Все поля ДТ";
             // 
-            // findControl_btn
+            // findAndRenameNext_btn
             // 
-            this.findControl_btn.Location = new System.Drawing.Point(305, 274);
-            this.findControl_btn.Name = "findControl_btn";
-            this.findControl_btn.Size = new System.Drawing.Size(75, 23);
-            this.findControl_btn.TabIndex = 21;
-            this.findControl_btn.Text = "Найти";
-            this.findControl_btn.UseVisualStyleBackColor = true;
-            this.findControl_btn.Click += new System.EventHandler(this.findControl_btn_Click);
+            this.findAndRenameNext_btn.Location = new System.Drawing.Point(287, 207);
+            this.findAndRenameNext_btn.Name = "findAndRenameNext_btn";
+            this.findAndRenameNext_btn.Size = new System.Drawing.Size(93, 23);
+            this.findAndRenameNext_btn.TabIndex = 22;
+            this.findAndRenameNext_btn.Text = "СТМ ->  Город";
+            this.findAndRenameNext_btn.UseVisualStyleBackColor = true;
+            this.findAndRenameNext_btn.Click += new System.EventHandler(this.findAndRenameNext_btn_Click);
+            // 
+            // getWindowRect_btn
+            // 
+            this.getWindowRect_btn.Location = new System.Drawing.Point(23, 391);
+            this.getWindowRect_btn.Name = "getWindowRect_btn";
+            this.getWindowRect_btn.Size = new System.Drawing.Size(86, 23);
+            this.getWindowRect_btn.TabIndex = 23;
+            this.getWindowRect_btn.Text = "Данные окна";
+            this.getWindowRect_btn.UseVisualStyleBackColor = true;
+            this.getWindowRect_btn.Click += new System.EventHandler(this.getWindowRect_btn_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(133, 396);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(10, 13);
+            this.label2.TabIndex = 24;
+            this.label2.Text = " ";
             // 
             // DclTestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(392, 440);
-            this.Controls.Add(this.findControl_btn);
+            this.ClientSize = new System.Drawing.Size(392, 451);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.getWindowRect_btn);
+            this.Controls.Add(this.findAndRenameNext_btn);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.propertyOfControl);
             this.Controls.Add(this.navigation_gb);
@@ -302,15 +290,14 @@
         private System.Windows.Forms.TextBox enterKey_tb;
         private System.Windows.Forms.Button showAllTextBoxes_btn;
         private System.Windows.Forms.ListView controlList;
-        private System.Windows.Forms.Label nextControlMenu_lbl;
-        private System.Windows.Forms.Button nextControlRight_btn;
         private System.Windows.Forms.GroupBox navigation_gb;
-        private System.Windows.Forms.Button nextControlDown_btn;
         private System.Windows.Forms.PropertyGrid propertyOfControl;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button prevControlDT_btn;
         private System.Windows.Forms.Button showOnPropGrid_btn;
-        private System.Windows.Forms.Button findControl_btn;
+        private System.Windows.Forms.Button findAndRenameNext_btn;
+        private System.Windows.Forms.Button getWindowRect_btn;
+        private System.Windows.Forms.Label label2;
     }
 }
 
