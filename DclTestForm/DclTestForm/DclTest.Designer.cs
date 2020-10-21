@@ -48,6 +48,8 @@
             this.findAndRenameNext_btn = new System.Windows.Forms.Button();
             this.getWindowRect_btn = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.startScript1 = new System.Windows.Forms.Button();
+            this.resultOf1 = new System.Windows.Forms.Label();
             this.navigation_gb.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -73,7 +75,7 @@
             // 
             // doAll_btn
             // 
-            this.doAll_btn.Location = new System.Drawing.Point(305, 161);
+            this.doAll_btn.Location = new System.Drawing.Point(224, 161);
             this.doAll_btn.Name = "doAll_btn";
             this.doAll_btn.Size = new System.Drawing.Size(75, 25);
             this.doAll_btn.TabIndex = 2;
@@ -219,11 +221,11 @@
             // 
             // findAndRenameNext_btn
             // 
-            this.findAndRenameNext_btn.Location = new System.Drawing.Point(287, 207);
+            this.findAndRenameNext_btn.Location = new System.Drawing.Point(305, 161);
             this.findAndRenameNext_btn.Name = "findAndRenameNext_btn";
-            this.findAndRenameNext_btn.Size = new System.Drawing.Size(93, 23);
+            this.findAndRenameNext_btn.Size = new System.Drawing.Size(75, 25);
             this.findAndRenameNext_btn.TabIndex = 22;
-            this.findAndRenameNext_btn.Text = "СТМ ->  Город";
+            this.findAndRenameNext_btn.Text = "Замена";
             this.findAndRenameNext_btn.UseVisualStyleBackColor = true;
             this.findAndRenameNext_btn.Click += new System.EventHandler(this.findAndRenameNext_btn_Click);
             // 
@@ -246,11 +248,32 @@
             this.label2.TabIndex = 24;
             this.label2.Text = " ";
             // 
+            // startScript1
+            // 
+            this.startScript1.Location = new System.Drawing.Point(453, 18);
+            this.startScript1.Name = "startScript1";
+            this.startScript1.Size = new System.Drawing.Size(92, 39);
+            this.startScript1.TabIndex = 28;
+            this.startScript1.Text = "Сценарий 1.1";
+            this.startScript1.UseVisualStyleBackColor = true;
+            this.startScript1.Click += new System.EventHandler(this.startScript1_Click);
+            // 
+            // resultOf1
+            // 
+            this.resultOf1.AutoSize = true;
+            this.resultOf1.Location = new System.Drawing.Point(409, 71);
+            this.resultOf1.Name = "resultOf1";
+            this.resultOf1.Size = new System.Drawing.Size(62, 13);
+            this.resultOf1.TabIndex = 27;
+            this.resultOf1.Text = "Результат:";
+            // 
             // DclTestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(392, 451);
+            this.ClientSize = new System.Drawing.Size(656, 451);
+            this.Controls.Add(this.startScript1);
+            this.Controls.Add(this.resultOf1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.getWindowRect_btn);
             this.Controls.Add(this.findAndRenameNext_btn);
@@ -298,6 +321,8 @@
         private System.Windows.Forms.Button findAndRenameNext_btn;
         private System.Windows.Forms.Button getWindowRect_btn;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button startScript1;
+        private System.Windows.Forms.Label resultOf1;
     }
 }
 
