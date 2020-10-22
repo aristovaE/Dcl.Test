@@ -50,6 +50,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.startScript1 = new System.Windows.Forms.Button();
             this.resultOf1 = new System.Windows.Forms.Label();
+            this.startScript2 = new System.Windows.Forms.Button();
+            this.resultOf2 = new System.Windows.Forms.Label();
+            this.resultOf3 = new System.Windows.Forms.Label();
+            this.startScript3 = new System.Windows.Forms.Button();
             this.navigation_gb.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -261,17 +265,59 @@
             // resultOf1
             // 
             this.resultOf1.AutoSize = true;
-            this.resultOf1.Location = new System.Drawing.Point(409, 71);
+            this.resultOf1.Location = new System.Drawing.Point(409, 60);
             this.resultOf1.Name = "resultOf1";
             this.resultOf1.Size = new System.Drawing.Size(62, 13);
             this.resultOf1.TabIndex = 27;
             this.resultOf1.Text = "Результат:";
             // 
+            // startScript2
+            // 
+            this.startScript2.Location = new System.Drawing.Point(453, 102);
+            this.startScript2.Name = "startScript2";
+            this.startScript2.Size = new System.Drawing.Size(92, 39);
+            this.startScript2.TabIndex = 29;
+            this.startScript2.Text = "Сценарий 1.2";
+            this.startScript2.UseVisualStyleBackColor = true;
+            this.startScript2.Click += new System.EventHandler(this.startScript2_Click);
+            // 
+            // resultOf2
+            // 
+            this.resultOf2.AutoSize = true;
+            this.resultOf2.Location = new System.Drawing.Point(409, 144);
+            this.resultOf2.Name = "resultOf2";
+            this.resultOf2.Size = new System.Drawing.Size(62, 13);
+            this.resultOf2.TabIndex = 30;
+            this.resultOf2.Text = "Результат:";
+            // 
+            // resultOf3
+            // 
+            this.resultOf3.AutoSize = true;
+            this.resultOf3.Location = new System.Drawing.Point(409, 235);
+            this.resultOf3.Name = "resultOf3";
+            this.resultOf3.Size = new System.Drawing.Size(62, 13);
+            this.resultOf3.TabIndex = 32;
+            this.resultOf3.Text = "Результат:";
+            // 
+            // startScript3
+            // 
+            this.startScript3.Location = new System.Drawing.Point(453, 192);
+            this.startScript3.Name = "startScript3";
+            this.startScript3.Size = new System.Drawing.Size(92, 39);
+            this.startScript3.TabIndex = 31;
+            this.startScript3.Text = "Сценарий 1.3";
+            this.startScript3.UseVisualStyleBackColor = true;
+            this.startScript3.Click += new System.EventHandler(this.startScript3_Click);
+            // 
             // DclTestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(656, 451);
+            this.ClientSize = new System.Drawing.Size(604, 451);
+            this.Controls.Add(this.resultOf3);
+            this.Controls.Add(this.startScript3);
+            this.Controls.Add(this.resultOf2);
+            this.Controls.Add(this.startScript2);
             this.Controls.Add(this.startScript1);
             this.Controls.Add(this.resultOf1);
             this.Controls.Add(this.label2);
@@ -323,6 +369,10 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button startScript1;
         private System.Windows.Forms.Label resultOf1;
+        private System.Windows.Forms.Button startScript2;
+        private System.Windows.Forms.Label resultOf2;
+        private System.Windows.Forms.Label resultOf3;
+        private System.Windows.Forms.Button startScript3;
     }
 }
 

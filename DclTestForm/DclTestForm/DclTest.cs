@@ -543,6 +543,7 @@ namespace DclTestForm
         const int WM_GETTEXTLENGTH = 0x000E;
         const byte VK_ALT = 0x12;
         const byte VK_L = 0x4C;
+        const byte VK_B = 0x42;
         const byte VK_D = 0x44;
         const byte VK_P = 0x50;
         const byte VK_RETURN = 0x0D;
@@ -628,8 +629,101 @@ namespace DclTestForm
             EnterShortcuts(VK_TAB);
             Thread.Sleep(2000);
             EnterShortcuts(VK_RETURN);
-            Thread.Sleep(4000);
+            Thread.Sleep(2000);
             EnterShortcuts(VK_F6);
+            //RECT rct;
+            //if (!GetWindowRect(windowDCLMenu, out rct))
+            //{
+            //    MessageBox.Show("ERROR");
+            //    return;
+            //}
+            //int widthOfDCL = rct.xBottomRight - rct.xUpLeft + 1;
+            //int heightOfDCL = rct.yBottomRight - rct.yUpLeft + 1;
+            //IntPtr windowF6 = WindowFromPoint(Cursor.Position = new Point(widthOfDCL / 2, heightOfDCL / 4)); //ПРОВЕРИТЬ ЗНАЧЕНИЯ
+            //SendMessage(windowDCLMenu, WM_MOUSEMOVE, (IntPtr)0, MakeParam(widthOfDCL / 2, heightOfDCL / 4));
+            Thread.Sleep(2000);
+            //AttachDCL(windowF6, FindWindow(null, "DclTest"));
+            //SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder("2"));
+
+            SendKeys.SendWait("2");         
+            SendKeys.Flush();
+            Thread.Sleep(1000);
+            //IntPtr mainF6 = GetWindow(windowF6, (uint)GetWindowType.GW_OWNER);
+
+            EnterShortcuts(VK_RETURN);
+            //РАЗБИТЬ ПОТОКИ А ПОТОМ СОЗДАВАТЬ НОВЫЕ ЗАНОВО?
+            //SetFocus(windowDCLMenu);
+            //Thread.Sleep(1000);
+            EnterShortcuts(VK_ESCAPE);
+            Thread.Sleep(1000);
+            EnterShortcuts(VK_F4);
+            //List<TextBoxInfo> collectionTextBox = new List<TextBoxInfo>();
+            //IntPtr windowF4 = WindowFromPoint(Cursor.Position = new Point(widthOfDCL / 2, heightOfDCL / 4)); //ПРОВЕРИТЬ ЗНАЧЕНИЯ
+            //StringBuilder ClassName = new StringBuilder(256);
+            //int nRet = GetClassName(windowF4, ClassName, ClassName.Capacity);          
+            //resultOf1.Text = ClassName.ToString();
+
+            EnterShortcuts(VK_RETURN);
+            Thread.Sleep(3000);
+            EnterShortcuts(VK_ESCAPE);
+            Thread.Sleep(1000);
+            EnterShortcuts(VK_F6);
+            Thread.Sleep(2000);
+            //windowF6 = WindowFromPoint(Cursor.Position = new Point(widthOfDCL / 2, heightOfDCL / 4)); //ПРОВЕРИТЬ ЗНАЧЕНИЯ
+            //AttachDCL(windowF6, FindWindow(null, "DclTest"));
+            //SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder("11"));
+
+            SendKeys.SendWait("11");
+            SendKeys.Flush();
+            Thread.Sleep(1000);
+            EnterShortcuts(VK_RETURN);
+            EnterShortcuts(VK_ESCAPE);
+            Thread.Sleep(1000);
+            EnterShortcuts(VK_F9);
+            Thread.Sleep(1000);
+            EnterShortcuts(VK_F6);
+            Thread.Sleep(2000);
+            //windowF6 = WindowFromPoint(Cursor.Position = new Point(widthOfDCL / 2, heightOfDCL / 4)); //ПРОВЕРИТЬ ЗНАЧЕНИЯ
+            //AttachDCL(windowF6, FindWindow(null, "DclTest"));
+            //SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder("15"));
+            
+            SendKeys.SendWait("15");
+            SendKeys.Flush();
+            Thread.Sleep(1000);
+            EnterShortcuts(VK_RETURN);
+            EnterShortcuts(VK_ESCAPE);
+            Thread.Sleep(1000);
+            EnterShortcuts(VK_F9);
+            Thread.Sleep(1000);
+            EnterShortcuts(VK_ALT, VK_L);
+            Thread.Sleep(1000);
+            EnterShortcuts(VK_P);
+            Thread.Sleep(1000);
+            EnterShortcuts(VK_RETURN); //записать на диск
+            Thread.Sleep(1000);
+            EnterShortcuts(VK_RETURN); //в формате XML
+            Thread.Sleep(1000);
+            EnterShortcuts(VK_RETURN); //да
+            Thread.Sleep(1000);
+            EnterShortcuts(VK_RETURN); //нет
+            Thread.Sleep(1000);
+            EnterShortcuts(VK_RETURN); //нет
+            Thread.Sleep(3000);
+            EnterShortcuts(VK_TAB);
+            EnterShortcuts(VK_RETURN); //нет
+            Thread.Sleep(1000);
+            resultOf1.Text += " успешно";
+        }
+
+        private void startScript2_Click(object sender, EventArgs e)
+        {
+            OpenDCL();
+            IntPtr windowDCLMenu = WindowFromPoint(System.Windows.Forms.Cursor.Position = new Point(47, 30)); //Меню - Документ
+            EnterShortcuts(VK_ALT, VK_L);
+            EnterShortcuts(VK_L);
+            EnterShortcuts(VK_B);
+            EnterShortcuts(VK_B);
+            EnterShortcuts(VK_RETURN);
             RECT rct;
             if (!GetWindowRect(windowDCLMenu, out rct))
             {
@@ -638,63 +732,57 @@ namespace DclTestForm
             }
             int widthOfDCL = rct.xBottomRight - rct.xUpLeft + 1;
             int heightOfDCL = rct.yBottomRight - rct.yUpLeft + 1;
-            IntPtr windowF6 = WindowFromPoint(Cursor.Position = new Point(widthOfDCL / 2, heightOfDCL / 4)); //ПРОВЕРИТЬ ЗНАЧЕНИЯ
-            //SendMessage(windowDCLMenu, WM_MOUSEMOVE, (IntPtr)0, MakeParam(widthOfDCL / 2, heightOfDCL / 4));
-            Thread.Sleep(2000);
-            AttachDCL(windowF6, FindWindow(null, "DclTest"));
-            SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder("2"));
+            SendMessage(windowDCLMenu, WM_MOUSEMOVE, (IntPtr)0, MakeParam(widthOfDCL / 2, heightOfDCL / 4));
             Thread.Sleep(1000);
-            //IntPtr mainF6 = GetWindow(windowF6, (uint)GetWindowType.GW_OWNER);
+            IntPtr windowChooseFile = WindowFromPoint(Cursor.Position = new Point(widthOfDCL / 2, heightOfDCL / 4)); //ПРОВЕРИТЬ ЗНАЧЕНИЯ
+            //StringBuilder ClassName = new StringBuilder(256);
+            //int nRet = GetClassName(windowChooseFile, ClassName, ClassName.Capacity);
+            //while (!GetControlText(windowChooseFile).Contains("Прочитать данные из файла"))
+            //{
+            //    windowChooseFile = GetParent(windowChooseFile);
+            //}
+            //resultOf2.Text= ClassName.ToString() + "\n"+GetControlText(windowChooseFile); 
+            //ClassName = new StringBuilder(256);
+            //nRet = GetClassName(windowChooseFile, ClassName, ClassName.Capacity);
+            while (WindowFromPoint(Cursor.Position = new Point(widthOfDCL / 2, heightOfDCL / 4))== windowChooseFile)
+            {
+                Thread.Sleep(2000);
+                resultOf2.Text = "жду закрытия окна";
+            }
+            //ClassName = new StringBuilder(256);
+            //nRet = GetClassName(GetFocus(), ClassName, ClassName.Capacity);
+            resultOf2.Text = "дождался закрытия окна";
+            //Thread.Sleep(10000);
+            //nRet = GetClassName(GetFocus(), ClassName, ClassName.Capacity);
+            //resultOf2.Text += "\n" + ClassName;
+            EnterShortcuts(VK_RETURN); //ок
+            Thread.Sleep(2000);
+            EnterShortcuts(VK_TAB);
+            EnterShortcuts(VK_RETURN); //открыть ДТ
+            EnterShortcuts(VK_ALT, VK_L);
+            EnterShortcuts(VK_P);
+            EnterShortcuts(VK_RETURN); //записать на диск
+            EnterShortcuts(VK_D);
+            EnterShortcuts(VK_D);
+            EnterShortcuts(VK_RETURN); //в формате СТМ
+            EnterShortcuts(VK_RETURN); //записать
+            EnterShortcuts(VK_RETURN); //да
+            EnterShortcuts(VK_RETURN); //ок
+            EnterShortcuts(VK_RETURN); //ок
+            resultOf2.Text = "Результат: успешно";
+        }
+        [DllImport("user32.dll", ExactSpelling = true, CharSet = CharSet.Auto)]
+        public static extern IntPtr GetParent(IntPtr hWnd);
+
+        private void startScript3_Click(object sender, EventArgs e)
+        {
+            OpenDCL();
+            IntPtr windowDCLMenu = WindowFromPoint(System.Windows.Forms.Cursor.Position = new Point(47, 30)); //Меню - Документ
+            EnterShortcuts(VK_ALT, VK_L);
+            EnterShortcuts(VK_L);
+            EnterShortcuts(VK_LEFT);
+            EnterShortcuts(VK_DOWN);
             EnterShortcuts(VK_RETURN);
-            //РАЗБИТЬ ПОТОКИ А ПОТОМ СОЗДАВАТЬ НОВЫЕ ЗАНОВО?
-            ////SetFocus(windowDCLMenu);
-            ////Thread.Sleep(1000);
-            //EnterShortcuts(VK_ESCAPE);
-            //Thread.Sleep(1000);
-            //EnterShortcuts(VK_F4);
-            //////List<TextBoxInfo> collectionTextBox = new List<TextBoxInfo>();
-            //////IntPtr windowF4 = WindowFromPoint(Cursor.Position = new Point(widthOfDCL / 2, heightOfDCL / 4)); //ПРОВЕРИТЬ ЗНАЧЕНИЯ
-            //////StringBuilder ClassName = new StringBuilder(256);
-            //////int nRet = GetClassName(windowF4, ClassName, ClassName.Capacity);          
-            //////resultOf1.Text = ClassName.ToString();
-            //EnterShortcuts(VK_RETURN);
-            //Thread.Sleep(3000);
-            //EnterShortcuts(VK_ESCAPE);
-            //Thread.Sleep(1000);
-            ////EnterShortcuts(VK_F6);
-            ////windowF6 = WindowFromPoint(Cursor.Position = new Point(widthOfDCL / 2, heightOfDCL / 4)); //ПРОВЕРИТЬ ЗНАЧЕНИЯ
-            ////AttachDCL(windowF6, FindWindow(null, "DclTest"));
-            ////SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder("11"));
-            ////Thread.Sleep(1000);
-
-            ////EnterShortcuts(VK_RETURN);
-            ////EnterShortcuts(VK_ESCAPE);
-            ////Thread.Sleep(1000);
-            ////EnterShortcuts(VK_F9);
-            ////Thread.Sleep(1000);
-
-            ////EnterShortcuts(VK_F6);
-            ////windowF6 = WindowFromPoint(Cursor.Position = new Point(widthOfDCL / 2, heightOfDCL / 4)); //ПРОВЕРИТЬ ЗНАЧЕНИЯ
-            ////AttachDCL(windowF6, FindWindow(null, "DclTest"));
-            ////SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder("15"));
-            ////Thread.Sleep(1000);
-            ////EnterShortcuts(VK_RETURN);
-            ////EnterShortcuts(VK_ESCAPE);
-            ////Thread.Sleep(1000);
-            ////EnterShortcuts(VK_F9);
-            ////Thread.Sleep(1000);
-            ////EnterShortcuts(VK_ALT, VK_L);
-            ////Thread.Sleep(1000);
-            ////EnterShortcuts(VK_P);
-            ////Thread.Sleep(1000);
-            ////EnterShortcuts(VK_RETURN); //записать на диск
-            ////Thread.Sleep(1000);
-            ////EnterShortcuts(VK_RETURN); //в формате XML
-            ////Thread.Sleep(1000);
-            ////EnterShortcuts(VK_RETURN); //да
-            ////Thread.Sleep(1000);
-            ////EnterShortcuts(VK_RETURN); //нет
-            ////Thread.Sleep(1000);
 
         }
     }
