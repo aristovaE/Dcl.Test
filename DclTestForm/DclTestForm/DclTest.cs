@@ -771,8 +771,7 @@ namespace DclTestForm
             EnterShortcuts(VK_RETURN); //ок
             resultOf2.Text = "Результат: успешно";
         }
-        [DllImport("user32.dll", ExactSpelling = true, CharSet = CharSet.Auto)]
-        public static extern IntPtr GetParent(IntPtr hWnd);
+
 
         private void startScript3_Click(object sender, EventArgs e)
         {
@@ -784,6 +783,14 @@ namespace DclTestForm
             EnterShortcuts(VK_DOWN);
             EnterShortcuts(VK_RETURN);
 
+        }
+
+        private void startScript4_btn_Click(object sender, EventArgs e)
+        {
+            //открытие
+            //alt+l, y, l, 6 tab, arrowUp,enter, arrowDown, enter, arrowDown, enter, enter
+
+            //
         }
     }
 }
