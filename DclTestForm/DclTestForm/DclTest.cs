@@ -564,6 +564,7 @@ namespace DclTestForm
         const byte VK_F9 = 0x78;
         const byte VK_TAB = 0x9;
         const byte VK_SHIFT = 0x10;
+        const byte VK_SPACE = 0x20;
         const int EM_SETSEL = 0x00B1;
         const int WM_CLEAR = 0x0303;
         public const UInt32 KEYEVENTF_EXTENDEDKEY = 1;
@@ -653,16 +654,13 @@ namespace DclTestForm
             AttachDCL(windowF6, testWindow);
             SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder("2"));
             DisAttachDCL(windowF6, testWindow);
+            Thread.Sleep(1000);
             //SendKeys.SendWait("2");         
             //SendKeys.Flush();
-            Thread.Sleep(1000);
-            //IntPtr mainF6 = GetWindow(windowF6, (uint)GetWindowType.GW_OWNER);
-
             EnterShortcuts(VK_RETURN);
             //РАЗБИТЬ ПОТОКИ А ПОТОМ СОЗДАВАТЬ НОВЫЕ ЗАНОВО?
             //SetFocus(windowDCLMenu);
             //Thread.Sleep(1000);
-            EnterShortcuts(VK_ESCAPE);
             Thread.Sleep(1000);
             EnterShortcuts(VK_F4);
             //List<TextBoxInfo> collectionTextBox = new List<TextBoxInfo>();
@@ -673,7 +671,6 @@ namespace DclTestForm
 
             EnterShortcuts(VK_RETURN);
             Thread.Sleep(3000);
-            EnterShortcuts(VK_ESCAPE);
             Thread.Sleep(1000);
             EnterShortcuts(VK_F6);
             Thread.Sleep(2000);
@@ -788,13 +785,45 @@ namespace DclTestForm
         private void startScript3_Click(object sender, EventArgs e)
         {
             OpenDCL();
-            IntPtr windowDCLMenu = WindowFromPoint(System.Windows.Forms.Cursor.Position = new Point(47, 30)); //Меню - Документ
+            //IntPtr windowDCLMenu = WindowFromPoint(System.Windows.Forms.Cursor.Position = new Point(47, 30)); //Меню - Документ
             EnterShortcuts(VK_ALT, VK_L);
             EnterShortcuts(VK_L);
             EnterShortcuts(VK_LEFT);
             EnterShortcuts(VK_DOWN);
             EnterShortcuts(VK_RETURN);
+            EnterShortcuts(VK_RETURN);
+            for (int i = 0; i < 4; i++)
+            {
+                EnterShortcuts(VK_TAB);
+            }
+            //EnterShortcuts(VK_TAB); //БЕЗ ФОРМАЛИЗОВАННЫХ ДОКУМЕНТОВ
+            //EnterShortcuts(VK_TAB);
+            //EnterShortcuts(VK_SPACE);
+            EnterShortcuts(VK_RETURN);
 
+            Thread.Sleep(2000);
+            EnterShortcuts(VK_RETURN);
+            resultOf3.Text += " запись во внешний архив - успешно";
+            Thread.Sleep(2000);
+            EnterShortcuts(VK_ALT, VK_L);
+            EnterShortcuts(VK_L);
+            EnterShortcuts(VK_LEFT);
+            EnterShortcuts(VK_DOWN);
+            EnterShortcuts(VK_DOWN);
+            EnterShortcuts(VK_DOWN);
+            EnterShortcuts(VK_RETURN);
+            Thread.Sleep(1000);
+            EnterShortcuts(VK_RETURN);
+            for (int i = 0; i < 4; i++)
+            {
+                EnterShortcuts(VK_TAB);
+            }
+            EnterShortcuts(VK_RETURN);
+
+            Thread.Sleep(2000);
+            EnterShortcuts(VK_TAB);
+            EnterShortcuts(VK_RETURN);
+            resultOf3.Text += "\n чтение из внешнего архива - успешно";
         }
 
         private void startScript4_btn_Click(object sender, EventArgs e)
@@ -812,14 +841,17 @@ namespace DclTestForm
             }
             EnterShortcuts(VK_UP);
             EnterShortcuts(VK_RETURN);
+            Thread.Sleep(2000);
             EnterShortcuts(VK_DOWN);
             EnterShortcuts(VK_RETURN);
+            Thread.Sleep(2000);
             EnterShortcuts(VK_DOWN);
             EnterShortcuts(VK_RETURN);
             EnterShortcuts(VK_RETURN);
             // f6, 2, f4, ?enter?, 7, 8, 9, 14, 11, 15, 17, 18, 19, 20, 22, 24, 29, 30
 
             EnterShortcuts(VK_F6);
+            Thread.Sleep(2000);
             RECT rct;
             if (!GetWindowRect(windowDCLMenu, out rct))
             {
@@ -833,6 +865,9 @@ namespace DclTestForm
             SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder("2"));
             DisAttachDCL(windowF6, FindWindow(null, "DclTest"));
             EnterShortcuts(VK_RETURN);
+            EnterShortcuts(VK_RETURN);
+            EnterShortcuts(VK_F4);
+            EnterShortcuts(VK_DOWN);
             EnterShortcuts(VK_RETURN);
         }
     }
