@@ -48,7 +48,7 @@ namespace DclTestForm
 
         private void enterKey_btn_Click(object sender, EventArgs e)
         {
-            OpenDCL();
+            OpenDCLWithAttach();
             //byte[] byteToString = Encoding.GetEncoding(1251).GetBytes(enterKey_tb.Text);  //не работает для букв
             //foreach (byte key in byteToString)
             //    EnterKey(key);
@@ -114,6 +114,12 @@ namespace DclTestForm
             uint ThreadID1 = GetWindowThreadProcessId(first, out uint id);
             uint ThreadID2 = GetWindowThreadProcessId(second, out uint idd);
             AttachThreadInput(ThreadID1, ThreadID2, true);
+        }
+         private static void DisAttachDCL(IntPtr first, IntPtr second)
+        {
+            uint ThreadID1 = GetWindowThreadProcessId(first, out uint id);
+            uint ThreadID2 = GetWindowThreadProcessId(second, out uint idd);
+            AttachThreadInput(ThreadID1, ThreadID2, false);
         }
         /// <summary>
         /// Открытие меню - Документ (sendMessage)
@@ -330,7 +336,7 @@ namespace DclTestForm
             {
                 TextBoxInfo tbi = (TextBoxInfo)controlList.SelectedItems[0].Tag;
                 propertyOfControl.SelectedObject = tbi;
-                OpenDCL();
+                OpenDCLWithAttach();
                 IntPtr windowDCLMenu = WindowFromPoint(System.Windows.Forms.Cursor.Position = new Point(47, 30));//Меню - Документ
                 IntPtr firstControl = findFirstTextBox(windowDCLMenu);
                 List<TextBoxInfo> collectionTextBox = new List<TextBoxInfo>();
@@ -546,6 +552,7 @@ namespace DclTestForm
         const byte VK_B = 0x42;
         const byte VK_D = 0x44;
         const byte VK_P = 0x50;
+        const byte VK_Y = 0x59;
         const byte VK_RETURN = 0x0D;
         const byte VK_ESCAPE = 0x1B;
         const byte VK_LEFT = 0x25;
@@ -619,6 +626,7 @@ namespace DclTestForm
 
         private void startScript1_Click(object sender, EventArgs e)
         {
+            IntPtr testWindow = GetFocus();
             OpenDCL();
             //OpenDCLWithAttach();
             IntPtr windowDCLMenu = WindowFromPoint(System.Windows.Forms.Cursor.Position = new Point(47, 30)); //Меню - Документ
@@ -631,22 +639,22 @@ namespace DclTestForm
             EnterShortcuts(VK_RETURN);
             Thread.Sleep(2000);
             EnterShortcuts(VK_F6);
-            //RECT rct;
-            //if (!GetWindowRect(windowDCLMenu, out rct))
-            //{
-            //    MessageBox.Show("ERROR");
-            //    return;
-            //}
-            //int widthOfDCL = rct.xBottomRight - rct.xUpLeft + 1;
-            //int heightOfDCL = rct.yBottomRight - rct.yUpLeft + 1;
-            //IntPtr windowF6 = WindowFromPoint(Cursor.Position = new Point(widthOfDCL / 2, heightOfDCL / 4)); //ПРОВЕРИТЬ ЗНАЧЕНИЯ
+            RECT rct;
+            if (!GetWindowRect(windowDCLMenu, out rct))
+            {
+                MessageBox.Show("ERROR");
+                return;
+            }
+            int widthOfDCL = rct.xBottomRight - rct.xUpLeft + 1;
+            int heightOfDCL = rct.yBottomRight - rct.yUpLeft + 1;
+            IntPtr windowF6 = WindowFromPoint(Cursor.Position = new Point(widthOfDCL / 2, heightOfDCL / 4)); //ПРОВЕРИТЬ ЗНАЧЕНИЯ
             //SendMessage(windowDCLMenu, WM_MOUSEMOVE, (IntPtr)0, MakeParam(widthOfDCL / 2, heightOfDCL / 4));
             Thread.Sleep(2000);
-            //AttachDCL(windowF6, FindWindow(null, "DclTest"));
-            //SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder("2"));
-
-            SendKeys.SendWait("2");         
-            SendKeys.Flush();
+            AttachDCL(windowF6, testWindow);
+            SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder("2"));
+            DisAttachDCL(windowF6, testWindow);
+            //SendKeys.SendWait("2");         
+            //SendKeys.Flush();
             Thread.Sleep(1000);
             //IntPtr mainF6 = GetWindow(windowF6, (uint)GetWindowType.GW_OWNER);
 
@@ -673,11 +681,12 @@ namespace DclTestForm
             //AttachDCL(windowF6, FindWindow(null, "DclTest"));
             //SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder("11"));
 
-            SendKeys.SendWait("11");
-            SendKeys.Flush();
+            AttachDCL(windowF6, testWindow);
+            SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder("11"));
+            DisAttachDCL(windowF6, testWindow);
             Thread.Sleep(1000);
             EnterShortcuts(VK_RETURN);
-            EnterShortcuts(VK_ESCAPE);
+            //EnterShortcuts(VK_ESCAPE);
             Thread.Sleep(1000);
             EnterShortcuts(VK_F9);
             Thread.Sleep(1000);
@@ -686,12 +695,15 @@ namespace DclTestForm
             //windowF6 = WindowFromPoint(Cursor.Position = new Point(widthOfDCL / 2, heightOfDCL / 4)); //ПРОВЕРИТЬ ЗНАЧЕНИЯ
             //AttachDCL(windowF6, FindWindow(null, "DclTest"));
             //SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder("15"));
-            
-            SendKeys.SendWait("15");
-            SendKeys.Flush();
+
+            //SendKeys.SendWait("15");
+            //SendKeys.Flush();
+            AttachDCL(windowF6, testWindow);
+            SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder("15"));
+            DisAttachDCL(windowF6, testWindow); 
             Thread.Sleep(1000);
             EnterShortcuts(VK_RETURN);
-            EnterShortcuts(VK_ESCAPE);
+            //EnterShortcuts(VK_ESCAPE);
             Thread.Sleep(1000);
             EnterShortcuts(VK_F9);
             Thread.Sleep(1000);
@@ -787,10 +799,41 @@ namespace DclTestForm
 
         private void startScript4_btn_Click(object sender, EventArgs e)
         {
-            //открытие
+            //открытие "С чистого листа"
             //alt+l, y, l, 6 tab, arrowUp,enter, arrowDown, enter, arrowDown, enter, enter
+            OpenDCL();
+            IntPtr windowDCLMenu = WindowFromPoint(System.Windows.Forms.Cursor.Position = new Point(47, 30)); //Меню - Документ
+            EnterShortcuts(VK_ALT, VK_L);
+            EnterShortcuts(VK_Y);
+            EnterShortcuts(VK_L);
+            for(int i = 0; i < 6; i++)
+            {
+                EnterShortcuts(VK_TAB);
+            }
+            EnterShortcuts(VK_UP);
+            EnterShortcuts(VK_RETURN);
+            EnterShortcuts(VK_DOWN);
+            EnterShortcuts(VK_RETURN);
+            EnterShortcuts(VK_DOWN);
+            EnterShortcuts(VK_RETURN);
+            EnterShortcuts(VK_RETURN);
+            // f6, 2, f4, ?enter?, 7, 8, 9, 14, 11, 15, 17, 18, 19, 20, 22, 24, 29, 30
 
-            //
+            EnterShortcuts(VK_F6);
+            RECT rct;
+            if (!GetWindowRect(windowDCLMenu, out rct))
+            {
+                MessageBox.Show("ERROR");
+                return;
+            }
+            int widthOfDCL = rct.xBottomRight - rct.xUpLeft + 1;
+            int heightOfDCL = rct.yBottomRight - rct.yUpLeft + 1;
+            IntPtr windowF6 = WindowFromPoint(Cursor.Position = new Point(widthOfDCL / 2, heightOfDCL / 4)); //ПРОВЕРИТЬ ЗНАЧЕНИЯ
+            AttachDCL(windowF6, FindWindow(null, "DclTest"));
+            SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder("2"));
+            DisAttachDCL(windowF6, FindWindow(null, "DclTest"));
+            EnterShortcuts(VK_RETURN);
+            EnterShortcuts(VK_RETURN);
         }
     }
 }
