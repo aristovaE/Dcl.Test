@@ -640,15 +640,7 @@ namespace DclTestForm
             EnterShortcuts(VK_RETURN);
             Thread.Sleep(2000);
             EnterShortcuts(VK_F6);
-            RECT rct;
-            if (!GetWindowRect(windowDCLMenu, out rct))
-            {
-                MessageBox.Show("ERROR");
-                return;
-            }
-            int widthOfDCL = rct.xBottomRight - rct.xUpLeft + 1;
-            int heightOfDCL = rct.yBottomRight - rct.yUpLeft + 1;
-            IntPtr windowF6 = WindowFromPoint(Cursor.Position = new Point(widthOfDCL / 2, heightOfDCL / 4)); //ПРОВЕРИТЬ ЗНАЧЕНИЯ
+            IntPtr windowF6 = GetWindowF6(windowDCLMenu);
             //SendMessage(windowDCLMenu, WM_MOUSEMOVE, (IntPtr)0, MakeParam(widthOfDCL / 2, heightOfDCL / 4));
             Thread.Sleep(2000);
             AttachDCL(windowF6, testWindow);
@@ -841,26 +833,17 @@ namespace DclTestForm
             }
             EnterShortcuts(VK_UP);
             EnterShortcuts(VK_RETURN);
-            Thread.Sleep(2000);
             EnterShortcuts(VK_DOWN);
             EnterShortcuts(VK_RETURN);
-            Thread.Sleep(2000);
+            //Thread.Sleep(2000);
             EnterShortcuts(VK_DOWN);
             EnterShortcuts(VK_RETURN);
             EnterShortcuts(VK_RETURN);
-            // f6, 2, f4, ?enter?, 7, 8, 9, 14, 11, 15, 17, 18, 19, 20, 22, 24, 29, 30
+            // f6, 2, f4, ?enter?, 7, второй вариант ВТД (?), 8, f4, иностранная фирма, 9, f9, "см. графу 14", 14, f9, "Реквизиты из графы 2(8)", 11, f9, 15, f9, 17, f9, 18, f5, right, f4, "10", 2right, "FLORA", 4right, f4, "Россия", 19, 20, 22, 24, 29, 30
 
             EnterShortcuts(VK_F6);
             Thread.Sleep(2000);
-            RECT rct;
-            if (!GetWindowRect(windowDCLMenu, out rct))
-            {
-                MessageBox.Show("ERROR");
-                return;
-            }
-            int widthOfDCL = rct.xBottomRight - rct.xUpLeft + 1;
-            int heightOfDCL = rct.yBottomRight - rct.yUpLeft + 1;
-            IntPtr windowF6 = WindowFromPoint(Cursor.Position = new Point(widthOfDCL / 2, heightOfDCL / 4)); //ПРОВЕРИТЬ ЗНАЧЕНИЯ
+            IntPtr windowF6 = GetWindowF6(windowDCLMenu);
             AttachDCL(windowF6, FindWindow(null, "DclTest"));
             SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder("2"));
             DisAttachDCL(windowF6, FindWindow(null, "DclTest"));
@@ -869,6 +852,21 @@ namespace DclTestForm
             EnterShortcuts(VK_F4);
             EnterShortcuts(VK_DOWN);
             EnterShortcuts(VK_RETURN);
+
+
+        }
+
+        private IntPtr GetWindowF6(IntPtr windowDCL)
+        {
+            RECT rct;
+            if (!GetWindowRect(windowDCL, out rct))
+            {
+                MessageBox.Show("ERROR");
+            }
+            int widthOfDCL = rct.xBottomRight - rct.xUpLeft + 1;
+            int heightOfDCL = rct.yBottomRight - rct.yUpLeft + 1;
+            IntPtr windowF6 = WindowFromPoint(Cursor.Position = new Point(widthOfDCL / 2, heightOfDCL / 4)); //ПРОВЕРИТЬ ЗНАЧЕНИЯ
+            return windowF6;
         }
     }
 }
