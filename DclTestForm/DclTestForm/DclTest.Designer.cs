@@ -56,6 +56,7 @@
             this.startScript3_btn = new System.Windows.Forms.Button();
             this.resultOf4 = new System.Windows.Forms.Label();
             this.startScript4_btn = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             this.navigation_gb.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -330,11 +331,21 @@
             this.startScript4_btn.UseVisualStyleBackColor = true;
             this.startScript4_btn.Click += new System.EventHandler(this.startScript4_btn_Click);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(541, 149);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(35, 13);
+            this.label3.TabIndex = 35;
+            this.label3.Text = "label3";
+            // 
             // DclTestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(657, 436);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.resultOf4);
             this.Controls.Add(this.startScript4_btn);
             this.Controls.Add(this.resultOf3);
@@ -398,6 +409,7 @@
         private System.Windows.Forms.Button startScript3_btn;
         private System.Windows.Forms.Label resultOf4;
         private System.Windows.Forms.Button startScript4_btn;
+        private System.Windows.Forms.Label label3;
     }
 }
 
