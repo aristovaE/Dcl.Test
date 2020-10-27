@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -52,7 +53,6 @@ namespace DclTestForm
             //    EnterKey(key);
             StringBuilder sb = new StringBuilder(enterKey_tb.Text);
             SendMessage(GetFocus(), WM_SETTEXT, 0, sb);
-            label3.Text = GetFocus().ToString();
             //SendKeys.SendWait(enterKey_tb.Text);          //работает
             //SendKeys.Flush();
 
@@ -999,6 +999,71 @@ namespace DclTestForm
             //IntPtr windowF4 = WindowFromPoint(Cursor.Position = new Point(widthOfDCL / 3, heightOfDCL / 3.2)); //ПРОВЕРИТЬ ЗНАЧЕНИЯ
             SendMessage(windowDCL, WM_MOUSEMOVE, (IntPtr)0, MakeParam(widthOfDCL / 3, (heightOfDCL / 4)+40));
             DoMouseLeftClick(widthOfDCL / 3, (heightOfDCL / 4) + 40);
+        }
+
+        private void chooseScript_btn_Click(object sender, EventArgs e)
+        {
+            IntPtr windowDCL;
+            if (openFileScript.ShowDialog() == DialogResult.Cancel)
+                return;
+           string strmas = File.ReadAllText(openFileScript.FileName);
+           String[] words = strmas.Split(new char[] { '\r','\n' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (string command in words)
+            {
+                switch(command)
+                {
+                    case "01":
+                        OpenDCL();
+                        windowDCL = WindowFromPoint(System.Windows.Forms.Cursor.Position = new Point(47, 30)); //Меню - Документ
+                        break;
+                   
+                    case "02":
+                        EnterShortcuts(VK_ALT, VK_L);
+                        break;
+                    case "03":
+                        EnterShortcuts(VK_L);
+                        break;
+                    //case "04":
+                    //    OpenDCL();
+                        //break;
+                    case "05":
+                        EnterShortcuts(VK_RETURN);
+                        break;
+                    case "06":
+                        EnterShortcuts(VK_TAB);
+                        break;
+                    //case "07":
+                        //string numberField = command.Trim(new char[] { '0','7', '(', ')' });
+                        //FindField(numberField);
+                        //break;
+                    case "08":
+                        
+                        EnterShortcuts(VK_F4);
+                        break;
+                    case "09":
+                        EnterShortcuts(VK_F9);
+                        break;
+                    case "10":
+                        EnterShortcuts(VK_P);
+                        break;
+                    case "11":
+                        OpenDCL();
+                        break;
+                    case "12":
+                        Thread.Sleep(1000);
+                        break;
+                    case "13":
+                        EnterShortcuts(VK_DOWN);
+                        break;
+
+                }
+                
+                if (command.Contains("07"))
+                {
+                    string numberField = command.Trim(new char[] { '-', '0','7' });
+                    FindField(numberField);
+                }
+            }           
         }
     }
 }
