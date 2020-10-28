@@ -1020,38 +1020,46 @@ namespace DclTestForm
                     case "02":
                         EnterShortcuts(VK_ALT, VK_L);
                         break;
+
                     case "03":
                         EnterShortcuts(VK_L);
                         break;
-                    //case "04":
-                    //    OpenDCL();
-                        //break;
+
+                    case "04":
+                        AttachDCL(FindWindow(null, "ВЭД-Декларант"), FindWindow(null, "DclTest"));
+                        SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder("Россия"));
+                        DisAttachDCL(FindWindow(null, "ВЭД-Декларант"), FindWindow(null, "DclTest"));
+                        break;
+
                     case "05":
                         EnterShortcuts(VK_RETURN);
                         break;
+
                     case "06":
                         EnterShortcuts(VK_TAB);
                         break;
-                    //case "07":
-                        //string numberField = command.Trim(new char[] { '0','7', '(', ')' });
-                        //FindField(numberField);
-                        //break;
+
+                    //case "07": КОМАНДА С ПАРАМЕТРОМ
+
                     case "08":
                         
                         EnterShortcuts(VK_F4);
                         break;
+
                     case "09":
                         EnterShortcuts(VK_F9);
                         break;
+
                     case "10":
                         EnterShortcuts(VK_P);
                         break;
+
                     case "11":
                         OpenDCL();
                         break;
-                    case "12":
-                        Thread.Sleep(1000);
-                        break;
+
+                    //case "12": КОМАНДА С ПАРАМЕТРОМ
+
                     case "13":
                         EnterShortcuts(VK_DOWN);
                         break;
@@ -1060,8 +1068,13 @@ namespace DclTestForm
                 
                 if (command.Contains("07"))
                 {
-                    string numberField = command.Trim(new char[] { '-', '0','7' });
+                    string numberField = command.Substring(3, command.Length - 3);
                     FindField(numberField);
+                }
+                if (command.Contains("12"))
+                {
+                    int secondsToSleep = Int32.Parse(command.Substring(3, command.Length - 3));
+                    Thread.Sleep(1000 * secondsToSleep);
                 }
             }           
         }
