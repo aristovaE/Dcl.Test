@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -956,6 +957,7 @@ namespace DclTestForm
             AttachDCL(windowF6, FindWindow(null, "DclTest"));
             SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder(numberOfField));
             DisAttachDCL(windowF6, FindWindow(null, "DclTest"));
+            Thread.Sleep(1000);
             EnterShortcuts(VK_RETURN);
         }
         private IntPtr GetWindowFX(IntPtr windowDCL)
@@ -988,7 +990,7 @@ namespace DclTestForm
         }
         private void GetNewWindow(IntPtr windowDCL)
         {
-            
+
             RECT rct;
             if (!GetWindowRect(windowDCL, out rct))
             {
@@ -997,13 +999,29 @@ namespace DclTestForm
             int widthOfDCL = rct.xBottomRight - rct.xUpLeft + 1;
             int heightOfDCL = rct.yBottomRight - rct.yUpLeft + 1;
             //IntPtr windowF4 = WindowFromPoint(Cursor.Position = new Point(widthOfDCL / 3, heightOfDCL / 3.2)); //ПРОВЕРИТЬ ЗНАЧЕНИЯ
-            SendMessage(windowDCL, WM_MOUSEMOVE, (IntPtr)0, MakeParam(widthOfDCL / 3, (heightOfDCL / 4)+40));
+            SendMessage(windowDCL, WM_MOUSEMOVE, (IntPtr)0, MakeParam(widthOfDCL / 3, (heightOfDCL / 4) + 40));
             DoMouseLeftClick(widthOfDCL / 3, (heightOfDCL / 4) + 40);
+        }
+        private void EnterText(IntPtr windowDCL, string strToEnter)
+        {
+            uint ThreadID1 = GetWindowThreadProcessId(GetForegroundWindow(), out uint id);
+            uint ThreadID2 = GetWindowThreadProcessId(windowDCL, out uint idd);
+            AttachThreadInput(ThreadID1, ThreadID2, true);
+            if (IsIconic(windowDCL))
+            {
+                ShowWindow(windowDCL, 9); //9 - restore
+            }
+            else
+            {
+                SetForegroundWindow(windowDCL);
+            }
+            SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder(strToEnter));
+            AttachThreadInput(ThreadID1, ThreadID2, false);
         }
 
         private void chooseScript_btn_Click(object sender, EventArgs e)
         {
-            IntPtr windowDCL;
+            IntPtr windowDCL = FindWindow(null, "ВЭД-Декларант"); //Меню - Документ, windowToText;
             if (openFileScript.ShowDialog() == DialogResult.Cancel)
                 return;
            string strmas = File.ReadAllText(openFileScript.FileName);
@@ -1014,7 +1032,7 @@ namespace DclTestForm
                 {
                     case "01":
                         OpenDCL();
-                        windowDCL = WindowFromPoint(System.Windows.Forms.Cursor.Position = new Point(47, 30)); //Меню - Документ
+                        
                         break;
                    
                     case "02":
@@ -1025,12 +1043,8 @@ namespace DclTestForm
                         EnterShortcuts(VK_L);
                         break;
 
-                    case "04":
-                        AttachDCL(FindWindow(null, "ВЭД-Декларант"), FindWindow(null, "DclTest"));
-                        SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder("Россия"));
-                        DisAttachDCL(FindWindow(null, "ВЭД-Декларант"), FindWindow(null, "DclTest"));
-                        break;
-
+                    //case "04": КОМАНДА С ПАРАМЕТРОМ 
+                        
                     case "05":
                         EnterShortcuts(VK_RETURN);
                         break;
@@ -1042,7 +1056,6 @@ namespace DclTestForm
                     //case "07": КОМАНДА С ПАРАМЕТРОМ
 
                     case "08":
-                        
                         EnterShortcuts(VK_F4);
                         break;
 
@@ -1064,8 +1077,17 @@ namespace DclTestForm
                         EnterShortcuts(VK_DOWN);
                         break;
 
+                    case "14":
+                        EnterShortcuts(VK_F5);
+                        break;
+
+                    case "15":
+                        EnterShortcuts(VK_RIGHT);
+                        break;
+
                 }
                 
+                //заменить contains на обрезку первых двух знаков?
                 if (command.Contains("07"))
                 {
                     string numberField = command.Substring(3, command.Length - 3);
@@ -1076,7 +1098,13 @@ namespace DclTestForm
                     int secondsToSleep = Int32.Parse(command.Substring(3, command.Length - 3));
                     Thread.Sleep(1000 * secondsToSleep);
                 }
-            }           
+                if (command.Contains("04"))
+                {
+                    string strToEnter = command.Substring(3, command.Length - 3);
+                    EnterText(windowDCL, strToEnter);
+                }
+            } 
+            
         }
     }
 }
