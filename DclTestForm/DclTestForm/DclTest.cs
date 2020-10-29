@@ -552,6 +552,7 @@ namespace DclTestForm
         const byte VK_ALT = 0x12;
         const byte VK_L = 0x4C;
         const byte VK_B = 0x42;
+        const byte VK_C = 0x43;
         const byte VK_D = 0x44;
         const byte VK_P = 0x50;
         const byte VK_Y = 0x59;
@@ -644,7 +645,7 @@ namespace DclTestForm
             EnterShortcuts(VK_RETURN);
             Thread.Sleep(2000);
             EnterShortcuts(VK_F6);
-            IntPtr windowF6 = GetWindowFX(windowDCLMenu);
+            IntPtr windowF6 = GetForegroundWindow();
            
             Thread.Sleep(2000);
             AttachDCL(windowF6, testWindow);
@@ -796,168 +797,200 @@ namespace DclTestForm
 
         private void startScript4_btn_Click(object sender, EventArgs e)
         {
-            ////открытие "С чистого листа"
-            ////alt+l, y, l, 6 tab, arrowUp,enter, arrowDown, enter, arrowDown, enter, enter
+            //////открытие "С чистого листа"
+            //////alt+l, y, l, 6 tab, arrowUp,enter, arrowDown, enter, arrowDown, enter, enter
             OpenDCL();
             IntPtr windowDCL = WindowFromPoint(System.Windows.Forms.Cursor.Position = new Point(47, 30)); //Меню - Документ
-            EnterShortcuts(VK_ALT, VK_L);
-            EnterShortcuts(VK_Y);
-            EnterShortcuts(VK_L);
-            for (int i = 0; i < 6; i++)
-            {
-                EnterShortcuts(VK_TAB);
-            }
-            EnterShortcuts(VK_UP);
-            EnterShortcuts(VK_RETURN);
-
-            GetNewWindow(windowDCL);
-            //EnterShortcuts(VK_DOWN);
+            //EnterShortcuts(VK_ALT, VK_L);
+            //EnterShortcuts(VK_Y);
+            //EnterShortcuts(VK_L);
+            //for (int i = 0; i < 6; i++)
+            //{
+            //    EnterShortcuts(VK_TAB);
+            //}
+            //EnterShortcuts(VK_UP);
             //EnterShortcuts(VK_RETURN);
-            //Thread.Sleep(1000);
-            //EnterShortcuts(VK_DOWN);
+
+            //GetNewWindow(windowDCL);
+            ////EnterShortcuts(VK_DOWN);
+            ////EnterShortcuts(VK_RETURN);
+            ////Thread.Sleep(1000);
+            ////EnterShortcuts(VK_DOWN);
+            ////EnterShortcuts(VK_RETURN);
+            ////EnterShortcuts(VK_RETURN);
+            //// f6, 2, f4, ?enter?, 7, второй вариант ВТД (?), 8, f4, иностранная фирма, 9, f9, "см. графу 14", 14, f9, 
+            ////"Реквизиты из графы 2(8)", 11, f9, 15, f9, 17, f9, 18, f5, right, 
+            ////f4, "10", 2right, "FLORA", 4right, f4, "Россия", 
+
+            //FindField("2");
             //EnterShortcuts(VK_RETURN);
+
+            //EnterShortcuts(VK_F4);
             //EnterShortcuts(VK_RETURN);
-            // f6, 2, f4, ?enter?, 7, второй вариант ВТД (?), 8, f4, иностранная фирма, 9, f9, "см. графу 14", 14, f9, 
-            //"Реквизиты из графы 2(8)", 11, f9, 15, f9, 17, f9, 18, f5, right, 
-            //f4, "10", 2right, "FLORA", 4right, f4, "Россия", 
 
-            FindField("2");
-            EnterShortcuts(VK_RETURN);
+            //FindField("7");
 
-            EnterShortcuts(VK_F4);
-            EnterShortcuts(VK_RETURN);
+            //EnterInTheF4(windowDCL, "ВТД");
 
-            FindField("7");
+            //FindField("8");
+            //EnterShortcuts(VK_F4);
+            //EnterShortcuts(VK_RETURN); // проверка что фирма иностранная!!!
 
-            EnterInTheF4(windowDCL, "ВТД");
+            //FindField("9");
+            //EnterShortcuts(VK_F9);
+            //EnterShortcuts(VK_RETURN);
 
-            FindField("8");
-            EnterShortcuts(VK_F4);
-            EnterShortcuts(VK_RETURN); // проверка что фирма иностранная!!!
+            //FindField("14");
+            //EnterShortcuts(VK_F9);
+            //EnterShortcuts(VK_RETURN);
 
-            FindField("9");
-            EnterShortcuts(VK_F9);
-            EnterShortcuts(VK_RETURN);
+            //FindField("11");
+            //EnterShortcuts(VK_F9);
+            //EnterShortcuts(VK_RETURN);
 
-            FindField("14");
-            EnterShortcuts(VK_F9);
-            EnterShortcuts(VK_RETURN);
+            //FindField("15");
+            //EnterShortcuts(VK_F9);
+            //EnterShortcuts(VK_RETURN);
 
-            FindField("11");
-            EnterShortcuts(VK_F9);
-            EnterShortcuts(VK_RETURN);
-
-            FindField("15");
-            EnterShortcuts(VK_F9);
-            EnterShortcuts(VK_RETURN);
-
-            FindField("17");
-            EnterShortcuts(VK_F9);
-            EnterShortcuts(VK_RETURN);
+            //FindField("17");
+            //EnterShortcuts(VK_F9);
+            //EnterShortcuts(VK_RETURN);
 
             FindField("18");
             EnterShortcuts(VK_F5);
             EnterShortcuts(VK_RIGHT);
 
             EnterShortcuts(VK_F4);
-            IntPtr windowF4 = GetWindowFX(windowDCL);
+            int width = DesktopScreenWidth();
+            int height = DesktopScreenHeight();
+            //IntPtr windowF4 = WindowFromPoint(Cursor.Position = new Point(width/2, height/2)); //ПРОВЕРИТЬ ЗНАЧЕНИЯ
+            EnterShortcuts(VK_ALT, VK_C);
+            EnterShortcuts(VK_C);
+            EnterShortcuts(VK_RETURN);
+            EnterShortcuts(VK_RETURN);
+            //ДЛЯ ПОИСКА В КЛАССИФИКАТОРЕ = АЛЬТ+С, С, ENTER, ENTER, ВВОД КОДА
+            IntPtr windowF4 = GetForegroundWindow();
             AttachDCL(windowF4, FindWindow(null, "DclTest"));
-            SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder("10"));
+            SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder("20"));
             DisAttachDCL(windowF4, FindWindow(null, "DclTest"));
             EnterShortcuts(VK_RETURN);
-
+            EnterShortcuts(VK_ESCAPE);
+            EnterShortcuts(VK_RETURN);
+            resultOf4.Text = windowF4.ToString() + " " + GetFocus().ToString() + " " + windowDCL.ToString();
             EnterShortcuts(VK_RIGHT);
             EnterShortcuts(VK_RIGHT);
 
-            EnterShortcuts(VK_F4);
-            windowF4 = GetWindowFX(windowDCL);
-            AttachDCL(windowF4, FindWindow(null, "DclTest"));
-            SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder("FLORA"));
-            DisAttachDCL(windowF4, FindWindow(null, "DclTest"));
-            EnterShortcuts(VK_RETURN);
+            //EnterShortcuts(VK_F4);
+            //windowF4 = GetWindowFX(windowDCL);
+            //AttachDCL(windowF4, FindWindow(null, "DclTest"));
+            //SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder("FLORA"));
+            //DisAttachDCL(windowF4, FindWindow(null, "DclTest"));
+            //EnterShortcuts(VK_RETURN);
 
-            EnterShortcuts(VK_RIGHT);
-            EnterShortcuts(VK_RIGHT);
-            EnterShortcuts(VK_RIGHT);
-            EnterShortcuts(VK_RIGHT);
+            //EnterShortcuts(VK_RIGHT);
+            //EnterShortcuts(VK_RIGHT);
+            //EnterShortcuts(VK_RIGHT);
+            //EnterShortcuts(VK_RIGHT);
 
-            EnterShortcuts(VK_F4);
-            windowF4 = GetWindowFX(windowDCL);
-            AttachDCL(windowF4, FindWindow(null, "DclTest"));
-            SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder("Россия"));
-            DisAttachDCL(windowF4, FindWindow(null, "DclTest"));
-            EnterShortcuts(VK_RETURN);
-            EnterShortcuts(VK_TAB);
-            EnterShortcuts(VK_RETURN);
-
-            EnterShortcuts(VK_RETURN);
-            EnterShortcuts(VK_RETURN);
-            EnterShortcuts(VK_RETURN);
-
-            //19, "0", 20, f4, "FOB", "Санкт-Петербург", 22, f4, "ЕВРО", 24, f4, "010", f4, "00"
-
-            FindField("19");
-
-            //// в контейнерах? -> cancel
-            //EnterShortcuts(VK_TAB);
+            //EnterShortcuts(VK_F4);
+            //windowF4 = GetWindowFX(windowDCL);
+            //AttachDCL(windowF4, FindWindow(null, "DclTest"));
+            //SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder("Россия"));
+            //DisAttachDCL(windowF4, FindWindow(null, "DclTest"));
+            //EnterShortcuts(VK_RETURN);
             //EnterShortcuts(VK_TAB);
             //EnterShortcuts(VK_RETURN);
 
-            AttachDCL(windowDCL, FindWindow(null, "DclTest"));
-            SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder("0"));
-            DisAttachDCL(windowDCL, FindWindow(null, "DclTest"));
-            Thread.Sleep(1000);
+            //EnterShortcuts(VK_RETURN);
+            //EnterShortcuts(VK_RETURN);
+            //EnterShortcuts(VK_RETURN);
+
+            //19, "0", 20, f4, "FOB", "Санкт-Петербург", 22, f4, "ЕВРО", 24, f4, "010", f4, "00"
+
+            //FindField("19");
+
+            ////// в контейнерах? -> cancel
+            ////EnterShortcuts(VK_TAB);
+            ////EnterShortcuts(VK_TAB);
+            ////EnterShortcuts(VK_RETURN);
+
+            //AttachDCL(windowDCL, FindWindow(null, "DclTest"));
+            //SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder("0"));
+            //DisAttachDCL(windowDCL, FindWindow(null, "DclTest"));
+            //Thread.Sleep(1000);
           
-            FindField("20");
-            EnterShortcuts(VK_F4);
-            windowF4 = GetWindowFX(windowDCL);
-            AttachDCL(windowF4, FindWindow(null, "DclTest"));
-            SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder("FOB"));
-            DisAttachDCL(windowF4, FindWindow(null, "DclTest"));
-            EnterShortcuts(VK_RETURN);
-            Thread.Sleep(1000);
-            AttachDCL(windowDCL, FindWindow(null, "DclTest"));
-            SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder("Санкт-Петербург"));
-            DisAttachDCL(windowDCL, FindWindow(null, "DclTest"));
+            //FindField("20");
+            //EnterShortcuts(VK_F4);
+            //windowF4 = GetWindowFX(windowDCL);
+            //AttachDCL(windowF4, FindWindow(null, "DclTest"));
+            //SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder("FOB"));
+            //DisAttachDCL(windowF4, FindWindow(null, "DclTest"));
+            //EnterShortcuts(VK_RETURN);
+            //Thread.Sleep(1000);
+            //AttachDCL(windowDCL, FindWindow(null, "DclTest"));
+            //SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder("Санкт-Петербург"));
+            //DisAttachDCL(windowDCL, FindWindow(null, "DclTest"));
 
-            FindField("22");
-            EnterShortcuts(VK_F4);
-            windowF4 = GetWindowFX(windowDCL);
-            AttachDCL(windowF4, FindWindow(null, "DclTest"));
-            SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder("ЕВРО"));
-            DisAttachDCL(windowF4, FindWindow(null, "DclTest"));
-            EnterShortcuts(VK_RETURN);
+            //FindField("22");
+            //EnterShortcuts(VK_F4);
+            //windowF4 = GetWindowFX(windowDCL);
+            //AttachDCL(windowF4, FindWindow(null, "DclTest"));
+            //SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder("ЕВРО"));
+            //DisAttachDCL(windowF4, FindWindow(null, "DclTest"));
+            //EnterShortcuts(VK_RETURN);
 
-            FindField("24");
-            EnterShortcuts(VK_F4);
-            windowF4 = GetWindowFX(windowDCL);
-            AttachDCL(windowF4, FindWindow(null, "DclTest"));
-            SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder("010"));
-            DisAttachDCL(windowF4, FindWindow(null, "DclTest"));
-            EnterShortcuts(VK_RETURN);
+            //FindField("24");
+            //EnterShortcuts(VK_F4);
+            //windowF4 = GetWindowFX(windowDCL);
+            //AttachDCL(windowF4, FindWindow(null, "DclTest"));
+            //SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder("010"));
+            //DisAttachDCL(windowF4, FindWindow(null, "DclTest"));
+            //EnterShortcuts(VK_RETURN);
 
-            EnterShortcuts(VK_F4);
-            windowF4 = GetWindowFX(windowDCL);
-            AttachDCL(windowF4, FindWindow(null, "DclTest"));
-            SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder("00"));
-            DisAttachDCL(windowF4, FindWindow(null, "DclTest"));
-            EnterShortcuts(VK_RETURN);
+            //EnterShortcuts(VK_F4);
+            //windowF4 = GetWindowFX(windowDCL);
+            //AttachDCL(windowF4, FindWindow(null, "DclTest"));
+            //SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder("00"));
+            //DisAttachDCL(windowF4, FindWindow(null, "DclTest"));
+            //EnterShortcuts(VK_RETURN);
             
             //29, f4, "10216120", 30, f4, "99", 4tab, f4, "10216120", tab4, "Санкт-Петербург", tab, "морской порт", 2 tab, enter 
 
 
         }
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetDC(IntPtr hWnd);
 
+        [DllImport("gdi32.dll")]
+        private static extern int GetDeviceCaps(IntPtr hdc, int nIndex);
+
+        private const int DESKTOPHORZRES = 118;
+        private const int DESKTOPVERTRES = 117;
+
+        private int DesktopScreenWidth()
+        {
+            IntPtr hdc = GetDC(IntPtr.Zero);
+            int width = GetDeviceCaps(hdc, DESKTOPHORZRES);
+            return width;
+        }
+        private int DesktopScreenHeight()
+        {
+            IntPtr hdc = GetDC(IntPtr.Zero);
+            int height = GetDeviceCaps(hdc, DESKTOPVERTRES);
+            return height;
+        }
         private void FindField(string numberOfField)
         {
             IntPtr windowDCL = WindowFromPoint(System.Windows.Forms.Cursor.Position = new Point(47, 30)); //Меню - Документ
             EnterShortcuts(VK_F6);
             Thread.Sleep(2000);
-            IntPtr windowF6 = GetWindowFX(windowDCL);
-            AttachDCL(windowF6, FindWindow(null, "DclTest"));
-            SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder(numberOfField));
-            DisAttachDCL(windowF6, FindWindow(null, "DclTest"));
-            Thread.Sleep(1000);
+            IntPtr windowF6 = GetForegroundWindow();
+            //проверка на то что фокус уже в нужном поле?
+                AttachDCL(windowF6, FindWindow(null, "DclTest"));
+                SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder(numberOfField));
+                DisAttachDCL(windowF6, FindWindow(null, "DclTest"));
+                Thread.Sleep(1000);
+            
             EnterShortcuts(VK_RETURN);
         }
         private IntPtr GetWindowFX(IntPtr windowDCL)
@@ -972,36 +1005,36 @@ namespace DclTestForm
             IntPtr windowF6 = WindowFromPoint(Cursor.Position = new Point(widthOfDCL / 2, heightOfDCL / 4)); //ПРОВЕРИТЬ ЗНАЧЕНИЯ
             return windowF6;
         }
-        private void EnterInTheF4(IntPtr windowDCL, string strToEnter)
-        {
-            EnterShortcuts(VK_F4);
-            RECT rct;
-            if (!GetWindowRect(windowDCL, out rct))
-            {
-                MessageBox.Show("ERROR");
-            }
-            int widthOfDCL = rct.xBottomRight - rct.xUpLeft + 1;
-            int heightOfDCL = rct.yBottomRight - rct.yUpLeft + 1;
-            IntPtr windowF4 = WindowFromPoint(Cursor.Position = new Point(widthOfDCL / 2, heightOfDCL / 3)); //ПРОВЕРИТЬ ЗНАЧЕНИЯ
-            AttachDCL(windowF4, FindWindow(null, "DclTest"));
-            SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder(strToEnter));
-            DisAttachDCL(windowF4, FindWindow(null, "DclTest"));
-            EnterShortcuts(VK_RETURN);
-        }
-        private void GetNewWindow(IntPtr windowDCL)
-        {
+        //private void EnterInTheF4(IntPtr windowDCL, string strToEnter)
+        //{
+        //    EnterShortcuts(VK_F4);
+        //    RECT rct;
+        //    if (!GetWindowRect(windowDCL, out rct))
+        //    {
+        //        MessageBox.Show("ERROR");
+        //    }
+        //    int widthOfDCL = rct.xBottomRight - rct.xUpLeft + 1;
+        //    int heightOfDCL = rct.yBottomRight - rct.yUpLeft + 1;
+        //    IntPtr windowF4 = WindowFromPoint(Cursor.Position = new Point(widthOfDCL / 2, heightOfDCL / 3)); //ПРОВЕРИТЬ ЗНАЧЕНИЯ
+        //    AttachDCL(windowF4, FindWindow(null, "DclTest"));
+        //    SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder(strToEnter));
+        //    DisAttachDCL(windowF4, FindWindow(null, "DclTest"));
+        //    EnterShortcuts(VK_RETURN);
+        //}
+        //private void GetNewWindow(IntPtr windowDCL)
+        //{
 
-            RECT rct;
-            if (!GetWindowRect(windowDCL, out rct))
-            {
-                MessageBox.Show("ERROR");
-            }
-            int widthOfDCL = rct.xBottomRight - rct.xUpLeft + 1;
-            int heightOfDCL = rct.yBottomRight - rct.yUpLeft + 1;
-            //IntPtr windowF4 = WindowFromPoint(Cursor.Position = new Point(widthOfDCL / 3, heightOfDCL / 3.2)); //ПРОВЕРИТЬ ЗНАЧЕНИЯ
-            SendMessage(windowDCL, WM_MOUSEMOVE, (IntPtr)0, MakeParam(widthOfDCL / 3, (heightOfDCL / 4) + 40));
-            DoMouseLeftClick(widthOfDCL / 3, (heightOfDCL / 4) + 40);
-        }
+        //    RECT rct;
+        //    if (!GetWindowRect(windowDCL, out rct))
+        //    {
+        //        MessageBox.Show("ERROR");
+        //    }
+        //    int widthOfDCL = rct.xBottomRight - rct.xUpLeft + 1;
+        //    int heightOfDCL = rct.yBottomRight - rct.yUpLeft + 1;
+        //    //IntPtr windowF4 = WindowFromPoint(Cursor.Position = new Point(widthOfDCL / 3, heightOfDCL / 3.2)); //ПРОВЕРИТЬ ЗНАЧЕНИЯ
+        //    SendMessage(windowDCL, WM_MOUSEMOVE, (IntPtr)0, MakeParam(widthOfDCL / 3, (heightOfDCL / 4) + 40));
+        //    DoMouseLeftClick(widthOfDCL / 3, (heightOfDCL / 4) + 40);
+        //}
         private void EnterText(IntPtr windowDCL, string strToEnter)
         {
             uint ThreadID1 = GetWindowThreadProcessId(GetForegroundWindow(), out uint id);
@@ -1015,6 +1048,22 @@ namespace DclTestForm
             {
                 SetForegroundWindow(windowDCL);
             }
+            SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder(strToEnter));
+            AttachThreadInput(ThreadID1, ThreadID2, false);
+        }
+        private void EnterTextTest(IntPtr windowFocus, string strToEnter)
+        {
+            uint ThreadID1 = GetWindowThreadProcessId(FindWindow(null,"DclTest"), out uint id);
+            uint ThreadID2 = GetWindowThreadProcessId(windowFocus, out uint idd);
+            AttachThreadInput(ThreadID1, ThreadID2, true);
+            //if (IsIconic(windowFocus))
+            //{
+            //    ShowWindow(windowFocus, 9); //9 - restore
+            //}
+            //else
+            //{
+            //    SetForegroundWindow(windowFocus);
+            //}
             SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder(strToEnter));
             AttachThreadInput(ThreadID1, ThreadID2, false);
         }
@@ -1067,9 +1116,9 @@ namespace DclTestForm
                         EnterShortcuts(VK_P);
                         break;
 
-                    //case "11":
-                    //    OpenDCL();
-                    //    break;
+                    case "нажать f5":
+                        EnterShortcuts(VK_F5);
+                        break;
 
                     //case "12": КОМАНДА С ПАРАМЕТРОМ
 
@@ -1088,21 +1137,43 @@ namespace DclTestForm
                 }
                 
                 //заменить contains на обрезку первых двух знаков?
-                if (command.Contains("перейти к графе:"))
+                if (command.Contains("перейти к графе номер:"))
                 {
                     string[] numberField = command.Split(new char[] { ':' });
                     FindField(numberField[1]);
                 }
-                if (command.Contains("подождать:"))
+                if (command.Contains("подождать секунд:"))
                 {
                     string[] paramsOfCommand = command.Split(new char[] { ':' });
                     int secondsToSleep = Int32.Parse(paramsOfCommand[1]);
                     Thread.Sleep(1000 * secondsToSleep);
                 }
-                if (command.Contains("ввести:"))
+                if (command.Contains("ввести значение:"))
                 {
                     string[] strToEnter = command.Split(new char[] { ':' });
-                    EnterText(windowDCL, strToEnter);
+                    IntPtr windowFocus = GetForegroundWindow();
+                    EnterText(windowFocus, strToEnter[1]);
+                }
+                if (command.Contains("в столбце:"))
+                {
+                    string[] strToEnter = command.Split(new char[] { ':',' ' });
+                    int column = Int32.Parse(strToEnter[2]);
+                    for(int i=1;i<column;i++)
+                    { 
+                        EnterShortcuts(VK_RIGHT);
+                    }
+                    EnterShortcuts(VK_F4);
+                    EnterShortcuts(VK_ALT, VK_C);
+                    EnterShortcuts(VK_C);
+                    EnterShortcuts(VK_RETURN);
+                    EnterShortcuts(VK_RETURN);
+                    //ДЛЯ ПОИСКА В КЛАССИФИКАТОРЕ = АЛЬТ+С, С, ENTER, ENTER, ВВОД КОДА
+                    IntPtr windowF4 = GetForegroundWindow();
+                    EnterTextTest(windowF4, strToEnter[4]);
+                    EnterShortcuts(VK_RETURN);
+                    EnterShortcuts(VK_ESCAPE);
+                    EnterShortcuts(VK_RETURN);
+                    
                 }
             } 
             
