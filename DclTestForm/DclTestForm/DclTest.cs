@@ -1030,77 +1030,78 @@ namespace DclTestForm
             {
                 switch(command)
                 {
-                    case "01":
+                    case "открыть окно ВД":
                         OpenDCL();
                         
                         break;
                    
-                    case "02":
+                    case "открыть меню Документ":
                         EnterShortcuts(VK_ALT, VK_L);
                         break;
 
-                    case "03":
+                    case "открыть меню Прочитать с диска":
                         EnterShortcuts(VK_L);
                         break;
 
                     //case "04": КОМАНДА С ПАРАМЕТРОМ 
                         
-                    case "05":
+                    case "нажать ОК":
                         EnterShortcuts(VK_RETURN);
                         break;
 
-                    case "06":
+                    case "перейти к следующей кнопке":
                         EnterShortcuts(VK_TAB);
                         break;
 
                     //case "07": КОМАНДА С ПАРАМЕТРОМ
 
-                    case "08":
+                    case "открыть классификатор":
                         EnterShortcuts(VK_F4);
                         break;
 
-                    case "09":
+                    case "выполнить автозаполнение":
                         EnterShortcuts(VK_F9);
                         break;
 
-                    case "10":
+                    case "открыть меню Записать на диск":
                         EnterShortcuts(VK_P);
                         break;
 
-                    case "11":
-                        OpenDCL();
-                        break;
+                    //case "11":
+                    //    OpenDCL();
+                    //    break;
 
                     //case "12": КОМАНДА С ПАРАМЕТРОМ
 
-                    case "13":
+                    case "нажать стрелку вниз":
                         EnterShortcuts(VK_DOWN);
                         break;
 
-                    case "14":
+                    case "f5":
                         EnterShortcuts(VK_F5);
                         break;
 
-                    case "15":
+                    case "нажать стрелку вправо":
                         EnterShortcuts(VK_RIGHT);
                         break;
 
                 }
                 
                 //заменить contains на обрезку первых двух знаков?
-                if (command.Contains("07"))
+                if (command.Contains("перейти к графе:"))
                 {
-                    string numberField = command.Substring(3, command.Length - 3);
-                    FindField(numberField);
+                    string[] numberField = command.Split(new char[] { ':' });
+                    FindField(numberField[1]);
                 }
-                if (command.Contains("12"))
+                if (command.Contains("подождать:"))
                 {
-                    int secondsToSleep = Int32.Parse(command.Substring(3, command.Length - 3));
+                    string[] paramsOfCommand = command.Split(new char[] { ':' });
+                    int secondsToSleep = Int32.Parse(paramsOfCommand[1]);
                     Thread.Sleep(1000 * secondsToSleep);
                 }
-                if (command.Contains("04"))
+                if (command.Contains("ввести:"))
                 {
-                    string strToEnter = command.Substring(3, command.Length - 3);
+                    string[] strToEnter = command.Split(new char[] { ':' });
                     EnterText(windowDCL, strToEnter);
                 }
             } 
