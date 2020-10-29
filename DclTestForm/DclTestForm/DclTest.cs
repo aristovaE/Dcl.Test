@@ -861,8 +861,8 @@ namespace DclTestForm
             EnterShortcuts(VK_RIGHT);
 
             EnterShortcuts(VK_F4);
-            int width = DesktopScreenWidth();
-            int height = DesktopScreenHeight();
+            //int width = DesktopScreenWidth();
+            //int height = DesktopScreenHeight();
             //IntPtr windowF4 = WindowFromPoint(Cursor.Position = new Point(width/2, height/2)); //ПРОВЕРИТЬ ЗНАЧЕНИЯ
             EnterShortcuts(VK_ALT, VK_C);
             EnterShortcuts(VK_C);
@@ -958,27 +958,27 @@ namespace DclTestForm
 
 
         }
-        [DllImport("user32.dll")]
-        private static extern IntPtr GetDC(IntPtr hWnd);
+        //[DllImport("user32.dll")]
+        //private static extern IntPtr GetDC(IntPtr hWnd);
 
-        [DllImport("gdi32.dll")]
-        private static extern int GetDeviceCaps(IntPtr hdc, int nIndex);
+        //[DllImport("gdi32.dll")]
+        //private static extern int GetDeviceCaps(IntPtr hdc, int nIndex);
 
-        private const int DESKTOPHORZRES = 118;
-        private const int DESKTOPVERTRES = 117;
+        //private const int DESKTOPHORZRES = 118;
+        //private const int DESKTOPVERTRES = 117;
 
-        private int DesktopScreenWidth()
-        {
-            IntPtr hdc = GetDC(IntPtr.Zero);
-            int width = GetDeviceCaps(hdc, DESKTOPHORZRES);
-            return width;
-        }
-        private int DesktopScreenHeight()
-        {
-            IntPtr hdc = GetDC(IntPtr.Zero);
-            int height = GetDeviceCaps(hdc, DESKTOPVERTRES);
-            return height;
-        }
+        //private int DesktopScreenWidth()
+        //{
+        //    IntPtr hdc = GetDC(IntPtr.Zero);
+        //    int width = GetDeviceCaps(hdc, DESKTOPHORZRES);
+        //    return width;
+        //}
+        //private int DesktopScreenHeight()
+        //{
+        //    IntPtr hdc = GetDC(IntPtr.Zero);
+        //    int height = GetDeviceCaps(hdc, DESKTOPVERTRES);
+        //    return height;
+        //}
         private void FindField(string numberOfField)
         {
             IntPtr windowDCL = WindowFromPoint(System.Windows.Forms.Cursor.Position = new Point(47, 30)); //Меню - Документ
@@ -993,77 +993,20 @@ namespace DclTestForm
             
             EnterShortcuts(VK_RETURN);
         }
-        private IntPtr GetWindowFX(IntPtr windowDCL)
-        {
-            RECT rct;
-            if (!GetWindowRect(windowDCL, out rct))
-            {
-                MessageBox.Show("ERROR");
-            }
-            int widthOfDCL = rct.xBottomRight - rct.xUpLeft + 1;
-            int heightOfDCL = rct.yBottomRight - rct.yUpLeft + 1;
-            IntPtr windowF6 = WindowFromPoint(Cursor.Position = new Point(widthOfDCL / 2, heightOfDCL / 4)); //ПРОВЕРИТЬ ЗНАЧЕНИЯ
-            return windowF6;
-        }
-        //private void EnterInTheF4(IntPtr windowDCL, string strToEnter)
-        //{
-        //    EnterShortcuts(VK_F4);
-        //    RECT rct;
-        //    if (!GetWindowRect(windowDCL, out rct))
-        //    {
-        //        MessageBox.Show("ERROR");
-        //    }
-        //    int widthOfDCL = rct.xBottomRight - rct.xUpLeft + 1;
-        //    int heightOfDCL = rct.yBottomRight - rct.yUpLeft + 1;
-        //    IntPtr windowF4 = WindowFromPoint(Cursor.Position = new Point(widthOfDCL / 2, heightOfDCL / 3)); //ПРОВЕРИТЬ ЗНАЧЕНИЯ
-        //    AttachDCL(windowF4, FindWindow(null, "DclTest"));
-        //    SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder(strToEnter));
-        //    DisAttachDCL(windowF4, FindWindow(null, "DclTest"));
-        //    EnterShortcuts(VK_RETURN);
-        //}
-        //private void GetNewWindow(IntPtr windowDCL)
-        //{
-
-        //    RECT rct;
-        //    if (!GetWindowRect(windowDCL, out rct))
-        //    {
-        //        MessageBox.Show("ERROR");
-        //    }
-        //    int widthOfDCL = rct.xBottomRight - rct.xUpLeft + 1;
-        //    int heightOfDCL = rct.yBottomRight - rct.yUpLeft + 1;
-        //    //IntPtr windowF4 = WindowFromPoint(Cursor.Position = new Point(widthOfDCL / 3, heightOfDCL / 3.2)); //ПРОВЕРИТЬ ЗНАЧЕНИЯ
-        //    SendMessage(windowDCL, WM_MOUSEMOVE, (IntPtr)0, MakeParam(widthOfDCL / 3, (heightOfDCL / 4) + 40));
-        //    DoMouseLeftClick(widthOfDCL / 3, (heightOfDCL / 4) + 40);
-        //}
-        private void EnterText(IntPtr windowDCL, string strToEnter)
-        {
-            uint ThreadID1 = GetWindowThreadProcessId(GetForegroundWindow(), out uint id);
-            uint ThreadID2 = GetWindowThreadProcessId(windowDCL, out uint idd);
-            AttachThreadInput(ThreadID1, ThreadID2, true);
-            if (IsIconic(windowDCL))
-            {
-                ShowWindow(windowDCL, 9); //9 - restore
-            }
-            else
-            {
-                SetForegroundWindow(windowDCL);
-            }
-            SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder(strToEnter));
-            AttachThreadInput(ThreadID1, ThreadID2, false);
-        }
-        private void EnterTextTest(IntPtr windowFocus, string strToEnter)
+           
+        private void EnterText(IntPtr windowFocus, string strToEnter)
         {
             uint ThreadID1 = GetWindowThreadProcessId(FindWindow(null,"DclTest"), out uint id);
             uint ThreadID2 = GetWindowThreadProcessId(windowFocus, out uint idd);
             AttachThreadInput(ThreadID1, ThreadID2, true);
-            //if (IsIconic(windowFocus))
-            //{
-            //    ShowWindow(windowFocus, 9); //9 - restore
-            //}
-            //else
-            //{
-            //    SetForegroundWindow(windowFocus);
-            //}
+            if (IsIconic(windowFocus))
+            {
+                ShowWindow(windowFocus, 9); //9 - restore
+            }
+            else
+            {
+                SetForegroundWindow(windowFocus);
+            }
             SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder(strToEnter));
             AttachThreadInput(ThreadID1, ThreadID2, false);
         }
@@ -1074,14 +1017,16 @@ namespace DclTestForm
             if (openFileScript.ShowDialog() == DialogResult.Cancel)
                 return;
            string strmas = File.ReadAllText(openFileScript.FileName);
-           String[] words = strmas.Split(new char[] { '\r','\n' }, StringSplitOptions.RemoveEmptyEntries);
+           String[] words = strmas.Split(new char[] { '\r','\n',':' }, StringSplitOptions.RemoveEmptyEntries);
+            int numOfCommand=0;
+            //1) Делишь строку на команду и параметры, 
+            //2) В case отправляешь только команду, параметры - в функцию - обертку, которую из сработавшего case вызываешь 
             foreach (string command in words)
             {
                 switch(command)
                 {
                     case "открыть окно ВД":
                         OpenDCL();
-                        
                         break;
                    
                     case "открыть меню Документ":
@@ -1091,8 +1036,6 @@ namespace DclTestForm
                     case "открыть меню Прочитать с диска":
                         EnterShortcuts(VK_L);
                         break;
-
-                    //case "04": КОМАНДА С ПАРАМЕТРОМ 
                         
                     case "нажать ОК":
                         EnterShortcuts(VK_RETURN);
@@ -1101,8 +1044,6 @@ namespace DclTestForm
                     case "перейти к следующей кнопке":
                         EnterShortcuts(VK_TAB);
                         break;
-
-                    //case "07": КОМАНДА С ПАРАМЕТРОМ
 
                     case "открыть классификатор":
                         EnterShortcuts(VK_F4);
@@ -1120,61 +1061,43 @@ namespace DclTestForm
                         EnterShortcuts(VK_F5);
                         break;
 
-                    //case "12": КОМАНДА С ПАРАМЕТРОМ
-
                     case "нажать стрелку вниз":
                         EnterShortcuts(VK_DOWN);
-                        break;
-
-                    case "f5":
-                        EnterShortcuts(VK_F5);
                         break;
 
                     case "нажать стрелку вправо":
                         EnterShortcuts(VK_RIGHT);
                         break;
 
+                    case "перейти к графе номер":
+                        string numberField = words[numOfCommand+1];
+                        FindField(numberField);
+                        break;
+
+                    case "подождать секунд":
+                        int secondsToSleep = Int32.Parse(words[numOfCommand + 1]);
+                        Thread.Sleep(1000 * secondsToSleep);
+                        break;
+
+                    case "в столбце":
+                        for (int i = 1; i < Int32.Parse(words[numOfCommand+1]); i++)
+                        {
+                            EnterShortcuts(VK_RIGHT);
+                        }
+                        EnterShortcuts(VK_F4);
+                        EnterShortcuts(VK_ALT, VK_C);
+                        EnterShortcuts(VK_C);
+                        EnterShortcuts(VK_RETURN);
+                        EnterShortcuts(VK_RETURN);
+                        break;
+
+                    case "ввести значение":
+                        IntPtr windowFocus = GetForegroundWindow();
+                        EnterText(windowFocus, words[numOfCommand+1]);
+                        break;
+
                 }
-                
-                //заменить contains на обрезку первых двух знаков?
-                if (command.Contains("перейти к графе номер:"))
-                {
-                    string[] numberField = command.Split(new char[] { ':' });
-                    FindField(numberField[1]);
-                }
-                if (command.Contains("подождать секунд:"))
-                {
-                    string[] paramsOfCommand = command.Split(new char[] { ':' });
-                    int secondsToSleep = Int32.Parse(paramsOfCommand[1]);
-                    Thread.Sleep(1000 * secondsToSleep);
-                }
-                if (command.Contains("ввести значение:"))
-                {
-                    string[] strToEnter = command.Split(new char[] { ':' });
-                    IntPtr windowFocus = GetForegroundWindow();
-                    EnterText(windowFocus, strToEnter[1]);
-                }
-                if (command.Contains("в столбце:"))
-                {
-                    string[] strToEnter = command.Split(new char[] { ':',' ' });
-                    int column = Int32.Parse(strToEnter[2]);
-                    for(int i=1;i<column;i++)
-                    { 
-                        EnterShortcuts(VK_RIGHT);
-                    }
-                    EnterShortcuts(VK_F4);
-                    EnterShortcuts(VK_ALT, VK_C);
-                    EnterShortcuts(VK_C);
-                    EnterShortcuts(VK_RETURN);
-                    EnterShortcuts(VK_RETURN);
-                    //ДЛЯ ПОИСКА В КЛАССИФИКАТОРЕ = АЛЬТ+С, С, ENTER, ENTER, ВВОД КОДА
-                    IntPtr windowF4 = GetForegroundWindow();
-                    EnterTextTest(windowF4, strToEnter[4]);
-                    EnterShortcuts(VK_RETURN);
-                    EnterShortcuts(VK_ESCAPE);
-                    EnterShortcuts(VK_RETURN);
-                    
-                }
+                numOfCommand++;
             } 
             
         }
