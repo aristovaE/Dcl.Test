@@ -562,6 +562,7 @@ namespace DclTestForm
         const byte VK_UP = 0x26;
         const byte VK_RIGHT = 0x27;
         const byte VK_DOWN = 0x28;
+        const byte VK_F3 = 0x72;
         const byte VK_F4 = 0x73;
         const byte VK_F5 = 0x74;
         const byte VK_F6 = 0x75;
@@ -1019,6 +1020,7 @@ namespace DclTestForm
            string strmas = File.ReadAllText(openFileScript.FileName);
            String[] words = strmas.Split(new char[] { '\r','\n',':' }, StringSplitOptions.RemoveEmptyEntries);
             int numOfCommand=0;
+            int column = 1;
             //1) Делишь строку на команду и параметры, 
             //2) В case отправляешь только команду, параметры - в функцию - обертку, которую из сработавшего case вызываешь 
             foreach (string command in words)
@@ -1080,20 +1082,22 @@ namespace DclTestForm
                         break;
 
                     case "в столбце":
-                        for (int i = 1; i < Int32.Parse(words[numOfCommand+1]); i++)
+                        for (int i = column; i < Int32.Parse(words[numOfCommand + 1]); i++)
                         {
                             EnterShortcuts(VK_RIGHT);
                         }
                         EnterShortcuts(VK_F4);
-                        EnterShortcuts(VK_ALT, VK_C);
-                        EnterShortcuts(VK_C);
-                        EnterShortcuts(VK_RETURN);
-                        EnterShortcuts(VK_RETURN);
+                        EnterShortcuts(VK_F3);
+                        column = Int32.Parse(words[numOfCommand + 1]);
                         break;
 
                     case "ввести значение":
                         IntPtr windowFocus = GetForegroundWindow();
                         EnterText(windowFocus, words[numOfCommand+1]);
+                        break;
+
+                    case "нажать Esc":
+                        EnterShortcuts(VK_ESCAPE);
                         break;
 
                 }
