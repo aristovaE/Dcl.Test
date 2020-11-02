@@ -21,7 +21,7 @@ namespace DclTestConsolePy
             int first = scope.GetVariable("firstOp");
             int second = scope.GetVariable("secondOp");
             int third = scope.GetVariable("thirdOp");
-            Console.WriteLine("hello\nOpen DCL, tab and open menu");
+            Console.WriteLine("hello\nOpen DCL, tab and open menu:");
             Console.ReadLine();
 
             if (first == 1)
