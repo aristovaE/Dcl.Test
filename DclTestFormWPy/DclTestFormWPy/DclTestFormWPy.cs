@@ -100,24 +100,37 @@ namespace DclTestFormWPy
             String[] commands = strmas.Split(new char[] { '\r','\n'}, StringSplitOptions.RemoveEmptyEntries);
             //String[] words = strmas.Split(new char[] { '\r', '\n', ':' }, StringSplitOptions.RemoveEmptyEntries);
 
-            ScriptEngine engine = Python.CreateEngine();
-            ScriptScope scope = engine.CreateScope();
-            //engine.ExecuteFile(@"\\Vboxsvr\temp\python\second.py", scope);
-            engine.ExecuteFile(@"D:\VirtualBox VMs\TEMP\python\ff.py", scope);
-            //List<string> listCommandsFromPy = (List<string>)scope.GetVariable("listOfCommand");
-            //ScriptSource source = engine.CreateScriptSourceFromFile(@"D:\VirtualBox VMs\TEMP\python\ff.py");
-
-            //ObjectOperations op = engine.Operations;
-            IList<object> objs = scope.GetVariable("listOfCommand");
-            List<string> listCommandsFromPy = (List<string>)scope.GetVariable("listOfCommand");
-            //source.Execute(scope); // class object created
-            //object method = op.GetMember(instance, "func"); // get a method
-            //List<string> result = ((IList<object>)op.Invoke(method)).Cast<string>().ToList(); // call the method and get result
+            //ScriptEngine engine = Python.CreateEngine();
+            //ScriptScope scope = engine.CreateScope();
+            ////engine.ExecuteFile(@"\\Vboxsvr\temp\python\second.py", scope);
+            //engine.ExecuteFile(@"D:\VirtualBox VMs\TEMP\python\ff.py", scope);
+            ////List<string> listCommandsFromPy = (List<string>)scope.GetVariable("listOfCommand");
+            ////ScriptSource source = engine.CreateScriptSourceFromFile(@"D:\VirtualBox VMs\TEMP\python\ff.py");
+            ////ObjectOperations op = engine.Operations;
+            //IList<object> objs = scope.GetVariable("listOfCommand");
+            //List<string> strs = new List<string>();
+            //foreach(var obj in objs)
+            //{
+            //    strs.Add((string)obj);
+            //}
+            //List<string> strs2 = new List<string>();
+            //List<string> strs3 = new List<string>();
+            //foreach (string str in strs)
+            //{
+            //    byte[] bytes = Encoding.Default.GetBytes(str);
+            //   strs2.Add(Encoding.Default.GetString(bytes));
+            //    byte[] bytes2 = Encoding.UTF8.GetBytes(str);
+            //    strs3.Add(Encoding.UTF8.GetString(bytes));
+            //}
+            //List<string> listCommandsFromPy = (List<string>)scope.GetVariable("listOfCommand"); //БЕДА С КОДИРОВКОЙ
+            ////source.Execute(scope); // class object created
+            ////object method = op.GetMember(instance, "func"); // get a method
+            ////List<string> result = ((IList<object>)op.Invoke(method)).Cast<string>().ToList(); // call the method and get result
 
 
 
             listOfCommand.Items.Clear();
-            foreach (string command in listCommandsFromPy)
+            foreach (string command in commands)
             {
                 listOfCommand.Items.Add(command);
             }
@@ -362,6 +375,17 @@ namespace DclTestFormWPy
                 }
             }
 
+        }
+
+        private void listOfCommand_MouseClick(object sender, MouseEventArgs e)
+        {
+            editCommand_tb.Text = "";
+            editCommand_tb.Text=listOfCommand.SelectedItems[0].Text;
+        }
+
+        private void editComand_btn_Click(object sender, EventArgs e)
+        {
+            listOfCommand.SelectedItems[0].Text = editCommand_tb.Text;
         }
     }
 }
