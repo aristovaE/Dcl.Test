@@ -100,32 +100,33 @@ namespace DclTestFormWPy
             String[] commands = strmas.Split(new char[] { '\r','\n'}, StringSplitOptions.RemoveEmptyEntries);
             //String[] words = strmas.Split(new char[] { '\r', '\n', ':' }, StringSplitOptions.RemoveEmptyEntries);
 
-            //ScriptEngine engine = Python.CreateEngine();
-            //ScriptScope scope = engine.CreateScope();
-            ////engine.ExecuteFile(@"\\Vboxsvr\temp\python\second.py", scope);
-            //engine.ExecuteFile(@"D:\VirtualBox VMs\TEMP\python\ff.py", scope);
-            ////List<string> listCommandsFromPy = (List<string>)scope.GetVariable("listOfCommand");
-            ////ScriptSource source = engine.CreateScriptSourceFromFile(@"D:\VirtualBox VMs\TEMP\python\ff.py");
-            ////ObjectOperations op = engine.Operations;
-            //IList<object> objs = scope.GetVariable("listOfCommand");
-            //List<string> strs = new List<string>();
-            //foreach(var obj in objs)
-            //{
-            //    strs.Add((string)obj);
-            //}
-            //List<string> strs2 = new List<string>();
-            //List<string> strs3 = new List<string>();
-            //foreach (string str in strs)
-            //{
-            //    byte[] bytes = Encoding.Default.GetBytes(str);
-            //   strs2.Add(Encoding.Default.GetString(bytes));
-            //    byte[] bytes2 = Encoding.UTF8.GetBytes(str);
-            //    strs3.Add(Encoding.UTF8.GetString(bytes));
-            //}
-            //List<string> listCommandsFromPy = (List<string>)scope.GetVariable("listOfCommand"); //БЕДА С КОДИРОВКОЙ
-            ////source.Execute(scope); // class object created
-            ////object method = op.GetMember(instance, "func"); // get a method
-            ////List<string> result = ((IList<object>)op.Invoke(method)).Cast<string>().ToList(); // call the method and get result
+            ScriptEngine engine = Python.CreateEngine();
+            ScriptScope scope = engine.CreateScope();
+            //engine.ExecuteFile(@"\\Vboxsvr\temp\python\second.py", scope);
+            engine.SetSearchPaths(new[] { @"C:\Users\User\AppData\Local\Programs\Python\Python39\Lib" });
+            engine.ExecuteFile(@"D:\VirtualBox VMs\TEMP\python\habr.py", scope);
+            //List<string> listCommandsFromPy = (List<string>)scope.GetVariable("listOfCommand");
+            //ScriptSource source = engine.CreateScriptSourceFromFile(@"D:\VirtualBox VMs\TEMP\python\ff.py");
+            //ObjectOperations op = engine.Operations;
+            IList<object> objs = scope.GetVariable("listOfCommand");
+            List<string> strs = new List<string>();
+            foreach (var obj in objs)
+            {
+                strs.Add((string)obj);
+            }
+            List<string> strs2 = new List<string>();
+            List<string> strs3 = new List<string>();
+            foreach (string str in strs)
+            {
+                byte[] bytes = Encoding.Default.GetBytes(str);
+                strs2.Add(Encoding.Default.GetString(bytes));
+                byte[] bytes2 = Encoding.UTF8.GetBytes(str);
+                strs3.Add(Encoding.UTF8.GetString(bytes));
+            }
+            List<string> listCommandsFromPy = (List<string>)scope.GetVariable("listOfCommand"); //БЕДА С КОДИРОВКОЙ
+            //source.Execute(scope); // class object created
+            //object method = op.GetMember(instance, "func"); // get a method
+            //List<string> result = ((IList<object>)op.Invoke(method)).Cast<string>().ToList(); // call the method and get result
 
 
 
@@ -386,6 +387,34 @@ namespace DclTestFormWPy
         private void editComand_btn_Click(object sender, EventArgs e)
         {
             listOfCommand.SelectedItems[0].Text = editCommand_tb.Text;
+            editCommand_tb.Text = "";
+        }
+
+        private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (openFileScript.ShowDialog() == DialogResult.Cancel)
+                return;
+            string strmas = File.ReadAllText(openFileScript.FileName);
+            String[] commands = strmas.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            listOfCommand.Items.Clear();
+            foreach (string command in commands)
+            {
+                listOfCommand.Items.Add(command);
+            }
+        }
+
+        private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (saveFileScript.ShowDialog() == DialogResult.Cancel)
+                return;
+            TextWriter tw = new StreamWriter(saveFileScript.FileName + ".txt");
+            foreach (ListViewItem lvi in listOfCommand.Items)
+            {
+                tw.WriteLine(lvi.Text);
+            }
+            tw.Close();
+
+            MessageBox.Show("Текстовый сценарий" + saveFileScript.FileName + ".txt успешно сохранен!");
         }
     }
 }
