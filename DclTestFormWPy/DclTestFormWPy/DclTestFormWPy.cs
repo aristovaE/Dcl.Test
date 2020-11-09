@@ -97,14 +97,14 @@ namespace DclTestFormWPy
             if (openFileScript.ShowDialog() == DialogResult.Cancel)
                 return;
             string strmas = File.ReadAllText(openFileScript.FileName);
-            String[] commands = strmas.Split(new char[] { '\r','\n'}, StringSplitOptions.RemoveEmptyEntries);
+            String[] commands = strmas.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
             //String[] words = strmas.Split(new char[] { '\r', '\n', ':' }, StringSplitOptions.RemoveEmptyEntries);
 
             ScriptEngine engine = Python.CreateEngine();
             ScriptScope scope = engine.CreateScope();
             //engine.ExecuteFile(@"\\Vboxsvr\temp\python\second.py", scope);
             engine.SetSearchPaths(new[] { @"C:\Users\User\AppData\Local\Programs\Python\Python39\Lib" });
-            engine.ExecuteFile(@"D:\VirtualBox VMs\TEMP\python\habr.py", scope);
+            engine.ExecuteFile(@"D:\VirtualBox VMs\TEMP\python\ff.py", scope);
             //List<string> listCommandsFromPy = (List<string>)scope.GetVariable("listOfCommand");
             //ScriptSource source = engine.CreateScriptSourceFromFile(@"D:\VirtualBox VMs\TEMP\python\ff.py");
             //ObjectOperations op = engine.Operations;
@@ -263,130 +263,164 @@ namespace DclTestFormWPy
             int column = 1;
             IntPtr windowFocus = IntPtr.Zero;
             String[] commandWParam = null;
-            List<string> commands = listOfCommand.Items.Cast<ListViewItem>().Select(item => item.Text).ToList();
-
-            foreach (string command in commands)
+            List<string> commands = new List<string>();
+            //List<string> commands = listOfCommand.Items.Cast<ListViewItem>().Select(item => item.Text).ToList();
+            for (int i = 0; i < tableScript_dgv.Rows.Count - 1; i++)
             {
-                commandWParam = command.Split( ':' );
-                foreach (string commandWithoutParam in commandWParam)
+                commands.Add(tableScript_dgv.Rows[i].Cells[1].Value.ToString());
+            }
+            new Thread(() =>
+            {
+                try
                 {
-                    switch (commandWithoutParam)
+                    foreach (string command in commands)
                     {
-                        case "открыть окно ВД":
-                            OpenDCL();
-                            windowFocus = GetForegroundWindow();
-                            break;
-
-                        case "открыть меню Документ":
-                            EnterShortcuts(VK_ALT, VK_L);
-                            break;
-
-                        case "открыть меню Прочитать с диска":
-                            EnterShortcut(VK_L);
-                            break;
-
-                        case "нажать":
-                            switch (commandWParam[1].ToString())
+                        commandWParam = command.Split(':');
+                        foreach (string commandWithoutParam in commandWParam)
+                        {
+                            switch (commandWithoutParam)
                             {
-                                case "ENTER":
-                                    EnterShortcut(VK_RETURN);
+                                case "открыть окно ВД":
+                                    OpenDCL();
+                                    windowFocus = GetForegroundWindow();
                                     break;
-                                case "ESC":
-                                    EnterShortcut(VK_ESCAPE);
+
+                                case "открыть меню Документ":
+                                    EnterShortcuts(VK_ALT, VK_L);
                                     break;
-                                case "F3":
+
+                                case "открыть меню Прочитать с диска":
+                                    EnterShortcut(VK_L);
+                                    break;
+
+                                case "нажать":
+                                    switch (tableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString())
+                                    {
+                                        case "ENTER":
+                                            EnterShortcut(VK_RETURN);
+                                            break;
+                                        case "ESC":
+                                            EnterShortcut(VK_ESCAPE);
+                                            break;
+                                        case "F3":
+                                            EnterShortcut(VK_F3);
+                                            break;
+                                        case "F5":
+                                            EnterShortcut(VK_F5);
+                                            break;
+                                        case "стрелку влево":
+                                            EnterShortcut(VK_LEFT);
+                                            break;
+                                        case "стрелку вправо":
+                                            EnterShortcut(VK_RIGHT);
+                                            break;
+                                    }
+                                    break;
+
+                                case "перейти вперед":
+                                    EnterShortcut(VK_TAB);
+                                    break;
+
+                                case "открыть классификатор":
+                                    EnterShortcut(VK_F4);
+                                    break;
+
+                                case "выполнить автозаполнение":
+                                    EnterShortcut(VK_F9);
+                                    break;
+
+                                case "открыть меню Записать на диск":
+                                    EnterShortcut(VK_P);
+                                    break;
+
+                                case "перейти к графе номер":
+                                    string numberField = tableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString();
+                                    FindField(numberField);
+                                    break;
+
+                                case "подождать секунд":
+                                    int secondsToSleep = Int32.Parse(tableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
+                                    Thread.Sleep(1000 * secondsToSleep);
+                                    break;
+
+                                case "в столбце":
+                                    for (int i = column; i < Int32.Parse(tableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString()); i++)
+                                    {
+                                        EnterShortcut(VK_RIGHT);
+                                    }
+                                    EnterShortcut(VK_F4);
                                     EnterShortcut(VK_F3);
+                                    column = Int32.Parse(tableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
                                     break;
-                                case "F5":
-                                    EnterShortcut(VK_F5);
+
+                                case "ввести значение":
+                                    EnterText(GetForegroundWindow(), tableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
                                     break;
-                                case "стрелку влево":
-                                    EnterShortcut(VK_LEFT);
+
+                                case "закрыть окно":
+                                    //MessageBox.Show("find next:" + FindWindow(null, commandWParam[1].ToString()).ToString() + " foreground:" + GetForegroundWindow().ToString() + " focus:" + windowFocus.ToString());
+                                    //SendMessage(GetForegroundWindow(), WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
+                                    //SetForegroundWindow(windowFocus);
+                                    //CloseWindow(GetForegroundWindow());// не работает
                                     break;
-                                case "стрелку вправо":
-                                    EnterShortcut(VK_RIGHT);
-                                    break;
+
                             }
-                            break;
-
-                        case "перейти вперед":
-                            EnterShortcut(VK_TAB);
-                            break;
-
-                        case "открыть классификатор":
-                            EnterShortcut(VK_F4);
-                            break;
-
-                        case "выполнить автозаполнение":
-                            EnterShortcut(VK_F9);
-                            break;
-
-                        case "открыть меню Записать на диск":
-                            EnterShortcut(VK_P);
-                            break;
-
-                        case "нажать f5":
-                            EnterShortcut(VK_F5);
-                            break;
-
-                        case "нажать стрелку вниз":
-                            EnterShortcut(VK_DOWN);
-                            break;
-
-                        case "нажать стрелку вправо":
-                            EnterShortcut(VK_RIGHT);
-                            break;
-
-                        case "перейти к графе номер":
-                            string numberField = commandWParam[1].ToString();
-                            FindField(numberField);
-                            break;
-
-                        case "подождать секунд":
-                            int secondsToSleep = Int32.Parse(commandWParam[1].ToString());
-                            Thread.Sleep(1000 * secondsToSleep);
-                            break;
-
-                        case "в столбце":
-                            for (int i = column; i < Int32.Parse(commandWParam[1].ToString()); i++)
-                            {
-                                EnterShortcut(VK_RIGHT);
-                            }
-                            EnterShortcut(VK_F4);
-                            EnterShortcut(VK_F3);
-                            column = Int32.Parse(commandWParam[1].ToString());
-                            break;
-
-                        case "ввести значение":
-                            EnterText(GetForegroundWindow(), commandWParam[1].ToString());
-                            break;
-
-                        case "нажать Esc":
-                            EnterShortcut(VK_ESCAPE);
-                            break;
-
-                        case "закрыть окно":
-                            MessageBox.Show(FindWindow(null, commandWParam[1].ToString()).ToString() + " " + GetForegroundWindow().ToString());
-                            SendMessage(FindWindow(null, commandWParam[1].ToString()), WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
-                            //SetForegroundWindow(windowFocus);
-                            break;
+                            tableScript_dgv.Rows[numOfCommand].Cells[3].Value = "успешно";
+                            numOfCommand++;
+                        }
 
                     }
-                    numOfCommand++;
                 }
-            }
+                catch (Exception ex)
+                {
+                    tableScript_dgv.Rows[numOfCommand].Cells[3].Value = "неудачно";
+                }
+            }).Start();
 
+        }
+        /// <summary>
+        /// Нажатие ЛКМ
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        private static void DoMouseLeftClick(int x, int y)
+        {
+            mouse_event(MOUSEEVENTF_LEFTDOWN, x, y, 0, 0);
+            mouse_event(MOUSEEVENTF_LEFTUP, x, y, 0, 0);
+        }
+        private void CloseWindow(IntPtr newWindow)
+        {
+            //Size resolution = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Size;
+            //SendMessage(newWindow, WM_MOUSEMOVE, (IntPtr)0, MakeParam(resolution.Width - 30, 20));
+            //DoMouseLeftClick(resolution.Width - 30, 20);
+            Size resolution = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Size;
+            Point p = new Point();
+            p.X = Convert.ToInt16(resolution.Width - 25);  //координаты из inspect exe
+            p.Y = Convert.ToInt16(20);  //поле How found : Mouse Move(47,30) при наведении мышкой на нужное поле
+            SetCursorPos(p.X, p.Y);
+            DoMouseLeftClick(p.X, p.Y);
+        }
+        /// <summary>
+        /// "помещение разных значений в старшие и в младшие биты"
+        /// </summary>
+        /// <param name="low"></param>
+        /// <param name="hight"></param>
+        /// <returns></returns>
+        public static IntPtr MakeParam(int low, int hight)
+        {
+            return (IntPtr)((low & 0xFFFF) | (hight << 16));
         }
 
         private void listOfCommand_MouseClick(object sender, MouseEventArgs e)
         {
             editCommand_tb.Text = "";
-            editCommand_tb.Text=listOfCommand.SelectedItems[0].Text;
+            editCommand_tb.Text = listOfCommand.SelectedItems[0].Text;
         }
 
         private void editComand_btn_Click(object sender, EventArgs e)
         {
-            listOfCommand.SelectedItems[0].Text = editCommand_tb.Text;
+            //listOfCommand.SelectedItems[0].Text = editCommand_tb.Text;
+            tableScript_dgv.CurrentRow.Cells[1].Value = editCommand_tb.Text;
             editCommand_tb.Text = "";
         }
 
@@ -401,6 +435,18 @@ namespace DclTestFormWPy
             {
                 listOfCommand.Items.Add(command);
             }
+            for (int i = 0; i < commands.Length - 1; i++)
+            {
+                String[] comWithParams = commands[i].Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+                int y = 1;
+                int rowNumber = tableScript_dgv.Rows.Add();
+                tableScript_dgv.Rows[rowNumber].Cells[0].Value = rowNumber + 1;
+                foreach (string str in comWithParams)
+                {
+                    tableScript_dgv.Rows[rowNumber].Cells[y].Value = str;
+                    y++;
+                }
+            }
         }
 
         private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -414,7 +460,52 @@ namespace DclTestFormWPy
             }
             tw.Close();
 
-            MessageBox.Show("Текстовый сценарий" + saveFileScript.FileName + ".txt успешно сохранен!");
+            MessageBox.Show("Текстовый сценарий" + saveFileScript.FileName + " успешно сохранен!");
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Size resolution = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Size;
+            MessageBox.Show($"Width: {resolution.Width}, Height: {resolution.Height}");
+
+        }
+
+        private void tableScript_dgv_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            editCommand_tb.Text = "";
+            editCommand_tb.Text = tableScript_dgv.CurrentRow.Cells[1].Value.ToString();
+        }
+
+        private void addCommand_btn_Click(object sender, EventArgs e)
+        {
+            if (command_cmb.SelectedItem != null)
+            {
+                if (command_cmb.SelectedIndex == 4 || command_cmb.SelectedIndex == 5)
+                {
+                    int rowNumber = tableScript_dgv.Rows.Add();
+                    tableScript_dgv.Rows[rowNumber].Cells[0].Value = rowNumber + 1;
+                    tableScript_dgv.Rows[rowNumber].Cells[1].Value = command_cmb.SelectedItem.ToString();
+                    if (params_cmb.SelectedItem != null)
+                        tableScript_dgv.Rows[rowNumber].Cells[2].Value = params_cmb.SelectedItem.ToString();
+                    else MessageBox.Show("Для данной команды необходимо выбрать значение");
+                }
+                else
+                {
+                    int rowNumber = tableScript_dgv.Rows.Add();
+                    tableScript_dgv.Rows[rowNumber].Cells[0].Value = rowNumber + 1;
+                    tableScript_dgv.Rows[rowNumber].Cells[1].Value = command_cmb.SelectedItem.ToString();
+                }
+            }
+        }
+
+        private void command_cmb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (command_cmb.SelectedIndex == 4 || command_cmb.SelectedIndex == 5)
+            {
+                params_cmb.Visible = true;
+                params_cmb.SelectedIndex = -1;
+            }
+            else params_cmb.Visible = false;
         }
     }
 }
