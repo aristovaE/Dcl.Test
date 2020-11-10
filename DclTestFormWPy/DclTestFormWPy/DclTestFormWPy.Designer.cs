@@ -48,6 +48,7 @@
             this.addCommand_btn = new System.Windows.Forms.Button();
             this.params_cmb = new System.Windows.Forms.ComboBox();
             this.params_tb = new System.Windows.Forms.TextBox();
+            this.delCommand_btn = new System.Windows.Forms.Button();
             this.scriptsTask_ms.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tableScript_dgv)).BeginInit();
             this.SuspendLayout();
@@ -112,7 +113,7 @@
             this.сценарийToolStripMenuItem});
             this.scriptsTask_ms.Location = new System.Drawing.Point(0, 0);
             this.scriptsTask_ms.Name = "scriptsTask_ms";
-            this.scriptsTask_ms.Size = new System.Drawing.Size(833, 24);
+            this.scriptsTask_ms.Size = new System.Drawing.Size(1043, 24);
             this.scriptsTask_ms.TabIndex = 5;
             this.scriptsTask_ms.Text = "menuStrip1";
             // 
@@ -128,14 +129,14 @@
             // открытьToolStripMenuItem
             // 
             this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
-            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.открытьToolStripMenuItem.Text = "Открыть";
             this.открытьToolStripMenuItem.Click += new System.EventHandler(this.открытьToolStripMenuItem_Click);
             // 
             // сохранитьToolStripMenuItem
             // 
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.сохранитьToolStripMenuItem.Text = "Сохранить";
             this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
             // 
@@ -244,11 +245,22 @@
             this.params_tb.TabIndex = 11;
             this.params_tb.Visible = false;
             // 
+            // delCommand_btn
+            // 
+            this.delCommand_btn.Location = new System.Drawing.Point(166, 153);
+            this.delCommand_btn.Name = "delCommand_btn";
+            this.delCommand_btn.Size = new System.Drawing.Size(75, 23);
+            this.delCommand_btn.TabIndex = 12;
+            this.delCommand_btn.Text = "Удалить";
+            this.delCommand_btn.UseVisualStyleBackColor = true;
+            this.delCommand_btn.Click += new System.EventHandler(this.delCommand_btn_Click);
+            // 
             // DclTestFormWPy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(833, 306);
+            this.ClientSize = new System.Drawing.Size(1043, 456);
+            this.Controls.Add(this.delCommand_btn);
             this.Controls.Add(this.params_tb);
             this.Controls.Add(this.params_cmb);
             this.Controls.Add(this.addCommand_btn);
@@ -293,6 +305,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn paramOfCommand;
         private System.Windows.Forms.DataGridViewTextBoxColumn resultOfCommand;
         private System.Windows.Forms.TextBox params_tb;
+        private System.Windows.Forms.Button delCommand_btn;
     }
 }
 

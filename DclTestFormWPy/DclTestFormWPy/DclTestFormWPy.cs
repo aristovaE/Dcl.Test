@@ -537,5 +537,11 @@ namespace DclTestFormWPy
                 params_tb.Visible = false;
             }
         }
+
+        private void delCommand_btn_Click(object sender, EventArgs e)
+        {
+            int rowIndexSelected = tableScript_dgv.SelectedCells[0].RowIndex;
+            tableScript_dgv.Rows.RemoveAt(rowIndexSelected);
+        }
     }
 }
