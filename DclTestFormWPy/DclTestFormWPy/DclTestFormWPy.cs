@@ -227,6 +227,8 @@ namespace DclTestFormWPy
         const byte VK_SHIFT = 0x10;
         const byte VK_ALT = 0x12;
         const byte VK_SPACE = 0x20;
+        const byte VK_CTRL = 0x11;
+        const byte VK_A = 0x41;
         const byte VK_L = 0x4C;
         const byte VK_B = 0x42;
         const byte VK_C = 0x43;
@@ -348,24 +350,31 @@ namespace DclTestFormWPy
                             break;
 
                         case "в столбце":
+                           
                             for (int i = column; i < Int32.Parse(tableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString()); i++)
                             {
                                 EnterShortcut(VK_RIGHT);
                             }
+                            //EnterShortcut(VK_F4);
+                            //EnterShortcut(VK_F3);
+                            column = Int32.Parse(tableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
+                            break;
+                        case "найти значение":
                             EnterShortcut(VK_F4);
                             EnterShortcut(VK_F3);
-                            column = Int32.Parse(tableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
+                            EnterText(GetForegroundWindow(), tableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
                             break;
 
                         case "ввести значение":
                             EnterText(GetForegroundWindow(), tableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
+                            EnterShortcuts(VK_CTRL, VK_RIGHT);
                             break;
 
-                        case "закрыть окно":
-                            //MessageBox.Show("find next:" + FindWindow(null, commandWParam[1].ToString()).ToString() + " foreground:" + GetForegroundWindow().ToString() + " focus:" + windowFocus.ToString());
-                            //SendMessage(GetForegroundWindow(), WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
-                            //SetForegroundWindow(windowFocus);
-                            //CloseWindow(GetForegroundWindow());// не работает
+                        case "ждать закрытия окна":
+                            while (GetForegroundWindow() != windowFocus)
+                            {
+                                Thread.Sleep(5000);
+                            }
                             break;
 
                     }
@@ -449,7 +458,7 @@ namespace DclTestFormWPy
             {
                 listOfCommand.Items.Add(command);
             }
-            for (int i = 0; i < commands.Length - 1; i++)
+            for (int i = 0; i < commands.Length; i++)
             {
                 String[] comWithParams = commands[i].Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
                 int y = 1;
@@ -495,7 +504,13 @@ namespace DclTestFormWPy
         {
             if (command_cmb.SelectedItem != null)
             {
-                if (command_cmb.SelectedIndex == 4 || command_cmb.SelectedIndex == 5 || command_cmb.SelectedIndex == 6 || command_cmb.SelectedIndex == 7)
+                if(command_cmb.SelectedIndex == 0)
+                {
+                    int rowNumber = tableScript_dgv.Rows.Add();
+                    tableScript_dgv.Rows[rowNumber].Cells[0].Value = rowNumber + 1;
+                    tableScript_dgv.Rows[rowNumber].Cells[2].Value = params_tb.Text;
+                }
+                else if (command_cmb.SelectedIndex == 5 || command_cmb.SelectedIndex == 6 || command_cmb.SelectedIndex == 7 || command_cmb.SelectedIndex == 8)
                 {
                     int rowNumber = tableScript_dgv.Rows.Add();
                     tableScript_dgv.Rows[rowNumber].Cells[0].Value = rowNumber + 1;
@@ -516,25 +531,30 @@ namespace DclTestFormWPy
                     tableScript_dgv.Rows[rowNumber].Cells[0].Value = rowNumber + 1;
                     tableScript_dgv.Rows[rowNumber].Cells[1].Value = command_cmb.SelectedItem.ToString();
                 }
-                params_tb.Text = "";
-                params_cmb.SelectedIndex = -1;
-                command_cmb.SelectedIndex = -1;
+                //params_tb.Text = "";
+                //params_cmb.SelectedIndex = -1;
+                //command_cmb.SelectedIndex = -1;
             }
         }
 
         private void command_cmb_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (command_cmb.SelectedIndex == 4)
+            if (command_cmb.SelectedIndex == 5)
             {
                 params_tb.Visible = false;
                 params_cmb.Visible = true;
                 params_cmb.SelectedIndex = -1;
             }
-            else if (command_cmb.SelectedIndex == 5 || command_cmb.SelectedIndex == 6 || command_cmb.SelectedIndex == 7)
+            else if (command_cmb.SelectedIndex == 6 || command_cmb.SelectedIndex == 7 || command_cmb.SelectedIndex == 8)
             {
                 params_cmb.Visible = false;
                 params_tb.Visible = true;
                 params_tb.Text = "";
+            }
+            else if (command_cmb.SelectedIndex == 0)
+            {
+                params_cmb.Visible = false;
+                params_tb.Visible = true;
             }
             else
             {
