@@ -77,8 +77,8 @@ namespace DclTestFormWPy
             //ввод сочетания клавиш
             keybd_event(keyButton1, 0, 0, 0); //
             keybd_event(keyButton2, 0, 0, 0); //
-            keybd_event(keyButton1, 0, KEYEVENTF_KEYUP, 0);
             keybd_event(keyButton2, 0, KEYEVENTF_KEYUP, 0);
+            keybd_event(keyButton1, 0, KEYEVENTF_KEYUP, 0);
 
             Thread.Sleep(1000);
         }
@@ -263,7 +263,7 @@ namespace DclTestFormWPy
         private void startScript_btn_Click(object sender, EventArgs e)
         {
             int numOfCommand = 0;
-            int column = 1;
+            int column = 1, row = 1;
             IntPtr windowFocus = IntPtr.Zero;
             String[] commandWParam = null;
             List<string> commands = new List<string>();
@@ -302,6 +302,9 @@ namespace DclTestFormWPy
                                 case "ESC":
                                     EnterShortcut(VK_ESCAPE);
                                     break;
+                                case "SPACE":
+                                    EnterShortcut(VK_SPACE);
+                                    break;
                                 case "F3":
                                     EnterShortcut(VK_F3);
                                     break;
@@ -327,6 +330,14 @@ namespace DclTestFormWPy
                             EnterShortcut(VK_TAB);
                             break;
 
+                        case "перейти назад":
+                            EnterShortcuts(VK_SHIFT, VK_TAB);
+                            break;
+
+                        case "выделить все":
+                            EnterShortcuts(VK_CTRL, VK_A);
+                            break;
+
                         case "открыть классификатор":
                             EnterShortcut(VK_F4);
                             break;
@@ -350,10 +361,18 @@ namespace DclTestFormWPy
                             break;
 
                         case "в столбце":
-                           
                             for (int i = column; i < Int32.Parse(tableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString()); i++)
                             {
                                 EnterShortcut(VK_RIGHT);
+                            }
+                            //EnterShortcut(VK_F4);
+                            //EnterShortcut(VK_F3);
+                            column = Int32.Parse(tableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
+                            break;
+                        case "в строке":
+                            for (int i = row; i < Int32.Parse(tableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString()); i++)
+                            {
+                                EnterShortcut(VK_DOWN);
                             }
                             //EnterShortcut(VK_F4);
                             //EnterShortcut(VK_F3);
@@ -367,7 +386,6 @@ namespace DclTestFormWPy
 
                         case "ввести значение":
                             EnterText(GetForegroundWindow(), tableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
-                            EnterShortcuts(VK_CTRL, VK_RIGHT);
                             break;
 
                         case "ждать закрытия окна":
@@ -378,13 +396,13 @@ namespace DclTestFormWPy
                             break;
 
                     }
-                    tableScript_dgv.Rows[numOfCommand].Cells[3].Value = "успешно";
+                    tableScript_dgv.Rows[numOfCommand].Cells[4].Value = "успешно";
                     numOfCommand++;
                 }
             }
             catch (Exception ex)
             {
-                tableScript_dgv.Rows[numOfCommand].Cells[3].Value = "неудачно";
+                tableScript_dgv.Rows[numOfCommand].Cells[4].Value = "неудачно";
             }
             //}));
             //};
@@ -451,6 +469,7 @@ namespace DclTestFormWPy
                 return;
             tableScript_dgv.Rows.Clear();
 
+            fileName_lbl.Text = openFileScript.SafeFileName.ToString();
             string strmas = File.ReadAllText(openFileScript.FileName);
             String[] commands = strmas.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
             listOfCommand.Items.Clear();
@@ -504,7 +523,7 @@ namespace DclTestFormWPy
         {
             if (command_cmb.SelectedItem != null)
             {
-                if(command_cmb.SelectedIndex == 0)
+                if (command_cmb.SelectedIndex == 0)
                 {
                     int rowNumber = tableScript_dgv.Rows.Add();
                     tableScript_dgv.Rows[rowNumber].Cells[0].Value = rowNumber + 1;
