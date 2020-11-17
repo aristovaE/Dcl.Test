@@ -493,7 +493,7 @@ namespace DclTestFormWPy
             treeViewOfScript.Nodes.Clear();
             //древовидное представление
             TreeNode newTR = treeViewOfScript.Nodes.Add(fileName_lbl.Text);
-            TreeNode nameOfCommands=null; 
+            TreeNode nameOfCommands = null;
             int indexOfCommand = 0, index = 0;
 
             foreach (string command in commands)
@@ -501,24 +501,33 @@ namespace DclTestFormWPy
                 //String[] str=command.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
                 // foreach(string commandsToTV in str)
                 //{
-                    if (command.Contains("группа:"))
+                if (command.Contains("группа:"))
+                {
+                    nameOfCommands = newTR.Nodes.Add(command);
+                    indexOfCommand += 1;
+                }
+                else if (index != 0)
+                {
+                    if (commands[index - 1].Contains("конец:"))
                     {
                         nameOfCommands = newTR.Nodes.Add(command);
-                        indexOfCommand += 1;
+                        //indexOfCommand += 1;
+                    }
+                    else if (command.Contains("конец:"))
+                    {
+                        //не писать команду в тривью
+                    }
+
+                    else if (nameOfCommands == null)
+                    {
+                        TreeNode commandsOfGroups = newTR.Nodes.Add(commands[index]);
                     }
                     else
                     {
-                        if (nameOfCommands == null)
-                        {
-                            TreeNode commandsOfGroups = newTR.Nodes.Add(commands[index]);
-                        }
-                        else
-                        {
-                            TreeNode commandsOfGroups = nameOfCommands.Nodes.Add(commands[index]);
-                        }
+                        TreeNode commandsOfGroups = nameOfCommands.Nodes.Add(commands[index]);
                     }
-
-                    index += 1;
+                }
+                index += 1;
                 //}
             }
         }
@@ -631,7 +640,7 @@ namespace DclTestFormWPy
         {
             int rowNumber = tableScript_dgv.Rows.Add();
             tableScript_dgv.Rows[rowNumber].Cells[0].Value = rowNumber + 1;
-            tableScript_dgv.Rows[rowNumber].Cells[1].Value = ":конец";
+            tableScript_dgv.Rows[rowNumber].Cells[1].Value = "конец:";
             endGroup_btn.Visible = false;
         }
     }
