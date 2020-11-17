@@ -489,6 +489,38 @@ namespace DclTestFormWPy
                     y++;
                 }
             }
+
+            treeViewOfScript.Nodes.Clear();
+            //древовидное представление
+            TreeNode newTR = treeViewOfScript.Nodes.Add(fileName_lbl.Text);
+            TreeNode nameOfCommands=null; 
+            int indexOfCommand = 0, index = 0;
+
+            foreach (string command in commands)
+            {
+                //String[] str=command.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+                // foreach(string commandsToTV in str)
+                //{
+                    if (command.Contains("группа:"))
+                    {
+                        nameOfCommands = newTR.Nodes.Add(command);
+                        indexOfCommand += 1;
+                    }
+                    else
+                    {
+                        if (nameOfCommands == null)
+                        {
+                            TreeNode commandsOfGroups = newTR.Nodes.Add(commands[index]);
+                        }
+                        else
+                        {
+                            TreeNode commandsOfGroups = nameOfCommands.Nodes.Add(commands[index]);
+                        }
+                    }
+
+                    index += 1;
+                //}
+            }
         }
 
         private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -575,6 +607,12 @@ namespace DclTestFormWPy
                 params_cmb.Visible = false;
                 params_tb.Visible = true;
             }
+            else if (command_cmb.SelectedIndex == 9)
+            {
+                params_cmb.Visible = false;
+                params_tb.Visible = false;
+                endGroup_btn.Visible = true;
+            }
             else
             {
                 params_cmb.Visible = false;
@@ -586,6 +624,15 @@ namespace DclTestFormWPy
         {
             int rowIndexSelected = tableScript_dgv.SelectedCells[0].RowIndex;
             tableScript_dgv.Rows.RemoveAt(rowIndexSelected);
+        }
+
+
+        private void endGroup_btn_Click(object sender, EventArgs e)
+        {
+            int rowNumber = tableScript_dgv.Rows.Add();
+            tableScript_dgv.Rows[rowNumber].Cells[0].Value = rowNumber + 1;
+            tableScript_dgv.Rows[rowNumber].Cells[1].Value = ":конец";
+            endGroup_btn.Visible = false;
         }
     }
 }

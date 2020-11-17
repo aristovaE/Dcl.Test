@@ -40,6 +40,11 @@
             this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileScript = new System.Windows.Forms.SaveFileDialog();
             this.tableScript_dgv = new System.Windows.Forms.DataGridView();
+            this.numberOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.paramOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descriptionOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.resultOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.command_cmb = new System.Windows.Forms.ComboBox();
             this.addCommand_btn = new System.Windows.Forms.Button();
             this.params_cmb = new System.Windows.Forms.ComboBox();
@@ -48,11 +53,9 @@
             this.add_gb = new System.Windows.Forms.GroupBox();
             this.del_gb = new System.Windows.Forms.GroupBox();
             this.edit_gb = new System.Windows.Forms.GroupBox();
-            this.numberOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nameOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.paramOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descriptionOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.resultOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fileName_lbl = new System.Windows.Forms.Label();
+            this.treeViewOfScript = new System.Windows.Forms.TreeView();
+            this.endGroup_btn = new System.Windows.Forms.Button();
             this.scriptsTask_ms.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tableScript_dgv)).BeginInit();
             this.add_gb.SuspendLayout();
@@ -136,14 +139,14 @@
             // открытьToolStripMenuItem
             // 
             this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
-            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.открытьToolStripMenuItem.Text = "Открыть";
             this.открытьToolStripMenuItem.Click += new System.EventHandler(this.открытьToolStripMenuItem_Click);
             // 
             // сохранитьToolStripMenuItem
             // 
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.сохранитьToolStripMenuItem.Text = "Сохранить";
             this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
             // 
@@ -166,105 +169,6 @@
             this.tableScript_dgv.Size = new System.Drawing.Size(570, 204);
             this.tableScript_dgv.TabIndex = 7;
             this.tableScript_dgv.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.tableScript_dgv_RowHeaderMouseClick);
-            // 
-            // command_cmb
-            // 
-            this.command_cmb.FormattingEnabled = true;
-            this.command_cmb.Items.AddRange(new object[] {
-            " ",
-            "открыть окно ВД",
-            "выполнить автозаполнение",
-            "открыть классификатор",
-            "перейти вперед",
-            "нажать",
-            "ввести значение",
-            "перейти к графе номер",
-            "подождать секунд"});
-            this.command_cmb.Location = new System.Drawing.Point(6, 22);
-            this.command_cmb.Name = "command_cmb";
-            this.command_cmb.Size = new System.Drawing.Size(148, 21);
-            this.command_cmb.TabIndex = 8;
-            this.command_cmb.SelectedIndexChanged += new System.EventHandler(this.command_cmb_SelectedIndexChanged);
-            // 
-            // addCommand_btn
-            // 
-            this.addCommand_btn.Location = new System.Drawing.Point(164, 19);
-            this.addCommand_btn.Name = "addCommand_btn";
-            this.addCommand_btn.Size = new System.Drawing.Size(75, 25);
-            this.addCommand_btn.TabIndex = 9;
-            this.addCommand_btn.Text = "Добавить";
-            this.addCommand_btn.UseVisualStyleBackColor = true;
-            this.addCommand_btn.Click += new System.EventHandler(this.addCommand_btn_Click);
-            // 
-            // params_cmb
-            // 
-            this.params_cmb.FormattingEnabled = true;
-            this.params_cmb.Items.AddRange(new object[] {
-            "ENTER",
-            "F5",
-            "ESC",
-            "F3",
-            "стрелку влево",
-            "стрелку вправо",
-            "стрелку вверх",
-            "стрелку вниз"});
-            this.params_cmb.Location = new System.Drawing.Point(6, 48);
-            this.params_cmb.Name = "params_cmb";
-            this.params_cmb.Size = new System.Drawing.Size(148, 21);
-            this.params_cmb.TabIndex = 10;
-            this.params_cmb.Visible = false;
-            // 
-            // params_tb
-            // 
-            this.params_tb.Location = new System.Drawing.Point(6, 49);
-            this.params_tb.Name = "params_tb";
-            this.params_tb.Size = new System.Drawing.Size(148, 20);
-            this.params_tb.TabIndex = 11;
-            this.params_tb.Visible = false;
-            // 
-            // delCommand_btn
-            // 
-            this.delCommand_btn.Location = new System.Drawing.Point(164, 19);
-            this.delCommand_btn.Name = "delCommand_btn";
-            this.delCommand_btn.Size = new System.Drawing.Size(75, 23);
-            this.delCommand_btn.TabIndex = 12;
-            this.delCommand_btn.Text = "Удалить";
-            this.delCommand_btn.UseVisualStyleBackColor = true;
-            this.delCommand_btn.Click += new System.EventHandler(this.delCommand_btn_Click);
-            // 
-            // add_gb
-            // 
-            this.add_gb.Controls.Add(this.command_cmb);
-            this.add_gb.Controls.Add(this.params_tb);
-            this.add_gb.Controls.Add(this.addCommand_btn);
-            this.add_gb.Controls.Add(this.params_cmb);
-            this.add_gb.Location = new System.Drawing.Point(610, 42);
-            this.add_gb.Name = "add_gb";
-            this.add_gb.Size = new System.Drawing.Size(245, 81);
-            this.add_gb.TabIndex = 13;
-            this.add_gb.TabStop = false;
-            this.add_gb.Text = "Добавление";
-            // 
-            // del_gb
-            // 
-            this.del_gb.Controls.Add(this.delCommand_btn);
-            this.del_gb.Location = new System.Drawing.Point(610, 129);
-            this.del_gb.Name = "del_gb";
-            this.del_gb.Size = new System.Drawing.Size(245, 56);
-            this.del_gb.TabIndex = 14;
-            this.del_gb.TabStop = false;
-            this.del_gb.Text = "Удаление";
-            // 
-            // edit_gb
-            // 
-            this.edit_gb.Controls.Add(this.editComand_btn);
-            this.edit_gb.Controls.Add(this.editCommand_tb);
-            this.edit_gb.Location = new System.Drawing.Point(610, 191);
-            this.edit_gb.Name = "edit_gb";
-            this.edit_gb.Size = new System.Drawing.Size(245, 55);
-            this.edit_gb.TabIndex = 15;
-            this.edit_gb.TabStop = false;
-            this.edit_gb.Text = "Редактирование";
             // 
             // numberOfCommand
             // 
@@ -306,11 +210,141 @@
             this.resultOfCommand.ReadOnly = true;
             this.resultOfCommand.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
+            // command_cmb
+            // 
+            this.command_cmb.FormattingEnabled = true;
+            this.command_cmb.Items.AddRange(new object[] {
+            " ",
+            "открыть окно ВД",
+            "выполнить автозаполнение",
+            "открыть классификатор",
+            "перейти вперед",
+            "нажать",
+            "ввести значение",
+            "перейти к графе номер",
+            "подождать секунд",
+            "группа:"});
+            this.command_cmb.Location = new System.Drawing.Point(10, 22);
+            this.command_cmb.Name = "command_cmb";
+            this.command_cmb.Size = new System.Drawing.Size(148, 21);
+            this.command_cmb.TabIndex = 8;
+            this.command_cmb.SelectedIndexChanged += new System.EventHandler(this.command_cmb_SelectedIndexChanged);
+            // 
+            // addCommand_btn
+            // 
+            this.addCommand_btn.Location = new System.Drawing.Point(164, 19);
+            this.addCommand_btn.Name = "addCommand_btn";
+            this.addCommand_btn.Size = new System.Drawing.Size(75, 25);
+            this.addCommand_btn.TabIndex = 9;
+            this.addCommand_btn.Text = "Добавить";
+            this.addCommand_btn.UseVisualStyleBackColor = true;
+            this.addCommand_btn.Click += new System.EventHandler(this.addCommand_btn_Click);
+            // 
+            // params_cmb
+            // 
+            this.params_cmb.FormattingEnabled = true;
+            this.params_cmb.Items.AddRange(new object[] {
+            "ENTER",
+            "F5",
+            "ESC",
+            "F3",
+            "стрелку влево",
+            "стрелку вправо",
+            "стрелку вверх",
+            "стрелку вниз"});
+            this.params_cmb.Location = new System.Drawing.Point(10, 53);
+            this.params_cmb.Name = "params_cmb";
+            this.params_cmb.Size = new System.Drawing.Size(148, 21);
+            this.params_cmb.TabIndex = 10;
+            this.params_cmb.Visible = false;
+            // 
+            // params_tb
+            // 
+            this.params_tb.Location = new System.Drawing.Point(10, 53);
+            this.params_tb.Name = "params_tb";
+            this.params_tb.Size = new System.Drawing.Size(148, 20);
+            this.params_tb.TabIndex = 11;
+            this.params_tb.Visible = false;
+            // 
+            // delCommand_btn
+            // 
+            this.delCommand_btn.Location = new System.Drawing.Point(164, 19);
+            this.delCommand_btn.Name = "delCommand_btn";
+            this.delCommand_btn.Size = new System.Drawing.Size(75, 23);
+            this.delCommand_btn.TabIndex = 12;
+            this.delCommand_btn.Text = "Удалить";
+            this.delCommand_btn.UseVisualStyleBackColor = true;
+            this.delCommand_btn.Click += new System.EventHandler(this.delCommand_btn_Click);
+            // 
+            // add_gb
+            // 
+            this.add_gb.Controls.Add(this.endGroup_btn);
+            this.add_gb.Controls.Add(this.command_cmb);
+            this.add_gb.Controls.Add(this.params_tb);
+            this.add_gb.Controls.Add(this.addCommand_btn);
+            this.add_gb.Controls.Add(this.params_cmb);
+            this.add_gb.Location = new System.Drawing.Point(610, 42);
+            this.add_gb.Name = "add_gb";
+            this.add_gb.Size = new System.Drawing.Size(245, 86);
+            this.add_gb.TabIndex = 13;
+            this.add_gb.TabStop = false;
+            this.add_gb.Text = "Добавление";
+            // 
+            // del_gb
+            // 
+            this.del_gb.Controls.Add(this.delCommand_btn);
+            this.del_gb.Location = new System.Drawing.Point(610, 134);
+            this.del_gb.Name = "del_gb";
+            this.del_gb.Size = new System.Drawing.Size(245, 56);
+            this.del_gb.TabIndex = 14;
+            this.del_gb.TabStop = false;
+            this.del_gb.Text = "Удаление";
+            // 
+            // edit_gb
+            // 
+            this.edit_gb.Controls.Add(this.editComand_btn);
+            this.edit_gb.Controls.Add(this.editCommand_tb);
+            this.edit_gb.Location = new System.Drawing.Point(610, 197);
+            this.edit_gb.Name = "edit_gb";
+            this.edit_gb.Size = new System.Drawing.Size(245, 55);
+            this.edit_gb.TabIndex = 15;
+            this.edit_gb.TabStop = false;
+            this.edit_gb.Text = "Редактирование";
+            // 
+            // fileName_lbl
+            // 
+            this.fileName_lbl.AutoSize = true;
+            this.fileName_lbl.Location = new System.Drawing.Point(12, 26);
+            this.fileName_lbl.Name = "fileName_lbl";
+            this.fileName_lbl.Size = new System.Drawing.Size(10, 13);
+            this.fileName_lbl.TabIndex = 16;
+            this.fileName_lbl.Text = " ";
+            // 
+            // treeViewOfScript
+            // 
+            this.treeViewOfScript.Location = new System.Drawing.Point(12, 285);
+            this.treeViewOfScript.Name = "treeViewOfScript";
+            this.treeViewOfScript.Size = new System.Drawing.Size(570, 325);
+            this.treeViewOfScript.TabIndex = 17;
+            // 
+            // endGroup_btn
+            // 
+            this.endGroup_btn.Location = new System.Drawing.Point(164, 50);
+            this.endGroup_btn.Name = "endGroup_btn";
+            this.endGroup_btn.Size = new System.Drawing.Size(75, 25);
+            this.endGroup_btn.TabIndex = 12;
+            this.endGroup_btn.Text = "Конец";
+            this.endGroup_btn.UseVisualStyleBackColor = true;
+            this.endGroup_btn.Visible = false;
+            this.endGroup_btn.Click += new System.EventHandler(this.endGroup_btn_Click);
+            // 
             // DclTestFormWPy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(869, 291);
+            this.ClientSize = new System.Drawing.Size(869, 622);
+            this.Controls.Add(this.treeViewOfScript);
+            this.Controls.Add(this.fileName_lbl);
             this.Controls.Add(this.edit_gb);
             this.Controls.Add(this.del_gb);
             this.Controls.Add(this.add_gb);
@@ -362,6 +396,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn paramOfCommand;
         private System.Windows.Forms.DataGridViewTextBoxColumn descriptionOfCommand;
         private System.Windows.Forms.DataGridViewTextBoxColumn resultOfCommand;
+        private System.Windows.Forms.Label fileName_lbl;
+        private System.Windows.Forms.TreeView treeViewOfScript;
+        private System.Windows.Forms.Button endGroup_btn;
     }
 }
 
