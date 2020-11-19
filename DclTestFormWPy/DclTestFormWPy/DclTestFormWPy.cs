@@ -42,7 +42,6 @@ namespace DclTestFormWPy
         }
         private void FindField(string numberOfField)
         {
-            IntPtr windowDCL = WindowFromPoint(System.Windows.Forms.Cursor.Position = new Point(47, 30)); //Меню - Документ
             EnterShortcut(VK_F6);
             Thread.Sleep(2000);
             IntPtr windowF6 = GetForegroundWindow();
@@ -247,10 +246,62 @@ namespace DclTestFormWPy
         const byte VK_F6 = 0x75;
         const byte VK_F9 = 0x78;
         public const int WM_SETTEXT = 0x000C;
+        public const int BM_CLICK = 0x00F5;
         public const UInt32 KEYEVENTF_EXTENDEDKEY = 1;
         public const UInt32 KEYEVENTF_KEYUP = 2;
         internal const UInt32 MF_BYCOMMAND = 0x00000000;
 
+        public enum GetWindowType : uint
+        {
+            /// <summary>
+            /// The retrieved handle identifies the window of the same type that is highest in the Z order.
+            /// <para/>
+            /// If the specified window is a topmost window, the handle identifies a topmost window.
+            /// If the specified window is a top-level window, the handle identifies a top-level window.
+            /// If the specified window is a child window, the handle identifies a sibling window.
+            /// </summary>
+            GW_HWNDFIRST = 0,
+            /// <summary>
+            /// The retrieved handle identifies the window of the same type that is lowest in the Z order.
+            /// <para />
+            /// If the specified window is a topmost window, the handle identifies a topmost window.
+            /// If the specified window is a top-level window, the handle identifies a top-level window.
+            /// If the specified window is a child window, the handle identifies a sibling window.
+            /// </summary>
+            GW_HWNDLAST = 1,
+            /// <summary>
+            /// The retrieved handle identifies the window below the specified window in the Z order.
+            /// <para />
+            /// If the specified window is a topmost window, the handle identifies a topmost window.
+            /// If the specified window is a top-level window, the handle identifies a top-level window.
+            /// If the specified window is a child window, the handle identifies a sibling window.
+            /// </summary>
+            GW_HWNDNEXT = 2,
+            /// <summary>
+            /// The retrieved handle identifies the window above the specified window in the Z order.
+            /// <para />
+            /// If the specified window is a topmost window, the handle identifies a topmost window.
+            /// If the specified window is a top-level window, the handle identifies a top-level window.
+            /// If the specified window is a child window, the handle identifies a sibling window.
+            /// </summary>
+            GW_HWNDPREV = 3,
+            /// <summary>
+            /// The retrieved handle identifies the specified window's owner window, if any.
+            /// </summary>
+            GW_OWNER = 4,
+            /// <summary>
+            /// The retrieved handle identifies the child window at the top of the Z order,
+            /// if the specified window is a parent window; otherwise, the retrieved handle is NULL.
+            /// The function examines only child windows of the specified window. It does not examine descendant windows.
+            /// </summary>
+            GW_CHILD = 5,
+            /// <summary>
+            /// The retrieved handle identifies the enabled popup window owned by the specified window (the
+            /// search uses the first such window found using GW_HWNDNEXT); otherwise, if there are no enabled
+            /// popup windows, the retrieved handle is that of the specified window.
+            /// </summary>
+            GW_ENABLEDPOPUP = 6
+        }
         #endregion
 
         //Thread TMyfunc = new Thread(delegate ()
@@ -265,7 +316,6 @@ namespace DclTestFormWPy
             int numOfCommand = 0;
             int column = 1, row = 1;
             IntPtr windowFocus = IntPtr.Zero;
-            String[] commandWParam = null;
             List<string> commands = new List<string>();
             //List<string> commands = listOfCommand.Items.Cast<ListViewItem>().Select(item => item.Text).ToList();
             for (int i = 0; i < tableScript_dgv.Rows.Count - 1; i++)
@@ -274,6 +324,7 @@ namespace DclTestFormWPy
             }
             //new Thread(() =>
             //{
+            bool IsStop=false;
             try
             {
                 foreach (string command in commands)
@@ -291,6 +342,14 @@ namespace DclTestFormWPy
 
                         case "открыть меню Прочитать с диска":
                             EnterShortcut(VK_L);
+                            break;
+
+                        case "проверка":
+                           var result = MessageBox.Show("Сценарий выполнен корректно?","Внимание",MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            if (result != DialogResult.Yes)
+                            {
+                                IsStop = true;
+                            }
                             break;
 
                         case "нажать":
@@ -396,13 +455,21 @@ namespace DclTestFormWPy
                             break;
 
                     }
+                    if (IsStop != false)
+                    {
+                        break;
+                    }
                     tableScript_dgv.Rows[numOfCommand].Cells[4].Value = "успешно";
                     numOfCommand++;
                 }
             }
             catch (Exception ex)
             {
-                tableScript_dgv.Rows[numOfCommand].Cells[4].Value = "неудачно";
+                tableScript_dgv.Rows[numOfCommand].Cells[4].Value = $"неудачно({ex.Message})";
+            }
+            finally
+            {
+
             }
             //}));
             //};
@@ -642,6 +709,74 @@ namespace DclTestFormWPy
             tableScript_dgv.Rows[rowNumber].Cells[0].Value = rowNumber + 1;
             tableScript_dgv.Rows[rowNumber].Cells[1].Value = "конец:";
             endGroup_btn.Visible = false;
+        }
+
+        /// <summary>
+        /// Заголовок (caption) окна
+        /// </summary>
+        /// <param name="hWnd"></param>
+        /// <returns></returns>
+        public static string GetControlText(IntPtr hWnd)
+        {
+            // Get the size of the string required to hold the window title (including trailing null.) 
+            Int32 titleSize = SendMessage((int)hWnd, WM_GETTEXTLENGTH, 0, 0).ToInt32();
+            // If titleSize is 0, there is no title so return an empty string (or null)
+            if (titleSize == 0)
+                return String.Empty;
+            StringBuilder title = new StringBuilder(titleSize + 1);
+            SendMessage(hWnd, (int)WM_GETTEXT, title.Capacity, title);
+
+            return title.ToString();
+        }
+
+        private IntPtr findFirstTextBox(IntPtr windowHandle,string title)
+        {
+            IntPtr childHandle = IntPtr.Zero;
+            //List<TextBoxInfo> collectionTextBox = new List<TextBoxInfo>();
+            //childHandle = FindWindowEx(windowHandle, IntPtr.Zero, "MDIClient", IntPtr.Zero);
+            if (windowHandle != IntPtr.Zero)
+            {
+                if(GetControlText(windowHandle)!=title)
+                childHandle = GetWindow(windowHandle, (uint)GetWindowType.GW_CHILD);
+                if (GetControlText(childHandle) != title)
+                    childHandle = GetWindow(childHandle, (uint)GetWindowType.GW_CHILD);
+                if (GetControlText(childHandle) != title)
+                    childHandle = GetWindow(childHandle, (uint)GetWindowType.GW_CHILD);
+                while (GetControlText(childHandle) != title)
+                    childHandle = GetWindow(childHandle, (uint)GetWindowType.GW_HWNDNEXT);
+            }
+            return childHandle;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            OpenDCL();
+            EnterShortcuts(VK_ALT, VK_L);
+            EnterShortcut(VK_Y);
+            EnterShortcut(VK_L);
+            for (int i = 0; i < 6; i++)
+            {
+                EnterShortcut(VK_TAB);
+            }
+            EnterShortcut(VK_UP);
+            EnterShortcut(VK_RETURN);
+            Thread.Sleep(1000);
+            IntPtr hwnd = GetForegroundWindow();
+            IntPtr findWindow = findFirstTextBox(hwnd, "Экспорт");
+            ////SendMessage(findWindow, BM_CLICK, 0, 0);
+            RECT rct;
+            if (!GetWindowRect(findWindow, out rct))
+            {
+                MessageBox.Show("ERROR");
+                return;
+            }
+
+            int widthOfDCL = rct.xBottomRight - rct.xUpLeft + 1;
+            int heightOfDCL = rct.yBottomRight - rct.yUpLeft + 1;
+            int xseredina = (rct.xBottomRight + rct.xUpLeft) / 2;
+            int yseredina = (rct.yBottomRight + rct.yUpLeft) / 2;
+            SendMessage(hwnd, WM_MOUSEMOVE, (IntPtr)0, MakeParam(xseredina, yseredina));
+            DoMouseLeftClick(xseredina, yseredina);
         }
     }
 }
