@@ -51,16 +51,24 @@
             this.params_tb = new System.Windows.Forms.TextBox();
             this.delCommand_btn = new System.Windows.Forms.Button();
             this.add_gb = new System.Windows.Forms.GroupBox();
+            this.endGroup_btn = new System.Windows.Forms.Button();
             this.del_gb = new System.Windows.Forms.GroupBox();
             this.edit_gb = new System.Windows.Forms.GroupBox();
             this.fileName_lbl = new System.Windows.Forms.Label();
             this.treeViewOfScript = new System.Windows.Forms.TreeView();
-            this.endGroup_btn = new System.Windows.Forms.Button();
+            this.tabScripts = new System.Windows.Forms.TabControl();
+            this.tabTreeViewScript = new System.Windows.Forms.TabPage();
+            this.tabTableScript = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
+            this.refresh_btn = new System.Windows.Forms.Button();
             this.scriptsTask_ms.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tableScript_dgv)).BeginInit();
             this.add_gb.SuspendLayout();
             this.del_gb.SuspendLayout();
             this.edit_gb.SuspendLayout();
+            this.tabScripts.SuspendLayout();
+            this.tabTreeViewScript.SuspendLayout();
+            this.tabTableScript.SuspendLayout();
             this.SuspendLayout();
             // 
             // chooseScript_btn
@@ -123,7 +131,7 @@
             this.сценарийToolStripMenuItem});
             this.scriptsTask_ms.Location = new System.Drawing.Point(0, 0);
             this.scriptsTask_ms.Name = "scriptsTask_ms";
-            this.scriptsTask_ms.Size = new System.Drawing.Size(869, 24);
+            this.scriptsTask_ms.Size = new System.Drawing.Size(862, 24);
             this.scriptsTask_ms.TabIndex = 5;
             this.scriptsTask_ms.Text = "menuStrip1";
             // 
@@ -139,14 +147,14 @@
             // открытьToolStripMenuItem
             // 
             this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
-            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.открытьToolStripMenuItem.Text = "Открыть";
             this.открытьToolStripMenuItem.Click += new System.EventHandler(this.открытьToolStripMenuItem_Click);
             // 
             // сохранитьToolStripMenuItem
             // 
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.сохранитьToolStripMenuItem.Text = "Сохранить";
             this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
             // 
@@ -164,9 +172,9 @@
             this.descriptionOfCommand,
             this.resultOfCommand});
             this.tableScript_dgv.GridColor = System.Drawing.SystemColors.Control;
-            this.tableScript_dgv.Location = new System.Drawing.Point(12, 42);
+            this.tableScript_dgv.Location = new System.Drawing.Point(0, 0);
             this.tableScript_dgv.Name = "tableScript_dgv";
-            this.tableScript_dgv.Size = new System.Drawing.Size(570, 204);
+            this.tableScript_dgv.Size = new System.Drawing.Size(588, 192);
             this.tableScript_dgv.TabIndex = 7;
             this.tableScript_dgv.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.tableScript_dgv_RowHeaderMouseClick);
             // 
@@ -290,6 +298,17 @@
             this.add_gb.TabStop = false;
             this.add_gb.Text = "Добавление";
             // 
+            // endGroup_btn
+            // 
+            this.endGroup_btn.Location = new System.Drawing.Point(164, 50);
+            this.endGroup_btn.Name = "endGroup_btn";
+            this.endGroup_btn.Size = new System.Drawing.Size(75, 25);
+            this.endGroup_btn.TabIndex = 12;
+            this.endGroup_btn.Text = "Конец";
+            this.endGroup_btn.UseVisualStyleBackColor = true;
+            this.endGroup_btn.Visible = false;
+            this.endGroup_btn.Click += new System.EventHandler(this.endGroup_btn_Click);
+            // 
             // del_gb
             // 
             this.del_gb.Controls.Add(this.delCommand_btn);
@@ -314,7 +333,7 @@
             // fileName_lbl
             // 
             this.fileName_lbl.AutoSize = true;
-            this.fileName_lbl.Location = new System.Drawing.Point(12, 26);
+            this.fileName_lbl.Location = new System.Drawing.Point(617, 256);
             this.fileName_lbl.Name = "fileName_lbl";
             this.fileName_lbl.Size = new System.Drawing.Size(10, 13);
             this.fileName_lbl.TabIndex = 16;
@@ -322,33 +341,75 @@
             // 
             // treeViewOfScript
             // 
-            this.treeViewOfScript.Location = new System.Drawing.Point(12, 285);
+            this.treeViewOfScript.Location = new System.Drawing.Point(-1, 0);
             this.treeViewOfScript.Name = "treeViewOfScript";
-            this.treeViewOfScript.Size = new System.Drawing.Size(570, 325);
+            this.treeViewOfScript.Size = new System.Drawing.Size(585, 189);
             this.treeViewOfScript.TabIndex = 17;
             // 
-            // endGroup_btn
+            // tabScripts
             // 
-            this.endGroup_btn.Location = new System.Drawing.Point(164, 50);
-            this.endGroup_btn.Name = "endGroup_btn";
-            this.endGroup_btn.Size = new System.Drawing.Size(75, 25);
-            this.endGroup_btn.TabIndex = 12;
-            this.endGroup_btn.Text = "Конец";
-            this.endGroup_btn.UseVisualStyleBackColor = true;
-            this.endGroup_btn.Visible = false;
-            this.endGroup_btn.Click += new System.EventHandler(this.endGroup_btn_Click);
+            this.tabScripts.Controls.Add(this.tabTreeViewScript);
+            this.tabScripts.Controls.Add(this.tabTableScript);
+            this.tabScripts.Location = new System.Drawing.Point(12, 27);
+            this.tabScripts.Name = "tabScripts";
+            this.tabScripts.SelectedIndex = 0;
+            this.tabScripts.Size = new System.Drawing.Size(592, 214);
+            this.tabScripts.TabIndex = 18;
+            // 
+            // tabTreeViewScript
+            // 
+            this.tabTreeViewScript.Controls.Add(this.treeViewOfScript);
+            this.tabTreeViewScript.Location = new System.Drawing.Point(4, 22);
+            this.tabTreeViewScript.Name = "tabTreeViewScript";
+            this.tabTreeViewScript.Padding = new System.Windows.Forms.Padding(3);
+            this.tabTreeViewScript.Size = new System.Drawing.Size(584, 188);
+            this.tabTreeViewScript.TabIndex = 0;
+            this.tabTreeViewScript.Text = "Древовидно";
+            this.tabTreeViewScript.UseVisualStyleBackColor = true;
+            // 
+            // tabTableScript
+            // 
+            this.tabTableScript.Controls.Add(this.tableScript_dgv);
+            this.tabTableScript.Location = new System.Drawing.Point(4, 22);
+            this.tabTableScript.Name = "tabTableScript";
+            this.tabTableScript.Padding = new System.Windows.Forms.Padding(3);
+            this.tabTableScript.Size = new System.Drawing.Size(584, 188);
+            this.tabTableScript.TabIndex = 1;
+            this.tabTableScript.Text = "Таблично";
+            this.tabTableScript.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(265, 248);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 19;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // refresh_btn
+            // 
+            this.refresh_btn.Location = new System.Drawing.Point(529, 244);
+            this.refresh_btn.Name = "refresh_btn";
+            this.refresh_btn.Size = new System.Drawing.Size(75, 25);
+            this.refresh_btn.TabIndex = 20;
+            this.refresh_btn.Text = "Обновить";
+            this.refresh_btn.UseVisualStyleBackColor = true;
+            this.refresh_btn.Click += new System.EventHandler(this.refresh_btn_Click);
             // 
             // DclTestFormWPy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(869, 622);
-            this.Controls.Add(this.treeViewOfScript);
+            this.ClientSize = new System.Drawing.Size(862, 290);
+            this.Controls.Add(this.refresh_btn);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.tabScripts);
             this.Controls.Add(this.fileName_lbl);
             this.Controls.Add(this.edit_gb);
             this.Controls.Add(this.del_gb);
             this.Controls.Add(this.add_gb);
-            this.Controls.Add(this.tableScript_dgv);
             this.Controls.Add(this.startScript_btn);
             this.Controls.Add(this.listOfCommand);
             this.Controls.Add(this.chooseScript_btn);
@@ -364,6 +425,9 @@
             this.del_gb.ResumeLayout(false);
             this.edit_gb.ResumeLayout(false);
             this.edit_gb.PerformLayout();
+            this.tabScripts.ResumeLayout(false);
+            this.tabTreeViewScript.ResumeLayout(false);
+            this.tabTableScript.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -399,6 +463,11 @@
         private System.Windows.Forms.Label fileName_lbl;
         private System.Windows.Forms.TreeView treeViewOfScript;
         private System.Windows.Forms.Button endGroup_btn;
+        private System.Windows.Forms.TabControl tabScripts;
+        private System.Windows.Forms.TabPage tabTreeViewScript;
+        private System.Windows.Forms.TabPage tabTableScript;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button refresh_btn;
     }
 }
 

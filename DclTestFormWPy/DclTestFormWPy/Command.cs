@@ -10,6 +10,14 @@ namespace DclTestFormWPy
     {
         int _id;
         string _strCommand;
-        int _param;
+        string _param;
+
+        public Command(int id, string strCommand, string param)
+        {
+            _id = id;
+            _strCommand = strCommand;
+            _param = param;
+        }
     }
+
 }

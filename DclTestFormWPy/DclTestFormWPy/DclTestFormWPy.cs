@@ -53,8 +53,8 @@ namespace DclTestFormWPy
 
         private void EnterText(IntPtr windowFocus, string strToEnter)
         {
-            uint ThreadID1 = GetWindowThreadProcessId(FindWindow(null, "DclTest"), out uint id);
-            uint ThreadID2 = GetWindowThreadProcessId(windowFocus, out uint idd);
+            uint ThreadID1 = GetWindowThreadProcessId(FindWindow(null, "DclTest"), out _);
+            uint ThreadID2 = GetWindowThreadProcessId(windowFocus, out uint _);
             AttachThreadInput(ThreadID1, ThreadID2, true);
             if (IsIconic(windowFocus))
             {
@@ -94,49 +94,49 @@ namespace DclTestFormWPy
 
         private void chooseScript_btn_Click(object sender, EventArgs e)
         {
-            if (openFileScript.ShowDialog() == DialogResult.Cancel)
-                return;
-            string strmas = File.ReadAllText(openFileScript.FileName);
-            String[] commands = strmas.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-            //String[] words = strmas.Split(new char[] { '\r', '\n', ':' }, StringSplitOptions.RemoveEmptyEntries);
+            //if (openFileScript.ShowDialog() == DialogResult.Cancel)
+            //    return;
+            //string strmas = File.ReadAllText(openFileScript.FileName);
+            //String[] commands = strmas.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            ////String[] words = strmas.Split(new char[] { '\r', '\n', ':' }, StringSplitOptions.RemoveEmptyEntries);
 
-            ScriptEngine engine = Python.CreateEngine();
-            ScriptScope scope = engine.CreateScope();
-            //engine.ExecuteFile(@"\\Vboxsvr\temp\python\second.py", scope);
-            engine.SetSearchPaths(new[] { @"C:\Users\User\AppData\Local\Programs\Python\Python39\Lib" });
-            engine.ExecuteFile(@"D:\VirtualBox VMs\TEMP\python\ff.py", scope);
-            //List<string> listCommandsFromPy = (List<string>)scope.GetVariable("listOfCommand");
-            //ScriptSource source = engine.CreateScriptSourceFromFile(@"D:\VirtualBox VMs\TEMP\python\ff.py");
-            //ObjectOperations op = engine.Operations;
-            IList<object> objs = scope.GetVariable("listOfCommand");
-            List<string> strs = new List<string>();
-            foreach (var obj in objs)
-            {
-                strs.Add((string)obj);
-            }
-            List<string> strs2 = new List<string>();
-            List<string> strs3 = new List<string>();
-            foreach (string str in strs)
-            {
-                byte[] bytes = Encoding.Default.GetBytes(str);
-                strs2.Add(Encoding.Default.GetString(bytes));
-                byte[] bytes2 = Encoding.UTF8.GetBytes(str);
-                strs3.Add(Encoding.UTF8.GetString(bytes));
-            }
-            List<string> listCommandsFromPy = (List<string>)scope.GetVariable("listOfCommand"); //БЕДА С КОДИРОВКОЙ
-            //source.Execute(scope); // class object created
-            //object method = op.GetMember(instance, "func"); // get a method
-            //List<string> result = ((IList<object>)op.Invoke(method)).Cast<string>().ToList(); // call the method and get result
+            //ScriptEngine engine = Python.CreateEngine();
+            //ScriptScope scope = engine.CreateScope();
+            ////engine.ExecuteFile(@"\\Vboxsvr\temp\python\second.py", scope);
+            //engine.SetSearchPaths(new[] { @"C:\Users\User\AppData\Local\Programs\Python\Python39\Lib" });
+            //engine.ExecuteFile(@"D:\VirtualBox VMs\TEMP\python\ff.py", scope);
+            ////List<string> listCommandsFromPy = (List<string>)scope.GetVariable("listOfCommand");
+            ////ScriptSource source = engine.CreateScriptSourceFromFile(@"D:\VirtualBox VMs\TEMP\python\ff.py");
+            ////ObjectOperations op = engine.Operations;
+            //IList<object> objs = scope.GetVariable("listOfCommand");
+            //List<string> strs = new List<string>();
+            //foreach (var obj in objs)
+            //{
+            //    strs.Add((string)obj);
+            //}
+            //List<string> strs2 = new List<string>();
+            //List<string> strs3 = new List<string>();
+            //foreach (string str in strs)
+            //{
+            //    byte[] bytes = Encoding.Default.GetBytes(str);
+            //    strs2.Add(Encoding.Default.GetString(bytes));
+            //    byte[] bytes2 = Encoding.UTF8.GetBytes(str);
+            //    strs3.Add(Encoding.UTF8.GetString(bytes));
+            //}
+            //List<string> listCommandsFromPy = (List<string>)scope.GetVariable("listOfCommand"); //БЕДА С КОДИРОВКОЙ
+            ////source.Execute(scope); // class object created
+            ////object method = op.GetMember(instance, "func"); // get a method
+            ////List<string> result = ((IList<object>)op.Invoke(method)).Cast<string>().ToList(); // call the method and get result
 
 
 
-            listOfCommand.Items.Clear();
-            foreach (string command in commands)
-            {
-                listOfCommand.Items.Add(command);
-            }
-
+            //listOfCommand.Items.Clear();
+            //foreach (string command in commands)
+            //{
+            //    listOfCommand.Items.Add(command);
+            //}
         }
+
         #region native FindWindow, IsIconic, SetForegroundWindow, ShowWindow, WindowFromPoint, SetCursorPos, mouse_event, keybd_event, SendMessage, all const bytes and ints
         [DllImport("user32.dll", SetLastError = true)]
         static extern IntPtr FindWindow(String lpClassName, String windowName);
@@ -219,9 +219,9 @@ namespace DclTestFormWPy
         //const byte VK_3 = 0x33;
         const int WM_GETTEXT = 0x000D;
         const int WM_GETTEXTLENGTH = 0x000E;
-        const int EM_SETSEL = 0x00B1;
-        const int WM_CLEAR = 0x0303;
-        static uint WM_CLOSE = 0x10;
+        //const int EM_SETSEL = 0x00B1;
+        //const int WM_CLEAR = 0x0303;
+        //const uint WM_CLOSE = 0x10;
         const byte VK_TAB = 0x9;
         const byte VK_SHIFT = 0x10;
         const byte VK_ALT = 0x12;
@@ -229,9 +229,9 @@ namespace DclTestFormWPy
         const byte VK_CTRL = 0x11;
         const byte VK_A = 0x41;
         const byte VK_L = 0x4C;
-        const byte VK_B = 0x42;
-        const byte VK_C = 0x43;
-        const byte VK_D = 0x44;
+        //const byte VK_B = 0x42;
+        //const byte VK_C = 0x43;
+        //const byte VK_D = 0x44;
         const byte VK_P = 0x50;
         const byte VK_Y = 0x59;
         const byte VK_RETURN = 0x0D;
@@ -454,6 +454,9 @@ namespace DclTestFormWPy
                             }
                             break;
 
+                        case "закрыть окно":
+                            break;
+
                     }
                     if (IsStop != false)
                     {
@@ -494,18 +497,18 @@ namespace DclTestFormWPy
             mouse_event(MOUSEEVENTF_LEFTDOWN, x, y, 0, 0);
             mouse_event(MOUSEEVENTF_LEFTUP, x, y, 0, 0);
         }
-        private void CloseWindow(IntPtr newWindow)
-        {
-            //Size resolution = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Size;
-            //SendMessage(newWindow, WM_MOUSEMOVE, (IntPtr)0, MakeParam(resolution.Width - 30, 20));
-            //DoMouseLeftClick(resolution.Width - 30, 20);
-            Size resolution = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Size;
-            Point p = new Point();
-            p.X = Convert.ToInt16(resolution.Width - 25);  //координаты из inspect exe
-            p.Y = Convert.ToInt16(20);  //поле How found : Mouse Move(47,30) при наведении мышкой на нужное поле
-            SetCursorPos(p.X, p.Y);
-            DoMouseLeftClick(p.X, p.Y);
-        }
+        //private void CloseWindow(IntPtr newWindow)
+        //{
+        //    //Size resolution = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Size;
+        //    //SendMessage(newWindow, WM_MOUSEMOVE, (IntPtr)0, MakeParam(resolution.Width - 30, 20));
+        //    //DoMouseLeftClick(resolution.Width - 30, 20);
+        //    Size resolution = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Size;
+        //    Point p = new Point();
+        //    p.X = Convert.ToInt16(resolution.Width - 25);  //координаты из inspect exe
+        //    p.Y = Convert.ToInt16(20);  //поле How found : Mouse Move(47,30) при наведении мышкой на нужное поле
+        //    SetCursorPos(p.X, p.Y);
+        //    DoMouseLeftClick(p.X, p.Y);
+        //}
         /// <summary>
         /// "помещение разных значений в старшие и в младшие биты"
         /// </summary>
@@ -608,7 +611,7 @@ namespace DclTestFormWPy
             {
                 if (dgvr.Cells[1].Value != null)
                 {
-                    string str = "";
+                    string str;
                     if (dgvr.Cells[2].Value != null)
                         str = dgvr.Cells[1].Value.ToString() + ":" + dgvr.Cells[2].Value.ToString();
                     else
@@ -751,6 +754,7 @@ namespace DclTestFormWPy
         private void button1_Click(object sender, EventArgs e)
         {
             OpenDCL();
+            IntPtr dclWindow = GetForegroundWindow();
             EnterShortcuts(VK_ALT, VK_L);
             EnterShortcut(VK_Y);
             EnterShortcut(VK_L);
@@ -764,19 +768,21 @@ namespace DclTestFormWPy
             IntPtr hwnd = GetForegroundWindow();
             IntPtr findWindow = findFirstTextBox(hwnd, "Экспорт");
             ////SendMessage(findWindow, BM_CLICK, 0, 0);
-            RECT rct;
-            if (!GetWindowRect(findWindow, out rct))
+            if (!GetWindowRect(findWindow, out RECT rct))
             {
                 MessageBox.Show("ERROR");
                 return;
             }
 
-            int widthOfDCL = rct.xBottomRight - rct.xUpLeft + 1;
-            int heightOfDCL = rct.yBottomRight - rct.yUpLeft + 1;
             int xseredina = (rct.xBottomRight + rct.xUpLeft) / 2;
             int yseredina = (rct.yBottomRight + rct.yUpLeft) / 2;
-            SendMessage(hwnd, WM_MOUSEMOVE, (IntPtr)0, MakeParam(xseredina, yseredina));
+            SendMessage(dclWindow, WM_MOUSEMOVE, (IntPtr)0, MakeParam(xseredina, yseredina));
             DoMouseLeftClick(xseredina, yseredina);
+        }
+
+        private void refresh_btn_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
