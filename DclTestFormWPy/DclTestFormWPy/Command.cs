@@ -6,17 +6,28 @@ using System.Threading.Tasks;
 
 namespace DclTestFormWPy
 {
-    class Command
+    public class Command
     {
-        int _id;
-        string _strCommand;
-        string _param;
+       public int _id { get; set; }
+        public string _strCommand { get; set; }
+        public string _param { get; set; }
+        public string _description { get; set; }
+        public string _result { get; set; }
 
         public Command(int id, string strCommand, string param)
         {
-            _id = id;
-            _strCommand = strCommand;
-            _param = param;
+            this._id = id;
+            this._strCommand = strCommand;
+            this._param = param;
+        }
+        public Command(string strCommand, string param)
+        {
+            this._strCommand = strCommand;
+            this._param = param;
+        }
+        public Command(string strCommand)
+        {
+            this._strCommand = strCommand;
         }
     }
 

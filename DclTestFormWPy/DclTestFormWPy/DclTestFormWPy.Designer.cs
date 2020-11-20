@@ -40,11 +40,6 @@
             this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileScript = new System.Windows.Forms.SaveFileDialog();
             this.tableScript_dgv = new System.Windows.Forms.DataGridView();
-            this.numberOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nameOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.paramOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descriptionOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.resultOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.command_cmb = new System.Windows.Forms.ComboBox();
             this.addCommand_btn = new System.Windows.Forms.Button();
             this.params_cmb = new System.Windows.Forms.ComboBox();
@@ -165,58 +160,13 @@
             this.tableScript_dgv.BackgroundColor = System.Drawing.SystemColors.Control;
             this.tableScript_dgv.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tableScript_dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tableScript_dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.numberOfCommand,
-            this.nameOfCommand,
-            this.paramOfCommand,
-            this.descriptionOfCommand,
-            this.resultOfCommand});
             this.tableScript_dgv.GridColor = System.Drawing.SystemColors.Control;
             this.tableScript_dgv.Location = new System.Drawing.Point(0, 0);
             this.tableScript_dgv.Name = "tableScript_dgv";
             this.tableScript_dgv.Size = new System.Drawing.Size(588, 192);
             this.tableScript_dgv.TabIndex = 7;
             this.tableScript_dgv.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.tableScript_dgv_RowHeaderMouseClick);
-            // 
-            // numberOfCommand
-            // 
-            this.numberOfCommand.FillWeight = 1F;
-            this.numberOfCommand.HeaderText = "№";
-            this.numberOfCommand.MinimumWidth = 15;
-            this.numberOfCommand.Name = "numberOfCommand";
-            this.numberOfCommand.ReadOnly = true;
-            this.numberOfCommand.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // nameOfCommand
-            // 
-            this.nameOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.nameOfCommand.FillWeight = 6F;
-            this.nameOfCommand.HeaderText = "Команда";
-            this.nameOfCommand.MinimumWidth = 25;
-            this.nameOfCommand.Name = "nameOfCommand";
-            this.nameOfCommand.ReadOnly = true;
-            // 
-            // paramOfCommand
-            // 
-            this.paramOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.paramOfCommand.FillWeight = 3F;
-            this.paramOfCommand.HeaderText = "Параметр";
-            this.paramOfCommand.Name = "paramOfCommand";
-            // 
-            // descriptionOfCommand
-            // 
-            this.descriptionOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.descriptionOfCommand.FillWeight = 6F;
-            this.descriptionOfCommand.HeaderText = "Описание";
-            this.descriptionOfCommand.Name = "descriptionOfCommand";
-            // 
-            // resultOfCommand
-            // 
-            this.resultOfCommand.FillWeight = 3F;
-            this.resultOfCommand.HeaderText = "Результат";
-            this.resultOfCommand.Name = "resultOfCommand";
-            this.resultOfCommand.ReadOnly = true;
-            this.resultOfCommand.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.tableScript_dgv.Click += new System.EventHandler(this.tableScript_dgv_Click);
             // 
             // command_cmb
             // 
@@ -455,11 +405,6 @@
         private System.Windows.Forms.GroupBox add_gb;
         private System.Windows.Forms.GroupBox del_gb;
         private System.Windows.Forms.GroupBox edit_gb;
-        private System.Windows.Forms.DataGridViewTextBoxColumn numberOfCommand;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nameOfCommand;
-        private System.Windows.Forms.DataGridViewTextBoxColumn paramOfCommand;
-        private System.Windows.Forms.DataGridViewTextBoxColumn descriptionOfCommand;
-        private System.Windows.Forms.DataGridViewTextBoxColumn resultOfCommand;
         private System.Windows.Forms.Label fileName_lbl;
         private System.Windows.Forms.TreeView treeViewOfScript;
         private System.Windows.Forms.Button endGroup_btn;
