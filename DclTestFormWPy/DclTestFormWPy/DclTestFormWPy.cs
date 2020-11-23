@@ -544,110 +544,131 @@ namespace DclTestFormWPy
 
             fileName_lbl.Text = openFileScript.SafeFileName.ToString();
             string strmas = File.ReadAllText(openFileScript.FileName);
+            //List<Command> script =  new List<Command>();
+
             String[] commands = strmas.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-            
-            List<Command> script =  new List<Command>();
+            listOfCommand.Items.Clear();
             foreach (string command in commands)
             {
                 listOfCommand.Items.Add(command);
-
             }
-            //запись в класс
             for (int i = 0; i < commands.Length; i++)
             {
                 String[] comWithParams = commands[i].Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
-               if(comWithParams.Length>1)
+                int y = 1;
+                int rowNumber = tableScript_dgv.Rows.Add();
+                tableScript_dgv.Rows[rowNumber].Cells[0].Value = rowNumber + 1;
+                foreach (string str in comWithParams)
                 {
-                    script.Add(new Command(i+1,comWithParams[0], comWithParams[1]));
+                    tableScript_dgv.Rows[rowNumber].Cells[y].Value = str;
+                    y++;
                 }
-                else
-                {
-                    script.Add(new Command(i + 1, comWithParams[0], ""));
-                }
-                
             }
+            //запись в класс
+            //for (int i = 0; i < commands.Length; i++)
+            //{
+            //    String[] comWithParams = commands[i].Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+            //   if(comWithParams.Length>1)
+            //    {
+            //        script.Add(new Command(i+1,comWithParams[0], comWithParams[1]));
+            //    }
+            //    else
+            //    {
+            //        script.Add(new Command(i + 1, comWithParams[0], ""));
+            //    }
+
+            //}
             //вывод в таблицу и древовидное представление
             TreeNode newTR = treeViewOfScript.Nodes.Add(fileName_lbl.Text);
             TreeNode nameOfCommands = null;
             int index = 0;
-            tableScript_dgv.DataSource = script;
-            foreach (Command command in script)
-            {
-                //int rowNumber = tableScript_dgv.Rows.Add();
-                //tableScript_dgv.Rows[rowNumber].Cells[0].Value = rowNumber + 1;
-                //tableScript_dgv.Rows[rowNumber].Cells[1].Value = command._strCommand;
-                //if(command._param!=null)
-                //    tableScript_dgv.Rows[rowNumber].Cells[2].Value = command._strCommand;
-
-
-                if (command._strCommand.Contains("группа:"))
-                {
-                    nameOfCommands = newTR.Nodes.Add(command._strCommand+": "+command._param.ToString());
-                }
-                else if (index != 0)
-                {
-                    if (script[index - 1]._strCommand.Contains("конец:"))
-                    {
-                        nameOfCommands = newTR.Nodes.Add(command._strCommand + ": " + command._param.ToString());
-                        //indexOfCommand += 1;
-                    }
-                    else if (command._strCommand.Contains("конец:"))
-                    {
-                        //не писать команду в тривью
-                    }
-
-                    else if (nameOfCommands == null)
-                    {
-                        TreeNode commandsOfGroups = newTR.Nodes.Add(script[index]._strCommand + ": " + command._param.ToString());
-                    }
-                    else
-                    {
-                        TreeNode commandsOfGroups = nameOfCommands.Nodes.Add(script[index]._strCommand + ": " + command._param.ToString());
-                    }
-                }
-
-                index += 1;
-
-            }
-            //древовидное представление
-            
-           
-            //int indexOfCommand = 0;
-
-            //foreach (string command in commands)
+            //tableScript_dgv.DataSource = script;
+            //foreach (Command command in script)
             //{
-            //    //String[] str=command.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
-            //    // foreach(string commandsToTV in str)
-            //    //{
-            //    if (command.Contains("группа:"))
+            //    //int rowNumber = tableScript_dgv.Rows.Add();
+            //    //tableScript_dgv.Rows[rowNumber].Cells[0].Value = rowNumber + 1;
+            //    //tableScript_dgv.Rows[rowNumber].Cells[1].Value = command._strCommand;
+            //    //if(command._param!=null)
+            //    //    tableScript_dgv.Rows[rowNumber].Cells[2].Value = command._strCommand;
+
+
+            //    if (command._strCommand.Contains("группа:"))
             //    {
-            //        nameOfCommands = newTR.Nodes.Add(command);
-            //        indexOfCommand += 1;
+            //        nameOfCommands.Tag = command;
+            //        nameOfCommands = newTR.Nodes.Add(command._strCommand+": "+command._param.ToString());
+
             //    }
             //    else if (index != 0)
             //    {
-            //        if (commands[index - 1].Contains("конец:"))
+            //        if (script[index - 1]._strCommand.Contains("конец:"))
             //        {
-            //            nameOfCommands = newTR.Nodes.Add(command);
+            //            nameOfCommands.Tag = command;
+            //            nameOfCommands = newTR.Nodes.Add(command._strCommand + ": " + command._param.ToString());
             //            //indexOfCommand += 1;
             //        }
-            //        else if (command.Contains("конец:"))
+            //        if (script[index - 1]._strCommand.Contains("группа:"))
+            //        {
+            //            nameOfCommands.Tag = command;
+            //            nameOfCommands = newTR.Nodes.Add(command._strCommand + ": " + command._param.ToString());
+            //            //indexOfCommand += 1;
+            //        }
+            //        else if (command._strCommand.Contains("конец:"))
             //        {
             //            //не писать команду в тривью
             //        }
 
             //        else if (nameOfCommands == null)
             //        {
-            //            TreeNode commandsOfGroups = newTR.Nodes.Add(commands[index]);
+                       
+            //            TreeNode commandsOfGroups = newTR.Nodes.Add(script[index]._strCommand + ": " + command._param.ToString());
+            //            commandsOfGroups.Tag = command;
             //        }
             //        else
             //        {
-            //            TreeNode commandsOfGroups = nameOfCommands.Nodes.Add(commands[index]);
+            //            TreeNode commandsOfGroups = nameOfCommands.Nodes.Add(script[index]._strCommand + ": " + command._param.ToString());
+            //            commandsOfGroups.Tag = command;
             //        }
             //    }
+
             //    index += 1;
-            //    //}
+
             //}
+            //древовидное представление
+            int indexOfCommand = 0;
+            foreach (string command in commands)
+            {
+                //String[] str=command.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+                // foreach(string commandsToTV in str)
+                //{
+                if (command.Contains("группа:"))
+                {
+                    nameOfCommands = newTR.Nodes.Add(command);
+                    indexOfCommand += 1;
+                }
+                else if (index != 0)
+                {
+                    if (commands[index - 1].Contains("конец:"))
+                    {
+                        nameOfCommands = newTR.Nodes.Add(command);
+                        //indexOfCommand += 1;
+                    }
+                    else if (command.Contains("конец:"))
+                    {
+                        //не писать команду в тривью
+                    }
+
+                    else if (nameOfCommands == null)
+                    {
+                        TreeNode commandsOfGroups = newTR.Nodes.Add(commands[index]);
+                    }
+                    else
+                    {
+                        TreeNode commandsOfGroups = nameOfCommands.Nodes.Add(commands[index]);
+                    }
+                }
+                index += 1;
+                //}
+            }
         }
 
         private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -688,7 +709,7 @@ namespace DclTestFormWPy
                     tableScript_dgv.Rows[rowNumber].Cells[0].Value = rowNumber + 1;
                     tableScript_dgv.Rows[rowNumber].Cells[2].Value = params_tb.Text;
                 }
-                else if (command_cmb.SelectedIndex == 5 || command_cmb.SelectedIndex == 6 || command_cmb.SelectedIndex == 7 || command_cmb.SelectedIndex == 8)
+                else if (command_cmb.SelectedIndex == 5 || command_cmb.SelectedIndex == 6 || command_cmb.SelectedIndex == 7 || command_cmb.SelectedIndex == 8 || command_cmb.SelectedIndex == 9)
                 {
                     int rowNumber = tableScript_dgv.Rows.Add();
                     tableScript_dgv.Rows[rowNumber].Cells[0].Value = rowNumber + 1;
@@ -697,7 +718,7 @@ namespace DclTestFormWPy
                     {
                         if (params_tb.Text != "")
                             tableScript_dgv.Rows[rowNumber].Cells[2].Value = params_tb.Text;
-                        else MessageBox.Show("Для данной команды необходимо выбрать значение");
+                        else MessageBox.Show("Для данной команды необходимо ввести значение");
                     }
                     else if (params_cmb.SelectedIndex != -1)
                         tableScript_dgv.Rows[rowNumber].Cells[2].Value = params_cmb.SelectedItem.ToString();
@@ -733,11 +754,13 @@ namespace DclTestFormWPy
             {
                 params_cmb.Visible = false;
                 params_tb.Visible = true;
+                params_tb.Text = "";
             }
             else if (command_cmb.SelectedIndex == 9)
             {
                 params_cmb.Visible = false;
-                params_tb.Visible = false;
+                params_tb.Visible = true;
+                params_tb.Text = "";
                 endGroup_btn.Visible = true;
             }
             else
@@ -835,6 +858,112 @@ namespace DclTestFormWPy
 
         private void tableScript_dgv_Click(object sender, EventArgs e)
         {
+
+        }
+
+       
+
+        private void сценарийToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            
+            if (openFileScript.ShowDialog() == DialogResult.Cancel)
+                return;
+            
+            tableScript_dgv.Rows.Clear();
+            listOfCommand.Items.Clear();
+            treeViewOfScript.Nodes.Clear();
+
+            fileName_lbl.Text = openFileScript.SafeFileName.ToString();
+            string strmas = File.ReadAllText(openFileScript.FileName);
+            //List<Command> script =  new List<Command>();
+
+            String[] commands = strmas.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            listOfCommand.Items.Clear();
+            foreach (string command in commands)
+            {
+                listOfCommand.Items.Add(command);
+            }
+            for (int i = 0; i < commands.Length; i++)
+            {
+                String[] comWithParams = commands[i].Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+                int y = 1;
+                int rowNumber = tableScript_dgv.Rows.Add();
+                tableScript_dgv.Rows[rowNumber].Cells[0].Value = rowNumber + 1;
+                foreach (string str in comWithParams)
+                {
+                    tableScript_dgv.Rows[rowNumber].Cells[y].Value = str;
+                    y++;
+                }
+            }
+
+            TreeNode newTR = treeViewOfScript.Nodes.Add(fileName_lbl.Text);
+            TreeNode nameOfCommands = null;
+            int index = 0;
+
+            int indexOfCommand = 0;
+            foreach (string command in commands)
+            {
+                //String[] str=command.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+                // foreach(string commandsToTV in str)
+                //{
+                if (command.Contains("группа:"))
+                {
+                    nameOfCommands = newTR.Nodes.Add(command);
+                    indexOfCommand += 1;
+                }
+                else if (index != 0)
+                {
+                    if (commands[index - 1].Contains("конец"))
+                    {
+                        nameOfCommands = newTR.Nodes.Add(command);
+                        //indexOfCommand += 1;
+                    }
+                    else if (command.Contains("конец"))
+                    {
+                        //не писать команду в тривью
+                    }
+
+                    else if (nameOfCommands == null)
+                    {
+                        TreeNode commandsOfGroups = newTR.Nodes.Add(commands[index]);
+                    }
+                    else
+                    {
+                        TreeNode commandsOfGroups = nameOfCommands.Nodes.Add(commands[index]);
+                    }
+                }
+                index += 1;
+                //}
+            }
+        }
+
+        private void группуToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (openFileGroup.ShowDialog() == DialogResult.Cancel)
+                return;
+
+            string strmas = File.ReadAllText(openFileGroup.FileName);
+            String[] commands = strmas.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            int rowNumber = tableScript_dgv.Rows.Add();
+            tableScript_dgv.Rows[rowNumber].Cells[0].Value = rowNumber + 1;
+            tableScript_dgv.Rows[rowNumber].Cells[1].Value = "группа";
+            tableScript_dgv.Rows[rowNumber].Cells[2].Value = openFileGroup.FileName.Split('.', '\\')[openFileGroup.FileName.Split('.', '\\').Length-2];
+            MessageBox.Show($"Группа команд \"{openFileGroup}\" добавлена в сценарий");
+            for (int i = 0; i < commands.Length; i++)
+            {
+                String[] comWithParams = commands[i].Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+                int y = 1;
+                rowNumber = tableScript_dgv.Rows.Add();
+                tableScript_dgv.Rows[rowNumber].Cells[0].Value = rowNumber + 1;
+                foreach (string str in comWithParams)
+                {
+                    tableScript_dgv.Rows[rowNumber].Cells[y].Value = str;
+                    y++;
+                }
+            }
+            rowNumber = tableScript_dgv.Rows.Add();
+            tableScript_dgv.Rows[rowNumber].Cells[0].Value = rowNumber + 1;
+            tableScript_dgv.Rows[rowNumber].Cells[1].Value = "конец";
 
         }
     }
