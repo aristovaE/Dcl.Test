@@ -420,12 +420,22 @@ namespace DclTestFormWPy
                             break;
 
                         case "в столбце":
-                            for (int i = column; i < Int32.Parse(tableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString()); i++)
+                            if (column > Int32.Parse(tableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString()))
                             {
-                                EnterShortcut(VK_RIGHT);
+                                for (int i = column; i < Int32.Parse(tableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString()); i++)
+                                {
+                                    EnterShortcut(VK_RIGHT);
+                                }
+                                //EnterShortcut(VK_F4);
+                                //EnterShortcut(VK_F3);
                             }
-                            //EnterShortcut(VK_F4);
-                            //EnterShortcut(VK_F3);
+                            else
+                            {
+                                for (int i = column; i < Int32.Parse(tableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString()); i++)
+                                {
+                                    EnterShortcut(VK_LEFT);
+                                }
+                            }
                             column = Int32.Parse(tableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
                             break;
                         case "в строке":
@@ -897,8 +907,9 @@ namespace DclTestFormWPy
             }
 
             TreeNode newTR = treeViewOfScript.Nodes.Add(fileName_lbl.Text);
-            TreeNode nameOfCommands = null;
+            TreeNode nameOfGroup = null;
             int index = 0;
+            bool IsInGroup = false;
 
             int indexOfCommand = 0;
             foreach (string command in commands)
@@ -908,28 +919,30 @@ namespace DclTestFormWPy
                 //{
                 if (command.Contains("группа:"))
                 {
-                    nameOfCommands = newTR.Nodes.Add(command);
+                    nameOfGroup = newTR.Nodes.Add(command);
                     indexOfCommand += 1;
+                    IsInGroup = true;
                 }
                 else if (index != 0)
                 {
                     if (commands[index - 1].Contains("конец"))
                     {
-                        nameOfCommands = newTR.Nodes.Add(command);
+                        nameOfGroup = newTR.Nodes.Add(command);
                         //indexOfCommand += 1;
                     }
                     else if (command.Contains("конец"))
                     {
                         //не писать команду в тривью
+                        IsInGroup = false;
                     }
 
-                    else if (nameOfCommands == null)
+                    else if (!IsInGroup)
                     {
-                        TreeNode commandsOfGroups = newTR.Nodes.Add(commands[index]);
+                        TreeNode commandsOfScript = newTR.Nodes.Add(command);
                     }
                     else
                     {
-                        TreeNode commandsOfGroups = nameOfCommands.Nodes.Add(commands[index]);
+                        TreeNode commandsOfGroups = nameOfGroup.Nodes.Add(command);
                     }
                 }
                 index += 1;
