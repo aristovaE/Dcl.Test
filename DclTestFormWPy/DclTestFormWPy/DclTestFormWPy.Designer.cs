@@ -37,9 +37,16 @@
             this.scriptsTask_ms = new System.Windows.Forms.MenuStrip();
             this.сценарийToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.открытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.сценарийToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.группуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileScript = new System.Windows.Forms.SaveFileDialog();
             this.tableScript_dgv = new System.Windows.Forms.DataGridView();
+            this.numberOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.paramOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descriptionOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.resultOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.command_cmb = new System.Windows.Forms.ComboBox();
             this.addCommand_btn = new System.Windows.Forms.Button();
             this.params_cmb = new System.Windows.Forms.ComboBox();
@@ -56,14 +63,8 @@
             this.tabTableScript = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
             this.refresh_btn = new System.Windows.Forms.Button();
-            this.numberOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nameOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.paramOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descriptionOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.resultOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.openFileGroup = new System.Windows.Forms.OpenFileDialog();
-            this.сценарийToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.группуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.DeleteAll_btn = new System.Windows.Forms.Button();
             this.scriptsTask_ms.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tableScript_dgv)).BeginInit();
             this.add_gb.SuspendLayout();
@@ -156,6 +157,20 @@
             this.открытьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.открытьToolStripMenuItem.Text = "Открыть";
             // 
+            // сценарийToolStripMenuItem1
+            // 
+            this.сценарийToolStripMenuItem1.Name = "сценарийToolStripMenuItem1";
+            this.сценарийToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.сценарийToolStripMenuItem1.Text = "Сценарий";
+            this.сценарийToolStripMenuItem1.Click += new System.EventHandler(this.сценарийToolStripMenuItem1_Click);
+            // 
+            // группуToolStripMenuItem
+            // 
+            this.группуToolStripMenuItem.Name = "группуToolStripMenuItem";
+            this.группуToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.группуToolStripMenuItem.Text = "Группу";
+            this.группуToolStripMenuItem.Click += new System.EventHandler(this.группуToolStripMenuItem_Click);
+            // 
             // сохранитьToolStripMenuItem
             // 
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
@@ -179,10 +194,43 @@
             this.tableScript_dgv.GridColor = System.Drawing.SystemColors.Control;
             this.tableScript_dgv.Location = new System.Drawing.Point(0, 0);
             this.tableScript_dgv.Name = "tableScript_dgv";
-            this.tableScript_dgv.Size = new System.Drawing.Size(588, 192);
+            this.tableScript_dgv.Size = new System.Drawing.Size(584, 188);
             this.tableScript_dgv.TabIndex = 7;
             this.tableScript_dgv.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.tableScript_dgv_RowHeaderMouseClick);
             this.tableScript_dgv.Click += new System.EventHandler(this.tableScript_dgv_Click);
+            // 
+            // numberOfCommand
+            // 
+            this.numberOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.numberOfCommand.FillWeight = 18F;
+            this.numberOfCommand.HeaderText = "Id";
+            this.numberOfCommand.Name = "numberOfCommand";
+            // 
+            // nameOfCommand
+            // 
+            this.nameOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nameOfCommand.HeaderText = "Название";
+            this.nameOfCommand.Name = "nameOfCommand";
+            // 
+            // paramOfCommand
+            // 
+            this.paramOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.paramOfCommand.FillWeight = 70F;
+            this.paramOfCommand.HeaderText = "Параметр";
+            this.paramOfCommand.Name = "paramOfCommand";
+            // 
+            // descriptionOfCommand
+            // 
+            this.descriptionOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.descriptionOfCommand.HeaderText = "Описание";
+            this.descriptionOfCommand.Name = "descriptionOfCommand";
+            // 
+            // resultOfCommand
+            // 
+            this.resultOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.resultOfCommand.FillWeight = 45F;
+            this.resultOfCommand.HeaderText = "Результат";
+            this.resultOfCommand.Name = "resultOfCommand";
             // 
             // command_cmb
             // 
@@ -307,9 +355,9 @@
             // 
             // treeViewOfScript
             // 
-            this.treeViewOfScript.Location = new System.Drawing.Point(-1, 0);
+            this.treeViewOfScript.Location = new System.Drawing.Point(0, 0);
             this.treeViewOfScript.Name = "treeViewOfScript";
-            this.treeViewOfScript.Size = new System.Drawing.Size(585, 189);
+            this.treeViewOfScript.Size = new System.Drawing.Size(584, 188);
             this.treeViewOfScript.TabIndex = 17;
             // 
             // tabScripts
@@ -352,6 +400,7 @@
             this.button1.TabIndex = 19;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // refresh_btn
@@ -364,62 +413,26 @@
             this.refresh_btn.UseVisualStyleBackColor = true;
             this.refresh_btn.Click += new System.EventHandler(this.refresh_btn_Click);
             // 
-            // numberOfCommand
-            // 
-            this.numberOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.numberOfCommand.FillWeight = 18F;
-            this.numberOfCommand.HeaderText = "Id";
-            this.numberOfCommand.Name = "numberOfCommand";
-            // 
-            // nameOfCommand
-            // 
-            this.nameOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.nameOfCommand.HeaderText = "Название";
-            this.nameOfCommand.Name = "nameOfCommand";
-            // 
-            // paramOfCommand
-            // 
-            this.paramOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.paramOfCommand.FillWeight = 70F;
-            this.paramOfCommand.HeaderText = "Параметр";
-            this.paramOfCommand.Name = "paramOfCommand";
-            // 
-            // descriptionOfCommand
-            // 
-            this.descriptionOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.descriptionOfCommand.HeaderText = "Описание";
-            this.descriptionOfCommand.Name = "descriptionOfCommand";
-            // 
-            // resultOfCommand
-            // 
-            this.resultOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.resultOfCommand.FillWeight = 45F;
-            this.resultOfCommand.HeaderText = "Результат";
-            this.resultOfCommand.Name = "resultOfCommand";
-            // 
             // openFileGroup
             // 
             this.openFileGroup.FileName = "openFileDialog1";
             // 
-            // сценарийToolStripMenuItem1
+            // DeleteAll_btn
             // 
-            this.сценарийToolStripMenuItem1.Name = "сценарийToolStripMenuItem1";
-            this.сценарийToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
-            this.сценарийToolStripMenuItem1.Text = "Сценарий";
-            this.сценарийToolStripMenuItem1.Click += new System.EventHandler(this.сценарийToolStripMenuItem1_Click);
-            // 
-            // группуToolStripMenuItem
-            // 
-            this.группуToolStripMenuItem.Name = "группуToolStripMenuItem";
-            this.группуToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.группуToolStripMenuItem.Text = "Группу";
-            this.группуToolStripMenuItem.Click += new System.EventHandler(this.группуToolStripMenuItem_Click);
+            this.DeleteAll_btn.Location = new System.Drawing.Point(448, 243);
+            this.DeleteAll_btn.Name = "DeleteAll_btn";
+            this.DeleteAll_btn.Size = new System.Drawing.Size(75, 25);
+            this.DeleteAll_btn.TabIndex = 21;
+            this.DeleteAll_btn.Text = "Очистить";
+            this.DeleteAll_btn.UseVisualStyleBackColor = true;
+            this.DeleteAll_btn.Click += new System.EventHandler(this.DeleteAll_btn_Click);
             // 
             // DclTestFormWPy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(862, 290);
+            this.Controls.Add(this.DeleteAll_btn);
             this.Controls.Add(this.refresh_btn);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.tabScripts);
@@ -488,6 +501,7 @@
         private System.Windows.Forms.OpenFileDialog openFileGroup;
         private System.Windows.Forms.ToolStripMenuItem сценарийToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem группуToolStripMenuItem;
+        private System.Windows.Forms.Button DeleteAll_btn;
     }
 }
 

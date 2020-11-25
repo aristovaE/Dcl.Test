@@ -420,22 +420,12 @@ namespace DclTestFormWPy
                             break;
 
                         case "в столбце":
-                            if (column > Int32.Parse(tableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString()))
+                            for (int i = column; i < Int32.Parse(tableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString()); i++)
                             {
-                                for (int i = column; i < Int32.Parse(tableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString()); i++)
-                                {
-                                    EnterShortcut(VK_RIGHT);
-                                }
-                                //EnterShortcut(VK_F4);
-                                //EnterShortcut(VK_F3);
+                                EnterShortcut(VK_RIGHT);
                             }
-                            else
-                            {
-                                for (int i = column; i < Int32.Parse(tableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString()); i++)
-                                {
-                                    EnterShortcut(VK_LEFT);
-                                }
-                            }
+                            //EnterShortcut(VK_F4);
+                            //EnterShortcut(VK_F3);
                             column = Int32.Parse(tableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
                             break;
                         case "в строке":
@@ -543,143 +533,7 @@ namespace DclTestFormWPy
             editCommand_tb.Text = "";
         }
 
-        private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (openFileScript.ShowDialog() == DialogResult.Cancel)
-                return;
-            
-            tableScript_dgv.Rows.Clear();
-            listOfCommand.Items.Clear();
-            treeViewOfScript.Nodes.Clear();
-
-            fileName_lbl.Text = openFileScript.SafeFileName.ToString();
-            string strmas = File.ReadAllText(openFileScript.FileName);
-            //List<Command> script =  new List<Command>();
-
-            String[] commands = strmas.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-            listOfCommand.Items.Clear();
-            foreach (string command in commands)
-            {
-                listOfCommand.Items.Add(command);
-            }
-            for (int i = 0; i < commands.Length; i++)
-            {
-                String[] comWithParams = commands[i].Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
-                int y = 1;
-                int rowNumber = tableScript_dgv.Rows.Add();
-                tableScript_dgv.Rows[rowNumber].Cells[0].Value = rowNumber + 1;
-                foreach (string str in comWithParams)
-                {
-                    tableScript_dgv.Rows[rowNumber].Cells[y].Value = str;
-                    y++;
-                }
-            }
-            //запись в класс
-            //for (int i = 0; i < commands.Length; i++)
-            //{
-            //    String[] comWithParams = commands[i].Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
-            //   if(comWithParams.Length>1)
-            //    {
-            //        script.Add(new Command(i+1,comWithParams[0], comWithParams[1]));
-            //    }
-            //    else
-            //    {
-            //        script.Add(new Command(i + 1, comWithParams[0], ""));
-            //    }
-
-            //}
-            //вывод в таблицу и древовидное представление
-            TreeNode newTR = treeViewOfScript.Nodes.Add(fileName_lbl.Text);
-            TreeNode nameOfCommands = null;
-            int index = 0;
-            //tableScript_dgv.DataSource = script;
-            //foreach (Command command in script)
-            //{
-            //    //int rowNumber = tableScript_dgv.Rows.Add();
-            //    //tableScript_dgv.Rows[rowNumber].Cells[0].Value = rowNumber + 1;
-            //    //tableScript_dgv.Rows[rowNumber].Cells[1].Value = command._strCommand;
-            //    //if(command._param!=null)
-            //    //    tableScript_dgv.Rows[rowNumber].Cells[2].Value = command._strCommand;
-
-
-            //    if (command._strCommand.Contains("группа:"))
-            //    {
-            //        nameOfCommands.Tag = command;
-            //        nameOfCommands = newTR.Nodes.Add(command._strCommand+": "+command._param.ToString());
-
-            //    }
-            //    else if (index != 0)
-            //    {
-            //        if (script[index - 1]._strCommand.Contains("конец:"))
-            //        {
-            //            nameOfCommands.Tag = command;
-            //            nameOfCommands = newTR.Nodes.Add(command._strCommand + ": " + command._param.ToString());
-            //            //indexOfCommand += 1;
-            //        }
-            //        if (script[index - 1]._strCommand.Contains("группа:"))
-            //        {
-            //            nameOfCommands.Tag = command;
-            //            nameOfCommands = newTR.Nodes.Add(command._strCommand + ": " + command._param.ToString());
-            //            //indexOfCommand += 1;
-            //        }
-            //        else if (command._strCommand.Contains("конец:"))
-            //        {
-            //            //не писать команду в тривью
-            //        }
-
-            //        else if (nameOfCommands == null)
-            //        {
-                       
-            //            TreeNode commandsOfGroups = newTR.Nodes.Add(script[index]._strCommand + ": " + command._param.ToString());
-            //            commandsOfGroups.Tag = command;
-            //        }
-            //        else
-            //        {
-            //            TreeNode commandsOfGroups = nameOfCommands.Nodes.Add(script[index]._strCommand + ": " + command._param.ToString());
-            //            commandsOfGroups.Tag = command;
-            //        }
-            //    }
-
-            //    index += 1;
-
-            //}
-            //древовидное представление
-            int indexOfCommand = 0;
-            foreach (string command in commands)
-            {
-                //String[] str=command.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
-                // foreach(string commandsToTV in str)
-                //{
-                if (command.Contains("группа:"))
-                {
-                    nameOfCommands = newTR.Nodes.Add(command);
-                    indexOfCommand += 1;
-                }
-                else if (index != 0)
-                {
-                    if (commands[index - 1].Contains("конец:"))
-                    {
-                        nameOfCommands = newTR.Nodes.Add(command);
-                        //indexOfCommand += 1;
-                    }
-                    else if (command.Contains("конец:"))
-                    {
-                        //не писать команду в тривью
-                    }
-
-                    else if (nameOfCommands == null)
-                    {
-                        TreeNode commandsOfGroups = newTR.Nodes.Add(commands[index]);
-                    }
-                    else
-                    {
-                        TreeNode commandsOfGroups = nameOfCommands.Nodes.Add(commands[index]);
-                    }
-                }
-                index += 1;
-                //}
-            }
-        }
+        
 
         private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -863,27 +717,10 @@ namespace DclTestFormWPy
 
         private void refresh_btn_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void tableScript_dgv_Click(object sender, EventArgs e)
-        {
-
-        }
-
-       
-
-        private void сценарийToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            
-            if (openFileScript.ShowDialog() == DialogResult.Cancel)
-                return;
-            
             tableScript_dgv.Rows.Clear();
             listOfCommand.Items.Clear();
             treeViewOfScript.Nodes.Clear();
 
-            fileName_lbl.Text = openFileScript.SafeFileName.ToString();
             string strmas = File.ReadAllText(openFileScript.FileName);
             //List<Command> script =  new List<Command>();
 
@@ -950,6 +787,68 @@ namespace DclTestFormWPy
             }
         }
 
+        private void tableScript_dgv_Click(object sender, EventArgs e)
+        {
+
+        }
+
+       
+
+        private void сценарийToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            
+            if (openFileScript.ShowDialog() == DialogResult.Cancel)
+                return;
+            
+            tableScript_dgv.Rows.Clear();
+            listOfCommand.Items.Clear();
+            treeViewOfScript.Nodes.Clear();
+
+            fileName_lbl.Text = openFileScript.SafeFileName.ToString();
+            string strmas = File.ReadAllText(openFileScript.FileName);
+            //List<Command> script =  new List<Command>();
+
+            String[] commands = strmas.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            listOfCommand.Items.Clear();
+            foreach (string command in commands)
+            {
+                listOfCommand.Items.Add(command);
+            }
+            for (int i = 0; i < commands.Length; i++)
+            {
+                String[] comWithParams = commands[i].Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+                int y = 1;
+                int rowNumber = tableScript_dgv.Rows.Add();
+                tableScript_dgv.Rows[rowNumber].Cells[0].Value = rowNumber + 1;
+                foreach (string str in comWithParams)
+                {
+                    tableScript_dgv.Rows[rowNumber].Cells[y].Value = str;
+                    y++;
+                }
+            }
+
+            TreeNode prevCommand = treeViewOfScript.Nodes.Add(fileName_lbl.Text);
+            foreach (string command in commands)
+            {
+                if (command.Contains("группа:"))
+                {
+                    prevCommand = prevCommand.Nodes.Add(command);
+                }
+                else
+                {
+                    if (command.Contains("конец"))
+                    {
+                        //не писать команду в тривью
+                        prevCommand = prevCommand.Parent;
+                    }
+                    else
+                    {
+                        TreeNode nextNextCommand = prevCommand.Nodes.Add(command);
+                    }
+                }
+            }
+        }
+
         private void группуToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (openFileGroup.ShowDialog() == DialogResult.Cancel)
@@ -978,6 +877,12 @@ namespace DclTestFormWPy
             tableScript_dgv.Rows[rowNumber].Cells[0].Value = rowNumber + 1;
             tableScript_dgv.Rows[rowNumber].Cells[1].Value = "конец";
 
+        }
+
+        private void DeleteAll_btn_Click(object sender, EventArgs e)
+        {
+            tableScript_dgv.Rows.Clear();
+            treeViewOfScript.Nodes.Clear();
         }
     }
 }
