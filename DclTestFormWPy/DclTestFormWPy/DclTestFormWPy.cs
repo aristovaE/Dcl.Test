@@ -231,7 +231,7 @@ namespace DclTestFormWPy
         const byte VK_L = 0x4C;
         //const byte VK_B = 0x42;
         //const byte VK_C = 0x43;
-        //const byte VK_D = 0x44;
+        const byte VK_E = 0x45;
         const byte VK_P = 0x50;
         const byte VK_Y = 0x59;
         const byte VK_RETURN = 0x0D;
@@ -454,7 +454,8 @@ namespace DclTestFormWPy
                             }
                             break;
 
-                        case "закрыть окно":
+                        case "добавить товар":
+                            EnterShortcuts(VK_CTRL, VK_E);
                             break;
 
                     }
