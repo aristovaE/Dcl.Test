@@ -56,6 +56,8 @@
             this.endGroup_btn = new System.Windows.Forms.Button();
             this.del_gb = new System.Windows.Forms.GroupBox();
             this.edit_gb = new System.Windows.Forms.GroupBox();
+            this.paramsEdit_tb = new System.Windows.Forms.TextBox();
+            this.paramsEdit_cmb = new System.Windows.Forms.ComboBox();
             this.fileName_lbl = new System.Windows.Forms.Label();
             this.treeViewOfScript = new System.Windows.Forms.TreeView();
             this.tabScripts = new System.Windows.Forms.TabControl();
@@ -154,27 +156,27 @@
             this.сценарийToolStripMenuItem1,
             this.группуToolStripMenuItem});
             this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
-            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.открытьToolStripMenuItem.Text = "Открыть";
             // 
             // сценарийToolStripMenuItem1
             // 
             this.сценарийToolStripMenuItem1.Name = "сценарийToolStripMenuItem1";
-            this.сценарийToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.сценарийToolStripMenuItem1.Size = new System.Drawing.Size(129, 22);
             this.сценарийToolStripMenuItem1.Text = "Сценарий";
             this.сценарийToolStripMenuItem1.Click += new System.EventHandler(this.сценарийToolStripMenuItem1_Click);
             // 
             // группуToolStripMenuItem
             // 
             this.группуToolStripMenuItem.Name = "группуToolStripMenuItem";
-            this.группуToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.группуToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.группуToolStripMenuItem.Text = "Группу";
             this.группуToolStripMenuItem.Click += new System.EventHandler(this.группуToolStripMenuItem_Click);
             // 
             // сохранитьToolStripMenuItem
             // 
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.сохранитьToolStripMenuItem.Text = "Сохранить";
             this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
             // 
@@ -234,6 +236,7 @@
             // 
             // command_cmb
             // 
+            this.command_cmb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.command_cmb.FormattingEnabled = true;
             this.command_cmb.Items.AddRange(new object[] {
             " ",
@@ -245,7 +248,9 @@
             "ввести значение",
             "перейти к графе номер",
             "подождать секунд",
-            "группа:"});
+            "группа:",
+            "добавить товар",
+            "перейти к первому товару"});
             this.command_cmb.Location = new System.Drawing.Point(10, 22);
             this.command_cmb.Name = "command_cmb";
             this.command_cmb.Size = new System.Drawing.Size(148, 21);
@@ -264,6 +269,7 @@
             // 
             // params_cmb
             // 
+            this.params_cmb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.params_cmb.FormattingEnabled = true;
             this.params_cmb.Items.AddRange(new object[] {
             "ENTER",
@@ -282,7 +288,7 @@
             // 
             // params_tb
             // 
-            this.params_tb.Location = new System.Drawing.Point(10, 53);
+            this.params_tb.Location = new System.Drawing.Point(10, 54);
             this.params_tb.Name = "params_tb";
             this.params_tb.Size = new System.Drawing.Size(148, 20);
             this.params_tb.TabIndex = 11;
@@ -335,19 +341,47 @@
             // 
             // edit_gb
             // 
+            this.edit_gb.Controls.Add(this.paramsEdit_tb);
+            this.edit_gb.Controls.Add(this.paramsEdit_cmb);
             this.edit_gb.Controls.Add(this.editComand_btn);
             this.edit_gb.Controls.Add(this.editCommand_tb);
             this.edit_gb.Location = new System.Drawing.Point(610, 197);
             this.edit_gb.Name = "edit_gb";
-            this.edit_gb.Size = new System.Drawing.Size(245, 55);
+            this.edit_gb.Size = new System.Drawing.Size(245, 82);
             this.edit_gb.TabIndex = 15;
             this.edit_gb.TabStop = false;
             this.edit_gb.Text = "Редактирование";
             // 
+            // paramsEdit_tb
+            // 
+            this.paramsEdit_tb.Location = new System.Drawing.Point(10, 44);
+            this.paramsEdit_tb.Name = "paramsEdit_tb";
+            this.paramsEdit_tb.Size = new System.Drawing.Size(148, 20);
+            this.paramsEdit_tb.TabIndex = 13;
+            this.paramsEdit_tb.Visible = false;
+            // 
+            // paramsEdit_cmb
+            // 
+            this.paramsEdit_cmb.FormattingEnabled = true;
+            this.paramsEdit_cmb.Items.AddRange(new object[] {
+            "ENTER",
+            "F5",
+            "ESC",
+            "F3",
+            "стрелку влево",
+            "стрелку вправо",
+            "стрелку вверх",
+            "стрелку вниз"});
+            this.paramsEdit_cmb.Location = new System.Drawing.Point(10, 44);
+            this.paramsEdit_cmb.Name = "paramsEdit_cmb";
+            this.paramsEdit_cmb.Size = new System.Drawing.Size(148, 21);
+            this.paramsEdit_cmb.TabIndex = 13;
+            this.paramsEdit_cmb.Visible = false;
+            // 
             // fileName_lbl
             // 
             this.fileName_lbl.AutoSize = true;
-            this.fileName_lbl.Location = new System.Drawing.Point(617, 256);
+            this.fileName_lbl.Location = new System.Drawing.Point(166, 258);
             this.fileName_lbl.Name = "fileName_lbl";
             this.fileName_lbl.Size = new System.Drawing.Size(10, 13);
             this.fileName_lbl.TabIndex = 16;
@@ -419,7 +453,7 @@
             // 
             // DeleteAll_btn
             // 
-            this.DeleteAll_btn.Location = new System.Drawing.Point(448, 243);
+            this.DeleteAll_btn.Location = new System.Drawing.Point(448, 244);
             this.DeleteAll_btn.Name = "DeleteAll_btn";
             this.DeleteAll_btn.Size = new System.Drawing.Size(75, 25);
             this.DeleteAll_btn.TabIndex = 21;
@@ -502,6 +536,8 @@
         private System.Windows.Forms.ToolStripMenuItem сценарийToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem группуToolStripMenuItem;
         private System.Windows.Forms.Button DeleteAll_btn;
+        private System.Windows.Forms.ComboBox paramsEdit_cmb;
+        private System.Windows.Forms.TextBox paramsEdit_tb;
     }
 }
 

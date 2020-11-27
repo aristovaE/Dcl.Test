@@ -232,6 +232,7 @@ namespace DclTestFormWPy
         //const byte VK_B = 0x42;
         //const byte VK_C = 0x43;
         const byte VK_E = 0x45;
+        const byte VK_F = 0x46;
         const byte VK_P = 0x50;
         const byte VK_Y = 0x59;
         const byte VK_RETURN = 0x0D;
@@ -324,7 +325,7 @@ namespace DclTestFormWPy
             }
             //new Thread(() =>
             //{
-            bool IsStop=false;
+            bool IsStop = false;
             try
             {
                 foreach (string command in commands)
@@ -345,7 +346,7 @@ namespace DclTestFormWPy
                             break;
 
                         case "проверка":
-                           var result = MessageBox.Show("Сценарий выполнен корректно?","Внимание",MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            var result = MessageBox.Show("Сценарий выполнен корректно?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                             if (result != DialogResult.Yes)
                             {
                                 IsStop = true;
@@ -458,6 +459,10 @@ namespace DclTestFormWPy
                             EnterShortcuts(VK_CTRL, VK_E);
                             break;
 
+                        case "перейти к первому товару":
+                            EnterShortcuts(VK_CTRL, VK_F);
+                            break;
+
                     }
                     if (IsStop != false)
                     {
@@ -534,7 +539,7 @@ namespace DclTestFormWPy
             editCommand_tb.Text = "";
         }
 
-        
+
 
         private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -560,40 +565,50 @@ namespace DclTestFormWPy
 
         private void tableScript_dgv_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            editCommand_tb.Text = "";
-            editCommand_tb.Text = tableScript_dgv.CurrentRow.Cells[1].Value.ToString();
+            if (tableScript_dgv.CurrentRow != null)
+            {
+                editCommand_tb.Text = "";
+                editCommand_tb.Text = tableScript_dgv.CurrentRow.Cells[1].Value.ToString();
+            }
         }
 
         private void addCommand_btn_Click(object sender, EventArgs e)
         {
+            //int rowIndexSelected = -1;
+            //if (tableScript_dgv.Rows.Count != 1)
+            int rowIndexSelected = tableScript_dgv.SelectedCells[0].RowIndex;
             if (command_cmb.SelectedItem != null)
             {
                 if (command_cmb.SelectedIndex == 0)
                 {
                     int rowNumber = tableScript_dgv.Rows.Add();
-                    tableScript_dgv.Rows[rowNumber].Cells[0].Value = rowNumber + 1;
-                    tableScript_dgv.Rows[rowNumber].Cells[2].Value = params_tb.Text;
+                    tableScript_dgv.Rows.Insert(rowIndexSelected + 1, rowNumber + 1, "", params_tb.Text);
+                    //tableScript_dgv.Rows[rowNumber].Cells[0].Value = rowNumber + 1;
+                    //tableScript_dgv.Rows[rowNumber].Cells[2].Value = params_tb.Text;
                 }
                 else if (command_cmb.SelectedIndex == 5 || command_cmb.SelectedIndex == 6 || command_cmb.SelectedIndex == 7 || command_cmb.SelectedIndex == 8 || command_cmb.SelectedIndex == 9)
                 {
                     int rowNumber = tableScript_dgv.Rows.Add();
-                    tableScript_dgv.Rows[rowNumber].Cells[0].Value = rowNumber + 1;
-                    tableScript_dgv.Rows[rowNumber].Cells[1].Value = command_cmb.SelectedItem.ToString();
+                    //tableScript_dgv.Rows[rowNumber].Cells[0].Value = rowNumber + 1;
+                    //tableScript_dgv.Rows[rowNumber].Cells[1].Value = command_cmb.SelectedItem.ToString();
                     if (params_cmb.Visible == false)
                     {
                         if (params_tb.Text != "")
-                            tableScript_dgv.Rows[rowNumber].Cells[2].Value = params_tb.Text;
+                            tableScript_dgv.Rows.Insert(rowIndexSelected + 1, rowNumber + 1, command_cmb.SelectedItem.ToString(), params_tb.Text);
+                        //tableScript_dgv.Rows[rowNumber].Cells[2].Value = params_tb.Text;
                         else MessageBox.Show("Для данной команды необходимо ввести значение");
                     }
                     else if (params_cmb.SelectedIndex != -1)
-                        tableScript_dgv.Rows[rowNumber].Cells[2].Value = params_cmb.SelectedItem.ToString();
+                        tableScript_dgv.Rows.Insert(rowIndexSelected + 1, rowNumber + 1, command_cmb.SelectedItem.ToString(), params_cmb.SelectedItem.ToString());
+                    //tableScript_dgv.Rows[rowNumber].Cells[2].Value = params_cmb.SelectedItem.ToString();
                     else MessageBox.Show("Для данной команды необходимо выбрать значение");
                 }
                 else
                 {
                     int rowNumber = tableScript_dgv.Rows.Add();
-                    tableScript_dgv.Rows[rowNumber].Cells[0].Value = rowNumber + 1;
-                    tableScript_dgv.Rows[rowNumber].Cells[1].Value = command_cmb.SelectedItem.ToString();
+                    //tableScript_dgv.Rows[rowNumber].Cells[0].Value = rowNumber + 1;
+                    //tableScript_dgv.Rows[rowNumber].Cells[1].Value = command_cmb.SelectedItem.ToString();
+                    tableScript_dgv.Rows.Insert(rowIndexSelected + 1, rowNumber + 1, command_cmb.SelectedItem.ToString());
                 }
                 //params_tb.Text = "";
                 //params_cmb.SelectedIndex = -1;
@@ -668,15 +683,15 @@ namespace DclTestFormWPy
             return title.ToString();
         }
 
-        private IntPtr findFirstTextBox(IntPtr windowHandle,string title)
+        private IntPtr findFirstTextBox(IntPtr windowHandle, string title)
         {
             IntPtr childHandle = IntPtr.Zero;
             //List<TextBoxInfo> collectionTextBox = new List<TextBoxInfo>();
             //childHandle = FindWindowEx(windowHandle, IntPtr.Zero, "MDIClient", IntPtr.Zero);
             if (windowHandle != IntPtr.Zero)
             {
-                if(GetControlText(windowHandle)!=title)
-                childHandle = GetWindow(windowHandle, (uint)GetWindowType.GW_CHILD);
+                if (GetControlText(windowHandle) != title)
+                    childHandle = GetWindow(windowHandle, (uint)GetWindowType.GW_CHILD);
                 if (GetControlText(childHandle) != title)
                     childHandle = GetWindow(childHandle, (uint)GetWindowType.GW_CHILD);
                 if (GetControlText(childHandle) != title)
@@ -793,14 +808,14 @@ namespace DclTestFormWPy
 
         }
 
-       
+
 
         private void сценарийToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            
+
             if (openFileScript.ShowDialog() == DialogResult.Cancel)
                 return;
-            
+
             tableScript_dgv.Rows.Clear();
             listOfCommand.Items.Clear();
             treeViewOfScript.Nodes.Clear();
@@ -860,7 +875,7 @@ namespace DclTestFormWPy
             int rowNumber = tableScript_dgv.Rows.Add();
             tableScript_dgv.Rows[rowNumber].Cells[0].Value = rowNumber + 1;
             tableScript_dgv.Rows[rowNumber].Cells[1].Value = "группа";
-            tableScript_dgv.Rows[rowNumber].Cells[2].Value = openFileGroup.FileName.Split('.', '\\')[openFileGroup.FileName.Split('.', '\\').Length-2];
+            tableScript_dgv.Rows[rowNumber].Cells[2].Value = openFileGroup.FileName.Split('.', '\\')[openFileGroup.FileName.Split('.', '\\').Length - 2];
             MessageBox.Show($"Группа команд \"{openFileGroup}\" добавлена в сценарий");
             for (int i = 0; i < commands.Length; i++)
             {
