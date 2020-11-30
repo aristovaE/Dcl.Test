@@ -1,0 +1,35 @@
+C:\Users\User\source\repos\DclTestFormWPy\DclTestFormWPy\bin\Debug\DclTestFormWPy.exe.config
+C:\Users\User\source\repos\DclTestFormWPy\DclTestFormWPy\bin\Debug\DclTestFormWPy.exe
+C:\Users\User\source\repos\DclTestFormWPy\DclTestFormWPy\bin\Debug\DclTestFormWPy.pdb
+C:\Users\User\source\repos\DclTestFormWPy\DclTestFormWPy\obj\Debug\DclTestFormWPy.DclTestFormWPy.resources
+C:\Users\User\source\repos\DclTestFormWPy\DclTestFormWPy\obj\Debug\DclTestFormWPy.Properties.Resources.resources
+C:\Users\User\source\repos\DclTestFormWPy\DclTestFormWPy\obj\Debug\DclTestFormWPy.csproj.GenerateResource.cache
+C:\Users\User\source\repos\DclTestFormWPy\DclTestFormWPy\obj\Debug\DclTestFormWPy.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\DclTestFormWPy\DclTestFormWPy\obj\Debug\DclTestFormWPy.exe
+C:\Users\User\source\repos\DclTestFormWPy\DclTestFormWPy\obj\Debug\DclTestFormWPy.pdb
+D:\VirtualBox VMs\TEMP\DclTestFormWPy\DclTestFormWPy\bin\Debug\DclTestFormWPy.exe.config
+D:\VirtualBox VMs\TEMP\DclTestFormWPy\DclTestFormWPy\bin\Debug\DclTestFormWPy.exe
+D:\VirtualBox VMs\TEMP\DclTestFormWPy\DclTestFormWPy\bin\Debug\DclTestFormWPy.pdb
+D:\VirtualBox VMs\TEMP\DclTestFormWPy\DclTestFormWPy\obj\Debug\DclTestFormWPy.DclTestFormWPy.resources
+D:\VirtualBox VMs\TEMP\DclTestFormWPy\DclTestFormWPy\obj\Debug\DclTestFormWPy.Properties.Resources.resources
+D:\VirtualBox VMs\TEMP\DclTestFormWPy\DclTestFormWPy\obj\Debug\DclTestFormWPy.csproj.GenerateResource.cache
+D:\VirtualBox VMs\TEMP\DclTestFormWPy\DclTestFormWPy\obj\Debug\DclTestFormWPy.csproj.CoreCompileInputs.cache
+D:\VirtualBox VMs\TEMP\DclTestFormWPy\DclTestFormWPy\obj\Debug\DclTestFormWPy.exe
+D:\VirtualBox VMs\TEMP\DclTestFormWPy\DclTestFormWPy\obj\Debug\DclTestFormWPy.pdb
+D:\VirtualBox VMs\TEMP\DclTestFormWPy\DclTestFormWPy\bin\Debug\IronPython.dll
+D:\VirtualBox VMs\TEMP\DclTestFormWPy\DclTestFormWPy\bin\Debug\IronPython.Modules.dll
+D:\VirtualBox VMs\TEMP\DclTestFormWPy\DclTestFormWPy\bin\Debug\IronPython.SQLite.dll
+D:\VirtualBox VMs\TEMP\DclTestFormWPy\DclTestFormWPy\bin\Debug\IronPython.Wpf.dll
+D:\VirtualBox VMs\TEMP\DclTestFormWPy\DclTestFormWPy\bin\Debug\Microsoft.Dynamic.dll
+D:\VirtualBox VMs\TEMP\DclTestFormWPy\DclTestFormWPy\bin\Debug\Microsoft.Scripting.dll
+D:\VirtualBox VMs\TEMP\DclTestFormWPy\DclTestFormWPy\bin\Debug\Microsoft.Scripting.Metadata.dll
+D:\VirtualBox VMs\TEMP\DclTestFormWPy\DclTestFormWPy\bin\Debug\IronPython.xml
+D:\VirtualBox VMs\TEMP\DclTestFormWPy\DclTestFormWPy\bin\Debug\IronPython.Modules.xml
+D:\VirtualBox VMs\TEMP\DclTestFormWPy\DclTestFormWPy\bin\Debug\IronPython.SQLite.xml
+D:\VirtualBox VMs\TEMP\DclTestFormWPy\DclTestFormWPy\bin\Debug\IronPython.Wpf.xml
+D:\VirtualBox VMs\TEMP\DclTestFormWPy\DclTestFormWPy\bin\Debug\Microsoft.Dynamic.xml
+D:\VirtualBox VMs\TEMP\DclTestFormWPy\DclTestFormWPy\bin\Debug\Microsoft.Scripting.xml
+D:\VirtualBox VMs\TEMP\DclTestFormWPy\DclTestFormWPy\bin\Debug\Microsoft.Scripting.Metadata.xml
+D:\VirtualBox VMs\TEMP\DclTestFormWPy\DclTestFormWPy\obj\Debug\DclTestFormWPy.csproj.CopyComplete
+D:\VirtualBox VMs\TEMP\DclTestFormWPy\DclTestFormWPy\obj\Debug\DclTestFormWPy.FormGroups.resources
+D:\VirtualBox VMs\TEMP\DclTestFormWPy\DclTestFormWPy\obj\Debug\DclTestFormWPy.csprojAssemblyReference.cache
