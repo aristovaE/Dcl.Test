@@ -56,8 +56,6 @@
             this.endGroup_btn = new System.Windows.Forms.Button();
             this.del_gb = new System.Windows.Forms.GroupBox();
             this.edit_gb = new System.Windows.Forms.GroupBox();
-            this.paramsEdit_tb = new System.Windows.Forms.TextBox();
-            this.paramsEdit_cmb = new System.Windows.Forms.ComboBox();
             this.fileName_lbl = new System.Windows.Forms.Label();
             this.treeViewOfScript = new System.Windows.Forms.TreeView();
             this.tabScripts = new System.Windows.Forms.TabControl();
@@ -182,6 +180,7 @@
             // 
             // tableScript_dgv
             // 
+            this.tableScript_dgv.AllowUserToAddRows = false;
             this.tableScript_dgv.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.tableScript_dgv.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.tableScript_dgv.BackgroundColor = System.Drawing.SystemColors.Control;
@@ -341,8 +340,6 @@
             // 
             // edit_gb
             // 
-            this.edit_gb.Controls.Add(this.paramsEdit_tb);
-            this.edit_gb.Controls.Add(this.paramsEdit_cmb);
             this.edit_gb.Controls.Add(this.editComand_btn);
             this.edit_gb.Controls.Add(this.editCommand_tb);
             this.edit_gb.Location = new System.Drawing.Point(610, 197);
@@ -351,32 +348,6 @@
             this.edit_gb.TabIndex = 15;
             this.edit_gb.TabStop = false;
             this.edit_gb.Text = "Редактирование";
-            // 
-            // paramsEdit_tb
-            // 
-            this.paramsEdit_tb.Location = new System.Drawing.Point(10, 44);
-            this.paramsEdit_tb.Name = "paramsEdit_tb";
-            this.paramsEdit_tb.Size = new System.Drawing.Size(148, 20);
-            this.paramsEdit_tb.TabIndex = 13;
-            this.paramsEdit_tb.Visible = false;
-            // 
-            // paramsEdit_cmb
-            // 
-            this.paramsEdit_cmb.FormattingEnabled = true;
-            this.paramsEdit_cmb.Items.AddRange(new object[] {
-            "ENTER",
-            "F5",
-            "ESC",
-            "F3",
-            "стрелку влево",
-            "стрелку вправо",
-            "стрелку вверх",
-            "стрелку вниз"});
-            this.paramsEdit_cmb.Location = new System.Drawing.Point(10, 44);
-            this.paramsEdit_cmb.Name = "paramsEdit_cmb";
-            this.paramsEdit_cmb.Size = new System.Drawing.Size(148, 21);
-            this.paramsEdit_cmb.TabIndex = 13;
-            this.paramsEdit_cmb.Visible = false;
             // 
             // fileName_lbl
             // 
@@ -536,8 +507,6 @@
         private System.Windows.Forms.ToolStripMenuItem сценарийToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem группуToolStripMenuItem;
         private System.Windows.Forms.Button DeleteAll_btn;
-        private System.Windows.Forms.ComboBox paramsEdit_cmb;
-        private System.Windows.Forms.TextBox paramsEdit_tb;
     }
 }
 

@@ -21,6 +21,7 @@ namespace DclTestFormWPy
         public DclTestFormWPy()
         {
             InitializeComponent();
+            tableScript_dgv.Rows.Clear();
         }
 
         /// <summary>
@@ -565,55 +566,62 @@ namespace DclTestFormWPy
 
         private void tableScript_dgv_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (tableScript_dgv.CurrentRow != null)
+            if (tableScript_dgv.CurrentRow != null&& tableScript_dgv.CurrentRow.Cells[2].Value!=null)
             {
                 editCommand_tb.Text = "";
-                editCommand_tb.Text = tableScript_dgv.CurrentRow.Cells[1].Value.ToString();
+                editCommand_tb.Text = tableScript_dgv.CurrentRow.Cells[2].Value.ToString();
             }
         }
 
         private void addCommand_btn_Click(object sender, EventArgs e)
         {
-            //int rowIndexSelected = -1;
-            //if (tableScript_dgv.Rows.Count != 1)
-            int rowIndexSelected = tableScript_dgv.SelectedCells[0].RowIndex;
+            //ДОБАВЛЯЕТ ID 43, 45 ... НЕКОРРЕКТНО ДЛЯ ПУСТОГО ИЗНАЧАЛЬНО СЦЕНАРИЯ
+            int rowIndexSelected = 1;
+            int rowNumber;
+            if (tableScript_dgv.SelectedRows.Count > 0)
+                rowNumber = tableScript_dgv.SelectedRows[0].Index;
             if (command_cmb.SelectedItem != null)
             {
                 if (command_cmb.SelectedIndex == 0)
                 {
-                    int rowNumber = tableScript_dgv.Rows.Add();
-                    tableScript_dgv.Rows.Insert(rowIndexSelected + 1, rowNumber + 1, "", params_tb.Text);
+                    //rowNumber = 
+                        tableScript_dgv.Rows.Add(tableScript_dgv.RowCount+1, "", params_tb.Text);
+                    //tableScript_dgv.Rows.Insert(rowNumber, rowNumber + 1, "", params_tb.Text);
                     //tableScript_dgv.Rows[rowNumber].Cells[0].Value = rowNumber + 1;
                     //tableScript_dgv.Rows[rowNumber].Cells[2].Value = params_tb.Text;
                 }
                 else if (command_cmb.SelectedIndex == 5 || command_cmb.SelectedIndex == 6 || command_cmb.SelectedIndex == 7 || command_cmb.SelectedIndex == 8 || command_cmb.SelectedIndex == 9)
                 {
-                    int rowNumber = tableScript_dgv.Rows.Add();
+                    //rowNumber = tableScript_dgv.Rows.Add();
                     //tableScript_dgv.Rows[rowNumber].Cells[0].Value = rowNumber + 1;
                     //tableScript_dgv.Rows[rowNumber].Cells[1].Value = command_cmb.SelectedItem.ToString();
                     if (params_cmb.Visible == false)
                     {
                         if (params_tb.Text != "")
-                            tableScript_dgv.Rows.Insert(rowIndexSelected + 1, rowNumber + 1, command_cmb.SelectedItem.ToString(), params_tb.Text);
-                        //tableScript_dgv.Rows[rowNumber].Cells[2].Value = params_tb.Text;
+                            //tableScript_dgv.Rows.Insert(rowNumber, rowNumber + 1, command_cmb.SelectedItem.ToString(), params_tb.Text);
+                            //tableScript_dgv.Rows[rowNumber].Cells[2].Value = params_tb.Text;
+                            tableScript_dgv.Rows.Add(tableScript_dgv.RowCount + 1, command_cmb.SelectedItem.ToString(), params_tb.Text);
                         else MessageBox.Show("Для данной команды необходимо ввести значение");
                     }
                     else if (params_cmb.SelectedIndex != -1)
-                        tableScript_dgv.Rows.Insert(rowIndexSelected + 1, rowNumber + 1, command_cmb.SelectedItem.ToString(), params_cmb.SelectedItem.ToString());
-                    //tableScript_dgv.Rows[rowNumber].Cells[2].Value = params_cmb.SelectedItem.ToString();
+                        //tableScript_dgv.Rows.Insert(rowNumber, rowNumber + 1, command_cmb.SelectedItem.ToString(), params_cmb.SelectedItem.ToString());
+                        //tableScript_dgv.Rows[rowNumber].Cells[2].Value = params_cmb.SelectedItem.ToString();
+                        tableScript_dgv.Rows.Add(tableScript_dgv.RowCount + 1, command_cmb.SelectedItem.ToString(), params_cmb.SelectedItem.ToString());
                     else MessageBox.Show("Для данной команды необходимо выбрать значение");
                 }
                 else
                 {
-                    int rowNumber = tableScript_dgv.Rows.Add();
+                    //rowNumber = tableScript_dgv.Rows.Add();
                     //tableScript_dgv.Rows[rowNumber].Cells[0].Value = rowNumber + 1;
                     //tableScript_dgv.Rows[rowNumber].Cells[1].Value = command_cmb.SelectedItem.ToString();
-                    tableScript_dgv.Rows.Insert(rowIndexSelected + 1, rowNumber + 1, command_cmb.SelectedItem.ToString());
+                    //tableScript_dgv.Rows.Insert(rowNumber, rowNumber+1, command_cmb.SelectedItem.ToString());
+                    tableScript_dgv.Rows.Add(tableScript_dgv.RowCount + 1, command_cmb.SelectedItem.ToString());
                 }
                 //params_tb.Text = "";
                 //params_cmb.SelectedIndex = -1;
                 //command_cmb.SelectedIndex = -1;
             }
+            tableScript_dgv.ClearSelection();
         }
 
         private void command_cmb_SelectedIndexChanged(object sender, EventArgs e)
