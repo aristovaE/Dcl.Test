@@ -31,5 +31,4 @@ D:\VirtualBox VMs\TEMP\DclTestFormWPy\DclTestFormWPy\bin\Debug\Microsoft.Dynamic
 D:\VirtualBox VMs\TEMP\DclTestFormWPy\DclTestFormWPy\bin\Debug\Microsoft.Scripting.xml
 D:\VirtualBox VMs\TEMP\DclTestFormWPy\DclTestFormWPy\bin\Debug\Microsoft.Scripting.Metadata.xml
 D:\VirtualBox VMs\TEMP\DclTestFormWPy\DclTestFormWPy\obj\Debug\DclTestFormWPy.csproj.CopyComplete
-D:\VirtualBox VMs\TEMP\DclTestFormWPy\DclTestFormWPy\obj\Debug\DclTestFormWPy.FormGroups.resources
 D:\VirtualBox VMs\TEMP\DclTestFormWPy\DclTestFormWPy\obj\Debug\DclTestFormWPy.csprojAssemblyReference.cache
