@@ -83,7 +83,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InteractionWithVD.cs">
+    <Compile Include="AllWinAPIFuncs.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DclTestFormWPy.cs">
