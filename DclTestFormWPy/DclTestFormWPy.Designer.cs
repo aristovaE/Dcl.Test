@@ -61,9 +61,15 @@
             this.tabScripts = new System.Windows.Forms.TabControl();
             this.tabTreeViewScript = new System.Windows.Forms.TabPage();
             this.tabTableScript = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
             this.refresh_btn = new System.Windows.Forms.Button();
             this.openFileGroup = new System.Windows.Forms.OpenFileDialog();
             this.DeleteAll_btn = new System.Windows.Forms.Button();
+            this.numberOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.paramOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descriptionOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.resultOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.scriptsTask_ms.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tableScript_dgv)).BeginInit();
             this.add_gb.SuspendLayout();
@@ -399,6 +405,17 @@
             this.tabTableScript.Text = "Таблично";
             this.tabTableScript.UseVisualStyleBackColor = true;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(265, 248);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 19;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // refresh_btn
             // 
             this.refresh_btn.Location = new System.Drawing.Point(529, 244);
@@ -423,6 +440,43 @@
             this.DeleteAll_btn.UseVisualStyleBackColor = true;
             this.DeleteAll_btn.Click += new System.EventHandler(this.DeleteAll_btn_Click);
             // 
+            // numberOfCommand
+            // 
+            this.numberOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.numberOfCommand.FillWeight = 18F;
+            this.numberOfCommand.HeaderText = "Id";
+            this.numberOfCommand.Name = "numberOfCommand";
+            this.numberOfCommand.ReadOnly = true;
+            this.numberOfCommand.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // nameOfCommand
+            // 
+            this.nameOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nameOfCommand.HeaderText = "Название";
+            this.nameOfCommand.Name = "nameOfCommand";
+            this.nameOfCommand.ReadOnly = true;
+            // 
+            // paramOfCommand
+            // 
+            this.paramOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.paramOfCommand.FillWeight = 70F;
+            this.paramOfCommand.HeaderText = "Параметр";
+            this.paramOfCommand.Name = "paramOfCommand";
+            // 
+            // descriptionOfCommand
+            // 
+            this.descriptionOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.descriptionOfCommand.HeaderText = "Описание";
+            this.descriptionOfCommand.Name = "descriptionOfCommand";
+            // 
+            // resultOfCommand
+            // 
+            this.resultOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.resultOfCommand.FillWeight = 45F;
+            this.resultOfCommand.HeaderText = "Результат";
+            this.resultOfCommand.Name = "resultOfCommand";
+            this.resultOfCommand.ReadOnly = true;
+            // 
             // DclTestFormWPy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -430,6 +484,7 @@
             this.ClientSize = new System.Drawing.Size(862, 290);
             this.Controls.Add(this.DeleteAll_btn);
             this.Controls.Add(this.refresh_btn);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.tabScripts);
             this.Controls.Add(this.fileName_lbl);
             this.Controls.Add(this.edit_gb);
@@ -486,6 +541,7 @@
         private System.Windows.Forms.TabControl tabScripts;
         private System.Windows.Forms.TabPage tabTreeViewScript;
         private System.Windows.Forms.TabPage tabTableScript;
+        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button refresh_btn;
         private System.Windows.Forms.OpenFileDialog openFileGroup;
         private System.Windows.Forms.ToolStripMenuItem сценарийToolStripMenuItem1;
