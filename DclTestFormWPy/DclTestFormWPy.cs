@@ -70,7 +70,7 @@ namespace DclTestFormWPy
             IntPtr windowFocus = IntPtr.Zero;
             List<string> commands = new List<string>();
             //List<string> commands = listOfCommand.Items.Cast<ListViewItem>().Select(item => item.Text).ToList();
-            for (int i = 0; i < tableScript_dgv.Rows.Count - 1; i++)
+            for (int i = 0; i < tableScript_dgv.Rows.Count; i++)
             {
                 commands.Add(tableScript_dgv.Rows[i].Cells[1].Value.ToString());
             }
