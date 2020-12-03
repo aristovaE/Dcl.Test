@@ -92,19 +92,10 @@
     <Compile Include="DclTestFormWPy.Designer.cs">
       <DependentUpon>DclTestFormWPy.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormGroups.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormGroups.Designer.cs">
-      <DependentUpon>FormGroups.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="DclTestFormWPy.resx">
       <DependentUpon>DclTestFormWPy.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormGroups.resx">
-      <DependentUpon>FormGroups.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
