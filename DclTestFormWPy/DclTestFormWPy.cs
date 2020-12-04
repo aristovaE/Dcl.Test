@@ -390,6 +390,7 @@ namespace DclTestFormWPy
                 int rowIndexSelected = tableScript_dgv.SelectedCells[0].RowIndex;
                 tableScript_dgv.Rows.RemoveAt(rowIndexSelected);
                     treeViewOfScript.Nodes[0].Nodes[rowIndexSelected].Remove();
+                //не работает в группах
             }
         }
 
@@ -428,7 +429,7 @@ namespace DclTestFormWPy
                 }
             }
 
-            TreeNode newTR = treeViewOfScript.Nodes.Add(fileName_lbl.Text);
+            TreeNode newTR = treeViewOfScript.Nodes.Add(statusStrip.Items[0].Text);
             TreeNode nameOfGroup = null;
             int index = 0;
             bool IsInGroup = false;
@@ -476,8 +477,10 @@ namespace DclTestFormWPy
             tableScript_dgv.Rows.Clear();
             listOfCommand.Items.Clear();
             treeViewOfScript.Nodes.Clear();
+            statusStrip.Items.Clear();
 
-            fileName_lbl.Text = openFileScript.SafeFileName.ToString();
+            //fileName_lbl.Text = openFileScript.SafeFileName.ToString();
+            statusStrip.Items.Add(openFileScript.SafeFileName.ToString());
             string strmas = File.ReadAllText(openFileScript.FileName);
 
             String[] commands = strmas.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
@@ -499,7 +502,7 @@ namespace DclTestFormWPy
                 }
             }
 
-            TreeNode prevCommand = treeViewOfScript.Nodes.Add(fileName_lbl.Text);
+            TreeNode prevCommand = treeViewOfScript.Nodes.Add(statusStrip.Items[0].Text);
             int index = 1;
             foreach (string command in commands)
             {

@@ -59,13 +59,15 @@
             this.edit_gb = new System.Windows.Forms.GroupBox();
             this.fileName_lbl = new System.Windows.Forms.Label();
             this.treeViewOfScript = new System.Windows.Forms.TreeView();
+            this.contextMenuToTreeView = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tabScripts = new System.Windows.Forms.TabControl();
             this.tabTreeViewScript = new System.Windows.Forms.TabPage();
             this.tabTableScript = new System.Windows.Forms.TabPage();
             this.refresh_btn = new System.Windows.Forms.Button();
             this.openFileGroup = new System.Windows.Forms.OpenFileDialog();
             this.DeleteAll_btn = new System.Windows.Forms.Button();
-            this.contextMenuToTreeView = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.fileName_statstrip = new System.Windows.Forms.ToolStripStatusLabel();
             this.scriptsTask_ms.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tableScript_dgv)).BeginInit();
             this.add_gb.SuspendLayout();
@@ -74,6 +76,7 @@
             this.tabScripts.SuspendLayout();
             this.tabTreeViewScript.SuspendLayout();
             this.tabTableScript.SuspendLayout();
+            this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // chooseScript_btn
@@ -155,27 +158,27 @@
             this.сценарийToolStripMenuItem1,
             this.группуToolStripMenuItem});
             this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
-            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.открытьToolStripMenuItem.Text = "Открыть";
             // 
             // сценарийToolStripMenuItem1
             // 
             this.сценарийToolStripMenuItem1.Name = "сценарийToolStripMenuItem1";
-            this.сценарийToolStripMenuItem1.Size = new System.Drawing.Size(129, 22);
+            this.сценарийToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.сценарийToolStripMenuItem1.Text = "Сценарий";
             this.сценарийToolStripMenuItem1.Click += new System.EventHandler(this.сценарийToolStripMenuItem1_Click);
             // 
             // группуToolStripMenuItem
             // 
             this.группуToolStripMenuItem.Name = "группуToolStripMenuItem";
-            this.группуToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.группуToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.группуToolStripMenuItem.Text = "Группу";
             this.группуToolStripMenuItem.Click += new System.EventHandler(this.группуToolStripMenuItem_Click);
             // 
             // сохранитьToolStripMenuItem
             // 
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.сохранитьToolStripMenuItem.Text = "Сохранить";
             this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
             // 
@@ -371,6 +374,11 @@
             this.treeViewOfScript.TabIndex = 17;
             this.treeViewOfScript.MouseDown += new System.Windows.Forms.MouseEventHandler(this.treeViewOfScript_MouseDown);
             // 
+            // contextMenuToTreeView
+            // 
+            this.contextMenuToTreeView.Name = "contextMenuToTreeView";
+            this.contextMenuToTreeView.Size = new System.Drawing.Size(61, 4);
+            // 
             // tabScripts
             // 
             this.tabScripts.Controls.Add(this.tabTreeViewScript);
@@ -427,16 +435,26 @@
             this.DeleteAll_btn.UseVisualStyleBackColor = true;
             this.DeleteAll_btn.Click += new System.EventHandler(this.DeleteAll_btn_Click);
             // 
-            // contextMenuToTreeView
+            // statusStrip
             // 
-            this.contextMenuToTreeView.Name = "contextMenuToTreeView";
-            this.contextMenuToTreeView.Size = new System.Drawing.Size(61, 4);
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileName_statstrip});
+            this.statusStrip.Location = new System.Drawing.Point(0, 285);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Size = new System.Drawing.Size(862, 22);
+            this.statusStrip.TabIndex = 22;
+            // 
+            // fileName_statstrip
+            // 
+            this.fileName_statstrip.Name = "fileName_statstrip";
+            this.fileName_statstrip.Size = new System.Drawing.Size(0, 17);
             // 
             // DclTestFormWPy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(862, 290);
+            this.ClientSize = new System.Drawing.Size(862, 307);
+            this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.DeleteAll_btn);
             this.Controls.Add(this.refresh_btn);
             this.Controls.Add(this.tabScripts);
@@ -462,6 +480,8 @@
             this.tabScripts.ResumeLayout(false);
             this.tabTreeViewScript.ResumeLayout(false);
             this.tabTableScript.ResumeLayout(false);
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -506,5 +526,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn descriptionOfCommand;
         private System.Windows.Forms.DataGridViewTextBoxColumn resultOfCommand;
         private System.Windows.Forms.ContextMenuStrip contextMenuToTreeView;
+        private System.Windows.Forms.StatusStrip statusStrip;
+        private System.Windows.Forms.ToolStripStatusLabel fileName_statstrip;
     }
 }
