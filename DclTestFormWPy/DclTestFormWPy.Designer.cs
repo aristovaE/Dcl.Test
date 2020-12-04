@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.chooseScript_btn = new System.Windows.Forms.Button();
             this.listOfCommand = new System.Windows.Forms.ListView();
             this.editCommand_tb = new System.Windows.Forms.TextBox();
@@ -64,6 +65,7 @@
             this.refresh_btn = new System.Windows.Forms.Button();
             this.openFileGroup = new System.Windows.Forms.OpenFileDialog();
             this.DeleteAll_btn = new System.Windows.Forms.Button();
+            this.contextMenuToTreeView = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.scriptsTask_ms.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tableScript_dgv)).BeginInit();
             this.add_gb.SuspendLayout();
@@ -362,10 +364,12 @@
             // 
             // treeViewOfScript
             // 
+            this.treeViewOfScript.ContextMenuStrip = this.contextMenuToTreeView;
             this.treeViewOfScript.Location = new System.Drawing.Point(0, 0);
             this.treeViewOfScript.Name = "treeViewOfScript";
             this.treeViewOfScript.Size = new System.Drawing.Size(584, 188);
             this.treeViewOfScript.TabIndex = 17;
+            this.treeViewOfScript.MouseDown += new System.Windows.Forms.MouseEventHandler(this.treeViewOfScript_MouseDown);
             // 
             // tabScripts
             // 
@@ -422,6 +426,11 @@
             this.DeleteAll_btn.Text = "Очистить";
             this.DeleteAll_btn.UseVisualStyleBackColor = true;
             this.DeleteAll_btn.Click += new System.EventHandler(this.DeleteAll_btn_Click);
+            // 
+            // contextMenuToTreeView
+            // 
+            this.contextMenuToTreeView.Name = "contextMenuToTreeView";
+            this.contextMenuToTreeView.Size = new System.Drawing.Size(61, 4);
             // 
             // DclTestFormWPy
             // 
@@ -496,5 +505,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn paramOfCommand;
         private System.Windows.Forms.DataGridViewTextBoxColumn descriptionOfCommand;
         private System.Windows.Forms.DataGridViewTextBoxColumn resultOfCommand;
+        private System.Windows.Forms.ContextMenuStrip contextMenuToTreeView;
     }
 }

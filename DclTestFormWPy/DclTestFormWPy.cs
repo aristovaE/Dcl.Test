@@ -375,8 +375,22 @@ namespace DclTestFormWPy
 
         private void delCommand_btn_Click(object sender, EventArgs e)
         {
-            int rowIndexSelected = tableScript_dgv.SelectedCells[0].RowIndex;
-            tableScript_dgv.Rows.RemoveAt(rowIndexSelected);
+            if (tabScripts.SelectedIndex == 0)
+            {
+                treeViewOfScript.SelectedNode.Remove();
+                foreach (DataGridViewRow row in tableScript_dgv.Rows)
+                {
+                    if(Convert.ToInt32(row.Cells[0].Value.ToString()) ==Convert.ToInt32(treeViewOfScript.SelectedNode.Tag.ToString()))
+                     tableScript_dgv.Rows.RemoveAt(row.Index-1);
+                }
+            }
+            else
+            {
+                //нужны классы для удобного поиска каждой команды????????????
+                int rowIndexSelected = tableScript_dgv.SelectedCells[0].RowIndex;
+                tableScript_dgv.Rows.RemoveAt(rowIndexSelected);
+                    treeViewOfScript.Nodes[0].Nodes[rowIndexSelected].Remove();
+            }
         }
 
         private void endGroup_btn_Click(object sender, EventArgs e)
@@ -486,11 +500,13 @@ namespace DclTestFormWPy
             }
 
             TreeNode prevCommand = treeViewOfScript.Nodes.Add(fileName_lbl.Text);
+            int index = 1;
             foreach (string command in commands)
             {
                 if (command.Contains("группа:"))
                 {
                     prevCommand = prevCommand.Nodes.Add(command);
+                    prevCommand.Tag = index;
                 }
                 else
                 {
@@ -498,12 +514,15 @@ namespace DclTestFormWPy
                     {
                         //не писать команду в тривью
                         prevCommand = prevCommand.Parent;
+                        prevCommand.Tag = index;
                     }
                     else
                     {
                         TreeNode nextNextCommand = prevCommand.Nodes.Add(command);
+                        nextNextCommand.Tag = index;
                     }
                 }
+                index++;
             }
         }
 
@@ -540,6 +559,26 @@ namespace DclTestFormWPy
         {
             tableScript_dgv.Rows.Clear();
             treeViewOfScript.Nodes.Clear();
+        }
+
+        private void treeViewOfScript_MouseDown(object sender, MouseEventArgs e)
+        {
+            contextMenuToTreeView.Items.Clear();
+            // Убедитесь, что это правая кнопка.
+            if (e.Button != MouseButtons.Right) return;
+
+            // Выберите этот узел.
+            TreeNode node_here = treeViewOfScript.GetNodeAt(e.X, e.Y);
+            treeViewOfScript.SelectedNode = node_here;
+
+            // Если treenode в данном месте нет
+            if (node_here != null)
+            {
+                ToolStripMenuItem delCommand = new ToolStripMenuItem("Удалить");
+                contextMenuToTreeView.Items.AddRange(new[] { delCommand });
+                delCommand.Click += delCommand_btn_Click;
+                return;
+            }
         }
     }
 }
