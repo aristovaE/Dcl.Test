@@ -158,27 +158,27 @@
             this.сценарийToolStripMenuItem1,
             this.группуToolStripMenuItem});
             this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
-            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.открытьToolStripMenuItem.Text = "Открыть";
             // 
             // сценарийToolStripMenuItem1
             // 
             this.сценарийToolStripMenuItem1.Name = "сценарийToolStripMenuItem1";
-            this.сценарийToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.сценарийToolStripMenuItem1.Size = new System.Drawing.Size(129, 22);
             this.сценарийToolStripMenuItem1.Text = "Сценарий";
             this.сценарийToolStripMenuItem1.Click += new System.EventHandler(this.сценарийToolStripMenuItem1_Click);
             // 
             // группуToolStripMenuItem
             // 
             this.группуToolStripMenuItem.Name = "группуToolStripMenuItem";
-            this.группуToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.группуToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.группуToolStripMenuItem.Text = "Группу";
             this.группуToolStripMenuItem.Click += new System.EventHandler(this.группуToolStripMenuItem_Click);
             // 
             // сохранитьToolStripMenuItem
             // 
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.сохранитьToolStripMenuItem.Text = "Сохранить";
             this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
             // 
@@ -252,9 +252,10 @@
             "перейти вперед",
             "нажать",
             "ввести значение",
+            "найти значение",
             "перейти к графе номер",
             "подождать секунд",
-            "группа:",
+            "группа",
             "добавить товар",
             "перейти к первому товару"});
             this.command_cmb.Location = new System.Drawing.Point(10, 22);

@@ -282,11 +282,7 @@ namespace DclTestFormWPy
             {
                 if (command_cmb.SelectedItem != null)
                 {
-                    if (command_cmb.SelectedIndex == 0)
-                    {
-                        tableScript_dgv.Rows.Add(tableScript_dgv.RowCount + 1, "", params_tb.Text);
-                    }
-                    else if (command_cmb.SelectedIndex == 5 || command_cmb.SelectedIndex == 6 || command_cmb.SelectedIndex == 7 || command_cmb.SelectedIndex == 8 || command_cmb.SelectedIndex == 9)
+                    if (command_cmb.SelectedIndex > 4 && command_cmb.SelectedIndex < 11 || command_cmb.SelectedIndex == 0)
                     {
                         if (params_cmb.Visible == false)
                         {
@@ -308,11 +304,7 @@ namespace DclTestFormWPy
             {
                 if (command_cmb.SelectedItem != null)
                 {
-                    if (command_cmb.SelectedIndex == 0)
-                    {
-                        tableScript_dgv.Rows.Insert(tableScript_dgv.SelectedCells[0].RowIndex + 1, tableScript_dgv.Rows.Count + 1, "", params_tb.Text);
-                    }
-                    else if (command_cmb.SelectedIndex == 5 || command_cmb.SelectedIndex == 6 || command_cmb.SelectedIndex == 7 || command_cmb.SelectedIndex == 8 || command_cmb.SelectedIndex == 9)
+                    if (command_cmb.SelectedIndex > 5 && command_cmb.SelectedIndex < 11 || command_cmb.SelectedIndex == 0)
                     {
                         if (params_cmb.Visible == false)
                         {
@@ -328,6 +320,7 @@ namespace DclTestFormWPy
                     {
                         tableScript_dgv.Rows.Insert(tableScript_dgv.SelectedCells[0].RowIndex + 1, tableScript_dgv.Rows.Count + 1, command_cmb.SelectedItem.ToString());
                     }
+                    //сортировка id
                     int i = 1;
                     foreach (DataGridViewRow dataGridViewRow in tableScript_dgv.Rows)
                     {
@@ -341,32 +334,19 @@ namespace DclTestFormWPy
 
         private void command_cmb_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (command_cmb.SelectedIndex == 5)
+            if(command_cmb.SelectedIndex>5 && command_cmb.SelectedIndex<11 || command_cmb.SelectedIndex == 0)
+            {
+                params_cmb.Visible = false;
+                params_tb.Visible = true;
+                params_tb.Text = "";
+            }
+            else if (command_cmb.SelectedIndex == 5)
             {
                 params_tb.Visible = false;
                 params_cmb.Visible = true;
                 params_cmb.SelectedIndex = -1;
             }
-            else if (command_cmb.SelectedIndex == 6 || command_cmb.SelectedIndex == 7 || command_cmb.SelectedIndex == 8)
-            {
-                params_cmb.Visible = false;
-                params_tb.Visible = true;
-                params_tb.Text = "";
-            }
-            else if (command_cmb.SelectedIndex == 0)
-            {
-                params_cmb.Visible = false;
-                params_tb.Visible = true;
-                params_tb.Text = "";
-            }
-            else if (command_cmb.SelectedIndex == 9)
-            {
-                params_cmb.Visible = false;
-                params_tb.Visible = true;
-                params_tb.Text = "";
-                endGroup_btn.Visible = true;
-            }
-            else
+            else 
             {
                 params_cmb.Visible = false;
                 params_tb.Visible = false;
@@ -380,8 +360,8 @@ namespace DclTestFormWPy
                 treeViewOfScript.SelectedNode.Remove();
                 foreach (DataGridViewRow row in tableScript_dgv.Rows)
                 {
-                    if(Convert.ToInt32(row.Cells[0].Value.ToString()) ==Convert.ToInt32(treeViewOfScript.SelectedNode.Tag.ToString()))
-                     tableScript_dgv.Rows.RemoveAt(row.Index-1);
+                    if (Convert.ToInt32(row.Cells[0].Value.ToString()) == Convert.ToInt32(treeViewOfScript.SelectedNode.Tag.ToString()))
+                        tableScript_dgv.Rows.RemoveAt(row.Index - 1);
                 }
             }
             else
@@ -389,17 +369,25 @@ namespace DclTestFormWPy
                 //нужны классы для удобного поиска каждой команды????????????
                 int rowIndexSelected = tableScript_dgv.SelectedCells[0].RowIndex;
                 tableScript_dgv.Rows.RemoveAt(rowIndexSelected);
-                    treeViewOfScript.Nodes[0].Nodes[rowIndexSelected].Remove();
+                treeViewOfScript.Nodes[0].Nodes[rowIndexSelected].Remove();
                 //не работает в группах
             }
         }
 
         private void endGroup_btn_Click(object sender, EventArgs e)
         {
-            int rowNumber = tableScript_dgv.Rows.Add();
-            tableScript_dgv.Rows[rowNumber].Cells[0].Value = rowNumber + 1;
-            tableScript_dgv.Rows[rowNumber].Cells[1].Value = "конец:";
-            endGroup_btn.Visible = false;
+            if (tableScript_dgv.SelectedRows.Count == 0)
+            {
+                int rowNumber = tableScript_dgv.Rows.Add();
+                tableScript_dgv.Rows[rowNumber].Cells[0].Value = rowNumber + 1;
+                tableScript_dgv.Rows[rowNumber].Cells[1].Value = "конец";
+                endGroup_btn.Visible = false;
+            }
+            else
+            {
+                tableScript_dgv.Rows.Insert(tableScript_dgv.SelectedCells[0].RowIndex + 1, tableScript_dgv.Rows.Count + 1, "конец");
+                endGroup_btn.Visible = false;
+            }
         }
 
         private void refresh_btn_Click(object sender, EventArgs e)
