@@ -278,6 +278,7 @@ namespace DclTestFormWPy
 
         private void addCommand_btn_Click(object sender, EventArgs e)
         {
+            //добавление в таблицу
             if (tableScript_dgv.SelectedRows.Count == 0)
             {
                 if (command_cmb.SelectedItem != null)
@@ -330,6 +331,27 @@ namespace DclTestFormWPy
                 }
             }
             tableScript_dgv.ClearSelection();
+
+            //добавление в тривью
+            if (command_cmb.SelectedItem != null)
+            {
+                if (command_cmb.SelectedIndex > 4 && command_cmb.SelectedIndex < 11 || command_cmb.SelectedIndex == 0)
+                {
+                    if (params_cmb.Visible == false)
+                    {
+                        if (params_tb.Text != "")
+                            treeViewOfScript.Nodes[treeViewOfScript.Nodes.Count - 1].Nodes.Add($"{ command_cmb.SelectedItem.ToString()}:{params_tb.Text.ToString()}");
+                        else MessageBox.Show("Для данной команды необходимо ввести значение");
+                    }
+                    else if (params_cmb.SelectedIndex != -1)
+                        treeViewOfScript.Nodes[treeViewOfScript.Nodes.Count - 1].Nodes.Add($"{ command_cmb.SelectedItem.ToString()}:{params_cmb.SelectedItem.ToString()}");
+                    else MessageBox.Show("Для данной команды необходимо выбрать значение");
+                }
+                else
+                {
+                   treeViewOfScript.Nodes[treeViewOfScript.Nodes.Count - 1].Nodes.Add($"{ command_cmb.SelectedItem.ToString()}");
+                }
+            }
         }
 
         private void command_cmb_SelectedIndexChanged(object sender, EventArgs e)

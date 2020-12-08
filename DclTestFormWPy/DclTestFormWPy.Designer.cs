@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("новый сценарий");
             this.chooseScript_btn = new System.Windows.Forms.Button();
             this.listOfCommand = new System.Windows.Forms.ListView();
             this.editCommand_tb = new System.Windows.Forms.TextBox();
@@ -371,6 +372,10 @@
             this.treeViewOfScript.ContextMenuStrip = this.contextMenuToTreeView;
             this.treeViewOfScript.Location = new System.Drawing.Point(0, 0);
             this.treeViewOfScript.Name = "treeViewOfScript";
+            treeNode1.Name = "nameScript";
+            treeNode1.Text = "новый сценарий";
+            this.treeViewOfScript.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode1});
             this.treeViewOfScript.Size = new System.Drawing.Size(584, 188);
             this.treeViewOfScript.TabIndex = 17;
             this.treeViewOfScript.MouseDown += new System.Windows.Forms.MouseEventHandler(this.treeViewOfScript_MouseDown);
