@@ -123,6 +123,7 @@ namespace DclTestFormWPy
 
         private void StartScript_btn_Click(object sender, EventArgs e)
         {
+            //new Thread(TestEachCommand).Start(); попытка в потоки - не работает SendMessage()
             TestEachCommand();
         }
 
