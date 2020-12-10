@@ -123,17 +123,19 @@ namespace DclTestFormWPy
 
         private void StartScript_btn_Click(object sender, EventArgs e)
         {
-            int numOfCommand = 0;
-            int column = 1, row = 1;
-            IntPtr windowFocus = IntPtr.Zero;
+            TestEachCommand();
+        }
+
+        private void TestEachCommand()
+        {
             List<string> commands = new List<string>();
-            //List<string> commands = listOfCommand.Items.Cast<ListViewItem>().Select(item => item.Text).ToList();
             for (int i = 0; i < TableScript_dgv.Rows.Count; i++)
             {
                 commands.Add(TableScript_dgv.Rows[i].Cells[1].Value.ToString());
             }
-            //new Thread(() =>
-            //{
+            int numOfCommand = 0;
+            int column = 1, row = 1;
+            IntPtr windowFocus = IntPtr.Zero;
             bool IsStop = false;
             try
             {
@@ -284,9 +286,7 @@ namespace DclTestFormWPy
             {
                 TableScript_dgv.Rows[numOfCommand].Cells[4].Value = $"неудачно({ex.Message})";
             }
-        }
-
-
+    }
         /// <summary>
         /// Попытка в ориентировку в ВД по объектам
         /// </summary>
