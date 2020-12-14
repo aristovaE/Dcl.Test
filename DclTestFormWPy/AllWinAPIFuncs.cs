@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DclTestFormWPy
@@ -101,7 +102,8 @@ namespace DclTestFormWPy
         {
             return (IntPtr)((low & 0xFFFF) | (hight << 16));
         }
-
+        [DllImport("kernel32.dll")]
+        private static extern IntPtr GetCurrentThread();
         /// <summary>
         /// Заголовок (caption) окна
         /// </summary>
@@ -120,13 +122,6 @@ namespace DclTestFormWPy
             return title.ToString();
         }
 
-
-        private void StartScript_btn_Click(object sender, EventArgs e)
-        {
-            //new Thread(TestEachCommand).Start(); попытка в потоки - не работает SendMessage()
-            TestEachCommand();
-        }
-
         private void TestEachCommand()
         {
             List<string> commands = new List<string>();
@@ -134,7 +129,11 @@ namespace DclTestFormWPy
             {
                 commands.Add(TableScript_dgv.Rows[i].Cells[1].Value.ToString());
             }
-            int numOfCommand = 0;
+
+            DoCommand(commands, 0);
+    }
+        private void DoCommand(List<string> commands, int numOfCommand)
+        {
             int column = 1, row = 1;
             IntPtr windowFocus = IntPtr.Zero;
             bool IsStop = false;
@@ -142,12 +141,13 @@ namespace DclTestFormWPy
             {
                 foreach (string command in commands)
                 {
+                    OpenDCL();
                     switch (command)
                     {
-                        case "открыть окно ВД":
-                            OpenDCL();
-                            windowFocus = GetForegroundWindow();
-                            break;
+                        //case "открыть окно ВД":
+                        //    OpenDCL();
+                        //    windowFocus = GetForegroundWindow();
+                        //    break;
 
                         case "открыть меню Документ":
                             EnterShortcuts(VK_ALT, VK_L);
@@ -287,7 +287,7 @@ namespace DclTestFormWPy
             {
                 TableScript_dgv.Rows[numOfCommand].Cells[4].Value = $"неудачно({ex.Message})";
             }
-    }
+        }
         /// <summary>
         /// Попытка в ориентировку в ВД по объектам
         /// </summary>

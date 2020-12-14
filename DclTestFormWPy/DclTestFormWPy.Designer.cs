@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("новый сценарий");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("новый сценарий");
             this.EditCommand_tb = new System.Windows.Forms.TextBox();
             this.EditComand_btn = new System.Windows.Forms.Button();
             this.openFileScript = new System.Windows.Forms.OpenFileDialog();
@@ -66,6 +66,7 @@
             this.DeleteAll_btn = new System.Windows.Forms.Button();
             this.StatusStripNameOfFile = new System.Windows.Forms.StatusStrip();
             this.fileName_statstrip = new System.Windows.Forms.ToolStripStatusLabel();
+            this.OneStepForward_btn = new System.Windows.Forms.Button();
             this.scriptsTask_ms.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TableScript_dgv)).BeginInit();
             this.add_gb.SuspendLayout();
@@ -104,7 +105,7 @@
             this.StartScript_btn.Name = "StartScript_btn";
             this.StartScript_btn.Size = new System.Drawing.Size(148, 32);
             this.StartScript_btn.TabIndex = 4;
-            this.StartScript_btn.Text = "Выполнить";
+            this.StartScript_btn.Text = "Выполнить всё";
             this.StartScript_btn.UseVisualStyleBackColor = true;
             this.StartScript_btn.Click += new System.EventHandler(this.StartScript_btn_Click);
             // 
@@ -346,10 +347,10 @@
             this.TreeViewOfScript.ContextMenuStrip = this.contextMenuToTreeView;
             this.TreeViewOfScript.Location = new System.Drawing.Point(0, 0);
             this.TreeViewOfScript.Name = "TreeViewOfScript";
-            treeNode2.Name = "nameScript";
-            treeNode2.Text = "новый сценарий";
+            treeNode1.Name = "nameScript";
+            treeNode1.Text = "новый сценарий";
             this.TreeViewOfScript.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2});
+            treeNode1});
             this.TreeViewOfScript.Size = new System.Drawing.Size(584, 187);
             this.TreeViewOfScript.TabIndex = 17;
             this.TreeViewOfScript.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TreeViewOfScript_MouseDown);
@@ -419,11 +420,22 @@
             this.fileName_statstrip.Name = "fileName_statstrip";
             this.fileName_statstrip.Size = new System.Drawing.Size(0, 17);
             // 
+            // OneStepForward_btn
+            // 
+            this.OneStepForward_btn.Location = new System.Drawing.Point(358, 247);
+            this.OneStepForward_btn.Name = "OneStepForward_btn";
+            this.OneStepForward_btn.Size = new System.Drawing.Size(73, 32);
+            this.OneStepForward_btn.TabIndex = 23;
+            this.OneStepForward_btn.Text = "Вперед";
+            this.OneStepForward_btn.UseVisualStyleBackColor = true;
+            this.OneStepForward_btn.Click += new System.EventHandler(this.OneStepForward_btn_Click);
+            // 
             // DclTestFormWPy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(868, 314);
+            this.Controls.Add(this.OneStepForward_btn);
             this.Controls.Add(this.StatusStripNameOfFile);
             this.Controls.Add(this.DeleteAll_btn);
             this.Controls.Add(this.tabScripts);
@@ -492,5 +504,6 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuToTreeView;
         private System.Windows.Forms.StatusStrip StatusStripNameOfFile;
         private System.Windows.Forms.ToolStripStatusLabel fileName_statstrip;
+        private System.Windows.Forms.Button OneStepForward_btn;
     }
 }

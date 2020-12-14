@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 
@@ -306,11 +307,37 @@ namespace DclTestFormWPy
             }
             else
             {
-                //нужны классы для удобного поиска каждой команды????????????
-                int rowIndexSelected = TableScript_dgv.SelectedCells[0].RowIndex;
-                TableScript_dgv.Rows.RemoveAt(rowIndexSelected);
-                TreeViewOfScript.Nodes[0].Nodes[rowIndexSelected].Remove();
-                //не работает в группах
+                try
+                {
+                    //нужны классы для удобного поиска каждой команды????????????
+                    int rowIndexSelected = TableScript_dgv.SelectedCells[0].RowIndex;
+                    TableScript_dgv.Rows.RemoveAt(rowIndexSelected);
+                    TreeViewOfScript.Nodes[0].Nodes[rowIndexSelected].Remove();
+                    //не работает в группах
+                }
+                catch { }
+
+            }
+        }
+        private void StartScript_btn_Click(object sender, EventArgs e)
+        {
+            //new Thread(TestEachCommand).Start();// попытка в потоки - не работает SendMessage()
+            //CancellationTokenSource token = new CancellationTokenSource();
+            //Task.Factory.StartNew(() =>
+            //{
+            //    TestEachCommand(token.Token);
+            //});// попытка в потоки - не работает SendMessage()
+            TestEachCommand();
+        }
+
+        private void OneStepForward_btn_Click(object sender, EventArgs e)
+        {
+            if(TableScript_dgv.SelectedRows!=null)
+            {
+                List<string> command = new List<string>();
+                command.Add(TableScript_dgv.Rows[TableScript_dgv.SelectedRows[0].Index].Cells[1].Value.ToString());
+                int index = TableScript_dgv.SelectedRows[0].Index;
+                DoCommand(command,index);
             }
         }
     }
