@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DclTestFormWPy
@@ -323,11 +324,32 @@ namespace DclTestFormWPy
         {
             //new Thread(TestEachCommand).Start();// попытка в потоки - не работает SendMessage()
             //CancellationTokenSource token = new CancellationTokenSource();
+           
+            List<string> commands = new List<string>();
+            for (int i = 0; i < TableScript_dgv.Rows.Count; i++)
+            {
+                commands.Add(TableScript_dgv.Rows[i].Cells[1].Value.ToString());
+            }
+            DoCommand(commands, 0);
+
+            //if (this.InvokeRequired)
+            //{
+            //    IAsyncResult result = BeginInvoke(new MethodInvoker(delegate ()
+            //    {
+            //        DoCommand(commands, 0);
+            //    }));
+
+            //    // wait until invocation is completed
+            //    EndInvoke(result);
+            //}
+            //else if (this.IsHandleCreated)
+            //{
+            //    DoCommand(commands, 0);
+            //}
             //Task.Factory.StartNew(() =>
             //{
-            //    TestEachCommand(token.Token);
+            //    DoCommand(commands, 0);
             //});// попытка в потоки - не работает SendMessage()
-            TestEachCommand();
         }
 
         private void OneStepForward_btn_Click(object sender, EventArgs e)
@@ -338,6 +360,9 @@ namespace DclTestFormWPy
                 command.Add(TableScript_dgv.Rows[TableScript_dgv.SelectedRows[0].Index].Cells[1].Value.ToString());
                 int index = TableScript_dgv.SelectedRows[0].Index;
                 DoCommand(command,index);
+
+                TableScript_dgv.ClearSelection();
+                TableScript_dgv.Rows[index+1].Selected = true;
             }
         }
     }

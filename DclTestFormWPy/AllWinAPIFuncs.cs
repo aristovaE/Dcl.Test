@@ -122,16 +122,6 @@ namespace DclTestFormWPy
             return title.ToString();
         }
 
-        private void TestEachCommand()
-        {
-            List<string> commands = new List<string>();
-            for (int i = 0; i < TableScript_dgv.Rows.Count; i++)
-            {
-                commands.Add(TableScript_dgv.Rows[i].Cells[1].Value.ToString());
-            }
-
-            DoCommand(commands, 0);
-    }
         private void DoCommand(List<string> commands, int numOfCommand)
         {
             int column = 1, row = 1;
@@ -280,6 +270,8 @@ namespace DclTestFormWPy
                         break;
                     }
                     TableScript_dgv.Rows[numOfCommand].Cells[4].Value = "успешно";
+                    TableScript_dgv.FirstDisplayedScrollingRowIndex = numOfCommand;
+
                     numOfCommand++;
                 }
             }

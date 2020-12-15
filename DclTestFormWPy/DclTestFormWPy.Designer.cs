@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("новый сценарий");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("новый сценарий");
             this.EditCommand_tb = new System.Windows.Forms.TextBox();
             this.EditComand_btn = new System.Windows.Forms.Button();
             this.openFileScript = new System.Windows.Forms.OpenFileDialog();
@@ -175,6 +175,7 @@
             this.TableScript_dgv.GridColor = System.Drawing.SystemColors.Control;
             this.TableScript_dgv.Location = new System.Drawing.Point(0, 0);
             this.TableScript_dgv.Name = "TableScript_dgv";
+            this.TableScript_dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.TableScript_dgv.Size = new System.Drawing.Size(584, 188);
             this.TableScript_dgv.TabIndex = 7;
             this.TableScript_dgv.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.TableScript_dgv_RowHeaderMouseClick);
@@ -347,10 +348,10 @@
             this.TreeViewOfScript.ContextMenuStrip = this.contextMenuToTreeView;
             this.TreeViewOfScript.Location = new System.Drawing.Point(0, 0);
             this.TreeViewOfScript.Name = "TreeViewOfScript";
-            treeNode1.Name = "nameScript";
-            treeNode1.Text = "новый сценарий";
+            treeNode2.Name = "nameScript";
+            treeNode2.Text = "новый сценарий";
             this.TreeViewOfScript.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
+            treeNode2});
             this.TreeViewOfScript.Size = new System.Drawing.Size(584, 187);
             this.TreeViewOfScript.TabIndex = 17;
             this.TreeViewOfScript.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TreeViewOfScript_MouseDown);
