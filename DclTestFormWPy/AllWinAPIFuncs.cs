@@ -260,12 +260,24 @@ namespace DclTestFormWPy
 
                 }
                 //перелистывание в таблице
-                TableScript_dgv.ClearSelection();
-                TableScript_dgv.Rows[numOfCommand].Cells[4].Value = "успешно";
-                if (numOfCommand + 1 < TableScript_dgv.Rows.Count)
-                    TableScript_dgv.Rows[numOfCommand + 1].Selected = true;
-                TableScript_dgv.FirstDisplayedScrollingRowIndex = numOfCommand;
-                TableScript_dgv.Update();
+                if (tabScripts.SelectedIndex == 1)
+                {
+                    TableScript_dgv.ClearSelection();
+                    TableScript_dgv.Rows[numOfCommand].Cells[4].Value = "успешно";
+                    if (numOfCommand + 1 < TableScript_dgv.Rows.Count)
+                        TableScript_dgv.Rows[numOfCommand + 1].Selected = true;
+                    TableScript_dgv.FirstDisplayedScrollingRowIndex = numOfCommand;
+                    TableScript_dgv.Update();
+                }
+                else if (tabScripts.SelectedIndex == 0)
+                {
+                    //TableScript_dgv.ClearSelection();
+                    //TableScript_dgv.Rows[numOfCommand].Cells[4].Value = "успешно";
+                    //if (numOfCommand + 1 < TableScript_dgv.Rows.Count)
+                    //    TableScript_dgv.Rows[numOfCommand + 1].Selected = true;
+                    //TableScript_dgv.FirstDisplayedScrollingRowIndex = numOfCommand;
+                    //TableScript_dgv.Update();
+                }
                 numOfCommand++;
             }
             catch (Exception ex)

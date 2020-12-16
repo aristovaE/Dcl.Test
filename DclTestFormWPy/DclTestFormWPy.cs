@@ -373,10 +373,17 @@ namespace DclTestFormWPy
             IntPtr windowFocus = IntPtr.Zero;
             bool IsStop = false;
             List<string> commands = new List<string>();
-            if (TableScript_dgv.SelectedRows != null)
+            if (tabScripts.SelectedIndex==1)
             {
                 string command = TableScript_dgv.Rows[TableScript_dgv.SelectedRows[0].Index].Cells[1].Value.ToString();
                 int numOfCommand = TableScript_dgv.SelectedRows[0].Index;
+                OpenDCL();
+                DoCommand(command, numOfCommand, column, row, windowFocus, IsStop);
+            }
+            else if (tabScripts.SelectedIndex == 0)
+            {
+                string command = TableScript_dgv.Rows[Convert.ToInt32(TreeViewOfScript.SelectedNode.Tag.ToString()) - 1].Cells[1].Value.ToString();
+                int numOfCommand = Convert.ToInt32(TreeViewOfScript.SelectedNode.Tag.ToString()) - 1;
                 OpenDCL();
                 DoCommand(command, numOfCommand, column, row, windowFocus, IsStop);
             }
