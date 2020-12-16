@@ -122,164 +122,320 @@ namespace DclTestFormWPy
             return title.ToString();
         }
 
-        private void DoCommand(List<string> commands, int numOfCommand)
+        private void DoCommand(string command, int numOfCommand, int column, int row, IntPtr windowFocus, bool IsStop)
         {
-            int column = 1, row = 1;
-            IntPtr windowFocus = IntPtr.Zero;
-            bool IsStop = false;
             try
             {
-                foreach (string command in commands)
+                switch (command)
                 {
-                    OpenDCL();
-                    switch (command)
-                    {
-                        //case "открыть окно ВД":
-                        //    OpenDCL();
-                        //    windowFocus = GetForegroundWindow();
-                        //    break;
-
-                        case "открыть меню Документ":
-                            EnterShortcuts(VK_ALT, VK_L);
-                            break;
-
-                        case "открыть меню Прочитать с диска":
-                            EnterShortcut(VK_L);
-                            break;
-
-                        case "проверка":
-                            var result = MessageBox.Show("Сценарий выполнен корректно?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                            if (result != DialogResult.Yes)
-                            {
-                                IsStop = true;
-                            }
-                            break;
-
-                        case "нажать":
-                            switch (TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString())
-                            {
-                                case "ENTER":
-                                    EnterShortcut(VK_RETURN);
-                                    break;
-                                case "ESC":
-                                    EnterShortcut(VK_ESCAPE);
-                                    break;
-                                case "SPACE":
-                                    EnterShortcut(VK_SPACE);
-                                    break;
-                                case "F3":
-                                    EnterShortcut(VK_F3);
-                                    break;
-                                case "F5":
-                                    EnterShortcut(VK_F5);
-                                    break;
-                                case "стрелку влево":
-                                    EnterShortcut(VK_LEFT);
-                                    break;
-                                case "стрелку вправо":
-                                    EnterShortcut(VK_RIGHT);
-                                    break;
-                                case "стрелку вверх":
-                                    EnterShortcut(VK_UP);
-                                    break;
-                                case "стрелку вниз":
-                                    EnterShortcut(VK_DOWN);
-                                    break;
-                            }
-                            break;
-
-                        case "перейти вперед":
-                            EnterShortcut(VK_TAB);
-                            break;
-
-                        case "перейти назад":
-                            EnterShortcuts(VK_SHIFT, VK_TAB);
-                            break;
-
-                        case "выделить все":
-                            EnterShortcuts(VK_CTRL, VK_A);
-                            break;
-
-                        case "открыть классификатор":
-                            EnterShortcut(VK_F4);
-                            break;
-
-                        case "выполнить автозаполнение":
-                            EnterShortcut(VK_F9);
-                            break;
-
-                        case "открыть меню Записать на диск":
-                            EnterShortcut(VK_P);
-                            break;
-
-                        case "перейти к графе номер":
-                            string numberField = TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString();
-                            FindField(numberField);
-                            break;
-
-                        case "подождать секунд":
-                            int secondsToSleep = Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
-                            Thread.Sleep(1000 * secondsToSleep);
-                            break;
-
-                        case "в столбце":
-                            for (int i = column; i < Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString()); i++)
-                            {
-                                EnterShortcut(VK_RIGHT);
-                            }
-                            column = Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
-                            break;
-                        case "в строке":
-                            for (int i = row; i < Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString()); i++)
-                            {
-                                EnterShortcut(VK_DOWN);
-                            }
-                            column = Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
-                            break;
-                        case "найти значение":
-                            EnterShortcut(VK_F4);
-                            EnterShortcut(VK_F3);
-                            EnterText(GetForegroundWindow(), TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
-                            EnterShortcut(VK_RETURN);
-                            EnterShortcut(VK_ESCAPE);
-                            EnterShortcut(VK_RETURN);
-                            break;
-
-                        case "ввести значение":
-                            EnterText(GetForegroundWindow(), TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
-                            break;
-
-                        case "ждать закрытия окна":
-                            while (GetForegroundWindow() != windowFocus)
-                            {
-                                Thread.Sleep(5000);
-                            }
-                            break;
-
-                        case "добавить товар":
-                            EnterShortcuts(VK_CTRL, VK_E);
-                            break;
-
-                        case "перейти к первому товару":
-                            EnterShortcuts(VK_CTRL, VK_F);
-                            break;
-
-                    }
-                    if (IsStop != false)
-                    {
+                    case "открыть окно ВД":
+                        OpenDCL();
+                        windowFocus = GetForegroundWindow();
                         break;
-                    }
-                    TableScript_dgv.Rows[numOfCommand].Cells[4].Value = "успешно";
-                    TableScript_dgv.FirstDisplayedScrollingRowIndex = numOfCommand;
 
-                    numOfCommand++;
+                    case "открыть меню Документ":
+                        EnterShortcuts(VK_ALT, VK_L);
+                        break;
+
+                    case "открыть меню Прочитать с диска":
+                        EnterShortcut(VK_L);
+                        break;
+
+                    case "проверка":
+                        var result = MessageBox.Show("Сценарий выполнен корректно?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (result != DialogResult.Yes)
+                        {
+                            IsStop = true;
+                        }
+                        break;
+
+                    case "нажать":
+                        switch (TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString())
+                        {
+                            case "ENTER":
+                                EnterShortcut(VK_RETURN);
+                                break;
+                            case "ESC":
+                                EnterShortcut(VK_ESCAPE);
+                                break;
+                            case "SPACE":
+                                EnterShortcut(VK_SPACE);
+                                break;
+                            case "F3":
+                                EnterShortcut(VK_F3);
+                                break;
+                            case "F5":
+                                EnterShortcut(VK_F5);
+                                break;
+                            case "стрелку влево":
+                                EnterShortcut(VK_LEFT);
+                                break;
+                            case "стрелку вправо":
+                                EnterShortcut(VK_RIGHT);
+                                break;
+                            case "стрелку вверх":
+                                EnterShortcut(VK_UP);
+                                break;
+                            case "стрелку вниз":
+                                EnterShortcut(VK_DOWN);
+                                break;
+                        }
+                        break;
+
+                    case "перейти вперед":
+                        EnterShortcut(VK_TAB);
+                        break;
+
+                    case "перейти назад":
+                        EnterShortcuts(VK_SHIFT, VK_TAB);
+                        break;
+
+                    case "выделить все":
+                        EnterShortcuts(VK_CTRL, VK_A);
+                        break;
+
+                    case "открыть классификатор":
+                        EnterShortcut(VK_F4);
+                        break;
+
+                    case "выполнить автозаполнение":
+                        EnterShortcut(VK_F9);
+                        break;
+
+                    case "открыть меню Записать на диск":
+                        EnterShortcut(VK_P);
+                        break;
+
+                    case "перейти к графе номер":
+                        string numberField = TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString();
+                        FindField(numberField);
+                        break;
+
+                    case "подождать секунд":
+                        int secondsToSleep = Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
+                        Thread.Sleep(1000 * secondsToSleep);
+                        break;
+
+                    case "в столбце":
+                        for (int i = column; i < Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString()); i++)
+                        {
+                            EnterShortcut(VK_RIGHT);
+                        }
+                        column = Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
+                        break;
+                    case "в строке":
+                        for (int i = row; i < Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString()); i++)
+                        {
+                            EnterShortcut(VK_DOWN);
+                        }
+                        column = Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
+                        break;
+                    case "найти значение":
+                        EnterShortcut(VK_F4);
+                        EnterShortcut(VK_F3);
+                        EnterText(GetForegroundWindow(), TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
+                        EnterShortcut(VK_RETURN);
+                        EnterShortcut(VK_ESCAPE);
+                        EnterShortcut(VK_RETURN);
+                        break;
+
+                    case "ввести значение":
+                        EnterText(GetForegroundWindow(), TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
+                        break;
+
+                    case "ждать закрытия окна":
+                        while (GetForegroundWindow() != windowFocus)
+                        {
+                            Thread.Sleep(5000);
+                        }
+                        break;
+
+                    case "добавить товар":
+                        EnterShortcuts(VK_CTRL, VK_E);
+                        break;
+
+                    case "перейти к первому товару":
+                        EnterShortcuts(VK_CTRL, VK_F);
+                        break;
+
                 }
+                //перелистывание в таблице
+                TableScript_dgv.ClearSelection();
+                TableScript_dgv.Rows[numOfCommand].Cells[4].Value = "успешно";
+                if (numOfCommand + 1 < TableScript_dgv.Rows.Count)
+                    TableScript_dgv.Rows[numOfCommand + 1].Selected = true;
+                TableScript_dgv.FirstDisplayedScrollingRowIndex = numOfCommand;
+                TableScript_dgv.Update();
+                numOfCommand++;
             }
             catch (Exception ex)
             {
                 TableScript_dgv.Rows[numOfCommand].Cells[4].Value = $"неудачно({ex.Message})";
             }
         }
+
+        //private void DoCommand(List<string> commands, int numOfCommand)
+        //{
+        //    int column = 1, row = 1;
+        //    IntPtr windowFocus = IntPtr.Zero;
+        //    bool IsStop = false;
+        //    try
+        //    {
+        //        foreach (string command in commands)
+        //        {
+        //            OpenDCL();
+        //            switch (command)
+        //            {
+        //                //case "открыть окно ВД":
+        //                //    OpenDCL();
+        //                //    windowFocus = GetForegroundWindow();
+        //                //    break;
+
+        //                case "открыть меню Документ":
+        //                    EnterShortcuts(VK_ALT, VK_L);
+        //                    break;
+
+        //                case "открыть меню Прочитать с диска":
+        //                    EnterShortcut(VK_L);
+        //                    break;
+
+        //                case "проверка":
+        //                    var result = MessageBox.Show("Сценарий выполнен корректно?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+        //                    if (result != DialogResult.Yes)
+        //                    {
+        //                        IsStop = true;
+        //                    }
+        //                    break;
+
+        //                case "нажать":
+        //                    switch (TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString())
+        //                    {
+        //                        case "ENTER":
+        //                            EnterShortcut(VK_RETURN);
+        //                            break;
+        //                        case "ESC":
+        //                            EnterShortcut(VK_ESCAPE);
+        //                            break;
+        //                        case "SPACE":
+        //                            EnterShortcut(VK_SPACE);
+        //                            break;
+        //                        case "F3":
+        //                            EnterShortcut(VK_F3);
+        //                            break;
+        //                        case "F5":
+        //                            EnterShortcut(VK_F5);
+        //                            break;
+        //                        case "стрелку влево":
+        //                            EnterShortcut(VK_LEFT);
+        //                            break;
+        //                        case "стрелку вправо":
+        //                            EnterShortcut(VK_RIGHT);
+        //                            break;
+        //                        case "стрелку вверх":
+        //                            EnterShortcut(VK_UP);
+        //                            break;
+        //                        case "стрелку вниз":
+        //                            EnterShortcut(VK_DOWN);
+        //                            break;
+        //                    }
+        //                    break;
+
+        //                case "перейти вперед":
+        //                    EnterShortcut(VK_TAB);
+        //                    break;
+
+        //                case "перейти назад":
+        //                    EnterShortcuts(VK_SHIFT, VK_TAB);
+        //                    break;
+
+        //                case "выделить все":
+        //                    EnterShortcuts(VK_CTRL, VK_A);
+        //                    break;
+
+        //                case "открыть классификатор":
+        //                    EnterShortcut(VK_F4);
+        //                    break;
+
+        //                case "выполнить автозаполнение":
+        //                    EnterShortcut(VK_F9);
+        //                    break;
+
+        //                case "открыть меню Записать на диск":
+        //                    EnterShortcut(VK_P);
+        //                    break;
+
+        //                case "перейти к графе номер":
+        //                    string numberField = TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString();
+        //                    FindField(numberField);
+        //                    break;
+
+        //                case "подождать секунд":
+        //                    int secondsToSleep = Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
+        //                    Thread.Sleep(1000 * secondsToSleep);
+        //                    break;
+
+        //                case "в столбце":
+        //                    for (int i = column; i < Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString()); i++)
+        //                    {
+        //                        EnterShortcut(VK_RIGHT);
+        //                    }
+        //                    column = Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
+        //                    break;
+        //                case "в строке":
+        //                    for (int i = row; i < Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString()); i++)
+        //                    {
+        //                        EnterShortcut(VK_DOWN);
+        //                    }
+        //                    column = Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
+        //                    break;
+        //                case "найти значение":
+        //                    EnterShortcut(VK_F4);
+        //                    EnterShortcut(VK_F3);
+        //                    EnterText(GetForegroundWindow(), TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
+        //                    EnterShortcut(VK_RETURN);
+        //                    EnterShortcut(VK_ESCAPE);
+        //                    EnterShortcut(VK_RETURN);
+        //                    break;
+
+        //                case "ввести значение":
+        //                    EnterText(GetForegroundWindow(), TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
+        //                    break;
+
+        //                case "ждать закрытия окна":
+        //                    while (GetForegroundWindow() != windowFocus)
+        //                    {
+        //                        Thread.Sleep(5000);
+        //                    }
+        //                    break;
+
+        //                case "добавить товар":
+        //                    EnterShortcuts(VK_CTRL, VK_E);
+        //                    break;
+
+        //                case "перейти к первому товару":
+        //                    EnterShortcuts(VK_CTRL, VK_F);
+        //                    break;
+
+        //            }
+        //            if (IsStop != false)
+        //            {
+        //                break;
+        //            }
+
+        //            TableScript_dgv.ClearSelection();
+        //            TableScript_dgv.Rows[numOfCommand].Cells[4].Value = "успешно";
+        //            if (numOfCommand + 1 < TableScript_dgv.Rows.Count)
+        //                TableScript_dgv.Rows[numOfCommand + 1].Selected = true;
+        //            TableScript_dgv.FirstDisplayedScrollingRowIndex = numOfCommand;
+        //            TableScript_dgv.Update();
+        //            numOfCommand++;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TableScript_dgv.Rows[numOfCommand].Cells[4].Value = $"неудачно({ex.Message})";
+        //    }
+        //}
         /// <summary>
         /// Попытка в ориентировку в ВД по объектам
         /// </summary>
