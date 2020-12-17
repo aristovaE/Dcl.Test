@@ -332,7 +332,7 @@ namespace DclTestFormWPy
             {
                 string command = TableScript_dgv.Rows[numOfCommand].Cells[1].Value.ToString();
 
-                IsStop=DoCommand(command, numOfCommand, column, row, windowFocus, IsStop);
+                IsStop = DoCommand(command, numOfCommand, column, row, windowFocus, IsStop);
                 if (IsStop != false)
                 {
                     break;
@@ -373,7 +373,7 @@ namespace DclTestFormWPy
             IntPtr windowFocus = IntPtr.Zero;
             bool IsStop = false;
             List<string> commands = new List<string>();
-            if (tabScripts.SelectedIndex==1)
+            if (tabScripts.SelectedIndex == 1)
             {
                 string command = TableScript_dgv.Rows[TableScript_dgv.SelectedRows[0].Index].Cells[1].Value.ToString();
                 int numOfCommand = TableScript_dgv.SelectedRows[0].Index;
@@ -387,6 +387,17 @@ namespace DclTestFormWPy
                 OpenDCL();
                 DoCommand(command, numOfCommand, column, row, windowFocus, IsStop);
             }
+
+        }
+
+        private void OneStepBackward_btn_Click(object sender, EventArgs e)
+        {
+            int numOfCommand = TableScript_dgv.SelectedRows[0].Index;
+            TableScript_dgv.ClearSelection();
+            if (numOfCommand - 1 >= 0)
+                TableScript_dgv.Rows[numOfCommand - 1].Selected = true;
+            TableScript_dgv.FirstDisplayedScrollingRowIndex = numOfCommand - 1;
+            TableScript_dgv.Update();
         }
     }
 }

@@ -67,6 +67,7 @@
             this.StatusStripNameOfFile = new System.Windows.Forms.StatusStrip();
             this.fileName_statstrip = new System.Windows.Forms.ToolStripStatusLabel();
             this.OneStepForward_btn = new System.Windows.Forms.Button();
+            this.OneStepBackward_btn = new System.Windows.Forms.Button();
             this.scriptsTask_ms.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TableScript_dgv)).BeginInit();
             this.add_gb.SuspendLayout();
@@ -431,11 +432,22 @@
             this.OneStepForward_btn.UseVisualStyleBackColor = true;
             this.OneStepForward_btn.Click += new System.EventHandler(this.OneStepForward_btn_Click);
             // 
+            // OneStepBackward_btn
+            // 
+            this.OneStepBackward_btn.Location = new System.Drawing.Point(279, 247);
+            this.OneStepBackward_btn.Name = "OneStepBackward_btn";
+            this.OneStepBackward_btn.Size = new System.Drawing.Size(73, 32);
+            this.OneStepBackward_btn.TabIndex = 24;
+            this.OneStepBackward_btn.Text = "Назад";
+            this.OneStepBackward_btn.UseVisualStyleBackColor = true;
+            this.OneStepBackward_btn.Click += new System.EventHandler(this.OneStepBackward_btn_Click);
+            // 
             // DclTestFormWPy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(868, 314);
+            this.Controls.Add(this.OneStepBackward_btn);
             this.Controls.Add(this.OneStepForward_btn);
             this.Controls.Add(this.StatusStripNameOfFile);
             this.Controls.Add(this.DeleteAll_btn);
@@ -506,5 +518,6 @@
         private System.Windows.Forms.StatusStrip StatusStripNameOfFile;
         private System.Windows.Forms.ToolStripStatusLabel fileName_statstrip;
         private System.Windows.Forms.Button OneStepForward_btn;
+        private System.Windows.Forms.Button OneStepBackward_btn;
     }
 }
