@@ -332,7 +332,7 @@ namespace DclTestFormWPy
             {
                 string command = TableScript_dgv.Rows[numOfCommand].Cells[1].Value.ToString();
 
-                DoCommand(command, numOfCommand, column, row, windowFocus, IsStop);
+                IsStop=DoCommand(command, numOfCommand, column, row, windowFocus, IsStop);
                 if (IsStop != false)
                 {
                     break;

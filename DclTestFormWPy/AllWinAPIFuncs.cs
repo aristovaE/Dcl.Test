@@ -122,7 +122,7 @@ namespace DclTestFormWPy
             return title.ToString();
         }
 
-        private void DoCommand(string command, int numOfCommand, int column, int row, IntPtr windowFocus, bool IsStop)
+        private bool DoCommand(string command, int numOfCommand, int column, int row, IntPtr windowFocus, bool IsStop)
         {
             try
             {
@@ -275,8 +275,7 @@ namespace DclTestFormWPy
                     //TableScript_dgv.Rows[numOfCommand].Cells[4].Value = "успешно";
                     //if (numOfCommand + 1 < TableScript_dgv.Rows.Count)
                     //    TableScript_dgv.Rows[numOfCommand + 1].Selected = true;
-                    //TableScript_dgv.FirstDisplayedScrollingRowIndex = numOfCommand;
-                    //TableScript_dgv.Update();
+                    //TableScript_dgv.FirstDisplayedScrol
                 }
                 numOfCommand++;
             }
@@ -284,6 +283,11 @@ namespace DclTestFormWPy
             {
                 TableScript_dgv.Rows[numOfCommand].Cells[4].Value = $"неудачно({ex.Message})";
             }
+            if (IsStop == true)
+            {
+                return true;
+            }
+            else return false;
         }
 
         //private void DoCommand(List<string> commands, int numOfCommand)
