@@ -320,14 +320,55 @@ namespace DclTestFormWPy
 
             }
         }
-        private void StartScript_btn_Click(object sender, EventArgs e)
+
+        private void OneStepForward_btn_Click(object sender, EventArgs e)
+        {
+            //int column = 1, row = 1;
+            //IntPtr windowFocus = IntPtr.Zero;
+            //bool IsStop = false;
+            //List<string> commands = new List<string>();
+            //if (tabScripts.SelectedIndex == 1)
+            //{
+            //    string command = TableScript_dgv.Rows[TableScript_dgv.SelectedRows[0].Index].Cells[1].Value.ToString();
+            //    int numOfCommand = TableScript_dgv.SelectedRows[0].Index;
+            //    OpenDCL();
+            //    DoCommand(command, numOfCommand, column, row, windowFocus, IsStop);
+            //}
+            //else if (tabScripts.SelectedIndex == 0)
+            //{
+            //    string command = TableScript_dgv.Rows[Convert.ToInt32(TreeViewOfScript.SelectedNode.Tag.ToString()) - 1].Cells[1].Value.ToString();
+            //    int numOfCommand = Convert.ToInt32(TreeViewOfScript.SelectedNode.Tag.ToString()) - 1;
+            //    OpenDCL();
+            //    DoCommand(command, numOfCommand, column, row, windowFocus, IsStop);
+            //}
+            int numOfCommand = TableScript_dgv.SelectedRows[0].Index;
+            TableScript_dgv.ClearSelection();
+            if (numOfCommand + 1 < TableScript_dgv.Rows.Count)
+                TableScript_dgv.Rows[numOfCommand + 1].Selected = true;
+            TableScript_dgv.FirstDisplayedScrollingRowIndex = numOfCommand;
+            TableScript_dgv.Update();
+
+        }
+
+        private void OneStepBackward_btn_Click(object sender, EventArgs e)
+        {
+            int numOfCommand = TableScript_dgv.SelectedRows[0].Index;
+            TableScript_dgv.ClearSelection();
+            if (numOfCommand - 1 >= 0)
+            {
+                TableScript_dgv.Rows[numOfCommand - 1].Selected = true;
+                TableScript_dgv.FirstDisplayedScrollingRowIndex = numOfCommand - 1;
+            }
+            TableScript_dgv.Update();
+        }
+
+        private void FromTheBeginning_btn_Click(object sender, EventArgs e)
         {
             //new Thread(TestEachCommand).Start();// попытка в потоки - не работает SendMessage()
             //CancellationTokenSource token = new CancellationTokenSource();
             int column = 1, row = 1;
             IntPtr windowFocus = IntPtr.Zero;
             bool IsStop = false;
-            List<string> commands = new List<string>();
             for (int numOfCommand = 0; numOfCommand < TableScript_dgv.Rows.Count; numOfCommand++)
             {
                 string command = TableScript_dgv.Rows[numOfCommand].Cells[1].Value.ToString();
@@ -359,45 +400,24 @@ namespace DclTestFormWPy
             //});// попытка в потоки - не работает SendMessage()
         }
 
-        private void OneStepForward_btn_Click(object sender, EventArgs e)
+        private void StartScript_btn_Click(object sender, EventArgs e)
         {
-            //if(TableScript_dgv.SelectedRows!=null)
-            //{
-            //    List<string> command = new List<string>();
-            //    command.Add(TableScript_dgv.Rows[TableScript_dgv.SelectedRows[0].Index].Cells[1].Value.ToString());
-            //    int index = TableScript_dgv.SelectedRows[0].Index;
-            //    DoCommand(command,index);
-
-            //}
             int column = 1, row = 1;
             IntPtr windowFocus = IntPtr.Zero;
             bool IsStop = false;
-            List<string> commands = new List<string>();
-            if (tabScripts.SelectedIndex == 1)
-            {
-                string command = TableScript_dgv.Rows[TableScript_dgv.SelectedRows[0].Index].Cells[1].Value.ToString();
-                int numOfCommand = TableScript_dgv.SelectedRows[0].Index;
-                OpenDCL();
-                DoCommand(command, numOfCommand, column, row, windowFocus, IsStop);
-            }
-            else if (tabScripts.SelectedIndex == 0)
-            {
-                string command = TableScript_dgv.Rows[Convert.ToInt32(TreeViewOfScript.SelectedNode.Tag.ToString()) - 1].Cells[1].Value.ToString();
-                int numOfCommand = Convert.ToInt32(TreeViewOfScript.SelectedNode.Tag.ToString()) - 1;
-                OpenDCL();
-                DoCommand(command, numOfCommand, column, row, windowFocus, IsStop);
-            }
-
-        }
-
-        private void OneStepBackward_btn_Click(object sender, EventArgs e)
-        {
             int numOfCommand = TableScript_dgv.SelectedRows[0].Index;
-            TableScript_dgv.ClearSelection();
-            if (numOfCommand - 1 >= 0)
-                TableScript_dgv.Rows[numOfCommand - 1].Selected = true;
-            TableScript_dgv.FirstDisplayedScrollingRowIndex = numOfCommand - 1;
-            TableScript_dgv.Update();
+            OpenDCL();
+            while (!(Boolean)TableScript_dgv.SelectedRows[0].Cells[5].EditedFormattedValue)
+            {
+                string command = TableScript_dgv.Rows[numOfCommand].Cells[1].Value.ToString();
+
+                IsStop = DoCommand(command, numOfCommand, column, row, windowFocus, IsStop);
+                if (IsStop != false)
+                {
+                    break;
+                }
+                numOfCommand++;
+            }
         }
     }
 }
