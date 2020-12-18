@@ -402,6 +402,8 @@ namespace DclTestFormWPy
 
         private void StartScript_btn_Click(object sender, EventArgs e)
         {
+            StartScript_btn.Text = "| |";
+            StartScript_btn.Refresh();
             int column = 1, row = 1;
             IntPtr windowFocus = FindWindow(null, "ВЭД-Декларант");
             bool IsStop = false;
@@ -410,7 +412,7 @@ namespace DclTestFormWPy
             while (!(Boolean)TableScript_dgv.SelectedRows[0].Cells[5].EditedFormattedValue && numOfCommand < TableScript_dgv.Rows.Count)
             {
                 string command = TableScript_dgv.Rows[numOfCommand].Cells[1].Value.ToString();
-                
+
                 IsStop = DoCommand(command, numOfCommand, column, row, windowFocus, IsStop);
                 if (IsStop != false)
                 {
@@ -418,6 +420,7 @@ namespace DclTestFormWPy
                 }
                 numOfCommand++;
             }
+            StartScript_btn.Text = "▶";
         }
     }
 }
