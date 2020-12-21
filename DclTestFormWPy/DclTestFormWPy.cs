@@ -409,8 +409,13 @@ namespace DclTestFormWPy
             bool IsStop = false;
             int numOfCommand = TableScript_dgv.SelectedRows[0].Index;
             OpenDCL();
-            while (!(Boolean)TableScript_dgv.SelectedRows[0].Cells[5].EditedFormattedValue && numOfCommand < TableScript_dgv.Rows.Count)
+            while (numOfCommand < TableScript_dgv.Rows.Count)
             {
+                if (TableScript_dgv.SelectedRows.Count == 0)
+                { 
+                    if(!(Boolean)TableScript_dgv.SelectedRows[0].Cells[5].EditedFormattedValue)
+                    { break; } 
+                }
                 string command = TableScript_dgv.Rows[numOfCommand].Cells[1].Value.ToString();
 
                 IsStop = DoCommand(command, numOfCommand, column, row, windowFocus, IsStop);
