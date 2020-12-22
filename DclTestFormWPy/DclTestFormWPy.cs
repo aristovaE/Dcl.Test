@@ -364,6 +364,7 @@ namespace DclTestFormWPy
 
         private void FromTheBeginning_btn_Click(object sender, EventArgs e)
         {
+            StartScript_btn.Text = "| |";
             //new Thread(TestEachCommand).Start();// попытка в потоки - не работает SendMessage()
             //CancellationTokenSource token = new CancellationTokenSource();
             int column = 1, row = 1;
@@ -379,6 +380,8 @@ namespace DclTestFormWPy
                     break;
                 }
             }
+
+            StartScript_btn.Text = "▶";
 
             //if (this.InvokeRequired)
             //{
@@ -402,7 +405,6 @@ namespace DclTestFormWPy
 
         private void StartScript_btn_Click(object sender, EventArgs e)
         {
-            StartScript_btn.Text = "| |";
             StartScript_btn.Refresh();
             int column = 1, row = 1;
             IntPtr windowFocus = FindWindow(null, "ВЭД-Декларант");
@@ -411,11 +413,9 @@ namespace DclTestFormWPy
             OpenDCL();
             while (numOfCommand < TableScript_dgv.Rows.Count)
             {
-                if (TableScript_dgv.SelectedRows.Count == 0)
-                { 
-                    if(!(Boolean)TableScript_dgv.SelectedRows[0].Cells[5].EditedFormattedValue)
-                    { break; } 
-                }
+                //прерывание, если команда в точке останова
+                if ((Boolean)TableScript_dgv.Rows[numOfCommand].Cells[5].EditedFormattedValue == true)
+                { break; }
                 string command = TableScript_dgv.Rows[numOfCommand].Cells[1].Value.ToString();
 
                 IsStop = DoCommand(command, numOfCommand, column, row, windowFocus, IsStop);
@@ -423,9 +423,57 @@ namespace DclTestFormWPy
                 {
                     break;
                 }
+
+                //прерывание, если последняя выполненная команда в точке останова
+                //if ((Boolean)TableScript_dgv.Rows[numOfCommand].Cells[5].EditedFormattedValue == true)
+                //{ break; }
                 numOfCommand++;
             }
+
             StartScript_btn.Text = "▶";
+        }
+        private void DoSelectStartScript_btn_Click(object sender, EventArgs e)
+        {
+            StartScript_btn.Text = "| |";
+            StartScript_btn.Refresh();
+            int column = 1, row = 1;
+            IntPtr windowFocus = FindWindow(null, "ВЭД-Декларант");
+            bool IsStop = false;
+            int firstCommand = TableScript_dgv.SelectedRows[TableScript_dgv.SelectedRows.Count - 1].Index;
+            int CountCommand = TableScript_dgv.SelectedRows.Count - firstCommand;
+            OpenDCL();
+            for (int numOfCommand = firstCommand; numOfCommand < CountCommand; numOfCommand++)
+            {
+                //прерывание, если команда в точке останова
+                if ((Boolean)TableScript_dgv.Rows[numOfCommand].Cells[5].EditedFormattedValue == true)
+                { break; }
+
+                string command = TableScript_dgv.Rows[numOfCommand].Cells[1].Value.ToString();
+
+                IsStop = DoCommand(command, numOfCommand, column, row, windowFocus, IsStop);
+                if (IsStop != false)
+                {
+                    break;
+                }
+            }
+
+            StartScript_btn.Text = "▶";
+        }
+
+        private void StartScript_btn_MouseDown(object sender, MouseEventArgs e)
+        {
+            contextMenuToStart.Items.Clear();
+            // Убедитесь, что это правая кнопка.
+            if (e.Button != MouseButtons.Right) return;
+
+            ToolStripMenuItem doAll = new ToolStripMenuItem("Выполнить полностью");
+            ToolStripMenuItem doToBreakpoint = new ToolStripMenuItem("Выполнить до точки останова");
+            ToolStripMenuItem doSelect = new ToolStripMenuItem("Выполнить выделенное");
+            contextMenuToStart.Items.AddRange(new[] { doAll, doToBreakpoint, doSelect });
+            doAll.Click += FromTheBeginning_btn_Click;
+            doToBreakpoint.Click += StartScript_btn_Click;
+            doSelect.Click += DoSelectStartScript_btn_Click;
+            return;
         }
     }
 }
