@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("новый сценарий");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("новый сценарий");
             this.EditCommand_tb = new System.Windows.Forms.TextBox();
             this.EditComand_btn = new System.Windows.Forms.Button();
             this.openFileScript = new System.Windows.Forms.OpenFileDialog();
@@ -42,12 +42,6 @@
             this.Save_MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileScript = new System.Windows.Forms.SaveFileDialog();
             this.TableScript_dgv = new System.Windows.Forms.DataGridView();
-            this.numberOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nameOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.paramOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descriptionOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.resultOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BreakPointOfCommand = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Command_cmb = new System.Windows.Forms.ComboBox();
             this.addCommand_btn = new System.Windows.Forms.Button();
             this.Params_cmb = new System.Windows.Forms.ComboBox();
@@ -71,6 +65,12 @@
             this.OneStepBackward_btn = new System.Windows.Forms.Button();
             this.StartScript_btn = new System.Windows.Forms.Button();
             this.contextMenuToStart = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.numberOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.paramOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descriptionOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.resultOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BreakPointOfCommand = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.scriptsTask_ms.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TableScript_dgv)).BeginInit();
             this.add_gb.SuspendLayout();
@@ -138,7 +138,7 @@
             this.OpenScript_MenuItem,
             this.OpenGroup_MenuItem});
             this.Open_MenuItem.Name = "Open_MenuItem";
-            this.Open_MenuItem.Size = new System.Drawing.Size(133, 22);
+            this.Open_MenuItem.Size = new System.Drawing.Size(180, 22);
             this.Open_MenuItem.Text = "Открыть";
             // 
             // OpenScript_MenuItem
@@ -158,7 +158,7 @@
             // Save_MenuItem
             // 
             this.Save_MenuItem.Name = "Save_MenuItem";
-            this.Save_MenuItem.Size = new System.Drawing.Size(133, 22);
+            this.Save_MenuItem.Size = new System.Drawing.Size(180, 22);
             this.Save_MenuItem.Text = "Сохранить";
             this.Save_MenuItem.Click += new System.EventHandler(this.SaveMenuItem_Click);
             // 
@@ -184,54 +184,6 @@
             this.TableScript_dgv.Size = new System.Drawing.Size(584, 188);
             this.TableScript_dgv.TabIndex = 7;
             this.TableScript_dgv.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.TableScript_dgv_RowHeaderMouseClick);
-            // 
-            // numberOfCommand
-            // 
-            this.numberOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.numberOfCommand.FillWeight = 15F;
-            this.numberOfCommand.HeaderText = "Id";
-            this.numberOfCommand.Name = "numberOfCommand";
-            this.numberOfCommand.ReadOnly = true;
-            this.numberOfCommand.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // nameOfCommand
-            // 
-            this.nameOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.nameOfCommand.FillWeight = 80F;
-            this.nameOfCommand.HeaderText = "Название";
-            this.nameOfCommand.Name = "nameOfCommand";
-            this.nameOfCommand.ReadOnly = true;
-            // 
-            // paramOfCommand
-            // 
-            this.paramOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.paramOfCommand.FillWeight = 70F;
-            this.paramOfCommand.HeaderText = "Параметр";
-            this.paramOfCommand.Name = "paramOfCommand";
-            // 
-            // descriptionOfCommand
-            // 
-            this.descriptionOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.descriptionOfCommand.FillWeight = 80F;
-            this.descriptionOfCommand.HeaderText = "Описание";
-            this.descriptionOfCommand.Name = "descriptionOfCommand";
-            // 
-            // resultOfCommand
-            // 
-            this.resultOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.resultOfCommand.FillWeight = 45F;
-            this.resultOfCommand.HeaderText = "Результат";
-            this.resultOfCommand.Name = "resultOfCommand";
-            this.resultOfCommand.ReadOnly = true;
-            // 
-            // BreakPointOfCommand
-            // 
-            this.BreakPointOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.BreakPointOfCommand.FillWeight = 90F;
-            this.BreakPointOfCommand.HeaderText = "Точка останова";
-            this.BreakPointOfCommand.Name = "BreakPointOfCommand";
-            this.BreakPointOfCommand.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.BreakPointOfCommand.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // Command_cmb
             // 
@@ -364,10 +316,10 @@
             this.TreeViewOfScript.ContextMenuStrip = this.contextMenuToTreeView;
             this.TreeViewOfScript.Location = new System.Drawing.Point(0, 0);
             this.TreeViewOfScript.Name = "TreeViewOfScript";
-            treeNode2.Name = "nameScript";
-            treeNode2.Text = "новый сценарий";
+            treeNode1.Name = "nameScript";
+            treeNode1.Text = "новый сценарий";
             this.TreeViewOfScript.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2});
+            treeNode1});
             this.TreeViewOfScript.Size = new System.Drawing.Size(584, 187);
             this.TreeViewOfScript.TabIndex = 17;
             this.TreeViewOfScript.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TreeViewOfScript_MouseDown);
@@ -474,6 +426,54 @@
             this.contextMenuToStart.Name = "contextMenuToStart";
             this.contextMenuToStart.Size = new System.Drawing.Size(61, 4);
             // 
+            // numberOfCommand
+            // 
+            this.numberOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.numberOfCommand.FillWeight = 15F;
+            this.numberOfCommand.HeaderText = "№";
+            this.numberOfCommand.Name = "numberOfCommand";
+            this.numberOfCommand.ReadOnly = true;
+            this.numberOfCommand.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // nameOfCommand
+            // 
+            this.nameOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nameOfCommand.FillWeight = 80F;
+            this.nameOfCommand.HeaderText = "Название";
+            this.nameOfCommand.Name = "nameOfCommand";
+            this.nameOfCommand.ReadOnly = true;
+            // 
+            // paramOfCommand
+            // 
+            this.paramOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.paramOfCommand.FillWeight = 40F;
+            this.paramOfCommand.HeaderText = "Параметр";
+            this.paramOfCommand.Name = "paramOfCommand";
+            // 
+            // descriptionOfCommand
+            // 
+            this.descriptionOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.descriptionOfCommand.FillWeight = 80F;
+            this.descriptionOfCommand.HeaderText = "Описание";
+            this.descriptionOfCommand.Name = "descriptionOfCommand";
+            // 
+            // resultOfCommand
+            // 
+            this.resultOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.resultOfCommand.FillWeight = 45F;
+            this.resultOfCommand.HeaderText = "Результат";
+            this.resultOfCommand.Name = "resultOfCommand";
+            this.resultOfCommand.ReadOnly = true;
+            // 
+            // BreakPointOfCommand
+            // 
+            this.BreakPointOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.BreakPointOfCommand.FillWeight = 40F;
+            this.BreakPointOfCommand.HeaderText = "Точка останова";
+            this.BreakPointOfCommand.Name = "BreakPointOfCommand";
+            this.BreakPointOfCommand.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.BreakPointOfCommand.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
             // DclTestFormWPy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -547,13 +547,13 @@
         private System.Windows.Forms.ToolStripStatusLabel fileName_statstrip;
         private System.Windows.Forms.Button OneStepForward_btn;
         private System.Windows.Forms.Button OneStepBackward_btn;
+        private System.Windows.Forms.Button StartScript_btn;
+        private System.Windows.Forms.ContextMenuStrip contextMenuToStart;
         private System.Windows.Forms.DataGridViewTextBoxColumn numberOfCommand;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameOfCommand;
         private System.Windows.Forms.DataGridViewTextBoxColumn paramOfCommand;
         private System.Windows.Forms.DataGridViewTextBoxColumn descriptionOfCommand;
         private System.Windows.Forms.DataGridViewTextBoxColumn resultOfCommand;
         private System.Windows.Forms.DataGridViewCheckBoxColumn BreakPointOfCommand;
-        private System.Windows.Forms.Button StartScript_btn;
-        private System.Windows.Forms.ContextMenuStrip contextMenuToStart;
     }
 }

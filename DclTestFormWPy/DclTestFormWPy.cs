@@ -45,11 +45,23 @@ namespace DclTestFormWPy
                 TableScript_dgv.Rows[rowNumber].Cells[0].Value = rowNumber + 1;
                 foreach (string str in comWithParams)
                 {
-                    TableScript_dgv.Rows[rowNumber].Cells[y].Value = str;
+                    if (str.IndexOf('*') != -1)
+                    {
+                        TableScript_dgv.Rows[rowNumber].Cells[5].Value = true;
+                        string strWithout = str.Remove(str.IndexOf('*'), 1);
+                        TableScript_dgv.Rows[rowNumber].Cells[y].Value = strWithout;
+                    }
+                    else
+                    {
+                        TableScript_dgv.Rows[rowNumber].Cells[y].Value = str;
+                    }
                     TableScript_dgv.Rows[rowNumber].Cells[y].Tag = y;
                     y++;
+                    if (TableScript_dgv.Rows[rowNumber].Cells[3].Value == null)
+                        TableScript_dgv.Rows[rowNumber].Cells[3].Value = Commands.CheckDescription(str);
                 }
             }
+
 
             TreeNode prevCommand = TreeViewOfScript.Nodes.Add(StatusStripNameOfFile.Items[0].Text);
             int index = 1;
@@ -161,6 +173,8 @@ namespace DclTestFormWPy
                         str = dgvr.Cells[1].Value.ToString() + ":" + dgvr.Cells[2].Value.ToString();
                     else
                         str = dgvr.Cells[1].Value.ToString();
+                    if ((Boolean)dgvr.Cells[5].EditedFormattedValue == true)
+                        str += "*";
                     tw.WriteLine(str);
                 }
             }
@@ -364,9 +378,8 @@ namespace DclTestFormWPy
 
         private void FromTheBeginning_btn_Click(object sender, EventArgs e)
         {
+            //выполнение не смотря на точки останова с начала
             StartScript_btn.Text = "| |";
-            //new Thread(TestEachCommand).Start();// попытка в потоки - не работает SendMessage()
-            //CancellationTokenSource token = new CancellationTokenSource();
             int column = 1, row = 1;
             IntPtr windowFocus = IntPtr.Zero;
             bool IsStop = false;
@@ -439,10 +452,10 @@ namespace DclTestFormWPy
             int column = 1, row = 1;
             IntPtr windowFocus = FindWindow(null, "ВЭД-Декларант");
             bool IsStop = false;
-            int firstCommand = TableScript_dgv.SelectedRows[TableScript_dgv.SelectedRows.Count - 1].Index;
-            int CountCommand = TableScript_dgv.SelectedRows.Count - firstCommand;
+            int numOfCommand = TableScript_dgv.SelectedRows[TableScript_dgv.SelectedRows.Count - 1].Index;
+            int CountCommand = TableScript_dgv.SelectedRows.Count;
             OpenDCL();
-            for (int numOfCommand = firstCommand; numOfCommand < CountCommand; numOfCommand++)
+            for (int index = 0; index < CountCommand; index++)
             {
                 //прерывание, если команда в точке останова
                 if ((Boolean)TableScript_dgv.Rows[numOfCommand].Cells[5].EditedFormattedValue == true)
@@ -455,9 +468,11 @@ namespace DclTestFormWPy
                 {
                     break;
                 }
+                numOfCommand++;
             }
 
             StartScript_btn.Text = "▶";
+
         }
 
         private void StartScript_btn_MouseDown(object sender, MouseEventArgs e)

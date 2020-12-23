@@ -86,6 +86,7 @@
     <Compile Include="AllWinAPIFuncs.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Commands.cs" />
     <Compile Include="DclTestFormWPy.cs">
       <SubType>Form</SubType>
     </Compile>
