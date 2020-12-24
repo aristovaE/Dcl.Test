@@ -16,11 +16,18 @@ namespace DclTestFormWPy
 
         private void DeleteAll_btn_Click(object sender, EventArgs e)
         {
-            TableScript_dgv.Rows.Clear();
-            TreeViewOfScript.Nodes.Clear();
-            StatusStripNameOfFile.Items.Clear();
-            StatusStripNameOfFile.Items.Add("новый сценарий");
-            TreeViewOfScript.Nodes.Add("новый сценарий");
+            //удалить весь сценарий
+            //TableScript_dgv.Rows.Clear();
+            //TreeViewOfScript.Nodes.Clear();
+            //StatusStripNameOfFile.Items.Clear();
+            //StatusStripNameOfFile.Items.Add("новый сценарий");
+            //TreeViewOfScript.Nodes.Add("новый сценарий");
+
+            //очистить только поле "Результат"
+            foreach (DataGridViewRow row in TableScript_dgv.Rows)
+            {
+                row.Cells[4].Value = null; 
+            }
         }
 
         private void OpenScriptMenuItem_Click(object sender, EventArgs e)
@@ -155,6 +162,7 @@ namespace DclTestFormWPy
             else
             {
                 TreeViewOfScript.SelectedNode.Text = EditCommand_tb.Text;
+                TableScript_dgv.Rows[Convert.ToInt32(TreeViewOfScript.SelectedNode.Tag.ToString())-1].Cells[2].Value = EditCommand_tb.Text.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries)[1];
             }
             EditCommand_tb.Text = "";
         }
@@ -383,6 +391,7 @@ namespace DclTestFormWPy
             int column = 1, row = 1;
             IntPtr windowFocus = IntPtr.Zero;
             bool IsStop = false;
+            OpenDCL();
             for (int numOfCommand = 0; numOfCommand < TableScript_dgv.Rows.Count; numOfCommand++)
             {
                 string command = TableScript_dgv.Rows[numOfCommand].Cells[1].Value.ToString();
