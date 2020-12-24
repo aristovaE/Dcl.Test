@@ -222,15 +222,14 @@ namespace DclTestFormWPy
                         for (int i = column; i < Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString()); i++)
                         {
                             EnterShortcut(VK_RIGHT);
-                        }
-                        column = Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
+                        }                        
                         break;
                     case "в строке":
                         for (int i = row; i < Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString()); i++)
                         {
                             EnterShortcut(VK_DOWN);
                         }
-                        column = Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
+                        row = Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
                         break;
                     case "найти значение":
                         EnterShortcut(VK_F4);

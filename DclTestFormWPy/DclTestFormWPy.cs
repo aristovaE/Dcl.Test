@@ -71,7 +71,7 @@ namespace DclTestFormWPy
 
 
             TreeNode prevCommand = TreeViewOfScript.Nodes.Add(StatusStripNameOfFile.Items[0].Text);
-            int index = 1;
+            int index = 0;
             foreach (string command in commands)
             {
                 if (command.Contains("группа:"))
@@ -132,8 +132,10 @@ namespace DclTestFormWPy
             string strmas = File.ReadAllText(openFileGroup.FileName);
             String[] commands = strmas.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
             int rowNumber = TableScript_dgv.Rows.Add();
+            int index = TableScript_dgv.Rows.Count ; //для treeview
             TableScript_dgv.Rows[rowNumber].Cells[0].Value = rowNumber + 1;
             TableScript_dgv.Rows[rowNumber].Cells[1].Value = "группа";
+            TableScript_dgv.Rows[rowNumber].Cells[1].Tag = rowNumber;
             TableScript_dgv.Rows[rowNumber].Cells[2].Value = openFileGroup.FileName.Split('.', '\\')[openFileGroup.FileName.Split('.', '\\').Length - 2];
             MessageBox.Show($"Группа команд \"{openFileGroup}\" добавлена в сценарий");
             for (int i = 0; i < commands.Length; i++)
@@ -144,13 +146,50 @@ namespace DclTestFormWPy
                 TableScript_dgv.Rows[rowNumber].Cells[0].Value = rowNumber + 1;
                 foreach (string str in comWithParams)
                 {
-                    TableScript_dgv.Rows[rowNumber].Cells[y].Value = str;
+                    if (str.IndexOf('*') != -1)
+                    {
+                        TableScript_dgv.Rows[rowNumber].Cells[5].Value = true;
+                        string strWithout = str.Remove(str.IndexOf('*'), 1);
+                        TableScript_dgv.Rows[rowNumber].Cells[y].Value = strWithout;
+                    }
+                    else
+                    {
+                        TableScript_dgv.Rows[rowNumber].Cells[y].Value = str;
+                    }
+                    TableScript_dgv.Rows[rowNumber].Cells[y].Tag = y;
                     y++;
+                    if (TableScript_dgv.Rows[rowNumber].Cells[3].Value == null)
+                        TableScript_dgv.Rows[rowNumber].Cells[3].Value = Commands.CheckDescription(str);
                 }
             }
             rowNumber = TableScript_dgv.Rows.Add();
             TableScript_dgv.Rows[rowNumber].Cells[0].Value = rowNumber + 1;
             TableScript_dgv.Rows[rowNumber].Cells[1].Value = "конец";
+
+            TreeNode prevCommand = TreeViewOfScript.Nodes[0].Nodes.Add($"группа:{openFileGroup.SafeFileName}") ;
+            foreach (string command in commands)
+            {
+                if (command.Contains("группа:"))
+                {
+                    prevCommand = prevCommand.Nodes.Add(command);
+                    prevCommand.Tag = index;
+                }
+                else
+                {
+                    if (command.Contains("конец"))
+                    {
+                        //не писать команду в тривью
+                        prevCommand = prevCommand.Parent;
+                        prevCommand.Tag = index;
+                    }
+                    else
+                    {
+                        TreeNode nextNextCommand = prevCommand.Nodes.Add(command);
+                        nextNextCommand.Tag = index;
+                    }
+                }
+                index++;
+            }
         }
 
         private void EditComand_btn_Click(object sender, EventArgs e)
@@ -162,7 +201,7 @@ namespace DclTestFormWPy
             else
             {
                 TreeViewOfScript.SelectedNode.Text = EditCommand_tb.Text;
-                TableScript_dgv.Rows[Convert.ToInt32(TreeViewOfScript.SelectedNode.Tag.ToString())-1].Cells[2].Value = EditCommand_tb.Text.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries)[1];
+                TableScript_dgv.Rows[Convert.ToInt32(TreeViewOfScript.SelectedNode.Tag.ToString())].Cells[2].Value = EditCommand_tb.Text.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries)[1];
             }
             EditCommand_tb.Text = "";
         }
@@ -397,6 +436,14 @@ namespace DclTestFormWPy
                 string command = TableScript_dgv.Rows[numOfCommand].Cells[1].Value.ToString();
 
                 IsStop = DoCommand(command, numOfCommand, column, row, windowFocus, IsStop);
+                if(command== "в строке")
+                {
+                    row = Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
+                }
+                else if(command == "в столбце")
+                {
+                    column = Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
+                }
                 if (IsStop != false)
                 {
                     break;
