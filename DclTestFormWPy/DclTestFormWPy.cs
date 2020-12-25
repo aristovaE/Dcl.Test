@@ -23,7 +23,7 @@ namespace DclTestFormWPy
             //StatusStripNameOfFile.Items.Add("новый сценарий");
             //TreeViewOfScript.Nodes.Add("новый сценарий");
 
-            //очистить только поле "Результат"
+            //очистить только столбец "Результат"
             foreach (DataGridViewRow row in TableScript_dgv.Rows)
             {
                 row.Cells[4].Value = null; 

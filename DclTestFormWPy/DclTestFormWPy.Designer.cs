@@ -29,7 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("новый сценарий");
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("новый сценарий");
             this.EditCommand_tb = new System.Windows.Forms.TextBox();
             this.EditComand_btn = new System.Windows.Forms.Button();
             this.openFileScript = new System.Windows.Forms.OpenFileDialog();
@@ -105,12 +108,13 @@
             // 
             // FromTheBeginning_btn
             // 
-            this.FromTheBeginning_btn.Location = new System.Drawing.Point(12, 247);
+            this.FromTheBeginning_btn.Location = new System.Drawing.Point(12, 287);
             this.FromTheBeginning_btn.Name = "FromTheBeginning_btn";
-            this.FromTheBeginning_btn.Size = new System.Drawing.Size(148, 32);
+            this.FromTheBeginning_btn.Size = new System.Drawing.Size(148, 25);
             this.FromTheBeginning_btn.TabIndex = 4;
             this.FromTheBeginning_btn.Text = "Выполнить всё";
             this.FromTheBeginning_btn.UseVisualStyleBackColor = true;
+            this.FromTheBeginning_btn.Visible = false;
             this.FromTheBeginning_btn.Click += new System.EventHandler(this.FromTheBeginning_btn_Click);
             // 
             // scriptsTask_ms
@@ -119,7 +123,7 @@
             this.MainMenuItem});
             this.scriptsTask_ms.Location = new System.Drawing.Point(0, 0);
             this.scriptsTask_ms.Name = "scriptsTask_ms";
-            this.scriptsTask_ms.Size = new System.Drawing.Size(868, 24);
+            this.scriptsTask_ms.Size = new System.Drawing.Size(1023, 24);
             this.scriptsTask_ms.TabIndex = 5;
             this.scriptsTask_ms.Text = "menuStrip1";
             // 
@@ -138,37 +142,46 @@
             this.OpenScript_MenuItem,
             this.OpenGroup_MenuItem});
             this.Open_MenuItem.Name = "Open_MenuItem";
-            this.Open_MenuItem.Size = new System.Drawing.Size(180, 22);
+            this.Open_MenuItem.Size = new System.Drawing.Size(133, 22);
             this.Open_MenuItem.Text = "Открыть";
             // 
             // OpenScript_MenuItem
             // 
             this.OpenScript_MenuItem.Name = "OpenScript_MenuItem";
-            this.OpenScript_MenuItem.Size = new System.Drawing.Size(180, 22);
+            this.OpenScript_MenuItem.Size = new System.Drawing.Size(129, 22);
             this.OpenScript_MenuItem.Text = "Сценарий";
             this.OpenScript_MenuItem.Click += new System.EventHandler(this.OpenScriptMenuItem_Click);
             // 
             // OpenGroup_MenuItem
             // 
             this.OpenGroup_MenuItem.Name = "OpenGroup_MenuItem";
-            this.OpenGroup_MenuItem.Size = new System.Drawing.Size(180, 22);
+            this.OpenGroup_MenuItem.Size = new System.Drawing.Size(129, 22);
             this.OpenGroup_MenuItem.Text = "Шаблон";
             this.OpenGroup_MenuItem.Click += new System.EventHandler(this.OpenGroupMenuItem_Click);
             // 
             // Save_MenuItem
             // 
             this.Save_MenuItem.Name = "Save_MenuItem";
-            this.Save_MenuItem.Size = new System.Drawing.Size(180, 22);
+            this.Save_MenuItem.Size = new System.Drawing.Size(133, 22);
             this.Save_MenuItem.Text = "Сохранить";
             this.Save_MenuItem.Click += new System.EventHandler(this.SaveMenuItem_Click);
             // 
             // TableScript_dgv
             // 
             this.TableScript_dgv.AllowUserToAddRows = false;
+            this.TableScript_dgv.AllowUserToOrderColumns = true;
             this.TableScript_dgv.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.TableScript_dgv.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.TableScript_dgv.BackgroundColor = System.Drawing.SystemColors.Control;
             this.TableScript_dgv.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.TableScript_dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.TableScript_dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.TableScript_dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.numberOfCommand,
@@ -177,18 +190,34 @@
             this.descriptionOfCommand,
             this.resultOfCommand,
             this.BreakPointOfCommand});
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.TableScript_dgv.DefaultCellStyle = dataGridViewCellStyle5;
             this.TableScript_dgv.GridColor = System.Drawing.SystemColors.Control;
-            this.TableScript_dgv.Location = new System.Drawing.Point(0, 0);
+            this.TableScript_dgv.Location = new System.Drawing.Point(6, 6);
             this.TableScript_dgv.Name = "TableScript_dgv";
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.TableScript_dgv.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.TableScript_dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.TableScript_dgv.Size = new System.Drawing.Size(584, 188);
+            this.TableScript_dgv.Size = new System.Drawing.Size(738, 220);
             this.TableScript_dgv.TabIndex = 7;
             this.TableScript_dgv.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.TableScript_dgv_RowHeaderMouseClick);
             // 
             // numberOfCommand
             // 
             this.numberOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.numberOfCommand.FillWeight = 15F;
+            this.numberOfCommand.FillWeight = 7F;
             this.numberOfCommand.HeaderText = "№";
             this.numberOfCommand.Name = "numberOfCommand";
             this.numberOfCommand.ReadOnly = true;
@@ -197,7 +226,7 @@
             // nameOfCommand
             // 
             this.nameOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.nameOfCommand.FillWeight = 80F;
+            this.nameOfCommand.FillWeight = 60F;
             this.nameOfCommand.HeaderText = "Название";
             this.nameOfCommand.Name = "nameOfCommand";
             this.nameOfCommand.ReadOnly = true;
@@ -205,7 +234,7 @@
             // paramOfCommand
             // 
             this.paramOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.paramOfCommand.FillWeight = 40F;
+            this.paramOfCommand.FillWeight = 30F;
             this.paramOfCommand.HeaderText = "Параметр";
             this.paramOfCommand.Name = "paramOfCommand";
             // 
@@ -219,7 +248,7 @@
             // resultOfCommand
             // 
             this.resultOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.resultOfCommand.FillWeight = 45F;
+            this.resultOfCommand.FillWeight = 25F;
             this.resultOfCommand.HeaderText = "Результат";
             this.resultOfCommand.Name = "resultOfCommand";
             this.resultOfCommand.ReadOnly = true;
@@ -227,7 +256,7 @@
             // BreakPointOfCommand
             // 
             this.BreakPointOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.BreakPointOfCommand.FillWeight = 40F;
+            this.BreakPointOfCommand.FillWeight = 25F;
             this.BreakPointOfCommand.HeaderText = "Точка останова";
             this.BreakPointOfCommand.Name = "BreakPointOfCommand";
             this.BreakPointOfCommand.Resizable = System.Windows.Forms.DataGridViewTriState.True;
@@ -311,7 +340,7 @@
             this.add_gb.Controls.Add(this.Params_tb);
             this.add_gb.Controls.Add(this.addCommand_btn);
             this.add_gb.Controls.Add(this.Params_cmb);
-            this.add_gb.Location = new System.Drawing.Point(610, 42);
+            this.add_gb.Location = new System.Drawing.Point(766, 49);
             this.add_gb.Name = "add_gb";
             this.add_gb.Size = new System.Drawing.Size(245, 86);
             this.add_gb.TabIndex = 13;
@@ -332,7 +361,7 @@
             // del_gb
             // 
             this.del_gb.Controls.Add(this.DeleteCommand_btn);
-            this.del_gb.Location = new System.Drawing.Point(610, 134);
+            this.del_gb.Location = new System.Drawing.Point(766, 141);
             this.del_gb.Name = "del_gb";
             this.del_gb.Size = new System.Drawing.Size(245, 56);
             this.del_gb.TabIndex = 14;
@@ -343,9 +372,9 @@
             // 
             this.edit_gb.Controls.Add(this.EditComand_btn);
             this.edit_gb.Controls.Add(this.EditCommand_tb);
-            this.edit_gb.Location = new System.Drawing.Point(610, 197);
+            this.edit_gb.Location = new System.Drawing.Point(766, 204);
             this.edit_gb.Name = "edit_gb";
-            this.edit_gb.Size = new System.Drawing.Size(245, 82);
+            this.edit_gb.Size = new System.Drawing.Size(245, 81);
             this.edit_gb.TabIndex = 15;
             this.edit_gb.TabStop = false;
             this.edit_gb.Text = "Редактирование";
@@ -362,13 +391,13 @@
             // TreeViewOfScript
             // 
             this.TreeViewOfScript.ContextMenuStrip = this.contextMenuToTreeView;
-            this.TreeViewOfScript.Location = new System.Drawing.Point(0, 0);
+            this.TreeViewOfScript.Location = new System.Drawing.Point(6, 6);
             this.TreeViewOfScript.Name = "TreeViewOfScript";
-            treeNode1.Name = "nameScript";
-            treeNode1.Text = "новый сценарий";
+            treeNode2.Name = "nameScript";
+            treeNode2.Text = "новый сценарий";
             this.TreeViewOfScript.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
-            this.TreeViewOfScript.Size = new System.Drawing.Size(584, 187);
+            treeNode2});
+            this.TreeViewOfScript.Size = new System.Drawing.Size(738, 220);
             this.TreeViewOfScript.TabIndex = 17;
             this.TreeViewOfScript.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TreeViewOfScript_MouseDown);
             // 
@@ -384,7 +413,7 @@
             this.tabScripts.Location = new System.Drawing.Point(12, 27);
             this.tabScripts.Name = "tabScripts";
             this.tabScripts.SelectedIndex = 0;
-            this.tabScripts.Size = new System.Drawing.Size(592, 214);
+            this.tabScripts.Size = new System.Drawing.Size(758, 258);
             this.tabScripts.TabIndex = 18;
             // 
             // tabTreeViewScript
@@ -393,7 +422,7 @@
             this.tabTreeViewScript.Location = new System.Drawing.Point(4, 22);
             this.tabTreeViewScript.Name = "tabTreeViewScript";
             this.tabTreeViewScript.Padding = new System.Windows.Forms.Padding(3);
-            this.tabTreeViewScript.Size = new System.Drawing.Size(584, 188);
+            this.tabTreeViewScript.Size = new System.Drawing.Size(750, 232);
             this.tabTreeViewScript.TabIndex = 0;
             this.tabTreeViewScript.Text = "Древовидно";
             this.tabTreeViewScript.UseVisualStyleBackColor = true;
@@ -404,7 +433,7 @@
             this.tabTableScript.Location = new System.Drawing.Point(4, 22);
             this.tabTableScript.Name = "tabTableScript";
             this.tabTableScript.Padding = new System.Windows.Forms.Padding(3);
-            this.tabTableScript.Size = new System.Drawing.Size(584, 188);
+            this.tabTableScript.Size = new System.Drawing.Size(750, 232);
             this.tabTableScript.TabIndex = 1;
             this.tabTableScript.Text = "Таблично";
             this.tabTableScript.UseVisualStyleBackColor = true;
@@ -415,7 +444,7 @@
             // 
             // DeleteAll_btn
             // 
-            this.DeleteAll_btn.Location = new System.Drawing.Point(525, 251);
+            this.DeleteAll_btn.Location = new System.Drawing.Point(930, 287);
             this.DeleteAll_btn.Name = "DeleteAll_btn";
             this.DeleteAll_btn.Size = new System.Drawing.Size(75, 25);
             this.DeleteAll_btn.TabIndex = 21;
@@ -427,9 +456,9 @@
             // 
             this.StatusStripNameOfFile.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileName_statstrip});
-            this.StatusStripNameOfFile.Location = new System.Drawing.Point(0, 292);
+            this.StatusStripNameOfFile.Location = new System.Drawing.Point(0, 319);
             this.StatusStripNameOfFile.Name = "StatusStripNameOfFile";
-            this.StatusStripNameOfFile.Size = new System.Drawing.Size(868, 22);
+            this.StatusStripNameOfFile.Size = new System.Drawing.Size(1023, 22);
             this.StatusStripNameOfFile.TabIndex = 22;
             // 
             // fileName_statstrip
@@ -439,7 +468,7 @@
             // 
             // OneStepForward_btn
             // 
-            this.OneStepForward_btn.Location = new System.Drawing.Point(356, 247);
+            this.OneStepForward_btn.Location = new System.Drawing.Point(392, 287);
             this.OneStepForward_btn.Name = "OneStepForward_btn";
             this.OneStepForward_btn.Size = new System.Drawing.Size(75, 25);
             this.OneStepForward_btn.TabIndex = 23;
@@ -449,7 +478,7 @@
             // 
             // OneStepBackward_btn
             // 
-            this.OneStepBackward_btn.Location = new System.Drawing.Point(246, 247);
+            this.OneStepBackward_btn.Location = new System.Drawing.Point(280, 287);
             this.OneStepBackward_btn.Name = "OneStepBackward_btn";
             this.OneStepBackward_btn.Size = new System.Drawing.Size(75, 25);
             this.OneStepBackward_btn.TabIndex = 24;
@@ -460,7 +489,7 @@
             // StartScript_btn
             // 
             this.StartScript_btn.ContextMenuStrip = this.contextMenuToStart;
-            this.StartScript_btn.Location = new System.Drawing.Point(325, 247);
+            this.StartScript_btn.Location = new System.Drawing.Point(361, 287);
             this.StartScript_btn.Name = "StartScript_btn";
             this.StartScript_btn.Size = new System.Drawing.Size(25, 25);
             this.StartScript_btn.TabIndex = 25;
@@ -478,7 +507,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(868, 314);
+            this.ClientSize = new System.Drawing.Size(1023, 341);
             this.Controls.Add(this.StartScript_btn);
             this.Controls.Add(this.OneStepBackward_btn);
             this.Controls.Add(this.OneStepForward_btn);
