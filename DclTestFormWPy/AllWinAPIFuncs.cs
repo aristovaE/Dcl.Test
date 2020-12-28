@@ -44,7 +44,7 @@ namespace DclTestFormWPy
         {
             uint ThreadID1 = GetWindowThreadProcessId(FindWindow(null, "DclTest"), out _);
             uint ThreadID2 = GetWindowThreadProcessId(windowFocus, out uint _);
-            AttachThreadInput(ThreadID1, ThreadID2, true);
+            bool first  = AttachThreadInput(ThreadID1, ThreadID2, true);
             if (IsIconic(windowFocus))
             {
                 ShowWindow(windowFocus, 9); //9 - restore
@@ -54,7 +54,7 @@ namespace DclTestFormWPy
                 SetForegroundWindow(windowFocus);
             }
             SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder(strToEnter));
-            AttachThreadInput(ThreadID1, ThreadID2, false);
+            bool second = AttachThreadInput(ThreadID1, ThreadID2, false);
         }
 
         /// <summary>
