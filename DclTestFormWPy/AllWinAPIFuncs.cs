@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
@@ -44,7 +45,7 @@ namespace DclTestFormWPy
         {
             uint ThreadID1 = GetWindowThreadProcessId(FindWindow(null, "DclTest"), out _);
             uint ThreadID2 = GetWindowThreadProcessId(windowFocus, out uint _);
-            bool first  = AttachThreadInput(ThreadID1, ThreadID2, true);
+            bool first = AttachThreadInput(ThreadID1, ThreadID2, true);
             if (IsIconic(windowFocus))
             {
                 ShowWindow(windowFocus, 9); //9 - restore
@@ -81,17 +82,41 @@ namespace DclTestFormWPy
             Thread.Sleep(1000);
         }
 
-        ///// <summary>
-        ///// Нажатие ЛКМ
-        ///// </summary>
-        ///// <param name="x"></param>
-        ///// <param name="y"></param>
-        //private static void DoMouseLeftClick(int x, int y)
-        //{
-        //    mouse_event(MOUSEEVENTF_LEFTDOWN, x, y, 0, 0);
-        //    mouse_event(MOUSEEVENTF_LEFTUP, x, y, 0, 0);
-        //}
+        /// <summary>
+        /// Нажатие ЛКМ
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        private static void DoMouseLeftClick(int x, int y)
+        {
+            mouse_event(MOUSEEVENTF_LEFTDOWN, x, y, 0, 0);
+            mouse_event(MOUSEEVENTF_LEFTUP, x, y, 0, 0);
+        }
+        /// <summary>
+        /// симуляция передвижения мыши
+        /// </summary>
+        /// <param name="hWnd"></param>
+        /// <param name="screenWidth"></param>
+        /// <param name="screenHeight"></param>
+        private static void MoveMouseAndClick(int pX, int pY)
+        {
+            IntPtr windowDCLMenu = WindowFromPoint(System.Windows.Forms.Cursor.Position = new Point(pX, pY));//Меню - Документ
+            Point p = new Point();
+            p.X = Convert.ToInt16(pX);  //координаты из inspect exe
+            p.Y = Convert.ToInt16(pY);  //поле How found : Mouse Move(47,30) при наведении мышкой на нужное поле
+            //ClientToScreen(windowDCLMenu, ref p);
+            SetCursorPos(p.X, p.Y);
 
+            Thread.Sleep(1000);
+            DoMouseLeftClick(p.X, p.Y);
+            Thread.Sleep(1000);
+        }
+
+        [DllImport("user32.dll")]
+        public static extern long SetCursorPos(int x, int y);
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr WindowFromPoint(Point pt);
         /// <summary>
         /// "помещение разных значений в старшие и в младшие биты"
         /// </summary>
@@ -121,9 +146,12 @@ namespace DclTestFormWPy
 
             return title.ToString();
         }
+        //Location:	{l:-7, t:0, w:974, h:1047}
 
         private bool DoCommand(string command, int numOfCommand, int column, int row, IntPtr windowFocus, bool IsStop)
         {
+            int x, y;
+            string[] xy;
             //while ((long)GetForegroundWindow() == (long)FindWindow(null, "ВЭД-Декларант"))
             //{
             try
@@ -222,7 +250,7 @@ namespace DclTestFormWPy
                         for (int i = column; i < Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString()); i++)
                         {
                             EnterShortcut(VK_RIGHT);
-                        }                        
+                        }
                         break;
                     case "в строке":
                         for (int i = row; i < Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString()); i++)
@@ -237,6 +265,7 @@ namespace DclTestFormWPy
                         EnterText(GetForegroundWindow(), TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
                         EnterShortcut(VK_RETURN);
                         EnterShortcut(VK_ESCAPE);
+
                         EnterShortcut(VK_RETURN);
                         break;
 
@@ -257,6 +286,22 @@ namespace DclTestFormWPy
 
                     case "перейти к первому товару":
                         EnterShortcuts(VK_CTRL, VK_F);
+                        break;
+
+                    case "нажать в точке":
+                        xy = TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString().Split(';');
+                        x = Convert.ToInt32(xy[0]);
+                        y = Convert.ToInt32(xy[1]);
+
+                        MoveMouseAndClick(x, y);
+                        break;
+
+                    case "ширина окна ВД":
+                        xy = TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString().Split(';');
+                        x = Convert.ToInt32(xy[0]);
+                        y = Convert.ToInt32(xy[1]);
+
+                        MoveWindow(windowFocus,-7,0,x,y,true);
                         break;
 
                 }
@@ -293,225 +338,10 @@ namespace DclTestFormWPy
 
         }
 
-        //private void DoCommand(List<string> commands, int numOfCommand)
-        //{
-        //    int column = 1, row = 1;
-        //    IntPtr windowFocus = IntPtr.Zero;
-        //    bool IsStop = false;
-        //    try
-        //    {
-        //        foreach (string command in commands)
-        //        {
-        //            OpenDCL();
-        //            switch (command)
-        //            {
-        //                //case "открыть окно ВД":
-        //                //    OpenDCL();
-        //                //    windowFocus = GetForegroundWindow();
-        //                //    break;
-
-        //                case "открыть меню Документ":
-        //                    EnterShortcuts(VK_ALT, VK_L);
-        //                    break;
-
-        //                case "открыть меню Прочитать с диска":
-        //                    EnterShortcut(VK_L);
-        //                    break;
-
-        //                case "проверка":
-        //                    var result = MessageBox.Show("Сценарий выполнен корректно?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-        //                    if (result != DialogResult.Yes)
-        //                    {
-        //                        IsStop = true;
-        //                    }
-        //                    break;
-
-        //                case "нажать":
-        //                    switch (TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString())
-        //                    {
-        //                        case "ENTER":
-        //                            EnterShortcut(VK_RETURN);
-        //                            break;
-        //                        case "ESC":
-        //                            EnterShortcut(VK_ESCAPE);
-        //                            break;
-        //                        case "SPACE":
-        //                            EnterShortcut(VK_SPACE);
-        //                            break;
-        //                        case "F3":
-        //                            EnterShortcut(VK_F3);
-        //                            break;
-        //                        case "F5":
-        //                            EnterShortcut(VK_F5);
-        //                            break;
-        //                        case "стрелку влево":
-        //                            EnterShortcut(VK_LEFT);
-        //                            break;
-        //                        case "стрелку вправо":
-        //                            EnterShortcut(VK_RIGHT);
-        //                            break;
-        //                        case "стрелку вверх":
-        //                            EnterShortcut(VK_UP);
-        //                            break;
-        //                        case "стрелку вниз":
-        //                            EnterShortcut(VK_DOWN);
-        //                            break;
-        //                    }
-        //                    break;
-
-        //                case "перейти вперед":
-        //                    EnterShortcut(VK_TAB);
-        //                    break;
-
-        //                case "перейти назад":
-        //                    EnterShortcuts(VK_SHIFT, VK_TAB);
-        //                    break;
-
-        //                case "выделить все":
-        //                    EnterShortcuts(VK_CTRL, VK_A);
-        //                    break;
-
-        //                case "открыть классификатор":
-        //                    EnterShortcut(VK_F4);
-        //                    break;
-
-        //                case "выполнить автозаполнение":
-        //                    EnterShortcut(VK_F9);
-        //                    break;
-
-        //                case "открыть меню Записать на диск":
-        //                    EnterShortcut(VK_P);
-        //                    break;
-
-        //                case "перейти к графе номер":
-        //                    string numberField = TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString();
-        //                    FindField(numberField);
-        //                    break;
-
-        //                case "подождать секунд":
-        //                    int secondsToSleep = Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
-        //                    Thread.Sleep(1000 * secondsToSleep);
-        //                    break;
-
-        //                case "в столбце":
-        //                    for (int i = column; i < Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString()); i++)
-        //                    {
-        //                        EnterShortcut(VK_RIGHT);
-        //                    }
-        //                    column = Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
-        //                    break;
-        //                case "в строке":
-        //                    for (int i = row; i < Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString()); i++)
-        //                    {
-        //                        EnterShortcut(VK_DOWN);
-        //                    }
-        //                    column = Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
-        //                    break;
-        //                case "найти значение":
-        //                    EnterShortcut(VK_F4);
-        //                    EnterShortcut(VK_F3);
-        //                    EnterText(GetForegroundWindow(), TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
-        //                    EnterShortcut(VK_RETURN);
-        //                    EnterShortcut(VK_ESCAPE);
-        //                    EnterShortcut(VK_RETURN);
-        //                    break;
-
-        //                case "ввести значение":
-        //                    EnterText(GetForegroundWindow(), TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
-        //                    break;
-
-        //                case "ждать закрытия окна":
-        //                    while (GetForegroundWindow() != windowFocus)
-        //                    {
-        //                        Thread.Sleep(5000);
-        //                    }
-        //                    break;
-
-        //                case "добавить товар":
-        //                    EnterShortcuts(VK_CTRL, VK_E);
-        //                    break;
-
-        //                case "перейти к первому товару":
-        //                    EnterShortcuts(VK_CTRL, VK_F);
-        //                    break;
-
-        //            }
-        //            if (IsStop != false)
-        //            {
-        //                break;
-        //            }
-
-        //            TableScript_dgv.ClearSelection();
-        //            TableScript_dgv.Rows[numOfCommand].Cells[4].Value = "успешно";
-        //            if (numOfCommand + 1 < TableScript_dgv.Rows.Count)
-        //                TableScript_dgv.Rows[numOfCommand + 1].Selected = true;
-        //            TableScript_dgv.FirstDisplayedScrollingRowIndex = numOfCommand;
-        //            TableScript_dgv.Update();
-        //            numOfCommand++;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TableScript_dgv.Rows[numOfCommand].Cells[4].Value = $"неудачно({ex.Message})";
-        //    }
-        //}
-        /// <summary>
-        /// Попытка в ориентировку в ВД по объектам
-        /// </summary>
-        /// <param name="windowHandle"></param>
-        /// <param name="title"></param>
-        /// <returns></returns>
-        //private IntPtr findFirstTextBox(IntPtr windowHandle, string title)
-        //{
-        //    IntPtr childHandle = IntPtr.Zero;
-        //    if (windowHandle != IntPtr.Zero)
-        //    {
-        //        if (GetControlText(windowHandle) != title)
-        //            childHandle = GetWindow(windowHandle, (uint)GetWindowType.GW_CHILD);
-        //        if (GetControlText(childHandle) != title)
-        //            childHandle = GetWindow(childHandle, (uint)GetWindowType.GW_CHILD);
-        //        if (GetControlText(childHandle) != title)
-        //            childHandle = GetWindow(childHandle, (uint)GetWindowType.GW_CHILD);
-        //        while (GetControlText(childHandle) != title)
-        //            childHandle = GetWindow(childHandle, (uint)GetWindowType.GW_HWNDNEXT);
-        //    }
-        //    return childHandle;
-        //}
-        /// <summary>
-        /// Попытка в закрытие всплывающего окна (после ввода кода товара)
-        /// </summary>
-        /// <param name="lpClassName"></param>
-        /// <param name="windowName"></param>
-        /// <returns></returns>
-        //private void button1_Click(object sender, EventArgs e)
-        //{
-        //    OpenDCL();
-        //    IntPtr dclWindow = GetForegroundWindow();
-        //    EnterShortcuts(VK_ALT, VK_L);
-        //    EnterShortcut(VK_Y);
-        //    EnterShortcut(VK_L);
-        //    for (int i = 0; i < 6; i++)
-        //    {
-        //        EnterShortcut(VK_TAB);
-        //    }
-        //    EnterShortcut(VK_UP);
-        //    EnterShortcut(VK_RETURN);
-        //    Thread.Sleep(1000);
-        //    IntPtr hwnd = GetForegroundWindow();
-        //    IntPtr findWindow = findFirstTextBox(hwnd, "Экспорт");
-        //    ////SendMessage(findWindow, BM_CLICK, 0, 0);
-        //    if (!GetWindowRect(findWindow, out RECT rct))
-        //    {
-        //        MessageBox.Show("ERROR");
-        //        return;
-        //    }
-
-        //    int xseredina = (rct.xBottomRight + rct.xUpLeft) / 2;
-        //    int yseredina = (rct.yBottomRight + rct.yUpLeft) / 2;
-        //    SendMessage(dclWindow, WM_MOUSEMOVE, (IntPtr)0, MakeParam(xseredina, yseredina));
-        //    DoMouseLeftClick(xseredina, yseredina);
-        //}
         #region native FindWindow, IsIconic, SetForegroundWindow, ShowWindow, WindowFromPoint, SetCursorPos, mouse_event, keybd_event, SendMessage, all const bytes and ints
+        [DllImport("user32.dll", SetLastError = true)]
+        internal static extern bool MoveWindow(IntPtr hWnd, int X, int Y, int nWidth, int nHeight, bool bRepaint);
+        
         [DllImport("user32.dll", SetLastError = true)]
         static extern IntPtr FindWindow(String lpClassName, String windowName);
 
@@ -536,8 +366,8 @@ namespace DclTestFormWPy
         [DllImport("user32.dll", SetLastError = true)]
         public static extern IntPtr SendMessage(int hWnd, int Msg, int wparam, int lparam);
 
-        [DllImport("User32.dll")]
-        public static extern IntPtr GetWindow(IntPtr hwnd, uint uCmd);
+        //[DllImport("User32.dll")]
+        //public static extern IntPtr GetWindow(IntPtr hwnd, uint uCmd);
 
         [DllImport("user32.dll")]
         static extern IntPtr GetFocus();
@@ -549,6 +379,9 @@ namespace DclTestFormWPy
 
         [DllImport("user32.dll", SetLastError = true)]
         static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
+
+        [DllImport("user32.dll")]
+        public static extern void mouse_event(int dsFlags, int dx, int dy, int cButtins, int dsExtraInfo);
 
         public struct RECT
         {

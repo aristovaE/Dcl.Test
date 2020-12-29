@@ -449,33 +449,28 @@ namespace DclTestFormWPy
             //выполнение не смотря на точки останова с начала
             StartScript_btn.Text = "| |";
             int column = 1, row = 1;
-            IntPtr windowFocus = IntPtr.Zero;
             bool IsStop = false;
             IntPtr mainForm = FindWindow(null, "DclTest");
             OpenDCL();
-
+            IntPtr windowFocus = GetForegroundWindow(); 
             for (int numOfCommand = 0; numOfCommand < TableScript_dgv.Rows.Count; numOfCommand++)
             {
-                if (GetForegroundWindow() != mainForm)
-                {
-                    string command = TableScript_dgv.Rows[numOfCommand].Cells[1].Value.ToString();
+                string command = TableScript_dgv.Rows[numOfCommand].Cells[1].Value.ToString();
 
-                    IsStop = DoCommand(command, numOfCommand, column, row, windowFocus, IsStop);
-                    if (command == "в строке")
-                    {
-                        row = Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
-                    }
-                    else if (command == "в столбце")
-                    {
-                        column = Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
-                    }
-                    if (IsStop != false)
-                    {
-                        break;
-                    }
+                IsStop = DoCommand(command, numOfCommand, column, row, windowFocus, IsStop);
+                if (command == "в строке")
+                {
+                    row = Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
                 }
-                else
-                { break; }
+                else if (command == "в столбце")
+                {
+                    column = Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
+                }
+                if (IsStop != false)
+                {
+                    break;
+                }
+
             }
             StartScript_btn.Text = "▶";
         }
@@ -486,10 +481,10 @@ namespace DclTestFormWPy
             tabScripts.SelectedIndex = 1;
             StartScript_btn.Refresh();
             int column = 1, row = 1;
-            IntPtr windowFocus = FindWindow(null, "ВЭД-Декларант");
             bool IsStop = false;
             int numOfCommand = TableScript_dgv.SelectedRows[0].Index;
             OpenDCL();
+            IntPtr windowFocus = GetForegroundWindow();
             while (numOfCommand < TableScript_dgv.Rows.Count)
             {
                 //прерывание, если команда в точке останова
@@ -516,11 +511,11 @@ namespace DclTestFormWPy
             StartScript_btn.Text = "| |";
             StartScript_btn.Refresh();
             int column = 1, row = 1;
-            IntPtr windowFocus = FindWindow(null, "ВЭД-Декларант");
             bool IsStop = false;
             int numOfCommand = TableScript_dgv.SelectedRows[TableScript_dgv.SelectedRows.Count - 1].Index;
             int CountCommand = TableScript_dgv.SelectedRows.Count;
             OpenDCL();
+            IntPtr windowFocus = GetForegroundWindow();
             for (int index = 0; index < CountCommand; index++)
             {
                 //прерывание, если команда в точке останова
