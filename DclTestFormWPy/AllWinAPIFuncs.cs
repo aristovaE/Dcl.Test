@@ -30,6 +30,10 @@ namespace DclTestFormWPy
             }
             return hwnd;
         }
+        /// <summary>
+        ///Переход к указанному полю (f6 - вставка параметра с нужным полем - переход к необходимому полю)
+        /// </summary>
+        /// <param name="numberOfField">Поле, на которое необходимо перейти</param>
         private void FindField(string numberOfField)
         {
             EnterShortcut(VK_F6);
@@ -41,11 +45,15 @@ namespace DclTestFormWPy
             EnterShortcut(VK_RETURN);
         }
 
+        /// <summary>
+        /// Вставка текста, указанного в пераметре
+        /// </summary>
+        /// <param name="windowFocus">Действующее окно</param>
+        /// <param name="strToEnter">Строка, которую надо ввести</param>
         private void EnterText(IntPtr windowFocus, string strToEnter)
         {
             uint ThreadID1 = GetWindowThreadProcessId(FindWindow(null, "DclTest"), out _);
             uint ThreadID2 = GetWindowThreadProcessId(windowFocus, out uint _);
-            bool first = AttachThreadInput(ThreadID1, ThreadID2, true);
             if (IsIconic(windowFocus))
             {
                 ShowWindow(windowFocus, 9); //9 - restore
@@ -55,7 +63,6 @@ namespace DclTestFormWPy
                 SetForegroundWindow(windowFocus);
             }
             SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder(strToEnter));
-            bool second = AttachThreadInput(ThreadID1, ThreadID2, false);
         }
 
         /// <summary>
@@ -92,15 +99,14 @@ namespace DclTestFormWPy
             mouse_event(MOUSEEVENTF_LEFTDOWN, x, y, 0, 0);
             mouse_event(MOUSEEVENTF_LEFTUP, x, y, 0, 0);
         }
+
         /// <summary>
-        /// симуляция передвижения мыши
+        /// Установка мыши в нужное положение и нажатие ЛКМ
         /// </summary>
-        /// <param name="hWnd"></param>
-        /// <param name="screenWidth"></param>
-        /// <param name="screenHeight"></param>
+        /// <param name="pX">Указанный параметр по Х</param>
+        /// <param name="pY">Указанный параметр по Y</param>
         private static void MoveMouseAndClick(int pX, int pY)
         {
-            IntPtr windowDCLMenu = WindowFromPoint(System.Windows.Forms.Cursor.Position = new Point(pX, pY));//Меню - Документ
             Point p = new Point();
             p.X = Convert.ToInt16(pX);  //координаты из inspect exe
             p.Y = Convert.ToInt16(pY);  //поле How found : Mouse Move(47,30) при наведении мышкой на нужное поле
@@ -112,27 +118,10 @@ namespace DclTestFormWPy
             Thread.Sleep(1000);
         }
 
-        [DllImport("user32.dll")]
-        public static extern long SetCursorPos(int x, int y);
-
-        [DllImport("user32.dll")]
-        public static extern IntPtr WindowFromPoint(Point pt);
         /// <summary>
-        /// "помещение разных значений в старшие и в младшие биты"
+        /// Поулчение заголовка (caption) окна
         /// </summary>
-        /// <param name="low"></param>
-        /// <param name="hight"></param>
-        /// <returns></returns>
-        public static IntPtr MakeParam(int low, int hight)
-        {
-            return (IntPtr)((low & 0xFFFF) | (hight << 16));
-        }
-        [DllImport("kernel32.dll")]
-        private static extern IntPtr GetCurrentThread();
-        /// <summary>
-        /// Заголовок (caption) окна
-        /// </summary>
-        /// <param name="hWnd"></param>
+        /// <param name="hWnd">Текущее окно</param>
         /// <returns></returns>
         public static string GetControlText(IntPtr hWnd)
         {
@@ -146,8 +135,17 @@ namespace DclTestFormWPy
 
             return title.ToString();
         }
-        //Location:	{l:-7, t:0, w:974, h:1047}
 
+        /// <summary>
+        /// Выполнение указанной команды через switch {case}
+        /// </summary>
+        /// <param name="command">Сама команда</param>
+        /// <param name="numOfCommand">Номер команды</param>
+        /// <param name="column"> Параметр для команды при перемещении по столбцам</param>
+        /// <param name="row">Параметр для команды при перемещении по строкам</param>
+        /// <param name="windowFocus">Текущее активное окно</param>
+        /// <param name="IsStop">Параметр, указывающий на остановку сценария</param>
+        /// <returns></returns>
         private bool DoCommand(string command, int numOfCommand, ref int column, ref int row, IntPtr windowFocus, bool IsStop)
         {
             int x, y;
@@ -318,11 +316,7 @@ namespace DclTestFormWPy
                 }
                 else if (tabScripts.SelectedIndex == 0)
                 {
-                    //TableScript_dgv.ClearSelection();
-                    //TableScript_dgv.Rows[numOfCommand].Cells[4].Value = "успешно";
-                    //if (numOfCommand + 1 < TableScript_dgv.Rows.Count)
-                    //    TableScript_dgv.Rows[numOfCommand + 1].Selected = true;
-                    //TableScript_dgv.FirstDisplayedScrol
+                    //добавить перемещение по древовидной структуре?
                 }
                 numOfCommand++;
             }
@@ -339,7 +333,7 @@ namespace DclTestFormWPy
 
         }
 
-        #region native FindWindow, IsIconic, SetForegroundWindow, ShowWindow, WindowFromPoint, SetCursorPos, mouse_event, keybd_event, SendMessage, all const bytes and ints
+        #region Все константы, функции WinAPI, структуры
         [DllImport("user32.dll", SetLastError = true)]
         internal static extern bool MoveWindow(IntPtr hWnd, int X, int Y, int nWidth, int nHeight, bool bRepaint);
         
@@ -384,6 +378,21 @@ namespace DclTestFormWPy
         [DllImport("user32.dll")]
         public static extern void mouse_event(int dsFlags, int dx, int dy, int cButtins, int dsExtraInfo);
 
+        [DllImport("user32.dll")]
+        public static extern long SetCursorPos(int x, int y);
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr WindowFromPoint(Point pt);
+        /// <summary>
+        /// "помещение разных значений в старшие и в младшие биты"
+        /// </summary>
+        /// <param name="low"></param>
+        /// <param name="hight"></param>
+        /// <returns></returns>
+        public static IntPtr MakeParam(int low, int hight)
+        {
+            return (IntPtr)((low & 0xFFFF) | (hight << 16));
+        }
         public struct RECT
         {
             public int xUpLeft;        // x position of upper-left corner

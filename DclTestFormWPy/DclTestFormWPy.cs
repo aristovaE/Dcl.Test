@@ -6,6 +6,9 @@ using System.Windows.Forms;
 
 namespace DclTestFormWPy
 {
+    /// <summary>
+    /// Часть кода (взаимодействие с формой)
+    /// </summary>
     public partial class DclTestFormWPy : Form
     {
         public DclTestFormWPy()
