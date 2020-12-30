@@ -148,7 +148,7 @@ namespace DclTestFormWPy
         }
         //Location:	{l:-7, t:0, w:974, h:1047}
 
-        private bool DoCommand(string command, int numOfCommand, int column, int row, IntPtr windowFocus, bool IsStop)
+        private bool DoCommand(string command, int numOfCommand, ref int column, ref int row, IntPtr windowFocus, bool IsStop)
         {
             int x, y;
             string[] xy;
@@ -251,6 +251,7 @@ namespace DclTestFormWPy
                         {
                             EnterShortcut(VK_RIGHT);
                         }
+                        column = Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
                         break;
                     case "в строке":
                         for (int i = row; i < Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString()); i++)

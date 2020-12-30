@@ -14,22 +14,20 @@ namespace DclTestFormWPy
             TableScript_dgv.Rows.Clear();
         }
 
+        /// <summary>
+        /// Очистка столбца Результат в таблице
+        /// </summary>
         private void DeleteAll_btn_Click(object sender, EventArgs e)
         {
-            //удалить весь сценарий
-            //TableScript_dgv.Rows.Clear();
-            //TreeViewOfScript.Nodes.Clear();
-            //StatusStripNameOfFile.Items.Clear();
-            //StatusStripNameOfFile.Items.Add("новый сценарий");
-            //TreeViewOfScript.Nodes.Add("новый сценарий");
-
-            //очистить только столбец "Результат"
             foreach (DataGridViewRow row in TableScript_dgv.Rows)
             {
                 row.Cells[4].Value = null;
             }
         }
 
+        /// <summary>
+        /// Открытие сценария из меню
+        /// </summary>
         private void OpenScriptMenuItem_Click(object sender, EventArgs e)
         {
             if (openFileScript.ShowDialog() == DialogResult.Cancel)
@@ -97,6 +95,9 @@ namespace DclTestFormWPy
             }
         }
 
+        /// <summary>
+        /// Нажатие на ветку в TreeView
+        /// </summary>
         private void TreeViewOfScript_MouseDown(object sender, MouseEventArgs e)
         {
             contextMenuToTreeView.Items.Clear();
@@ -116,14 +117,22 @@ namespace DclTestFormWPy
 
                 ToolStripMenuItem editCommand = new ToolStripMenuItem("Редактировать");
                 contextMenuToTreeView.Items.AddRange(new[] { editCommand });
-                editCommand.Click += editCommand_tv;
+                editCommand.Click += EditCommandToTextBox;
                 return;
             }
         }
-        void editCommand_tv(object sender, EventArgs e)
+
+        /// <summary>
+        /// Перенос команды в поле для редактирования
+        /// </summary>
+        void EditCommandToTextBox(object sender, EventArgs e)
         {
             EditCommand_tb.Text = TreeViewOfScript.SelectedNode.Text;
         }
+
+        /// <summary>
+        /// Открытие шаблона - группы команд и добавление их в ранее открытый сценарий
+        /// </summary>
         private void OpenGroupMenuItem_Click(object sender, EventArgs e)
         {
             if (openFileGroup.ShowDialog() == DialogResult.Cancel)
@@ -192,6 +201,9 @@ namespace DclTestFormWPy
             }
         }
 
+        /// <summary>
+        /// Редактирование команды (замена содержимого команды из поля EditCommand_tb
+        /// </summary>
         private void EditComand_btn_Click(object sender, EventArgs e)
         {
             if (tabScripts.SelectedIndex == 1)
@@ -206,6 +218,9 @@ namespace DclTestFormWPy
             EditCommand_tb.Text = "";
         }
 
+        /// <summary>
+        ///Сохранение сценария через меню в текстовый файл
+        /// </summary>
         private void SaveMenuItem_Click(object sender, EventArgs e)
         {
             if (saveFileScript.ShowDialog() == DialogResult.Cancel)
@@ -232,6 +247,9 @@ namespace DclTestFormWPy
             MessageBox.Show($"Текстовый сценарий \"{name[name.Length - 1]}\" успешно сохранен!");
         }
 
+        /// <summary>
+        /// Выделение команды в таблицы и занесение в EditCommand_tb
+        /// </summary>
         private void TableScript_dgv_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (TableScript_dgv.CurrentRow != null && TableScript_dgv.CurrentRow.Cells[2].Value != null)
@@ -241,6 +259,9 @@ namespace DclTestFormWPy
             }
         }
 
+        /// <summary>
+        /// Добавление новой команды в таблицу и древовидное представление
+        /// </summary>
         private void AddCommand_btn_Click(object sender, EventArgs e)
         {
             //добавление в таблицу
@@ -319,20 +340,26 @@ namespace DclTestFormWPy
             }
         }
 
+        /// <summary>
+        /// Изменение на текстовое поле или выпадающий список в зависимости от индекса выбранного в Command_cmb
+        /// </summary>
         private void Command_cmb_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //команда требующая параметра, написанного вручную
             if (Command_cmb.SelectedIndex > 5 && Command_cmb.SelectedIndex < 11 || Command_cmb.SelectedIndex == 0)
             {
                 Params_cmb.Visible = false;
                 Params_tb.Visible = true;
                 Params_tb.Text = "";
             }
+            //команда требующая параметра, выбранного из списка
             else if (Command_cmb.SelectedIndex == 5)
             {
                 Params_tb.Visible = false;
                 Params_cmb.Visible = true;
                 Params_cmb.SelectedIndex = -1;
             }
+            //команда не требующая параметра
             else
             {
                 Params_cmb.Visible = false;
@@ -340,6 +367,9 @@ namespace DclTestFormWPy
             }
         }
 
+        /// <summary>
+        /// Добавление команды "конец" группы в сценарий
+        /// </summary>
         private void EndGroup_btn_Click(object sender, EventArgs e)
         {
             if (TableScript_dgv.SelectedRows.Count == 0)
@@ -356,6 +386,9 @@ namespace DclTestFormWPy
             }
         }
 
+        /// <summary>
+        /// Удаление команды из сценария
+        /// </summary>
         private void DeleteCommand_btn_Click(object sender, EventArgs e)
         {
             if (tabScripts.SelectedIndex == 0)
@@ -382,35 +415,22 @@ namespace DclTestFormWPy
             }
         }
 
+        /// <summary>
+        /// Пролистывание команды на одну вперед
+        /// </summary>
         private void OneStepForward_btn_Click(object sender, EventArgs e)
         {
-            //int column = 1, row = 1;
-            //IntPtr windowFocus = IntPtr.Zero;
-            //bool IsStop = false;
-            //List<string> commands = new List<string>();
-            //if (tabScripts.SelectedIndex == 1)
-            //{
-            //    string command = TableScript_dgv.Rows[TableScript_dgv.SelectedRows[0].Index].Cells[1].Value.ToString();
-            //    int numOfCommand = TableScript_dgv.SelectedRows[0].Index;
-            //    OpenDCL();
-            //    DoCommand(command, numOfCommand, column, row, windowFocus, IsStop);
-            //}
-            //else if (tabScripts.SelectedIndex == 0)
-            //{
-            //    string command = TableScript_dgv.Rows[Convert.ToInt32(TreeViewOfScript.SelectedNode.Tag.ToString()) - 1].Cells[1].Value.ToString();
-            //    int numOfCommand = Convert.ToInt32(TreeViewOfScript.SelectedNode.Tag.ToString()) - 1;
-            //    OpenDCL();
-            //    DoCommand(command, numOfCommand, column, row, windowFocus, IsStop);
-            //}
             int numOfCommand = TableScript_dgv.SelectedRows[0].Index;
             TableScript_dgv.ClearSelection();
             if (numOfCommand + 1 < TableScript_dgv.Rows.Count)
                 TableScript_dgv.Rows[numOfCommand + 1].Selected = true;
             TableScript_dgv.FirstDisplayedScrollingRowIndex = numOfCommand;
             TableScript_dgv.Update();
-
         }
 
+        /// <summary>
+        /// Пролистывание команды на одну назад
+        /// </summary>
         private void OneStepBackward_btn_Click(object sender, EventArgs e)
         {
             int numOfCommand = TableScript_dgv.SelectedRows[0].Index;
@@ -422,24 +442,13 @@ namespace DclTestFormWPy
             }
             TableScript_dgv.Update();
         }
-        private void DoCommandInAllCases(int numOfCommand, ref bool IsStop, ref int column, ref int row, IntPtr windowFocus)
-        {
-            string command = TableScript_dgv.Rows[numOfCommand].Cells[1].Value.ToString();
 
-            IsStop = DoCommand(command, numOfCommand, column, row, windowFocus, IsStop);
-            if (command == "в строке")
-            {
-                row = Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
-            }
-            else if (command == "в столбце")
-            {
-                column = Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
-            }
-
-        }
+        /// <summary>
+        ///Выполнение сценария с начала без точек останова
+        ///ТРЕБУЕТ ОПТИМИЗАЦИИ
+        /// </summary>
         private void FromTheBeginning_btn_Click(object sender, EventArgs e)
         {
-            
             //выполнение не смотря на точки останова с начала
             StartScript_btn.Text = "| |";
             int column = 1, row = 1;
@@ -448,7 +457,8 @@ namespace DclTestFormWPy
             IntPtr windowFocus = GetForegroundWindow();
             for (int numOfCommand = 0; numOfCommand < TableScript_dgv.Rows.Count; numOfCommand++)
             {
-                DoCommandInAllCases(numOfCommand,ref IsStop, ref column, ref row, windowFocus);
+                string command = TableScript_dgv.Rows[numOfCommand].Cells[1].Value.ToString();
+                IsStop = DoCommand(command, numOfCommand, ref column, ref row, windowFocus, IsStop);
                 if (IsStop != false)
                 {
                     break;
@@ -458,9 +468,13 @@ namespace DclTestFormWPy
             StartScript_btn.Text = "▶";
         }
 
+        /// <summary>
+        /// Выполнение сценария до ближайшей точки останова
+        ///ТРЕБУЕТ ОПТИМИЗАЦИИ
+        /// </summary>
         private void StartScript_btn_Click(object sender, EventArgs e)
         {
-
+            StartScript_btn.Text = "| |";
             tabScripts.SelectedIndex = 1;
             StartScript_btn.Refresh();
             int column = 1, row = 1;
@@ -473,16 +487,21 @@ namespace DclTestFormWPy
                 //прерывание, если команда в точке останова
                 if ((Boolean)TableScript_dgv.Rows[numOfCommand].Cells[5].EditedFormattedValue == true)
                 { break; }
-                DoCommandInAllCases(numOfCommand, ref IsStop, ref column, ref row, windowFocus);
+                string command = TableScript_dgv.Rows[numOfCommand].Cells[1].Value.ToString();
+                IsStop = DoCommand(command, numOfCommand, ref column, ref row, windowFocus, IsStop);
                 if (IsStop != false)
                 {
                     break;
                 }
                 numOfCommand++;
             }
-
             StartScript_btn.Text = "▶";
         }
+
+        /// <summary>
+        /// Выполнение сценария из выделенных пользователем команд
+        ///ТРЕБУЕТ ОПТИМИЗАЦИИ
+        /// </summary>
         private void DoSelectStartScript_btn_Click(object sender, EventArgs e)
         {
             StartScript_btn.Text = "| |";
@@ -496,19 +515,21 @@ namespace DclTestFormWPy
             for (int index = 0; index < CountCommand; index++)
             {
                 string command = TableScript_dgv.Rows[numOfCommand].Cells[1].Value.ToString();
-
-                DoCommandInAllCases(numOfCommand, ref IsStop, ref column, ref row, windowFocus);
+                IsStop = DoCommand(command, numOfCommand, ref column, ref row, windowFocus, IsStop);
                 if (IsStop != false)
                 {
                     break;
                 }
                 numOfCommand++;
             }
-
             StartScript_btn.Text = "▶";
-
         }
 
+        /// <summary>
+        /// Нажатие ПКМ по кнопке старта сценария
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void StartScript_btn_MouseDown(object sender, MouseEventArgs e)
         {
             contextMenuToStart.Items.Clear();
