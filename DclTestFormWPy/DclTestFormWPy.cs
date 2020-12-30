@@ -422,50 +422,33 @@ namespace DclTestFormWPy
             }
             TableScript_dgv.Update();
         }
-        private void DoCommandThread()
+        private void DoCommandInAllCases(int numOfCommand, ref bool IsStop, ref int column, ref int row, IntPtr windowFocus)
         {
+            string command = TableScript_dgv.Rows[numOfCommand].Cells[1].Value.ToString();
+
+            IsStop = DoCommand(command, numOfCommand, column, row, windowFocus, IsStop);
+            if (command == "в строке")
+            {
+                row = Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
+            }
+            else if (command == "в столбце")
+            {
+                column = Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
+            }
 
         }
         private void FromTheBeginning_btn_Click(object sender, EventArgs e)
         {
-            //if (this.InvokeRequired)
-            //{
-            //    IAsyncResult result = BeginInvoke(new MethodInvoker(delegate ()
-            //    {
-            //        DoCommandThread();
-            //    }));
-
-            //    // wait until invocation is completed
-            //    EndInvoke(result);
-            //}
-            //else if (this.IsHandleCreated)
-            //{
-            //    DoCommandThread();
-            //}
-            //Task.Factory.StartNew(() =>
-            //{
-            //    DoCommand(commands, 0);
-            //});// попытка в потоки - не работает SendMessage()
+            
             //выполнение не смотря на точки останова с начала
             StartScript_btn.Text = "| |";
             int column = 1, row = 1;
             bool IsStop = false;
-            IntPtr mainForm = FindWindow(null, "DclTest");
             OpenDCL();
-            IntPtr windowFocus = GetForegroundWindow(); 
+            IntPtr windowFocus = GetForegroundWindow();
             for (int numOfCommand = 0; numOfCommand < TableScript_dgv.Rows.Count; numOfCommand++)
             {
-                string command = TableScript_dgv.Rows[numOfCommand].Cells[1].Value.ToString();
-
-                IsStop = DoCommand(command, numOfCommand, column, row, windowFocus, IsStop);
-                if (command == "в строке")
-                {
-                    row = Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
-                }
-                else if (command == "в столбце")
-                {
-                    column = Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
-                }
+                DoCommandInAllCases(numOfCommand,ref IsStop, ref column, ref row, windowFocus);
                 if (IsStop != false)
                 {
                     break;
@@ -490,17 +473,11 @@ namespace DclTestFormWPy
                 //прерывание, если команда в точке останова
                 if ((Boolean)TableScript_dgv.Rows[numOfCommand].Cells[5].EditedFormattedValue == true)
                 { break; }
-                string command = TableScript_dgv.Rows[numOfCommand].Cells[1].Value.ToString();
-
-                IsStop = DoCommand(command, numOfCommand, column, row, windowFocus, IsStop);
+                DoCommandInAllCases(numOfCommand, ref IsStop, ref column, ref row, windowFocus);
                 if (IsStop != false)
                 {
                     break;
                 }
-
-                //прерывание, если последняя выполненная команда в точке останова
-                //if ((Boolean)TableScript_dgv.Rows[numOfCommand].Cells[5].EditedFormattedValue == true)
-                //{ break; }
                 numOfCommand++;
             }
 
@@ -518,13 +495,9 @@ namespace DclTestFormWPy
             IntPtr windowFocus = GetForegroundWindow();
             for (int index = 0; index < CountCommand; index++)
             {
-                //прерывание, если команда в точке останова
-                if ((Boolean)TableScript_dgv.Rows[numOfCommand].Cells[5].EditedFormattedValue == true)
-                { break; }
-
                 string command = TableScript_dgv.Rows[numOfCommand].Cells[1].Value.ToString();
 
-                IsStop = DoCommand(command, numOfCommand, column, row, windowFocus, IsStop);
+                DoCommandInAllCases(numOfCommand, ref IsStop, ref column, ref row, windowFocus);
                 if (IsStop != false)
                 {
                     break;
