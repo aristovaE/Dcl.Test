@@ -268,22 +268,27 @@ namespace DclTestFormWPy
         private void AddCommand_btn_Click(object sender, EventArgs e)
         {
             //добавление в таблицу
+            //не выделена строка в таблице -> добавление в конец сценария
             if (TableScript_dgv.SelectedRows.Count == 0)
             {
                 if (Command_cmb.SelectedItem != null)
                 {
+                    //команды, где есть параметры
                     if (Command_cmb.SelectedIndex > 6 && Command_cmb.SelectedIndex < 13 || Command_cmb.SelectedIndex == 0)
                     {
+                        //параметр из текстового поля
                         if (Params_cmb.Visible == false)
                         {
                             if (Params_tb.Text != "")
                                 TableScript_dgv.Rows.Add(TableScript_dgv.RowCount + 1, Command_cmb.SelectedItem.ToString(), Params_tb.Text);
                             else MessageBox.Show("Для данной команды необходимо ввести значение");
                         }
+                        //параметр из выпадающего списка
                         else if (Params_cmb.SelectedIndex != -1)
                             TableScript_dgv.Rows.Add(TableScript_dgv.RowCount + 1, Command_cmb.SelectedItem.ToString(), Params_cmb.SelectedItem.ToString());
                         else MessageBox.Show("Для данной команды необходимо выбрать значение");
                     }
+                    // команда "нажать в точке" с параметром Х и Y
                     else if (Command_cmb.SelectedIndex == 22)
                     {
                         if (Params_cmb.Visible == false)
@@ -298,33 +303,34 @@ namespace DclTestFormWPy
                     {
                         TableScript_dgv.Rows.Add(TableScript_dgv.RowCount + 1, Command_cmb.SelectedItem.ToString());
                     }
+                    TableScript_dgv.Rows[TableScript_dgv.RowCount - 1].Cells[3].Value = Commands.CheckDescription(TableScript_dgv.Rows[TableScript_dgv.RowCount - 1].Cells[1].Value.ToString());
                 }
-                TableScript_dgv.Rows[TableScript_dgv.RowCount - 1].Cells[3].Value = Commands.CheckDescription(TableScript_dgv.Rows[TableScript_dgv.RowCount - 1].Cells[1].Value.ToString());
             }
+            //выделена минимум одна строка -> добавление в середину сценария после выделенной строки
             else
             {
                 if (Command_cmb.SelectedItem != null)
                 {
+                    //команды, где есть параметры
                     if (Command_cmb.SelectedIndex > 6 && Command_cmb.SelectedIndex < 13 || Command_cmb.SelectedIndex == 0)
                     {
                         if (Params_cmb.Visible == false)
                         {
+                            //параметр из текстового поля
                             if (Params_tb.Text != "")
                                 TableScript_dgv.Rows.Insert(TableScript_dgv.SelectedCells[0].RowIndex + 1, TableScript_dgv.Rows.Count + 1, Command_cmb.SelectedItem.ToString(), Params_tb.Text);
                             else MessageBox.Show("Для данной команды необходимо ввести значение");
                         }
+                        //параметр из выпадающего списка
                         else if (Params_cmb.SelectedIndex != -1)
                             TableScript_dgv.Rows.Insert(TableScript_dgv.SelectedCells[0].RowIndex + 1, TableScript_dgv.Rows.Count + 1, Command_cmb.SelectedItem.ToString(), Params_cmb.SelectedItem.ToString());
                         else MessageBox.Show("Для данной команды необходимо выбрать значение");
                     }
+                    // команда "нажать в точке" с параметром Х и Y
                     else if (Command_cmb.SelectedIndex == 22)
                     {
-                        if (Params_cmb.Visible == false)
-                        {
-                            if (CoordX_tb.Text != "" && CoordY_tb.Text != "")
-                                TableScript_dgv.Rows.Insert(TableScript_dgv.SelectedCells[0].RowIndex + 1, TableScript_dgv.Rows.Count + 1,Command_cmb.SelectedItem.ToString(), CoordX_tb.Text.ToString() + ";" + CoordY_tb.Text.ToString());
-                            else MessageBox.Show("Для данной команды необходимо ввести значение");
-                        }
+                        if (CoordX_tb.Text != "" && CoordY_tb.Text != "")
+                            TableScript_dgv.Rows.Insert(TableScript_dgv.SelectedCells[0].RowIndex + 1, TableScript_dgv.Rows.Count + 1, Command_cmb.SelectedItem.ToString(), CoordX_tb.Text.ToString() + ";" + CoordY_tb.Text.ToString());
                         else MessageBox.Show("Для данной команды необходимо выбрать значения Х и Y");
                     }
                     else
