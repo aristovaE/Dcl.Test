@@ -135,7 +135,28 @@ namespace DclTestFormWPy
 
             return title.ToString();
         }
-
+        /// <summary>
+        /// Попытка в ориентировку в ВД по объектам
+        /// </summary>
+        /// <param name="windowHandle"></param>
+        /// <param name="title"></param>
+        /// <returns></returns>
+        private IntPtr findFirstTextBox(IntPtr windowHandle, string title)
+        {
+            IntPtr childHandle = IntPtr.Zero;
+            if (windowHandle != IntPtr.Zero)
+            {
+                if (GetControlText(windowHandle) != title)
+                    childHandle = GetWindow(windowHandle, (uint)GetWindowType.GW_CHILD);
+                if (GetControlText(childHandle) != title)
+                    childHandle = GetWindow(childHandle, (uint)GetWindowType.GW_CHILD);
+                if (GetControlText(childHandle) != title)
+                    childHandle = GetWindow(childHandle, (uint)GetWindowType.GW_CHILD);
+                while (GetControlText(childHandle) != title)
+                    childHandle = GetWindow(childHandle, (uint)GetWindowType.GW_HWNDNEXT);
+            }
+            return childHandle;
+        }
         /// <summary>
         /// Выполнение указанной команды через switch {case}
         /// </summary>
@@ -296,13 +317,21 @@ namespace DclTestFormWPy
                         break;
 
                     case "ширина окна ВД":
-                        xy = TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString().Split(';');
-                        x = Convert.ToInt32(xy[0]);
-                        y = Convert.ToInt32(xy[1]);
-
-                        MoveWindow(windowFocus,-7,0,x,y,true);
+                        IntPtr hwnd = GetForegroundWindow();
+                        MoveWindow(hwnd, -7,0,974,1047,true);
                         break;
-
+                    case "gfw":
+                        //5 раз previous window while getcontroltext contains "вэд декларант..." 
+                        IntPtr hwndd= GetForegroundWindow();
+                        //IntPtr hwndd = windowFocus;
+                        //do
+                        //{
+                        //    hwnd = GetWindow(hwnd, (uint)GetWindowType.GW_HWNDPREV);
+                        //} while (GetControlText(hwnd).Contains("ВЭД-Декларант"));
+                        //xy = TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString().Split(';');
+                        //x = Convert.ToInt32(xy[0]);
+                        //y = Convert.ToInt32(xy[1]);
+                        break;
                 }
                 //перелистывание в таблице
                 if (tabScripts.SelectedIndex == 1)
@@ -334,6 +363,8 @@ namespace DclTestFormWPy
         }
 
         #region Все константы, функции WinAPI, структуры
+        [DllImport("User32.dll")]
+        public static extern IntPtr GetWindow(IntPtr hwnd, uint uCmd);
         [DllImport("user32.dll", SetLastError = true)]
         internal static extern bool MoveWindow(IntPtr hWnd, int X, int Y, int nWidth, int nHeight, bool bRepaint);
         
