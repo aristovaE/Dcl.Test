@@ -316,21 +316,23 @@ namespace DclTestFormWPy
                         MoveMouseAndClick(x, y);
                         break;
 
-                    case "ширина окна ВД":
+                    case "ширина окна":
                         IntPtr hwnd = GetForegroundWindow();
-                        MoveWindow(hwnd, -7,0,974,1047,true);
+                        switch (TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString())
+                        {
+                            case "ВЭД-Декларант":
+                                MoveWindow(hwnd, -7, 0, 974, 1047, true);
+                                break;
+                            case "Создание ДТ":
+                                MoveWindow(hwnd, 248, 185, 463, 676, true);
+                                break;
+                            case "Таможенные процедуры":
+                                MoveWindow(hwnd, 133, 276, 694, 494, true);
+                                break;
+                        }
                         break;
                     case "gfw":
-                        //5 раз previous window while getcontroltext contains "вэд декларант..." 
                         IntPtr hwndd= GetForegroundWindow();
-                        //IntPtr hwndd = windowFocus;
-                        //do
-                        //{
-                        //    hwnd = GetWindow(hwnd, (uint)GetWindowType.GW_HWNDPREV);
-                        //} while (GetControlText(hwnd).Contains("ВЭД-Декларант"));
-                        //xy = TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString().Split(';');
-                        //x = Convert.ToInt32(xy[0]);
-                        //y = Convert.ToInt32(xy[1]);
                         break;
                 }
                 //перелистывание в таблице
