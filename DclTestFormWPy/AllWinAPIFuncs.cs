@@ -54,6 +54,7 @@ namespace DclTestFormWPy
         {
             uint ThreadID1 = GetWindowThreadProcessId(FindWindow(null, "DclTest"), out _);
             uint ThreadID2 = GetWindowThreadProcessId(windowFocus, out uint _);
+            AttachThreadInput(ThreadID1, ThreadID2, true);
             if (IsIconic(windowFocus))
             {
                 ShowWindow(windowFocus, 9); //9 - restore
@@ -63,6 +64,7 @@ namespace DclTestFormWPy
                 SetForegroundWindow(windowFocus);
             }
             SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder(strToEnter));
+            AttachThreadInput(ThreadID1, ThreadID2, false);
         }
 
         /// <summary>
@@ -107,9 +109,11 @@ namespace DclTestFormWPy
         /// <param name="pY">Указанный параметр по Y</param>
         private static void MoveMouseAndClick(int pX, int pY)
         {
-            Point p = new Point();
-            p.X = Convert.ToInt16(pX);  //координаты из inspect exe
-            p.Y = Convert.ToInt16(pY);  //поле How found : Mouse Move(47,30) при наведении мышкой на нужное поле
+            Point p = new Point
+            {
+                X = Convert.ToInt16(pX),  //координаты из inspect exe
+                Y = Convert.ToInt16(pY)  //поле How found : Mouse Move(47,30) при наведении мышкой на нужное поле
+            };
             //ClientToScreen(windowDCLMenu, ref p);
             SetCursorPos(p.X, p.Y);
 
