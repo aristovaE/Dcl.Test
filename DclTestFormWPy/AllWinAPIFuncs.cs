@@ -249,7 +249,13 @@ namespace DclTestFormWPy
                         EnterShortcuts(VK_CTRL, VK_F8);
                         break;
                     case "перейти вперед":
-                        EnterShortcut(VK_TAB);
+                        if (TableScript_dgv.Rows[numOfCommand].Cells[2].Value != null)
+                        {
+                            for (int i = 0; i < Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString()); i++)
+                            { EnterShortcut(VK_TAB); }
+                        }
+                        else
+                            EnterShortcut(VK_TAB);
                         break;
 
                     case "перейти назад":
