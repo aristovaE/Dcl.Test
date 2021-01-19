@@ -236,6 +236,9 @@ namespace DclTestFormWPy
                         }
                         break;
 
+                    case "прочитать с диска из формата XML":
+                        EnterShortcuts(VK_SHIFT, VK_F7);
+                        break;
                     case "перейти вперед":
                         EnterShortcut(VK_TAB);
                         break;
@@ -330,6 +333,9 @@ namespace DclTestFormWPy
                                     break;
                                 case "Таможенные процедуры":
                                     MoveWindow(hwnd, 133, 276, 694, 494, true);
+                                    break;
+                                case "Прочитать с диска из формата XML":
+                                    MoveWindow(hwnd, 78, 274, 804, 498, true);
                                     break;
                                 default:
                                     if (GetControlText(hwnd).Contains("версия") == true)
@@ -479,6 +485,7 @@ namespace DclTestFormWPy
         const byte VK_F4 = 0x73;
         const byte VK_F5 = 0x74;
         const byte VK_F6 = 0x75;
+        const byte VK_F7 = 0x76;
         const byte VK_F9 = 0x78;
         public const int WM_SETTEXT = 0x000C;
         public const int BM_CLICK = 0x00F5;
