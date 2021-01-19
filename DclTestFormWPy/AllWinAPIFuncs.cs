@@ -175,7 +175,7 @@ namespace DclTestFormWPy
         {
             int x, y;
             string[] xy;
-            
+
             //while ((long)GetForegroundWindow() == (long)FindWindow(null, "ВЭД-Декларант"))
             //{
             try
@@ -290,7 +290,6 @@ namespace DclTestFormWPy
                         EnterText(GetForegroundWindow(), TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
                         EnterShortcut(VK_RETURN);
                         EnterShortcut(VK_ESCAPE);
-
                         EnterShortcut(VK_RETURN);
                         break;
 
@@ -336,11 +335,10 @@ namespace DclTestFormWPy
                                     if (GetControlText(hwnd).Contains("версия") == true)
                                         MoveWindow(hwnd, -7, 0, 974, 1047, true);
                                     break;
-
                             }
                         }
                         windowFocus = hwnd;
-                        //сделать проверку на то какое окно активное - и тогда подстраивать его под себя (убрать команду ширина окна)
+                        //сделать проверку на то какое окно активное - и тогда подстраивать его под себя 
                         xy = TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString().Split(';');
                         x = Convert.ToInt32(xy[0]);
                         y = Convert.ToInt32(xy[1]);
@@ -382,7 +380,7 @@ namespace DclTestFormWPy
         public static extern IntPtr GetWindow(IntPtr hwnd, uint uCmd);
         [DllImport("user32.dll", SetLastError = true)]
         internal static extern bool MoveWindow(IntPtr hWnd, int X, int Y, int nWidth, int nHeight, bool bRepaint);
-        
+
         [DllImport("user32.dll", SetLastError = true)]
         static extern IntPtr FindWindow(String lpClassName, String windowName);
 
