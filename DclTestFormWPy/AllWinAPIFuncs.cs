@@ -242,6 +242,12 @@ namespace DclTestFormWPy
                     case "записать на диск в формате XML":
                         EnterShortcuts(VK_CTRL, VK_F7);
                         break;
+                    case "прочитать с диска из формата СТМ":
+                        EnterShortcuts(VK_SHIFT, VK_F8);
+                        break;
+                    case "записать на диск в формате СТМ":
+                        EnterShortcuts(VK_CTRL, VK_F8);
+                        break;
                     case "перейти вперед":
                         EnterShortcut(VK_TAB);
                         break;
@@ -489,6 +495,7 @@ namespace DclTestFormWPy
         const byte VK_F5 = 0x74;
         const byte VK_F6 = 0x75;
         const byte VK_F7 = 0x76;
+        const byte VK_F8 = 0x77;
         const byte VK_F9 = 0x78;
         public const int WM_SETTEXT = 0x000C;
         public const int BM_CLICK = 0x00F5;
