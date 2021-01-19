@@ -239,6 +239,9 @@ namespace DclTestFormWPy
                     case "прочитать с диска из формата XML":
                         EnterShortcuts(VK_SHIFT, VK_F7);
                         break;
+                    case "записать на диск в формате XML":
+                        EnterShortcuts(VK_CTRL, VK_F7);
+                        break;
                     case "перейти вперед":
                         EnterShortcut(VK_TAB);
                         break;
