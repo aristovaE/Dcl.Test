@@ -267,6 +267,11 @@ namespace DclTestFormWPy
         /// </summary>
         private void AddCommand_btn_Click(object sender, EventArgs e)
         {
+            //переменные, чтобы при добавлении новых команд в выпадающий списк Command_cmb не менять в коде позиции различных команд (с и без параметра / с параметром в списке / с параметром в поле)
+            int index_CommandWithParams_First = 6;
+            int index_CommandWithParams_Last = 13;
+            int index_CommandWithTwoParams = 22;
+
             //добавление в таблицу
             //не выделена строка в таблице -> добавление в конец сценария
             if (TableScript_dgv.SelectedRows.Count == 0)
@@ -274,7 +279,7 @@ namespace DclTestFormWPy
                 if (Command_cmb.SelectedItem != null)
                 {
                     //команды, где есть параметры
-                    if (Command_cmb.SelectedIndex > 6 && Command_cmb.SelectedIndex < 13 || Command_cmb.SelectedIndex == 0)
+                    if (Command_cmb.SelectedIndex > index_CommandWithParams_First && Command_cmb.SelectedIndex < index_CommandWithParams_Last || Command_cmb.SelectedIndex == 0)
                     {
                         //параметр из текстового поля
                         if (Params_cmb.Visible == false)
@@ -289,7 +294,7 @@ namespace DclTestFormWPy
                         else MessageBox.Show("Для данной команды необходимо выбрать значение");
                     }
                     // команда "нажать в точке" с параметром Х и Y
-                    else if (Command_cmb.SelectedIndex == 22)
+                    else if (Command_cmb.SelectedIndex == index_CommandWithTwoParams)
                     {
                         if (Params_cmb.Visible == false)
                         {
@@ -299,6 +304,7 @@ namespace DclTestFormWPy
                         }
                         else MessageBox.Show("Для данной команды необходимо выбрать значения Х и Y");
                     }
+                    //команда без параметра
                     else
                     {
                         TableScript_dgv.Rows.Add(TableScript_dgv.RowCount + 1, Command_cmb.SelectedItem.ToString());
@@ -312,7 +318,7 @@ namespace DclTestFormWPy
                 if (Command_cmb.SelectedItem != null)
                 {
                     //команды, где есть параметры
-                    if (Command_cmb.SelectedIndex > 6 && Command_cmb.SelectedIndex < 13 || Command_cmb.SelectedIndex == 0)
+                    if (Command_cmb.SelectedIndex > index_CommandWithParams_First && Command_cmb.SelectedIndex < index_CommandWithParams_Last || Command_cmb.SelectedIndex == 0)
                     {
                         if (Params_cmb.Visible == false)
                         {
@@ -327,12 +333,13 @@ namespace DclTestFormWPy
                         else MessageBox.Show("Для данной команды необходимо выбрать значение");
                     }
                     // команда "нажать в точке" с параметром Х и Y
-                    else if (Command_cmb.SelectedIndex == 22)
+                    else if (Command_cmb.SelectedIndex == index_CommandWithTwoParams)
                     {
                         if (CoordX_tb.Text != "" && CoordY_tb.Text != "")
                             TableScript_dgv.Rows.Insert(TableScript_dgv.SelectedCells[0].RowIndex + 1, TableScript_dgv.Rows.Count + 1, Command_cmb.SelectedItem.ToString(), CoordX_tb.Text.ToString() + ";" + CoordY_tb.Text.ToString());
                         else MessageBox.Show("Для данной команды необходимо выбрать значения Х и Y");
                     }
+                    //команда без параметра
                     else
                     {
                         TableScript_dgv.Rows.Insert(TableScript_dgv.SelectedCells[0].RowIndex + 1, TableScript_dgv.Rows.Count + 1, Command_cmb.SelectedItem.ToString());
@@ -353,7 +360,7 @@ namespace DclTestFormWPy
             //добавление в тривью
             if (Command_cmb.SelectedItem != null)
             {
-                if (Command_cmb.SelectedIndex > 6 && Command_cmb.SelectedIndex < 13 || Command_cmb.SelectedIndex == 0)
+                if (Command_cmb.SelectedIndex > index_CommandWithParams_First && Command_cmb.SelectedIndex < index_CommandWithParams_Last || Command_cmb.SelectedIndex == 0)
                 {
                     if (Params_cmb.Visible == false)
                     {
