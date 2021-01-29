@@ -295,10 +295,10 @@
             "",
             "нажать в точке",
             "",
-            "прочитать с диска из формата XML",
-            "записать на диск в формате XML",
-            "прочитать с диска из формата СТМ",
-            "записать на диск в формате СТМ"});
+            "прочитать из XML",
+            "записать в XML",
+            "прочитать из СТМ",
+            "записать в СТМ"});
             this.Command_cmb.Location = new System.Drawing.Point(10, 22);
             this.Command_cmb.Name = "Command_cmb";
             this.Command_cmb.Size = new System.Drawing.Size(148, 21);
