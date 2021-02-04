@@ -63,8 +63,33 @@ namespace DclTestFormWPy
             {
                 SetForegroundWindow(windowFocus);
             }
+            
             SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder(strToEnter));
             AttachThreadInput(ThreadID1, ThreadID2, false);
+        }
+
+        /// <summary>
+        /// Вставка текста, указанного в пераметре
+        /// </summary>
+        /// <param name="windowFocus">Действующее окно</param>
+        /// <param name="strToEnter">Строка, которую надо ввести</param>
+        private IntPtr GetFocus(IntPtr windowFocus)
+        {
+            uint ThreadID1 = GetWindowThreadProcessId(FindWindow(null, "DclTest"), out _);
+            uint ThreadID2 = GetWindowThreadProcessId(windowFocus, out uint _);
+            AttachThreadInput(ThreadID1, ThreadID2, true);
+            if (IsIconic(windowFocus))
+            {
+                ShowWindow(windowFocus, 9); //9 - restore
+            }
+            else
+            {
+                SetForegroundWindow(windowFocus);
+            }
+            IntPtr gf = GetFocus();
+            AttachThreadInput(ThreadID1, ThreadID2, false);
+
+            return gf;
         }
 
         /// <summary>
@@ -136,7 +161,6 @@ namespace DclTestFormWPy
                 return String.Empty;
             StringBuilder title = new StringBuilder(titleSize + 1);
             SendMessage(hWnd, (int)WM_GETTEXT, title.Capacity, title);
-
             return title.ToString();
         }
         /// <summary>
@@ -171,11 +195,9 @@ namespace DclTestFormWPy
         /// <param name="windowFocus">Текущее активное окно</param>
         /// <param name="IsStop">Параметр, указывающий на остановку сценария</param>
         /// <returns></returns>
-        private bool DoCommand(string command, int numOfCommand, ref int column, ref int row, IntPtr windowFocus, bool IsStop)
+        private bool DoCommand(string command, ref int numOfCommand, ref int column, ref int row, IntPtr windowFocus, bool IsStop)
         {
-            int x, y;
-            string[] xy;
-
+            string[] arguments;
             //while ((long)GetForegroundWindow() == (long)FindWindow(null, "ВЭД-Декларант"))
             //{
             try
@@ -360,11 +382,42 @@ namespace DclTestFormWPy
                         }
                         windowFocus = hwnd;
                         //сделать проверку на то какое окно активное - и тогда подстраивать его под себя 
-                        xy = TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString().Split(';');
-                        x = Convert.ToInt32(xy[0]);
-                        y = Convert.ToInt32(xy[1]);
+                        arguments = TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString().Split(';');
+                        int x = Convert.ToInt32(arguments[0]);
+                        int y = Convert.ToInt32(arguments[1]);
 
                         MoveMouseAndClick(x, y);
+                        break;
+
+                    case "если":
+                        arguments = TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString().Split(';');
+                        FindField(arguments[0]);
+                        SetForegroundWindow(windowFocus);
+                        string textIn = GetControlText(GetFocus(GetForegroundWindow()));
+                        if (textIn == arguments[1])
+                        {
+
+                        }
+                        else numOfCommand++;
+                        break;
+
+                    case "то":
+                        if (TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString() == "продолжить")
+                        {
+                            numOfCommand++;
+                        }
+                        break;
+
+                    case "иначе":
+                        if (TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString() == "ошибка")
+                        {
+                            MessageBox.Show(
+                                "Сценарий остановлен", 
+                                "Сообщение об ошибке", 
+                                MessageBoxButtons.OK, 
+                                MessageBoxIcon.Error);
+                            IsStop = true;
+                        }
                         break;
                 }
                 //перелистывание в таблице
@@ -381,18 +434,19 @@ namespace DclTestFormWPy
                 {
                     //добавить перемещение по древовидной структуре?
                 }
-                numOfCommand++;
+                //numOfCommand++;
             }
             catch (Exception ex)
             {
                 TableScript_dgv.Rows[numOfCommand].Cells[4].Value = $"неудачно({ex.Message})";
             }
             //}
-            if (IsStop == true)
-            {
-                return true;
-            }
-            else return false;
+            //if (IsStop == true)
+            //{
+            //    return true;
+            //}
+            //else 
+            return IsStop;
 
         }
 
