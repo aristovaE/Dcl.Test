@@ -17,6 +17,8 @@ namespace DclTestFormWPy
             TableScript_dgv.Rows.Clear();
         }
 
+        int WidthForm = 775;
+        int HeightForm = 355;
         /// <summary>
         /// Очистка столбца Результат в таблице
         /// </summary>
@@ -606,6 +608,68 @@ namespace DclTestFormWPy
 
             tabScripts.SelectedIndex = 1;
             return;
+        }
+
+        private void редактированиеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            add_gb.Visible = true;
+            del_gb.Visible = true;
+            edit_gb.Visible = true;
+            search_gb.Visible = false;
+            ClientSize = new System.Drawing.Size(WidthForm+250,HeightForm);
+        }
+
+        private void скрытьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            add_gb.Visible = false;
+            del_gb.Visible = false;
+            edit_gb.Visible = false;
+            search_gb.Visible = false;
+            ClientSize = new System.Drawing.Size(WidthForm, HeightForm);
+        }
+
+        private void поискToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            add_gb.Visible = false;
+            del_gb.Visible = false;
+            edit_gb.Visible = false;
+            search_gb.Visible = true;
+            ClientSize = new System.Drawing.Size(WidthForm + 250, HeightForm);
+        }
+
+        private void Search_btn_Click(object sender, EventArgs e)
+        {
+            if (search_tb.Text != "") 
+            {
+                string search = search_tb.Text;
+                if (TableScript_dgv.Rows.Count != 0)
+                {
+                    for (int numOfCommand = 0; numOfCommand < TableScript_dgv.Rows.Count; numOfCommand++)
+                    {
+                        if (TableScript_dgv.Rows[numOfCommand].Cells[1].Value.ToString().Contains(search))
+                        {
+                            TableScript_dgv.Rows[numOfCommand].Selected = true;
+                        }
+                        else if (TableScript_dgv.Rows[numOfCommand].Cells[2].Value != null)
+                        {
+                            if (TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString().Contains(search))
+                            {
+                                TableScript_dgv.Rows[numOfCommand].Selected = true;
+                            }
+                        }
+
+                    }
+                    ClearSearch_btn.Visible = true;
+                }
+                else MessageBox.Show("Не открыт ни один сценарий!");
+            }
+            else MessageBox.Show("Строка поиска пуста!");
+        }
+
+        private void ClearSearch_btn_Click(object sender, EventArgs e)
+        {
+            TableScript_dgv.ClearSelection();
+            ClearSearch_btn.Visible = false;
         }
     }
 }
