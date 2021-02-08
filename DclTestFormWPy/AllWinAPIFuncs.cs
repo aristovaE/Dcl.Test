@@ -63,7 +63,7 @@ namespace DclTestFormWPy
             {
                 SetForegroundWindow(windowFocus);
             }
-            
+
             SendMessage(GetFocus(), WM_SETTEXT, 0, new StringBuilder(strToEnter));
             AttachThreadInput(ThreadID1, ThreadID2, false);
         }
@@ -390,15 +390,18 @@ namespace DclTestFormWPy
                         break;
 
                     case "если":
-                        arguments = TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString().Split(';');
-                        FindField(arguments[0]);
-                        SetForegroundWindow(windowFocus);
-                        string textIn = GetControlText(GetFocus(GetForegroundWindow()));
-                        if (textIn == arguments[1])
-                        {
+                        bool IsTrue;
+                        if (TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString().Contains("="))
+                            IsTrue = IfEqualScript('=', TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString(), windowFocus);
+                        else if (TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString().Contains(">"))
+                            IsTrue = IfEqualScript('>', TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString(), windowFocus);
+                        else if (TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString().Contains("<"))
+                            IsTrue = IfEqualScript('<', TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString(), windowFocus);
+                        else break;
 
-                        }
-                        else numOfCommand++;
+                        if (!IsTrue)
+                            numOfCommand++;
+
                         break;
 
                     case "то":
@@ -412,9 +415,9 @@ namespace DclTestFormWPy
                         if (TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString() == "ошибка")
                         {
                             MessageBox.Show(
-                                "Сценарий остановлен", 
-                                "Сообщение об ошибке", 
-                                MessageBoxButtons.OK, 
+                                "Сценарий остановлен",
+                                "Сообщение об ошибке",
+                                MessageBoxButtons.OK,
                                 MessageBoxIcon.Error);
                             IsStop = true;
                         }
@@ -450,6 +453,44 @@ namespace DclTestFormWPy
 
         }
 
+        public bool IfEqualScript(char split, string param, IntPtr windowFocus)
+        {
+            string[] arguments = param.Split(split);
+            FindField(arguments[0]);
+            SetForegroundWindow(windowFocus);
+            string textIn = GetControlText(GetFocus(GetForegroundWindow()));
+            if (textIn == arguments[1])
+            {
+                return true;
+            }
+            else return false;
+        }
+
+        public bool IfBiggerScript(char split, string param, IntPtr windowFocus)
+        {
+            string[] arguments = param.Split(split);
+            FindField(arguments[0]);
+            SetForegroundWindow(windowFocus);
+            int sumIn = Convert.ToInt32(GetControlText(GetFocus(GetForegroundWindow())));
+            if (sumIn > Convert.ToInt32(arguments[1]))
+            {
+                return true;
+            }
+            else return false;
+        }
+
+        public bool IfSmallerScript(char split, string param, IntPtr windowFocus)
+        {
+            string[] arguments = param.Split(split);
+            FindField(arguments[0]);
+            SetForegroundWindow(windowFocus);
+            int sumIn = Convert.ToInt32(GetControlText(GetFocus(GetForegroundWindow())));
+            if (sumIn < Convert.ToInt32(arguments[1]))
+            {
+                return true;
+            }
+            else return false;
+        }
         #region Все константы, функции WinAPI, структуры
         [DllImport("User32.dll")]
         public static extern IntPtr GetWindow(IntPtr hwnd, uint uCmd);
