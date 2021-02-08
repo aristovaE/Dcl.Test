@@ -127,7 +127,7 @@
             this.MainMenuItem});
             this.scriptsTask_ms.Location = new System.Drawing.Point(0, 0);
             this.scriptsTask_ms.Name = "scriptsTask_ms";
-            this.scriptsTask_ms.Size = new System.Drawing.Size(1023, 24);
+            this.scriptsTask_ms.Size = new System.Drawing.Size(775, 24);
             this.scriptsTask_ms.TabIndex = 5;
             this.scriptsTask_ms.Text = "menuStrip1";
             // 
@@ -519,7 +519,7 @@
             this.fileName_statstrip});
             this.StatusStripNameOfFile.Location = new System.Drawing.Point(0, 332);
             this.StatusStripNameOfFile.Name = "StatusStripNameOfFile";
-            this.StatusStripNameOfFile.Size = new System.Drawing.Size(1023, 22);
+            this.StatusStripNameOfFile.Size = new System.Drawing.Size(775, 22);
             this.StatusStripNameOfFile.TabIndex = 22;
             // 
             // fileName_statstrip
@@ -568,7 +568,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1023, 354);
+            this.ClientSize = new System.Drawing.Size(775, 354);
             this.Controls.Add(this.StartScript_btn);
             this.Controls.Add(this.OneStepBackward_btn);
             this.Controls.Add(this.OneStepForward_btn);
