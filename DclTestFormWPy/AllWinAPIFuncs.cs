@@ -346,6 +346,8 @@ namespace DclTestFormWPy
 
                     case "добавить товар":
                         EnterShortcuts(VK_CTRL, VK_E);
+                        EnterShortcut(VK_RETURN);
+                        Thread.Sleep(1000);
                         break;
 
                     case "перейти к первому товару":
@@ -394,13 +396,13 @@ namespace DclTestFormWPy
                         if (TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString().Contains("="))
                             IsTrue = IfEqualScript('=', TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString(), windowFocus);
                         else if (TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString().Contains(">"))
-                            IsTrue = IfEqualScript('>', TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString(), windowFocus);
+                            IsTrue = IfBiggerScript('>', TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString(), windowFocus);
                         else if (TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString().Contains("<"))
-                            IsTrue = IfEqualScript('<', TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString(), windowFocus);
+                            IsTrue = IfSmallerScript('<', TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString(), windowFocus);
                         else break;
 
                         if (!IsTrue)
-                            numOfCommand++;
+                            numOfCommand++; // пропустить шаг "то:"
 
                         break;
 
@@ -421,6 +423,14 @@ namespace DclTestFormWPy
                                 MessageBoxIcon.Error);
                             IsStop = true;
                         }
+                        break;
+
+                    case "выполнить в цикле":
+                        for(int index = 0; index<Convert.ToInt32(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString()); index++)
+                        {
+                            IsStop = DoCommand(TableScript_dgv.Rows[numOfCommand+1].Cells[1].Value.ToString(), ref numOfCommand, ref column, ref row, windowFocus, IsStop);
+                        }
+                        numOfCommand++; //пропуск следующего действия
                         break;
                 }
                 //перелистывание в таблице
