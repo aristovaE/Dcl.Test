@@ -86,9 +86,9 @@ namespace DclTestFormWPy
                 {
                     if (command.Contains("конец"))
                     {
-                        //не писать команду в тривью
-                        prevCommand = prevCommand.Parent;
-                        prevCommand.Tag = index;
+                        ////не писать команду в тривью
+                        //prevCommand = prevCommand.Parent;
+                        //prevCommand.Tag = index;
                     }
                     else
                     {
@@ -520,7 +520,7 @@ namespace DclTestFormWPy
             for (int numOfCommand = 0; numOfCommand < TableScript_dgv.Rows.Count; numOfCommand++)
             {
                 string command = TableScript_dgv.Rows[numOfCommand].Cells[1].Value.ToString();
-                IsStop = DoCommand(command, ref numOfCommand, ref column, ref row, windowFocus, IsStop);
+                IsStop = DoCommand(command, ref numOfCommand, ref column, ref row, windowFocus);
                 if (IsStop != false)
                 {
                     break;
@@ -550,7 +550,7 @@ namespace DclTestFormWPy
                 if ((Boolean)TableScript_dgv.Rows[numOfCommand].Cells[5].EditedFormattedValue == true)
                 { break; }
                 string command = TableScript_dgv.Rows[numOfCommand].Cells[1].Value.ToString();
-                IsStop = DoCommand(command, ref numOfCommand, ref column, ref row, windowFocus, IsStop);
+                IsStop = DoCommand(command, ref numOfCommand, ref column, ref row, windowFocus);
                 if (IsStop != false)
                 {
                     break;
@@ -577,7 +577,7 @@ namespace DclTestFormWPy
             for (int index = 0; index < CountCommand; index++)
             {
                 string command = TableScript_dgv.Rows[numOfCommand].Cells[1].Value.ToString();
-                IsStop = DoCommand(command, ref numOfCommand, ref column, ref row, windowFocus, IsStop);
+                IsStop = DoCommand(command, ref numOfCommand, ref column, ref row, windowFocus);
                 if (IsStop != false)
                 {
                     break;

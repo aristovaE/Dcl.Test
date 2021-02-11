@@ -195,9 +195,11 @@ namespace DclTestFormWPy
         /// <param name="windowFocus">Текущее активное окно</param>
         /// <param name="IsStop">Параметр, указывающий на остановку сценария</param>
         /// <returns></returns>
-        private bool DoCommand(string command, ref int numOfCommand, ref int column, ref int row, IntPtr windowFocus, bool IsStop)
+        private bool DoCommand(string command, ref int numOfCommand, ref int column, ref int row, IntPtr windowFocus)
         {
+            bool IsStop = false;
             string[] arguments;
+            int num; int countOfRestart;
             //while ((long)GetForegroundWindow() == (long)FindWindow(null, "ВЭД-Декларант"))
             //{
             try
@@ -407,30 +409,75 @@ namespace DclTestFormWPy
                         break;
 
                     case "то":
-                        if (TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString() == "продолжить")
+                        num = numOfCommand;
+                        if (TableScript_dgv.Rows[numOfCommand + 1].Cells[1].Value.ToString() == "начало")
                         {
-                            numOfCommand++;
+                            numOfCommand += 2;
+                            while (TableScript_dgv.Rows[numOfCommand].Cells[1].Value.ToString() != "конец")
+                            {
+                                IsStop = DoCommand(TableScript_dgv.Rows[numOfCommand].Cells[1].Value.ToString(), ref numOfCommand, ref column, ref row, windowFocus);
+                                numOfCommand++;
+                            }
+                        }
+                        else
+                        {
+                            if (TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString() == "продолжить")
+                            {
+                                numOfCommand++;
+                            }
                         }
                         break;
 
                     case "иначе":
-                        if (TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString() == "ошибка")
+                        num = numOfCommand;
+                        if (TableScript_dgv.Rows[numOfCommand + 1].Cells[1].Value.ToString() == "начало")
                         {
-                            MessageBox.Show(
-                                "Сценарий остановлен",
-                                "Сообщение об ошибке",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
-                            IsStop = true;
+                            numOfCommand += 2;
+                            while (TableScript_dgv.Rows[numOfCommand].Cells[1].Value.ToString() != "конец")
+                            {
+                                IsStop = DoCommand(TableScript_dgv.Rows[numOfCommand].Cells[1].Value.ToString(), ref numOfCommand, ref column, ref row, windowFocus);
+                                numOfCommand++;
+                            }
+                        }
+                        else
+                        {
+
+                            if (TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString() == "ошибка")
+                            {
+                                MessageBox.Show(
+                                    "Сценарий остановлен",
+                                    "Сообщение об ошибке",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                                IsStop = true;
+                            }
                         }
                         break;
 
                     case "выполнить в цикле":
-                        for(int index = 0; index<Convert.ToInt32(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString()); index++)
+                        num = numOfCommand;
+                        countOfRestart = Convert.ToInt32(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
+                        if (TableScript_dgv.Rows[numOfCommand + 1].Cells[1].Value.ToString() == "начало")
                         {
-                            IsStop = DoCommand(TableScript_dgv.Rows[numOfCommand+1].Cells[1].Value.ToString(), ref numOfCommand, ref column, ref row, windowFocus, IsStop);
+                            for (int count = 1; count < countOfRestart; count++)
+                            {
+                                numOfCommand += 2;
+                                while (TableScript_dgv.Rows[numOfCommand].Cells[1].Value.ToString() != "конец")
+                                {
+                                    IsStop = DoCommand(TableScript_dgv.Rows[numOfCommand].Cells[1].Value.ToString(), ref numOfCommand, ref column, ref row, windowFocus);
+                                    numOfCommand++;
+                                }
+                                numOfCommand = num;
+                            }
                         }
-                        numOfCommand++; //пропуск следующего действия
+                        else
+                        {
+                            for (int index = 0; index < Convert.ToInt32(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString()); index++)
+                            {
+                                IsStop = DoCommand(TableScript_dgv.Rows[numOfCommand + 1].Cells[1].Value.ToString(), ref numOfCommand, ref column, ref row, windowFocus);
+                            }
+                            numOfCommand++; //пропуск следующего действия
+                        }
                         break;
                 }
                 //перелистывание в таблице
@@ -462,7 +509,6 @@ namespace DclTestFormWPy
             return IsStop;
 
         }
-
         public bool IfEqualScript(char split, string param, IntPtr windowFocus)
         {
             string[] arguments = param.Split(split);
