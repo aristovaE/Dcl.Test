@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -583,6 +584,30 @@ namespace DclTestFormWPy
                     break;
                 }
                 numOfCommand++;
+                switch(SpeedChoise_cmb.SelectedIndex.ToString())
+                {
+                    case "0":
+                        {
+                            Thread.Sleep(2000);
+                            break;
+                        }
+                    case "1":
+                        {
+                            Thread.Sleep(1000);
+                            break;
+                        }
+                    case "2":
+                        {
+                            Thread.Sleep(500);
+                            break;
+                        }
+                    default:
+                        {
+                            Thread.Sleep(1000);
+                            break;
+                        }
+                     
+                }
             }
             StartScript_btn.Text = "▶";
         }
