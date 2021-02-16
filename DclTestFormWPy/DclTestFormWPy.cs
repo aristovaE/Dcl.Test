@@ -526,7 +526,7 @@ namespace DclTestFormWPy
                 {
                     break;
                 }
-
+                WaitSometime();
             }
             StartScript_btn.Text = "▶";
         }
@@ -557,6 +557,7 @@ namespace DclTestFormWPy
                     break;
                 }
                 numOfCommand++;
+                WaitSometime();
             }
             StartScript_btn.Text = "▶";
         }
@@ -584,34 +585,37 @@ namespace DclTestFormWPy
                     break;
                 }
                 numOfCommand++;
-                switch(SpeedChoise_cmb.SelectedIndex.ToString())
-                {
-                    case "0":
-                        {
-                            Thread.Sleep(2000);
-                            break;
-                        }
-                    case "1":
-                        {
-                            Thread.Sleep(1000);
-                            break;
-                        }
-                    case "2":
-                        {
-                            Thread.Sleep(500);
-                            break;
-                        }
-                    default:
-                        {
-                            Thread.Sleep(1000);
-                            break;
-                        }
-                     
-                }
+                WaitSometime();
             }
             StartScript_btn.Text = "▶";
         }
+        private void WaitSometime()
+        {
+            switch (SpeedChoise_cmb.SelectedIndex.ToString())
+            {
+                case "0":
+                    {
+                        Thread.Sleep(2000);
+                        break;
+                    }
+                case "1":
+                    {
+                        Thread.Sleep(1000);
+                        break;
+                    }
+                case "2":
+                    {
+                        Thread.Sleep(500);
+                        break;
+                    }
+                default:
+                    {
+                        Thread.Sleep(1000);
+                        break;
+                    }
 
+            }
+        }
         /// <summary>
         /// Нажатие ПКМ по кнопке старта сценария
         /// </summary>
