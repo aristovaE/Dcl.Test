@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("новый сценарий");
             this.EditCommand_tb = new System.Windows.Forms.TextBox();
             this.EditComand_btn = new System.Windows.Forms.Button();
@@ -87,6 +87,7 @@
             this.StartScript_btn = new System.Windows.Forms.Button();
             this.contextMenuToStart = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.SpeedChoise_cmb = new System.Windows.Forms.ComboBox();
+            this.speed_lbl = new System.Windows.Forms.Label();
             this.scriptsTask_ms.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TableScript_dgv)).BeginInit();
             this.add_gb.SuspendLayout();
@@ -222,14 +223,14 @@
             this.TableScript_dgv.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.TableScript_dgv.BackgroundColor = System.Drawing.SystemColors.Control;
             this.TableScript_dgv.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.TableScript_dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.TableScript_dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
             this.TableScript_dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.TableScript_dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.numberOfCommand,
@@ -238,25 +239,25 @@
             this.descriptionOfCommand,
             this.resultOfCommand,
             this.BreakPointOfCommand});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.TableScript_dgv.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.TableScript_dgv.DefaultCellStyle = dataGridViewCellStyle11;
             this.TableScript_dgv.GridColor = System.Drawing.SystemColors.Control;
             this.TableScript_dgv.Location = new System.Drawing.Point(6, 6);
             this.TableScript_dgv.Name = "TableScript_dgv";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.TableScript_dgv.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.TableScript_dgv.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
             this.TableScript_dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.TableScript_dgv.Size = new System.Drawing.Size(738, 233);
             this.TableScript_dgv.TabIndex = 7;
@@ -650,21 +651,32 @@
             // 
             // SpeedChoise_cmb
             // 
+            this.SpeedChoise_cmb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.SpeedChoise_cmb.FormattingEnabled = true;
             this.SpeedChoise_cmb.Items.AddRange(new object[] {
             "низкая",
             "средняя",
             "высокая"});
-            this.SpeedChoise_cmb.Location = new System.Drawing.Point(632, 300);
+            this.SpeedChoise_cmb.Location = new System.Drawing.Point(638, 304);
             this.SpeedChoise_cmb.Name = "SpeedChoise_cmb";
             this.SpeedChoise_cmb.Size = new System.Drawing.Size(128, 21);
             this.SpeedChoise_cmb.TabIndex = 18;
+            // 
+            // speed_lbl
+            // 
+            this.speed_lbl.AutoSize = true;
+            this.speed_lbl.Location = new System.Drawing.Point(481, 310);
+            this.speed_lbl.Name = "speed_lbl";
+            this.speed_lbl.Size = new System.Drawing.Size(151, 13);
+            this.speed_lbl.TabIndex = 26;
+            this.speed_lbl.Text = "Скорость воспроизведения:";
             // 
             // DclTestFormWPy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(774, 354);
+            this.Controls.Add(this.speed_lbl);
             this.Controls.Add(this.SpeedChoise_cmb);
             this.Controls.Add(this.search_gb);
             this.Controls.Add(this.StartScript_btn);
@@ -758,5 +770,6 @@
         private System.Windows.Forms.Button ClearSearch_btn;
         private System.Windows.Forms.Button Search_btn;
         private System.Windows.Forms.ComboBox SpeedChoise_cmb;
+        private System.Windows.Forms.Label speed_lbl;
     }
 }

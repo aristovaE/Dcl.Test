@@ -16,6 +16,7 @@ namespace DclTestFormWPy
         {
             InitializeComponent();
             TableScript_dgv.Rows.Clear();
+            SpeedChoise_cmb.SelectedIndex = 1;
         }
 
         int WidthForm = 775;
