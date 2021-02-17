@@ -19,8 +19,8 @@ namespace DclTestFormWPy
             SpeedChoise_cmb.SelectedIndex = 1;
         }
 
-        int WidthForm = 775;
-        int HeightForm = 355;
+        int WidthForm = 765;
+        int HeightForm = 335;
         /// <summary>
         /// Очистка столбца Результат в таблице
         /// </summary>
@@ -642,15 +642,21 @@ namespace DclTestFormWPy
 
         private void редактированиеToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            panel2.Visible = true;
             add_gb.Visible = true;
             del_gb.Visible = true;
             edit_gb.Visible = true;
             search_gb.Visible = false;
-            ClientSize = new System.Drawing.Size(WidthForm+250,HeightForm);
+            panel1.Size = new System.Drawing.Size(panel1.Width, panel1.Height);
+            panel2.Location = new System.Drawing.Point(panel1.Width + 5, 43);
+            ClientSize = new System.Drawing.Size(panel1.Width + 250, HeightForm);
+            //EditingSearchForm formEdit = new EditingSearchForm();
+            //formEdit.Show();
         }
 
         private void скрытьToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            panel2.Visible = false;
             add_gb.Visible = false;
             del_gb.Visible = false;
             edit_gb.Visible = false;
@@ -660,6 +666,7 @@ namespace DclTestFormWPy
 
         private void поискToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            panel2.Visible = true;
             add_gb.Visible = false;
             del_gb.Visible = false;
             edit_gb.Visible = false;
@@ -667,39 +674,17 @@ namespace DclTestFormWPy
             ClientSize = new System.Drawing.Size(WidthForm + 250, HeightForm);
         }
 
-        private void Search_btn_Click(object sender, EventArgs e)
-        {
-            if (search_tb.Text != "") 
-            {
-                string search = search_tb.Text;
-                if (TableScript_dgv.Rows.Count != 0)
-                {
-                    for (int numOfCommand = 0; numOfCommand < TableScript_dgv.Rows.Count; numOfCommand++)
-                    {
-                        if (TableScript_dgv.Rows[numOfCommand].Cells[1].Value.ToString().Contains(search))
-                        {
-                            TableScript_dgv.Rows[numOfCommand].Selected = true;
-                        }
-                        else if (TableScript_dgv.Rows[numOfCommand].Cells[2].Value != null)
-                        {
-                            if (TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString().Contains(search))
-                            {
-                                TableScript_dgv.Rows[numOfCommand].Selected = true;
-                            }
-                        }
-
-                    }
-                    ClearSearch_btn.Visible = true;
-                }
-                else MessageBox.Show("Не открыт ни один сценарий!");
-            }
-            else MessageBox.Show("Строка поиска пуста!");
-        }
+        
 
         private void ClearSearch_btn_Click(object sender, EventArgs e)
         {
             TableScript_dgv.ClearSelection();
             ClearSearch_btn.Visible = false;
+        }
+
+        private void Search_btn_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
