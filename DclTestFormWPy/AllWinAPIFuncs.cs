@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -478,6 +479,12 @@ namespace DclTestFormWPy
                             }
                             numOfCommand++; //пропуск следующего действия
                         }
+                        break;
+
+                    case "запустить ВД":
+                        Process iStartVD = new Process(); // новый процесс
+                        iStartVD.StartInfo.FileName = @TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString(); // путь к запускаемому файлу
+                        iStartVD.Start(); // запускаем программу
                         break;
                 }
                 //перелистывание в таблице

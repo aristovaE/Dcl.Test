@@ -55,6 +55,14 @@ namespace DclTestFormWPy
                 int y = 1;
                 int rowNumber = TableScript_dgv.Rows.Add();
                 TableScript_dgv.Rows[rowNumber].Cells[0].Value = rowNumber + 1;
+                if (comWithParams.Length > 2)
+                {
+                    for(int indexForSplit = 2; indexForSplit < comWithParams.Length; indexForSplit++)
+                    {
+                        comWithParams[1] += ":"+comWithParams[indexForSplit];
+                        comWithParams[indexForSplit] = "";
+                    }
+                }
                 foreach (string str in comWithParams)
                 {
                     if (str.IndexOf('*') != -1)
@@ -648,6 +656,7 @@ namespace DclTestFormWPy
             edit_gb.Visible = true;
             search_gb.Visible = false;
             panel1.Size = new System.Drawing.Size(panel1.Width, panel1.Height);
+            panel2.Size = new System.Drawing.Size(273, 290);
             panel2.Location = new System.Drawing.Point(panel1.Width + 5, 43);
             ClientSize = new System.Drawing.Size(panel1.Width + 250, HeightForm);
             //EditingSearchForm formEdit = new EditingSearchForm();
@@ -661,6 +670,7 @@ namespace DclTestFormWPy
             del_gb.Visible = false;
             edit_gb.Visible = false;
             search_gb.Visible = false;
+            panel2.Size = new System.Drawing.Size(0, 0);
             ClientSize = new System.Drawing.Size(WidthForm, HeightForm);
         }
 

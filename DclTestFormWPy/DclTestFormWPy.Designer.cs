@@ -46,19 +46,8 @@
             this.поискToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.скрытьToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileScript = new System.Windows.Forms.SaveFileDialog();
-            this.TableScript_dgv = new System.Windows.Forms.DataGridView();
-            this.numberOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nameOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.paramOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descriptionOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.resultOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BreakPointOfCommand = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.fileName_lbl = new System.Windows.Forms.Label();
-            this.TreeViewOfScript = new System.Windows.Forms.TreeView();
             this.contextMenuToTreeView = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.tabScripts = new System.Windows.Forms.TabControl();
-            this.tabTreeViewScript = new System.Windows.Forms.TabPage();
-            this.tabTableScript = new System.Windows.Forms.TabPage();
             this.openFileGroup = new System.Windows.Forms.OpenFileDialog();
             this.StatusStripNameOfFile = new System.Windows.Forms.StatusStrip();
             this.fileName_statstrip = new System.Windows.Forms.ToolStripStatusLabel();
@@ -71,30 +60,38 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.DeleteAll_btn = new System.Windows.Forms.Button();
             this.edit_gb = new System.Windows.Forms.GroupBox();
-            this.EditCommand_tb = new System.Windows.Forms.TextBox();
             this.EditComand_btn = new System.Windows.Forms.Button();
+            this.EditCommand_tb = new System.Windows.Forms.TextBox();
             this.del_gb = new System.Windows.Forms.GroupBox();
             this.DeleteCommand_btn = new System.Windows.Forms.Button();
             this.add_gb = new System.Windows.Forms.GroupBox();
-            this.Params_cmb = new System.Windows.Forms.ComboBox();
-            this.addCommand_btn = new System.Windows.Forms.Button();
-            this.Params_tb = new System.Windows.Forms.TextBox();
-            this.Command_cmb = new System.Windows.Forms.ComboBox();
-            this.EndGroup_btn = new System.Windows.Forms.Button();
-            this.CoordX_tb = new System.Windows.Forms.TextBox();
-            this.CoordY_tb = new System.Windows.Forms.TextBox();
-            this.x_lbl = new System.Windows.Forms.Label();
             this.y_lbl = new System.Windows.Forms.Label();
+            this.x_lbl = new System.Windows.Forms.Label();
+            this.CoordY_tb = new System.Windows.Forms.TextBox();
+            this.CoordX_tb = new System.Windows.Forms.TextBox();
+            this.EndGroup_btn = new System.Windows.Forms.Button();
+            this.Command_cmb = new System.Windows.Forms.ComboBox();
+            this.Params_tb = new System.Windows.Forms.TextBox();
+            this.addCommand_btn = new System.Windows.Forms.Button();
+            this.Params_cmb = new System.Windows.Forms.ComboBox();
             this.search_gb = new System.Windows.Forms.GroupBox();
-            this.Search_btn = new System.Windows.Forms.Button();
-            this.ClearSearch_btn = new System.Windows.Forms.Button();
             this.search_tb = new System.Windows.Forms.TextBox();
+            this.ClearSearch_btn = new System.Windows.Forms.Button();
+            this.Search_btn = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.tabTableScript = new System.Windows.Forms.TabPage();
+            this.TableScript_dgv = new System.Windows.Forms.DataGridView();
+            this.BreakPointOfCommand = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.resultOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descriptionOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.paramOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.numberOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabTreeViewScript = new System.Windows.Forms.TabPage();
+            this.TreeViewOfScript = new System.Windows.Forms.TreeView();
+            this.tabScripts = new System.Windows.Forms.TabControl();
+            this.splitter1 = new System.Windows.Forms.Splitter();
             this.scriptsTask_ms.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.TableScript_dgv)).BeginInit();
-            this.tabScripts.SuspendLayout();
-            this.tabTreeViewScript.SuspendLayout();
-            this.tabTableScript.SuspendLayout();
             this.StatusStripNameOfFile.SuspendLayout();
             this.panel1.SuspendLayout();
             this.edit_gb.SuspendLayout();
@@ -102,6 +99,10 @@
             this.add_gb.SuspendLayout();
             this.search_gb.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.tabTableScript.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.TableScript_dgv)).BeginInit();
+            this.tabTreeViewScript.SuspendLayout();
+            this.tabScripts.SuspendLayout();
             this.SuspendLayout();
             // 
             // openFileScript
@@ -146,27 +147,27 @@
             this.OpenScript_MenuItem,
             this.OpenGroup_MenuItem});
             this.Open_MenuItem.Name = "Open_MenuItem";
-            this.Open_MenuItem.Size = new System.Drawing.Size(133, 22);
+            this.Open_MenuItem.Size = new System.Drawing.Size(180, 22);
             this.Open_MenuItem.Text = "Открыть";
             // 
             // OpenScript_MenuItem
             // 
             this.OpenScript_MenuItem.Name = "OpenScript_MenuItem";
-            this.OpenScript_MenuItem.Size = new System.Drawing.Size(129, 22);
+            this.OpenScript_MenuItem.Size = new System.Drawing.Size(180, 22);
             this.OpenScript_MenuItem.Text = "Сценарий";
             this.OpenScript_MenuItem.Click += new System.EventHandler(this.OpenScriptMenuItem_Click);
             // 
             // OpenGroup_MenuItem
             // 
             this.OpenGroup_MenuItem.Name = "OpenGroup_MenuItem";
-            this.OpenGroup_MenuItem.Size = new System.Drawing.Size(129, 22);
+            this.OpenGroup_MenuItem.Size = new System.Drawing.Size(180, 22);
             this.OpenGroup_MenuItem.Text = "Шаблон";
             this.OpenGroup_MenuItem.Click += new System.EventHandler(this.OpenGroupMenuItem_Click);
             // 
             // Save_MenuItem
             // 
             this.Save_MenuItem.Name = "Save_MenuItem";
-            this.Save_MenuItem.Size = new System.Drawing.Size(133, 22);
+            this.Save_MenuItem.Size = new System.Drawing.Size(180, 22);
             this.Save_MenuItem.Text = "Сохранить";
             this.Save_MenuItem.Click += new System.EventHandler(this.SaveMenuItem_Click);
             // 
@@ -201,6 +202,388 @@
             this.скрытьToolStripMenuItem1.Size = new System.Drawing.Size(115, 22);
             this.скрытьToolStripMenuItem1.Text = "Скрыть";
             this.скрытьToolStripMenuItem1.Click += new System.EventHandler(this.скрытьToolStripMenuItem_Click);
+            // 
+            // fileName_lbl
+            // 
+            this.fileName_lbl.AutoSize = true;
+            this.fileName_lbl.Location = new System.Drawing.Point(166, 258);
+            this.fileName_lbl.Name = "fileName_lbl";
+            this.fileName_lbl.Size = new System.Drawing.Size(10, 13);
+            this.fileName_lbl.TabIndex = 16;
+            this.fileName_lbl.Text = " ";
+            // 
+            // contextMenuToTreeView
+            // 
+            this.contextMenuToTreeView.Name = "contextMenuToTreeView";
+            this.contextMenuToTreeView.Size = new System.Drawing.Size(61, 4);
+            // 
+            // openFileGroup
+            // 
+            this.openFileGroup.FileName = "openFileDialog1";
+            // 
+            // StatusStripNameOfFile
+            // 
+            this.StatusStripNameOfFile.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileName_statstrip});
+            this.StatusStripNameOfFile.Location = new System.Drawing.Point(0, 314);
+            this.StatusStripNameOfFile.Name = "StatusStripNameOfFile";
+            this.StatusStripNameOfFile.Size = new System.Drawing.Size(789, 22);
+            this.StatusStripNameOfFile.TabIndex = 22;
+            // 
+            // fileName_statstrip
+            // 
+            this.fileName_statstrip.Name = "fileName_statstrip";
+            this.fileName_statstrip.Size = new System.Drawing.Size(0, 17);
+            // 
+            // OneStepForward_btn
+            // 
+            this.OneStepForward_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.OneStepForward_btn.Location = new System.Drawing.Point(397, 258);
+            this.OneStepForward_btn.Name = "OneStepForward_btn";
+            this.OneStepForward_btn.Size = new System.Drawing.Size(75, 25);
+            this.OneStepForward_btn.TabIndex = 23;
+            this.OneStepForward_btn.Text = "Вперед";
+            this.OneStepForward_btn.UseVisualStyleBackColor = true;
+            this.OneStepForward_btn.Click += new System.EventHandler(this.OneStepForward_btn_Click);
+            // 
+            // OneStepBackward_btn
+            // 
+            this.OneStepBackward_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.OneStepBackward_btn.Location = new System.Drawing.Point(285, 258);
+            this.OneStepBackward_btn.Name = "OneStepBackward_btn";
+            this.OneStepBackward_btn.Size = new System.Drawing.Size(75, 25);
+            this.OneStepBackward_btn.TabIndex = 24;
+            this.OneStepBackward_btn.Text = "Назад";
+            this.OneStepBackward_btn.UseVisualStyleBackColor = true;
+            this.OneStepBackward_btn.Click += new System.EventHandler(this.OneStepBackward_btn_Click);
+            // 
+            // StartScript_btn
+            // 
+            this.StartScript_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.StartScript_btn.ContextMenuStrip = this.contextMenuToStart;
+            this.StartScript_btn.Location = new System.Drawing.Point(366, 258);
+            this.StartScript_btn.Name = "StartScript_btn";
+            this.StartScript_btn.Size = new System.Drawing.Size(25, 25);
+            this.StartScript_btn.TabIndex = 25;
+            this.StartScript_btn.Text = "▶";
+            this.StartScript_btn.UseVisualStyleBackColor = true;
+            this.StartScript_btn.Click += new System.EventHandler(this.StartScript_btn_Click);
+            this.StartScript_btn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.StartScript_btn_MouseDown);
+            // 
+            // contextMenuToStart
+            // 
+            this.contextMenuToStart.Name = "contextMenuToStart";
+            this.contextMenuToStart.Size = new System.Drawing.Size(61, 4);
+            // 
+            // SpeedChoise_cmb
+            // 
+            this.SpeedChoise_cmb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.SpeedChoise_cmb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.SpeedChoise_cmb.FormattingEnabled = true;
+            this.SpeedChoise_cmb.Items.AddRange(new object[] {
+            "низкая",
+            "средняя",
+            "высокая"});
+            this.SpeedChoise_cmb.Location = new System.Drawing.Point(648, 258);
+            this.SpeedChoise_cmb.Name = "SpeedChoise_cmb";
+            this.SpeedChoise_cmb.Size = new System.Drawing.Size(128, 21);
+            this.SpeedChoise_cmb.TabIndex = 18;
+            // 
+            // speed_lbl
+            // 
+            this.speed_lbl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.speed_lbl.AutoSize = true;
+            this.speed_lbl.Location = new System.Drawing.Point(495, 264);
+            this.speed_lbl.Name = "speed_lbl";
+            this.speed_lbl.Size = new System.Drawing.Size(151, 13);
+            this.speed_lbl.TabIndex = 26;
+            this.speed_lbl.Text = "Скорость воспроизведения:";
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.speed_lbl);
+            this.panel1.Controls.Add(this.SpeedChoise_cmb);
+            this.panel1.Controls.Add(this.OneStepForward_btn);
+            this.panel1.Controls.Add(this.OneStepBackward_btn);
+            this.panel1.Controls.Add(this.StartScript_btn);
+            this.panel1.Controls.Add(this.tabScripts);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 24);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(789, 290);
+            this.panel1.TabIndex = 27;
+            // 
+            // DeleteAll_btn
+            // 
+            this.DeleteAll_btn.Location = new System.Drawing.Point(176, 261);
+            this.DeleteAll_btn.Name = "DeleteAll_btn";
+            this.DeleteAll_btn.Size = new System.Drawing.Size(75, 25);
+            this.DeleteAll_btn.TabIndex = 21;
+            this.DeleteAll_btn.Text = "Очистить";
+            this.DeleteAll_btn.UseVisualStyleBackColor = true;
+            this.DeleteAll_btn.Visible = false;
+            this.DeleteAll_btn.Click += new System.EventHandler(this.DeleteAll_btn_Click);
+            // 
+            // edit_gb
+            // 
+            this.edit_gb.Controls.Add(this.EditComand_btn);
+            this.edit_gb.Controls.Add(this.EditCommand_tb);
+            this.edit_gb.Location = new System.Drawing.Point(6, 161);
+            this.edit_gb.Name = "edit_gb";
+            this.edit_gb.Size = new System.Drawing.Size(245, 73);
+            this.edit_gb.TabIndex = 15;
+            this.edit_gb.TabStop = false;
+            this.edit_gb.Text = "Редактирование";
+            this.edit_gb.Visible = false;
+            // 
+            // EditComand_btn
+            // 
+            this.EditComand_btn.Location = new System.Drawing.Point(164, 16);
+            this.EditComand_btn.Name = "EditComand_btn";
+            this.EditComand_btn.Size = new System.Drawing.Size(75, 25);
+            this.EditComand_btn.TabIndex = 3;
+            this.EditComand_btn.Text = "Изменить";
+            this.EditComand_btn.UseVisualStyleBackColor = true;
+            this.EditComand_btn.Click += new System.EventHandler(this.EditComand_btn_Click);
+            // 
+            // EditCommand_tb
+            // 
+            this.EditCommand_tb.Location = new System.Drawing.Point(10, 19);
+            this.EditCommand_tb.Name = "EditCommand_tb";
+            this.EditCommand_tb.Size = new System.Drawing.Size(148, 20);
+            this.EditCommand_tb.TabIndex = 2;
+            // 
+            // del_gb
+            // 
+            this.del_gb.Controls.Add(this.DeleteCommand_btn);
+            this.del_gb.Location = new System.Drawing.Point(6, 98);
+            this.del_gb.Name = "del_gb";
+            this.del_gb.Size = new System.Drawing.Size(245, 56);
+            this.del_gb.TabIndex = 14;
+            this.del_gb.TabStop = false;
+            this.del_gb.Text = "Удаление";
+            this.del_gb.Visible = false;
+            // 
+            // DeleteCommand_btn
+            // 
+            this.DeleteCommand_btn.Location = new System.Drawing.Point(164, 19);
+            this.DeleteCommand_btn.Name = "DeleteCommand_btn";
+            this.DeleteCommand_btn.Size = new System.Drawing.Size(75, 23);
+            this.DeleteCommand_btn.TabIndex = 12;
+            this.DeleteCommand_btn.Text = "Удалить";
+            this.DeleteCommand_btn.UseVisualStyleBackColor = true;
+            this.DeleteCommand_btn.Click += new System.EventHandler(this.DeleteCommand_btn_Click);
+            // 
+            // add_gb
+            // 
+            this.add_gb.Controls.Add(this.y_lbl);
+            this.add_gb.Controls.Add(this.x_lbl);
+            this.add_gb.Controls.Add(this.CoordY_tb);
+            this.add_gb.Controls.Add(this.CoordX_tb);
+            this.add_gb.Controls.Add(this.EndGroup_btn);
+            this.add_gb.Controls.Add(this.Command_cmb);
+            this.add_gb.Controls.Add(this.Params_tb);
+            this.add_gb.Controls.Add(this.addCommand_btn);
+            this.add_gb.Controls.Add(this.Params_cmb);
+            this.add_gb.Location = new System.Drawing.Point(6, 6);
+            this.add_gb.Name = "add_gb";
+            this.add_gb.Size = new System.Drawing.Size(245, 86);
+            this.add_gb.TabIndex = 13;
+            this.add_gb.TabStop = false;
+            this.add_gb.Text = "Добавление";
+            this.add_gb.Visible = false;
+            // 
+            // y_lbl
+            // 
+            this.y_lbl.AutoSize = true;
+            this.y_lbl.Location = new System.Drawing.Point(89, 56);
+            this.y_lbl.Name = "y_lbl";
+            this.y_lbl.Size = new System.Drawing.Size(18, 13);
+            this.y_lbl.TabIndex = 16;
+            this.y_lbl.Tag = " ";
+            this.y_lbl.Text = "y :";
+            this.y_lbl.Visible = false;
+            // 
+            // x_lbl
+            // 
+            this.x_lbl.AutoSize = true;
+            this.x_lbl.Location = new System.Drawing.Point(10, 56);
+            this.x_lbl.Name = "x_lbl";
+            this.x_lbl.Size = new System.Drawing.Size(18, 13);
+            this.x_lbl.TabIndex = 15;
+            this.x_lbl.Tag = " ";
+            this.x_lbl.Text = "x :";
+            this.x_lbl.Visible = false;
+            // 
+            // CoordY_tb
+            // 
+            this.CoordY_tb.Location = new System.Drawing.Point(113, 53);
+            this.CoordY_tb.Name = "CoordY_tb";
+            this.CoordY_tb.Size = new System.Drawing.Size(45, 20);
+            this.CoordY_tb.TabIndex = 14;
+            this.CoordY_tb.Visible = false;
+            // 
+            // CoordX_tb
+            // 
+            this.CoordX_tb.Location = new System.Drawing.Point(34, 53);
+            this.CoordX_tb.Name = "CoordX_tb";
+            this.CoordX_tb.Size = new System.Drawing.Size(45, 20);
+            this.CoordX_tb.TabIndex = 13;
+            this.CoordX_tb.Visible = false;
+            // 
+            // EndGroup_btn
+            // 
+            this.EndGroup_btn.Location = new System.Drawing.Point(164, 50);
+            this.EndGroup_btn.Name = "EndGroup_btn";
+            this.EndGroup_btn.Size = new System.Drawing.Size(75, 25);
+            this.EndGroup_btn.TabIndex = 12;
+            this.EndGroup_btn.Text = "Конец";
+            this.EndGroup_btn.UseVisualStyleBackColor = true;
+            this.EndGroup_btn.Visible = false;
+            this.EndGroup_btn.Click += new System.EventHandler(this.EndGroup_btn_Click);
+            // 
+            // Command_cmb
+            // 
+            this.Command_cmb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Command_cmb.FormattingEnabled = true;
+            this.Command_cmb.Items.AddRange(new object[] {
+            " ",
+            "открыть окно ВД",
+            "выполнить автозаполнение",
+            "открыть классификатор",
+            "перейти вперед",
+            "перейти назад",
+            "",
+            "нажать",
+            "ввести значение",
+            "найти значение",
+            "перейти к графе номер",
+            "подождать секунд",
+            "группа",
+            "",
+            "добавить товар",
+            "перейти к первому товару",
+            "",
+            "проверка",
+            "",
+            "в столбце",
+            "в строке",
+            "",
+            "нажать в точке",
+            "",
+            "прочитать из XML",
+            "записать в XML",
+            "прочитать из СТМ",
+            "записать в СТМ"});
+            this.Command_cmb.Location = new System.Drawing.Point(10, 22);
+            this.Command_cmb.Name = "Command_cmb";
+            this.Command_cmb.Size = new System.Drawing.Size(148, 21);
+            this.Command_cmb.TabIndex = 8;
+            this.Command_cmb.SelectedIndexChanged += new System.EventHandler(this.Command_cmb_SelectedIndexChanged);
+            // 
+            // Params_tb
+            // 
+            this.Params_tb.Location = new System.Drawing.Point(10, 53);
+            this.Params_tb.Name = "Params_tb";
+            this.Params_tb.Size = new System.Drawing.Size(148, 20);
+            this.Params_tb.TabIndex = 11;
+            this.Params_tb.Visible = false;
+            // 
+            // addCommand_btn
+            // 
+            this.addCommand_btn.Location = new System.Drawing.Point(164, 19);
+            this.addCommand_btn.Name = "addCommand_btn";
+            this.addCommand_btn.Size = new System.Drawing.Size(75, 25);
+            this.addCommand_btn.TabIndex = 9;
+            this.addCommand_btn.Text = "Добавить";
+            this.addCommand_btn.UseVisualStyleBackColor = true;
+            this.addCommand_btn.Click += new System.EventHandler(this.AddCommand_btn_Click);
+            // 
+            // Params_cmb
+            // 
+            this.Params_cmb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Params_cmb.FormattingEnabled = true;
+            this.Params_cmb.Items.AddRange(new object[] {
+            "ENTER",
+            "F5",
+            "ESC",
+            "F3",
+            "стрелку влево",
+            "стрелку вправо",
+            "стрелку вверх",
+            "стрелку вниз"});
+            this.Params_cmb.Location = new System.Drawing.Point(10, 53);
+            this.Params_cmb.Name = "Params_cmb";
+            this.Params_cmb.Size = new System.Drawing.Size(148, 21);
+            this.Params_cmb.TabIndex = 10;
+            this.Params_cmb.Visible = false;
+            // 
+            // search_gb
+            // 
+            this.search_gb.Controls.Add(this.search_tb);
+            this.search_gb.Controls.Add(this.ClearSearch_btn);
+            this.search_gb.Controls.Add(this.Search_btn);
+            this.search_gb.Location = new System.Drawing.Point(3, 6);
+            this.search_gb.Name = "search_gb";
+            this.search_gb.Size = new System.Drawing.Size(245, 86);
+            this.search_gb.TabIndex = 17;
+            this.search_gb.TabStop = false;
+            this.search_gb.Text = "Введите слово для поиска в сценарии";
+            this.search_gb.Visible = false;
+            // 
+            // search_tb
+            // 
+            this.search_tb.Location = new System.Drawing.Point(6, 22);
+            this.search_tb.Name = "search_tb";
+            this.search_tb.Size = new System.Drawing.Size(152, 20);
+            this.search_tb.TabIndex = 13;
+            // 
+            // ClearSearch_btn
+            // 
+            this.ClearSearch_btn.Location = new System.Drawing.Point(164, 50);
+            this.ClearSearch_btn.Name = "ClearSearch_btn";
+            this.ClearSearch_btn.Size = new System.Drawing.Size(75, 25);
+            this.ClearSearch_btn.TabIndex = 12;
+            this.ClearSearch_btn.Text = "Очистить";
+            this.ClearSearch_btn.UseVisualStyleBackColor = true;
+            this.ClearSearch_btn.Visible = false;
+            this.ClearSearch_btn.Click += new System.EventHandler(this.ClearSearch_btn_Click);
+            // 
+            // Search_btn
+            // 
+            this.Search_btn.Location = new System.Drawing.Point(164, 19);
+            this.Search_btn.Name = "Search_btn";
+            this.Search_btn.Size = new System.Drawing.Size(75, 25);
+            this.Search_btn.TabIndex = 9;
+            this.Search_btn.Text = "Поиск";
+            this.Search_btn.UseVisualStyleBackColor = true;
+            this.Search_btn.Click += new System.EventHandler(this.Search_btn_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.splitter1);
+            this.panel2.Controls.Add(this.search_gb);
+            this.panel2.Controls.Add(this.add_gb);
+            this.panel2.Controls.Add(this.del_gb);
+            this.panel2.Controls.Add(this.edit_gb);
+            this.panel2.Controls.Add(this.DeleteAll_btn);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel2.Location = new System.Drawing.Point(516, 24);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(273, 290);
+            this.panel2.TabIndex = 28;
+            this.panel2.Visible = false;
+            // 
+            // tabTableScript
+            // 
+            this.tabTableScript.Controls.Add(this.TableScript_dgv);
+            this.tabTableScript.Location = new System.Drawing.Point(4, 22);
+            this.tabTableScript.Name = "tabTableScript";
+            this.tabTableScript.Padding = new System.Windows.Forms.Padding(3);
+            this.tabTableScript.Size = new System.Drawing.Size(734, 227);
+            this.tabTableScript.TabIndex = 1;
+            this.tabTableScript.Text = "Таблично";
+            this.tabTableScript.UseVisualStyleBackColor = true;
             // 
             // TableScript_dgv
             // 
@@ -247,48 +630,9 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.TableScript_dgv.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.TableScript_dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.TableScript_dgv.Size = new System.Drawing.Size(728, 211);
+            this.TableScript_dgv.Size = new System.Drawing.Size(728, 221);
             this.TableScript_dgv.TabIndex = 7;
             this.TableScript_dgv.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.TableScript_dgv_RowHeaderMouseClick);
-            // 
-            // numberOfCommand
-            // 
-            this.numberOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.numberOfCommand.FillWeight = 7F;
-            this.numberOfCommand.HeaderText = "№";
-            this.numberOfCommand.Name = "numberOfCommand";
-            this.numberOfCommand.ReadOnly = true;
-            this.numberOfCommand.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // nameOfCommand
-            // 
-            this.nameOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.nameOfCommand.FillWeight = 60F;
-            this.nameOfCommand.HeaderText = "Название";
-            this.nameOfCommand.Name = "nameOfCommand";
-            this.nameOfCommand.ReadOnly = true;
-            // 
-            // paramOfCommand
-            // 
-            this.paramOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.paramOfCommand.FillWeight = 30F;
-            this.paramOfCommand.HeaderText = "Параметр";
-            this.paramOfCommand.Name = "paramOfCommand";
-            // 
-            // descriptionOfCommand
-            // 
-            this.descriptionOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.descriptionOfCommand.FillWeight = 80F;
-            this.descriptionOfCommand.HeaderText = "Описание";
-            this.descriptionOfCommand.Name = "descriptionOfCommand";
-            // 
-            // resultOfCommand
-            // 
-            this.resultOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.resultOfCommand.FillWeight = 25F;
-            this.resultOfCommand.HeaderText = "Результат";
-            this.resultOfCommand.Name = "resultOfCommand";
-            this.resultOfCommand.ReadOnly = true;
             // 
             // BreakPointOfCommand
             // 
@@ -299,14 +643,55 @@
             this.BreakPointOfCommand.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.BreakPointOfCommand.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
-            // fileName_lbl
+            // resultOfCommand
             // 
-            this.fileName_lbl.AutoSize = true;
-            this.fileName_lbl.Location = new System.Drawing.Point(166, 258);
-            this.fileName_lbl.Name = "fileName_lbl";
-            this.fileName_lbl.Size = new System.Drawing.Size(10, 13);
-            this.fileName_lbl.TabIndex = 16;
-            this.fileName_lbl.Text = " ";
+            this.resultOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.resultOfCommand.FillWeight = 25F;
+            this.resultOfCommand.HeaderText = "Результат";
+            this.resultOfCommand.Name = "resultOfCommand";
+            this.resultOfCommand.ReadOnly = true;
+            // 
+            // descriptionOfCommand
+            // 
+            this.descriptionOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.descriptionOfCommand.FillWeight = 80F;
+            this.descriptionOfCommand.HeaderText = "Описание";
+            this.descriptionOfCommand.Name = "descriptionOfCommand";
+            // 
+            // paramOfCommand
+            // 
+            this.paramOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.paramOfCommand.FillWeight = 30F;
+            this.paramOfCommand.HeaderText = "Параметр";
+            this.paramOfCommand.Name = "paramOfCommand";
+            // 
+            // nameOfCommand
+            // 
+            this.nameOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nameOfCommand.FillWeight = 60F;
+            this.nameOfCommand.HeaderText = "Название";
+            this.nameOfCommand.Name = "nameOfCommand";
+            this.nameOfCommand.ReadOnly = true;
+            // 
+            // numberOfCommand
+            // 
+            this.numberOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.numberOfCommand.FillWeight = 7F;
+            this.numberOfCommand.HeaderText = "№";
+            this.numberOfCommand.Name = "numberOfCommand";
+            this.numberOfCommand.ReadOnly = true;
+            this.numberOfCommand.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // tabTreeViewScript
+            // 
+            this.tabTreeViewScript.Controls.Add(this.TreeViewOfScript);
+            this.tabTreeViewScript.Location = new System.Drawing.Point(4, 22);
+            this.tabTreeViewScript.Name = "tabTreeViewScript";
+            this.tabTreeViewScript.Padding = new System.Windows.Forms.Padding(3);
+            this.tabTreeViewScript.Size = new System.Drawing.Size(769, 227);
+            this.tabTreeViewScript.TabIndex = 0;
+            this.tabTreeViewScript.Text = "Древовидно";
+            this.tabTreeViewScript.UseVisualStyleBackColor = true;
             // 
             // TreeViewOfScript
             // 
@@ -318,14 +703,9 @@
             treeNode1.Text = "новый сценарий";
             this.TreeViewOfScript.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode1});
-            this.TreeViewOfScript.Size = new System.Drawing.Size(728, 211);
+            this.TreeViewOfScript.Size = new System.Drawing.Size(763, 221);
             this.TreeViewOfScript.TabIndex = 17;
             this.TreeViewOfScript.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TreeViewOfScript_MouseDown);
-            // 
-            // contextMenuToTreeView
-            // 
-            this.contextMenuToTreeView.Name = "contextMenuToTreeView";
-            this.contextMenuToTreeView.Size = new System.Drawing.Size(61, 4);
             // 
             // tabScripts
             // 
@@ -337,387 +717,16 @@
             this.tabScripts.Location = new System.Drawing.Point(3, 3);
             this.tabScripts.Name = "tabScripts";
             this.tabScripts.SelectedIndex = 0;
-            this.tabScripts.Size = new System.Drawing.Size(742, 243);
+            this.tabScripts.Size = new System.Drawing.Size(777, 253);
             this.tabScripts.TabIndex = 18;
             // 
-            // tabTreeViewScript
-            // 
-            this.tabTreeViewScript.Controls.Add(this.TreeViewOfScript);
-            this.tabTreeViewScript.Location = new System.Drawing.Point(4, 22);
-            this.tabTreeViewScript.Name = "tabTreeViewScript";
-            this.tabTreeViewScript.Padding = new System.Windows.Forms.Padding(3);
-            this.tabTreeViewScript.Size = new System.Drawing.Size(734, 217);
-            this.tabTreeViewScript.TabIndex = 0;
-            this.tabTreeViewScript.Text = "Древовидно";
-            this.tabTreeViewScript.UseVisualStyleBackColor = true;
-            // 
-            // tabTableScript
-            // 
-            this.tabTableScript.Controls.Add(this.TableScript_dgv);
-            this.tabTableScript.Location = new System.Drawing.Point(4, 22);
-            this.tabTableScript.Name = "tabTableScript";
-            this.tabTableScript.Padding = new System.Windows.Forms.Padding(3);
-            this.tabTableScript.Size = new System.Drawing.Size(734, 217);
-            this.tabTableScript.TabIndex = 1;
-            this.tabTableScript.Text = "Таблично";
-            this.tabTableScript.UseVisualStyleBackColor = true;
-            // 
-            // openFileGroup
-            // 
-            this.openFileGroup.FileName = "openFileDialog1";
-            // 
-            // StatusStripNameOfFile
-            // 
-            this.StatusStripNameOfFile.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileName_statstrip});
-            this.StatusStripNameOfFile.Location = new System.Drawing.Point(0, 314);
-            this.StatusStripNameOfFile.Name = "StatusStripNameOfFile";
-            this.StatusStripNameOfFile.Size = new System.Drawing.Size(789, 22);
-            this.StatusStripNameOfFile.TabIndex = 22;
-            // 
-            // fileName_statstrip
-            // 
-            this.fileName_statstrip.Name = "fileName_statstrip";
-            this.fileName_statstrip.Size = new System.Drawing.Size(0, 17);
-            // 
-            // OneStepForward_btn
-            // 
-            this.OneStepForward_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.OneStepForward_btn.Location = new System.Drawing.Point(362, 248);
-            this.OneStepForward_btn.Name = "OneStepForward_btn";
-            this.OneStepForward_btn.Size = new System.Drawing.Size(75, 25);
-            this.OneStepForward_btn.TabIndex = 23;
-            this.OneStepForward_btn.Text = "Вперед";
-            this.OneStepForward_btn.UseVisualStyleBackColor = true;
-            this.OneStepForward_btn.Click += new System.EventHandler(this.OneStepForward_btn_Click);
-            // 
-            // OneStepBackward_btn
-            // 
-            this.OneStepBackward_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.OneStepBackward_btn.Location = new System.Drawing.Point(250, 248);
-            this.OneStepBackward_btn.Name = "OneStepBackward_btn";
-            this.OneStepBackward_btn.Size = new System.Drawing.Size(75, 25);
-            this.OneStepBackward_btn.TabIndex = 24;
-            this.OneStepBackward_btn.Text = "Назад";
-            this.OneStepBackward_btn.UseVisualStyleBackColor = true;
-            this.OneStepBackward_btn.Click += new System.EventHandler(this.OneStepBackward_btn_Click);
-            // 
-            // StartScript_btn
-            // 
-            this.StartScript_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.StartScript_btn.ContextMenuStrip = this.contextMenuToStart;
-            this.StartScript_btn.Location = new System.Drawing.Point(331, 248);
-            this.StartScript_btn.Name = "StartScript_btn";
-            this.StartScript_btn.Size = new System.Drawing.Size(25, 25);
-            this.StartScript_btn.TabIndex = 25;
-            this.StartScript_btn.Text = "▶";
-            this.StartScript_btn.UseVisualStyleBackColor = true;
-            this.StartScript_btn.Click += new System.EventHandler(this.StartScript_btn_Click);
-            this.StartScript_btn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.StartScript_btn_MouseDown);
-            // 
-            // contextMenuToStart
-            // 
-            this.contextMenuToStart.Name = "contextMenuToStart";
-            this.contextMenuToStart.Size = new System.Drawing.Size(61, 4);
-            // 
-            // SpeedChoise_cmb
-            // 
-            this.SpeedChoise_cmb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.SpeedChoise_cmb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.SpeedChoise_cmb.FormattingEnabled = true;
-            this.SpeedChoise_cmb.Items.AddRange(new object[] {
-            "низкая",
-            "средняя",
-            "высокая"});
-            this.SpeedChoise_cmb.Location = new System.Drawing.Point(613, 248);
-            this.SpeedChoise_cmb.Name = "SpeedChoise_cmb";
-            this.SpeedChoise_cmb.Size = new System.Drawing.Size(128, 21);
-            this.SpeedChoise_cmb.TabIndex = 18;
-            // 
-            // speed_lbl
-            // 
-            this.speed_lbl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.speed_lbl.AutoSize = true;
-            this.speed_lbl.Location = new System.Drawing.Point(460, 254);
-            this.speed_lbl.Name = "speed_lbl";
-            this.speed_lbl.Size = new System.Drawing.Size(151, 13);
-            this.speed_lbl.TabIndex = 26;
-            this.speed_lbl.Text = "Скорость воспроизведения:";
-            // 
-            // panel1
-            // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.speed_lbl);
-            this.panel1.Controls.Add(this.SpeedChoise_cmb);
-            this.panel1.Controls.Add(this.OneStepForward_btn);
-            this.panel1.Controls.Add(this.OneStepBackward_btn);
-            this.panel1.Controls.Add(this.StartScript_btn);
-            this.panel1.Controls.Add(this.tabScripts);
-            this.panel1.Location = new System.Drawing.Point(12, 32);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(754, 280);
-            this.panel1.TabIndex = 27;
-            // 
-            // DeleteAll_btn
-            // 
-            this.DeleteAll_btn.Location = new System.Drawing.Point(176, 261);
-            this.DeleteAll_btn.Name = "DeleteAll_btn";
-            this.DeleteAll_btn.Size = new System.Drawing.Size(75, 25);
-            this.DeleteAll_btn.TabIndex = 21;
-            this.DeleteAll_btn.Text = "Очистить";
-            this.DeleteAll_btn.UseVisualStyleBackColor = true;
-            this.DeleteAll_btn.Visible = false;
-            this.DeleteAll_btn.Click += new System.EventHandler(this.DeleteAll_btn_Click);
-            // 
-            // edit_gb
-            // 
-            this.edit_gb.Controls.Add(this.EditComand_btn);
-            this.edit_gb.Controls.Add(this.EditCommand_tb);
-            this.edit_gb.Location = new System.Drawing.Point(6, 161);
-            this.edit_gb.Name = "edit_gb";
-            this.edit_gb.Size = new System.Drawing.Size(245, 73);
-            this.edit_gb.TabIndex = 15;
-            this.edit_gb.TabStop = false;
-            this.edit_gb.Text = "Редактирование";
-            this.edit_gb.Visible = false;
-            // 
-            // EditCommand_tb
-            // 
-            this.EditCommand_tb.Location = new System.Drawing.Point(10, 19);
-            this.EditCommand_tb.Name = "EditCommand_tb";
-            this.EditCommand_tb.Size = new System.Drawing.Size(148, 20);
-            this.EditCommand_tb.TabIndex = 2;
-            // 
-            // EditComand_btn
-            // 
-            this.EditComand_btn.Location = new System.Drawing.Point(164, 16);
-            this.EditComand_btn.Name = "EditComand_btn";
-            this.EditComand_btn.Size = new System.Drawing.Size(75, 25);
-            this.EditComand_btn.TabIndex = 3;
-            this.EditComand_btn.Text = "Изменить";
-            this.EditComand_btn.UseVisualStyleBackColor = true;
-            this.EditComand_btn.Click += new System.EventHandler(this.EditComand_btn_Click);
-            // 
-            // del_gb
-            // 
-            this.del_gb.Controls.Add(this.DeleteCommand_btn);
-            this.del_gb.Location = new System.Drawing.Point(6, 98);
-            this.del_gb.Name = "del_gb";
-            this.del_gb.Size = new System.Drawing.Size(245, 56);
-            this.del_gb.TabIndex = 14;
-            this.del_gb.TabStop = false;
-            this.del_gb.Text = "Удаление";
-            this.del_gb.Visible = false;
-            // 
-            // DeleteCommand_btn
-            // 
-            this.DeleteCommand_btn.Location = new System.Drawing.Point(164, 19);
-            this.DeleteCommand_btn.Name = "DeleteCommand_btn";
-            this.DeleteCommand_btn.Size = new System.Drawing.Size(75, 23);
-            this.DeleteCommand_btn.TabIndex = 12;
-            this.DeleteCommand_btn.Text = "Удалить";
-            this.DeleteCommand_btn.UseVisualStyleBackColor = true;
-            this.DeleteCommand_btn.Click += new System.EventHandler(this.DeleteCommand_btn_Click);
-            // 
-            // add_gb
-            // 
-            this.add_gb.Controls.Add(this.y_lbl);
-            this.add_gb.Controls.Add(this.x_lbl);
-            this.add_gb.Controls.Add(this.CoordY_tb);
-            this.add_gb.Controls.Add(this.CoordX_tb);
-            this.add_gb.Controls.Add(this.EndGroup_btn);
-            this.add_gb.Controls.Add(this.Command_cmb);
-            this.add_gb.Controls.Add(this.Params_tb);
-            this.add_gb.Controls.Add(this.addCommand_btn);
-            this.add_gb.Controls.Add(this.Params_cmb);
-            this.add_gb.Location = new System.Drawing.Point(6, 6);
-            this.add_gb.Name = "add_gb";
-            this.add_gb.Size = new System.Drawing.Size(245, 86);
-            this.add_gb.TabIndex = 13;
-            this.add_gb.TabStop = false;
-            this.add_gb.Text = "Добавление";
-            this.add_gb.Visible = false;
-            // 
-            // Params_cmb
-            // 
-            this.Params_cmb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.Params_cmb.FormattingEnabled = true;
-            this.Params_cmb.Items.AddRange(new object[] {
-            "ENTER",
-            "F5",
-            "ESC",
-            "F3",
-            "стрелку влево",
-            "стрелку вправо",
-            "стрелку вверх",
-            "стрелку вниз"});
-            this.Params_cmb.Location = new System.Drawing.Point(10, 53);
-            this.Params_cmb.Name = "Params_cmb";
-            this.Params_cmb.Size = new System.Drawing.Size(148, 21);
-            this.Params_cmb.TabIndex = 10;
-            this.Params_cmb.Visible = false;
-            // 
-            // addCommand_btn
-            // 
-            this.addCommand_btn.Location = new System.Drawing.Point(164, 19);
-            this.addCommand_btn.Name = "addCommand_btn";
-            this.addCommand_btn.Size = new System.Drawing.Size(75, 25);
-            this.addCommand_btn.TabIndex = 9;
-            this.addCommand_btn.Text = "Добавить";
-            this.addCommand_btn.UseVisualStyleBackColor = true;
-            this.addCommand_btn.Click += new System.EventHandler(this.AddCommand_btn_Click);
-            // 
-            // Params_tb
-            // 
-            this.Params_tb.Location = new System.Drawing.Point(10, 53);
-            this.Params_tb.Name = "Params_tb";
-            this.Params_tb.Size = new System.Drawing.Size(148, 20);
-            this.Params_tb.TabIndex = 11;
-            this.Params_tb.Visible = false;
-            // 
-            // Command_cmb
-            // 
-            this.Command_cmb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.Command_cmb.FormattingEnabled = true;
-            this.Command_cmb.Items.AddRange(new object[] {
-            " ",
-            "открыть окно ВД",
-            "выполнить автозаполнение",
-            "открыть классификатор",
-            "перейти вперед",
-            "перейти назад",
-            "",
-            "нажать",
-            "ввести значение",
-            "найти значение",
-            "перейти к графе номер",
-            "подождать секунд",
-            "группа",
-            "",
-            "добавить товар",
-            "перейти к первому товару",
-            "",
-            "проверка",
-            "",
-            "в столбце",
-            "в строке",
-            "",
-            "нажать в точке",
-            "",
-            "прочитать из XML",
-            "записать в XML",
-            "прочитать из СТМ",
-            "записать в СТМ"});
-            this.Command_cmb.Location = new System.Drawing.Point(10, 22);
-            this.Command_cmb.Name = "Command_cmb";
-            this.Command_cmb.Size = new System.Drawing.Size(148, 21);
-            this.Command_cmb.TabIndex = 8;
-            this.Command_cmb.SelectedIndexChanged += new System.EventHandler(this.Command_cmb_SelectedIndexChanged);
-            // 
-            // EndGroup_btn
-            // 
-            this.EndGroup_btn.Location = new System.Drawing.Point(164, 50);
-            this.EndGroup_btn.Name = "EndGroup_btn";
-            this.EndGroup_btn.Size = new System.Drawing.Size(75, 25);
-            this.EndGroup_btn.TabIndex = 12;
-            this.EndGroup_btn.Text = "Конец";
-            this.EndGroup_btn.UseVisualStyleBackColor = true;
-            this.EndGroup_btn.Visible = false;
-            this.EndGroup_btn.Click += new System.EventHandler(this.EndGroup_btn_Click);
-            // 
-            // CoordX_tb
-            // 
-            this.CoordX_tb.Location = new System.Drawing.Point(34, 53);
-            this.CoordX_tb.Name = "CoordX_tb";
-            this.CoordX_tb.Size = new System.Drawing.Size(45, 20);
-            this.CoordX_tb.TabIndex = 13;
-            this.CoordX_tb.Visible = false;
-            // 
-            // CoordY_tb
-            // 
-            this.CoordY_tb.Location = new System.Drawing.Point(113, 53);
-            this.CoordY_tb.Name = "CoordY_tb";
-            this.CoordY_tb.Size = new System.Drawing.Size(45, 20);
-            this.CoordY_tb.TabIndex = 14;
-            this.CoordY_tb.Visible = false;
-            // 
-            // x_lbl
-            // 
-            this.x_lbl.AutoSize = true;
-            this.x_lbl.Location = new System.Drawing.Point(10, 56);
-            this.x_lbl.Name = "x_lbl";
-            this.x_lbl.Size = new System.Drawing.Size(18, 13);
-            this.x_lbl.TabIndex = 15;
-            this.x_lbl.Tag = " ";
-            this.x_lbl.Text = "x :";
-            this.x_lbl.Visible = false;
-            // 
-            // y_lbl
-            // 
-            this.y_lbl.AutoSize = true;
-            this.y_lbl.Location = new System.Drawing.Point(89, 56);
-            this.y_lbl.Name = "y_lbl";
-            this.y_lbl.Size = new System.Drawing.Size(18, 13);
-            this.y_lbl.TabIndex = 16;
-            this.y_lbl.Tag = " ";
-            this.y_lbl.Text = "y :";
-            this.y_lbl.Visible = false;
-            // 
-            // search_gb
-            // 
-            this.search_gb.Controls.Add(this.search_tb);
-            this.search_gb.Controls.Add(this.ClearSearch_btn);
-            this.search_gb.Controls.Add(this.Search_btn);
-            this.search_gb.Location = new System.Drawing.Point(3, 6);
-            this.search_gb.Name = "search_gb";
-            this.search_gb.Size = new System.Drawing.Size(245, 86);
-            this.search_gb.TabIndex = 17;
-            this.search_gb.TabStop = false;
-            this.search_gb.Text = "Введите слово для поиска в сценарии";
-            this.search_gb.Visible = false;
-            // 
-            // Search_btn
-            // 
-            this.Search_btn.Location = new System.Drawing.Point(164, 19);
-            this.Search_btn.Name = "Search_btn";
-            this.Search_btn.Size = new System.Drawing.Size(75, 25);
-            this.Search_btn.TabIndex = 9;
-            this.Search_btn.Text = "Поиск";
-            this.Search_btn.UseVisualStyleBackColor = true;
-            this.Search_btn.Click += new System.EventHandler(this.Search_btn_Click);
-            // 
-            // ClearSearch_btn
-            // 
-            this.ClearSearch_btn.Location = new System.Drawing.Point(164, 50);
-            this.ClearSearch_btn.Name = "ClearSearch_btn";
-            this.ClearSearch_btn.Size = new System.Drawing.Size(75, 25);
-            this.ClearSearch_btn.TabIndex = 12;
-            this.ClearSearch_btn.Text = "Очистить";
-            this.ClearSearch_btn.UseVisualStyleBackColor = true;
-            this.ClearSearch_btn.Visible = false;
-            this.ClearSearch_btn.Click += new System.EventHandler(this.ClearSearch_btn_Click);
-            // 
-            // search_tb
-            // 
-            this.search_tb.Location = new System.Drawing.Point(6, 22);
-            this.search_tb.Name = "search_tb";
-            this.search_tb.Size = new System.Drawing.Size(152, 20);
-            this.search_tb.TabIndex = 13;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.search_gb);
-            this.panel2.Controls.Add(this.add_gb);
-            this.panel2.Controls.Add(this.del_gb);
-            this.panel2.Controls.Add(this.edit_gb);
-            this.panel2.Controls.Add(this.DeleteAll_btn);
-            this.panel2.Location = new System.Drawing.Point(772, 44);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(273, 234);
-            this.panel2.TabIndex = 28;
-            this.panel2.Visible = false;
+            // splitter1
+            // 
+            this.splitter1.Location = new System.Drawing.Point(0, 0);
+            this.splitter1.Name = "splitter1";
+            this.splitter1.Size = new System.Drawing.Size(3, 290);
+            this.splitter1.TabIndex = 0;
+            this.splitter1.TabStop = false;
             // 
             // DclTestFormWPy
             // 
@@ -737,10 +746,6 @@
             this.Text = "DclTest";
             this.scriptsTask_ms.ResumeLayout(false);
             this.scriptsTask_ms.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.TableScript_dgv)).EndInit();
-            this.tabScripts.ResumeLayout(false);
-            this.tabTreeViewScript.ResumeLayout(false);
-            this.tabTableScript.ResumeLayout(false);
             this.StatusStripNameOfFile.ResumeLayout(false);
             this.StatusStripNameOfFile.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -753,6 +758,10 @@
             this.search_gb.ResumeLayout(false);
             this.search_gb.PerformLayout();
             this.panel2.ResumeLayout(false);
+            this.tabTableScript.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.TableScript_dgv)).EndInit();
+            this.tabTreeViewScript.ResumeLayout(false);
+            this.tabScripts.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -766,12 +775,7 @@
         private System.Windows.Forms.ToolStripMenuItem Open_MenuItem;
         private System.Windows.Forms.ToolStripMenuItem Save_MenuItem;
         private System.Windows.Forms.SaveFileDialog saveFileScript;
-        private System.Windows.Forms.DataGridView TableScript_dgv;
         private System.Windows.Forms.Label fileName_lbl;
-        private System.Windows.Forms.TreeView TreeViewOfScript;
-        private System.Windows.Forms.TabControl tabScripts;
-        private System.Windows.Forms.TabPage tabTreeViewScript;
-        private System.Windows.Forms.TabPage tabTableScript;
         private System.Windows.Forms.OpenFileDialog openFileGroup;
         private System.Windows.Forms.ToolStripMenuItem OpenScript_MenuItem;
         private System.Windows.Forms.ToolStripMenuItem OpenGroup_MenuItem;
@@ -782,12 +786,6 @@
         private System.Windows.Forms.Button OneStepBackward_btn;
         private System.Windows.Forms.Button StartScript_btn;
         private System.Windows.Forms.ContextMenuStrip contextMenuToStart;
-        private System.Windows.Forms.DataGridViewTextBoxColumn numberOfCommand;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nameOfCommand;
-        private System.Windows.Forms.DataGridViewTextBoxColumn paramOfCommand;
-        private System.Windows.Forms.DataGridViewTextBoxColumn descriptionOfCommand;
-        private System.Windows.Forms.DataGridViewTextBoxColumn resultOfCommand;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn BreakPointOfCommand;
         private System.Windows.Forms.ToolStripMenuItem редактированиеToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem скрытьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem поискToolStripMenuItem;
@@ -816,5 +814,17 @@
         private System.Windows.Forms.Button ClearSearch_btn;
         private System.Windows.Forms.Button Search_btn;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.TabControl tabScripts;
+        private System.Windows.Forms.TabPage tabTreeViewScript;
+        private System.Windows.Forms.TreeView TreeViewOfScript;
+        private System.Windows.Forms.TabPage tabTableScript;
+        private System.Windows.Forms.DataGridView TableScript_dgv;
+        private System.Windows.Forms.DataGridViewTextBoxColumn numberOfCommand;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nameOfCommand;
+        private System.Windows.Forms.DataGridViewTextBoxColumn paramOfCommand;
+        private System.Windows.Forms.DataGridViewTextBoxColumn descriptionOfCommand;
+        private System.Windows.Forms.DataGridViewTextBoxColumn resultOfCommand;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn BreakPointOfCommand;
+        private System.Windows.Forms.Splitter splitter1;
     }
 }
