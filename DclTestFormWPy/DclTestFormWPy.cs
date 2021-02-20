@@ -57,9 +57,9 @@ namespace DclTestFormWPy
                 TableScript_dgv.Rows[rowNumber].Cells[0].Value = rowNumber + 1;
                 if (comWithParams.Length > 2)
                 {
-                    for(int indexForSplit = 2; indexForSplit < comWithParams.Length; indexForSplit++)
+                    for (int indexForSplit = 2; indexForSplit < comWithParams.Length; indexForSplit++)
                     {
-                        comWithParams[1] += ":"+comWithParams[indexForSplit];
+                        comWithParams[1] += ":" + comWithParams[indexForSplit];
                         comWithParams[indexForSplit] = "";
                     }
                 }
@@ -654,24 +654,17 @@ namespace DclTestFormWPy
             add_gb.Visible = true;
             del_gb.Visible = true;
             edit_gb.Visible = true;
-            search_gb.Visible = false;
+            search_gb.Visible = false; 
+            HidePanel2.Visible = true;
+            tableLayoutPanel.ColumnStyles[1].SizeType = SizeType.Absolute;
+            tableLayoutPanel.ColumnStyles[1].Width = 273;
             panel1.Size = new System.Drawing.Size(panel1.Width, panel1.Height);
             panel2.Size = new System.Drawing.Size(273, 290);
-            panel2.Location = new System.Drawing.Point(panel1.Width + 5, 43);
-            ClientSize = new System.Drawing.Size(panel1.Width + 250, HeightForm);
+            ClientSize = new System.Drawing.Size(this.Size.Width + 280, this.Size.Height);
             //EditingSearchForm formEdit = new EditingSearchForm();
             //formEdit.Show();
-        }
-
-        private void скрытьToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            panel2.Visible = false;
-            add_gb.Visible = false;
-            del_gb.Visible = false;
-            edit_gb.Visible = false;
-            search_gb.Visible = false;
-            panel2.Size = new System.Drawing.Size(0, 0);
-            ClientSize = new System.Drawing.Size(WidthForm, HeightForm);
+            this.MinimumSize = new System.Drawing.Size(805 + 280, 375);
+            редактированиеToolStripMenuItem.Enabled = false;
         }
 
         private void поискToolStripMenuItem_Click(object sender, EventArgs e)
@@ -681,10 +674,18 @@ namespace DclTestFormWPy
             del_gb.Visible = false;
             edit_gb.Visible = false;
             search_gb.Visible = true;
-            ClientSize = new System.Drawing.Size(WidthForm + 250, HeightForm);
+            HidePanel2.Visible = true;
+            tableLayoutPanel.ColumnStyles[1].SizeType = SizeType.Absolute;
+            tableLayoutPanel.ColumnStyles[1].Width = 273;
+            panel1.Size = new System.Drawing.Size(panel1.Width, panel1.Height);
+            panel2.Size = new System.Drawing.Size(273, 290);
+            panel2.Location = new System.Drawing.Point(panel1.Width + 5, 43);
+            ClientSize = new System.Drawing.Size(this.Size.Width + 280, this.Size.Height);
+            поискToolStripMenuItem.Enabled = false;
+            this.MinimumSize = new System.Drawing.Size(805 + 280, 375);
         }
 
-        
+
 
         private void ClearSearch_btn_Click(object sender, EventArgs e)
         {
@@ -694,7 +695,52 @@ namespace DclTestFormWPy
 
         private void Search_btn_Click(object sender, EventArgs e)
         {
+            if (search_tb.Text != "")
+            {
+                string search = search_tb.Text;
+                if (TableScript_dgv.Rows.Count != 0)
+                {
+                    for (int numOfCommand = 0; numOfCommand < TableScript_dgv.Rows.Count; numOfCommand++)
+                    {
+                        if (TableScript_dgv.Rows[numOfCommand].Cells[1].Value.ToString().Contains(search))
+                        {
+                            TableScript_dgv.Rows[numOfCommand].Selected = true;
+                        }
+                        else if (TableScript_dgv.Rows[numOfCommand].Cells[2].Value != null)
+                        {
+                            if (TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString().Contains(search))
+                            {
+                                TableScript_dgv.Rows[numOfCommand].Selected = true;
+                            }
+                        }
+                    }
+                    ClearSearch_btn.Visible = true;
+                }
+                else MessageBox.Show("Не открыт ни один сценарий!");
+            }
+            else MessageBox.Show("Строка поиска пуста!");
+        }
 
+        private void DclTestFormWPy_Resize(object sender, EventArgs e)
+        {
+            panel3.Location = new System.Drawing.Point(Convert.ToInt32(panel1.Width / 2) - 160, this.Height - 130);
+        }
+
+        private void HidePanel2_Click(object sender, EventArgs e)
+        {
+            panel2.Visible = false;
+            add_gb.Visible = false;
+            del_gb.Visible = false;
+            edit_gb.Visible = false;
+            search_gb.Visible = false;
+            HidePanel2.Visible = false;
+            tableLayoutPanel.ColumnStyles[1].SizeType = SizeType.Percent;
+            tableLayoutPanel.ColumnStyles[1].Width = 0;
+            panel2.Size = new System.Drawing.Size(0, 0);
+            ClientSize = new System.Drawing.Size(WidthForm, HeightForm);
+            редактированиеToolStripMenuItem.Enabled = true;
+            поискToolStripMenuItem.Enabled = true; 
+            this.MinimumSize = new System.Drawing.Size(805, 375);
         }
     }
 }
