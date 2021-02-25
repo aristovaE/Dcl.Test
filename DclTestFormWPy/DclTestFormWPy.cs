@@ -96,9 +96,9 @@ namespace DclTestFormWPy
                 {
                     if (command.Contains("конец"))
                     {
-                        ////не писать команду в тривью
-                        //prevCommand = prevCommand.Parent;
-                        //prevCommand.Tag = index;
+                        //не писать команду в тривью
+                        prevCommand = prevCommand.Parent;
+                        prevCommand.Tag = index;
                     }
                     else
                     {
@@ -526,11 +526,11 @@ namespace DclTestFormWPy
             int column = 1, row = 1;
             bool IsStop = false;
             OpenDCL();
-            IntPtr windowFocus = GetForegroundWindow();
+            //IntPtr windowFocus = GetForegroundWindow();
             for (int numOfCommand = 0; numOfCommand < TableScript_dgv.Rows.Count; numOfCommand++)
             {
-                string command = TableScript_dgv.Rows[numOfCommand].Cells[1].Value.ToString();
-                IsStop = DoCommand(command, ref numOfCommand, ref column, ref row, windowFocus);
+                IntPtr windowFocus = GetForegroundWindow();
+                IsStop = DoCommand(ref numOfCommand, ref column, ref row, windowFocus);
                 if (IsStop != false)
                 {
                     break;
@@ -559,8 +559,7 @@ namespace DclTestFormWPy
                 //прерывание, если команда в точке останова
                 if ((Boolean)TableScript_dgv.Rows[numOfCommand].Cells[5].EditedFormattedValue == true)
                 { break; }
-                string command = TableScript_dgv.Rows[numOfCommand].Cells[1].Value.ToString();
-                IsStop = DoCommand(command, ref numOfCommand, ref column, ref row, windowFocus);
+                IsStop = DoCommand(ref numOfCommand, ref column, ref row, windowFocus);
                 if (IsStop != false)
                 {
                     break;
@@ -587,8 +586,7 @@ namespace DclTestFormWPy
             IntPtr windowFocus = GetForegroundWindow();
             for (int index = 0; index < CountCommand; index++)
             {
-                string command = TableScript_dgv.Rows[numOfCommand].Cells[1].Value.ToString();
-                IsStop = DoCommand(command, ref numOfCommand, ref column, ref row, windowFocus);
+                IsStop = DoCommand(ref numOfCommand, ref column, ref row, windowFocus);
                 if (IsStop != false)
                 {
                     break;
