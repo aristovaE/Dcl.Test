@@ -94,7 +94,7 @@ namespace DclTestFormWPy
                 }
                 else
                 {
-                    if (command.Contains("конец"))
+                    if (command == "конец")
                     {
                         //не писать команду в тривью
                         prevCommand = prevCommand.Parent;
@@ -654,6 +654,8 @@ namespace DclTestFormWPy
             edit_gb.Visible = true;
             search_gb.Visible = false; 
             HidePanel2.Visible = true;
+            Params_tb.Text = "";
+            EditCommand_tb.Text = "";
             tableLayoutPanel.ColumnStyles[1].SizeType = SizeType.Absolute;
             tableLayoutPanel.ColumnStyles[1].Width = 273;
             panel1.Size = new System.Drawing.Size(panel1.Width, panel1.Height);

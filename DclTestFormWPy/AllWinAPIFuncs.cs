@@ -459,7 +459,7 @@ namespace DclTestFormWPy
                     case "выполнить в цикле":
                         num = numOfCommand;
                         countOfRestart = Convert.ToInt32(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
-                        if (TableScript_dgv.Rows[numOfCommand + 1].Cells[1].Value.ToString() == "начало")
+                        if (TableScript_dgv.Rows[numOfCommand + 1].Cells[1].Value.ToString() == "начало цикла") //выполнить несколько команд в цикле
                         {
                             for (int count = 1; count < countOfRestart; count++)
                             {
@@ -467,19 +467,21 @@ namespace DclTestFormWPy
                                 while (command != "конец цикла")
                                 {
                                     IsStop = DoCommand(ref numOfCommand, ref column, ref row, windowFocus);
-                                    numOfCommand++;
+                                    if (numOfCommand + 1 == TableScript_dgv.Rows.Count)
+                                        break;
+                                    else
+                                        numOfCommand++;
                                 }
                                 numOfCommand = num;
                             }
                         }
-                        else
+                        else // выполнить одну команду в цикле
                         {
-                            for (int index = 0; index < Convert.ToInt32(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString()); index++)
+                            numOfCommand++;
+                            for (int index = 0; index < Convert.ToInt32(TableScript_dgv.Rows[numOfCommand-1].Cells[2].Value.ToString()); index++)
                             {
-                                numOfCommand++;
                                 IsStop = DoCommand(ref numOfCommand, ref column, ref row, windowFocus);
                             }
-                            numOfCommand++; //пропуск следующего действия
                         }
                         break;
 
