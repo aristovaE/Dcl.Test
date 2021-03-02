@@ -223,7 +223,8 @@ namespace DclTestFormWPy
         {
             if (tabScripts.SelectedIndex == 1)
             {
-                TableScript_dgv.CurrentRow.Cells[1].Value = EditCommand_tb.Text;
+                TableScript_dgv.CurrentRow.Cells[1].Value = EditCommand_cmb.SelectedItem.ToString();
+                TableScript_dgv.CurrentRow.Cells[3].Value = Commands.CheckDescription(EditCommand_cmb.SelectedItem.ToString());
             }
             else
             {
@@ -267,10 +268,11 @@ namespace DclTestFormWPy
         /// </summary>
         private void TableScript_dgv_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (TableScript_dgv.CurrentRow != null && TableScript_dgv.CurrentRow.Cells[2].Value != null)
+            if (TableScript_dgv.CurrentRow != null )
             {
                 EditCommand_tb.Text = "";
-                EditCommand_tb.Text = TableScript_dgv.CurrentRow.Cells[2].Value.ToString();
+                EditCommand_tb.Text = TableScript_dgv.CurrentRow.Cells[1].Value.ToString();
+                EditCommand_cmb.SelectedItem = TableScript_dgv.CurrentRow.Cells[1].Value.ToString();
             }
         }
 
@@ -665,6 +667,10 @@ namespace DclTestFormWPy
             //formEdit.Show();
             this.MinimumSize = new System.Drawing.Size(805 + 280, 375);
             редактированиеToolStripMenuItem.Enabled = false;
+            foreach (string str in Command_cmb.Items)
+                EditCommand_cmb.Items.Add(str);
+            EditCommand_cmb.Visible = true;
+            EditCommand_cmb.Location = new System.Drawing.Point(panel2.Location.X+28,panel2.Location.Y+207);
         }
 
         private void поискToolStripMenuItem_Click(object sender, EventArgs e)
@@ -741,6 +747,11 @@ namespace DclTestFormWPy
             редактированиеToolStripMenuItem.Enabled = true;
             поискToolStripMenuItem.Enabled = true; 
             this.MinimumSize = new System.Drawing.Size(805, 375);
+        }
+
+        private void TableScript_dgv_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

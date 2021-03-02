@@ -49,14 +49,37 @@
             this.openFileGroup = new System.Windows.Forms.OpenFileDialog();
             this.StatusStripNameOfFile = new System.Windows.Forms.StatusStrip();
             this.fileName_statstrip = new System.Windows.Forms.ToolStripStatusLabel();
-            this.OneStepForward_btn = new System.Windows.Forms.Button();
-            this.OneStepBackward_btn = new System.Windows.Forms.Button();
-            this.StartScript_btn = new System.Windows.Forms.Button();
             this.contextMenuToStart = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.SpeedChoise_cmb = new System.Windows.Forms.ComboBox();
-            this.speed_lbl = new System.Windows.Forms.Label();
+            this.EditCommand_cmb = new System.Windows.Forms.ComboBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.HidePanel2 = new System.Windows.Forms.Button();
+            this.search_gb = new System.Windows.Forms.GroupBox();
+            this.search_tb = new System.Windows.Forms.TextBox();
+            this.ClearSearch_btn = new System.Windows.Forms.Button();
+            this.Search_btn = new System.Windows.Forms.Button();
+            this.add_gb = new System.Windows.Forms.GroupBox();
+            this.y_lbl = new System.Windows.Forms.Label();
+            this.x_lbl = new System.Windows.Forms.Label();
+            this.CoordY_tb = new System.Windows.Forms.TextBox();
+            this.CoordX_tb = new System.Windows.Forms.TextBox();
+            this.EndGroup_btn = new System.Windows.Forms.Button();
+            this.Command_cmb = new System.Windows.Forms.ComboBox();
+            this.Params_tb = new System.Windows.Forms.TextBox();
+            this.addCommand_btn = new System.Windows.Forms.Button();
+            this.Params_cmb = new System.Windows.Forms.ComboBox();
+            this.del_gb = new System.Windows.Forms.GroupBox();
+            this.DeleteCommand_btn = new System.Windows.Forms.Button();
+            this.edit_gb = new System.Windows.Forms.GroupBox();
+            this.EditComand_btn = new System.Windows.Forms.Button();
+            this.EditCommand_tb = new System.Windows.Forms.TextBox();
+            this.DeleteAll_btn = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.OneStepForward_btn = new System.Windows.Forms.Button();
+            this.StartScript_btn = new System.Windows.Forms.Button();
+            this.OneStepBackward_btn = new System.Windows.Forms.Button();
+            this.speed_lbl = new System.Windows.Forms.Label();
+            this.SpeedChoise_cmb = new System.Windows.Forms.ComboBox();
             this.tabScripts = new System.Windows.Forms.TabControl();
             this.tabTreeViewScript = new System.Windows.Forms.TabPage();
             this.TreeViewOfScript = new System.Windows.Forms.TreeView();
@@ -68,42 +91,20 @@
             this.descriptionOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.resultOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BreakPointOfCommand = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.DeleteAll_btn = new System.Windows.Forms.Button();
-            this.edit_gb = new System.Windows.Forms.GroupBox();
-            this.EditComand_btn = new System.Windows.Forms.Button();
-            this.EditCommand_tb = new System.Windows.Forms.TextBox();
-            this.del_gb = new System.Windows.Forms.GroupBox();
-            this.DeleteCommand_btn = new System.Windows.Forms.Button();
-            this.add_gb = new System.Windows.Forms.GroupBox();
-            this.y_lbl = new System.Windows.Forms.Label();
-            this.x_lbl = new System.Windows.Forms.Label();
-            this.CoordY_tb = new System.Windows.Forms.TextBox();
-            this.CoordX_tb = new System.Windows.Forms.TextBox();
-            this.EndGroup_btn = new System.Windows.Forms.Button();
-            this.Command_cmb = new System.Windows.Forms.ComboBox();
-            this.Params_tb = new System.Windows.Forms.TextBox();
-            this.addCommand_btn = new System.Windows.Forms.Button();
-            this.Params_cmb = new System.Windows.Forms.ComboBox();
-            this.search_gb = new System.Windows.Forms.GroupBox();
-            this.search_tb = new System.Windows.Forms.TextBox();
-            this.ClearSearch_btn = new System.Windows.Forms.Button();
-            this.Search_btn = new System.Windows.Forms.Button();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.HidePanel2 = new System.Windows.Forms.Button();
             this.scriptsTask_ms.SuspendLayout();
             this.StatusStripNameOfFile.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.search_gb.SuspendLayout();
+            this.add_gb.SuspendLayout();
+            this.del_gb.SuspendLayout();
+            this.edit_gb.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.tabScripts.SuspendLayout();
             this.tabTreeViewScript.SuspendLayout();
             this.tabTableScript.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TableScript_dgv)).BeginInit();
-            this.edit_gb.SuspendLayout();
-            this.del_gb.SuspendLayout();
-            this.add_gb.SuspendLayout();
-            this.search_gb.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.tableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -130,7 +131,7 @@
             this.поискToolStripMenuItem});
             this.scriptsTask_ms.Location = new System.Drawing.Point(0, 0);
             this.scriptsTask_ms.Name = "scriptsTask_ms";
-            this.scriptsTask_ms.Size = new System.Drawing.Size(789, 24);
+            this.scriptsTask_ms.Size = new System.Drawing.Size(825, 24);
             this.scriptsTask_ms.TabIndex = 5;
             this.scriptsTask_ms.Text = "menuStrip1";
             // 
@@ -211,7 +212,7 @@
             this.fileName_statstrip});
             this.StatusStripNameOfFile.Location = new System.Drawing.Point(0, 332);
             this.StatusStripNameOfFile.Name = "StatusStripNameOfFile";
-            this.StatusStripNameOfFile.Size = new System.Drawing.Size(789, 22);
+            this.StatusStripNameOfFile.Size = new System.Drawing.Size(825, 22);
             this.StatusStripNameOfFile.TabIndex = 22;
             // 
             // fileName_statstrip
@@ -219,298 +220,84 @@
             this.fileName_statstrip.Name = "fileName_statstrip";
             this.fileName_statstrip.Size = new System.Drawing.Size(0, 17);
             // 
-            // OneStepForward_btn
-            // 
-            this.OneStepForward_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.OneStepForward_btn.Location = new System.Drawing.Point(116, 4);
-            this.OneStepForward_btn.Name = "OneStepForward_btn";
-            this.OneStepForward_btn.Size = new System.Drawing.Size(75, 25);
-            this.OneStepForward_btn.TabIndex = 23;
-            this.OneStepForward_btn.Text = "Вперед";
-            this.OneStepForward_btn.UseVisualStyleBackColor = true;
-            this.OneStepForward_btn.Click += new System.EventHandler(this.OneStepForward_btn_Click);
-            // 
-            // OneStepBackward_btn
-            // 
-            this.OneStepBackward_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.OneStepBackward_btn.Location = new System.Drawing.Point(4, 4);
-            this.OneStepBackward_btn.Name = "OneStepBackward_btn";
-            this.OneStepBackward_btn.Size = new System.Drawing.Size(75, 25);
-            this.OneStepBackward_btn.TabIndex = 24;
-            this.OneStepBackward_btn.Text = "Назад";
-            this.OneStepBackward_btn.UseVisualStyleBackColor = true;
-            this.OneStepBackward_btn.Click += new System.EventHandler(this.OneStepBackward_btn_Click);
-            // 
-            // StartScript_btn
-            // 
-            this.StartScript_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.StartScript_btn.ContextMenuStrip = this.contextMenuToStart;
-            this.StartScript_btn.Location = new System.Drawing.Point(85, 4);
-            this.StartScript_btn.Name = "StartScript_btn";
-            this.StartScript_btn.Size = new System.Drawing.Size(25, 25);
-            this.StartScript_btn.TabIndex = 25;
-            this.StartScript_btn.Text = "▶";
-            this.StartScript_btn.UseVisualStyleBackColor = true;
-            this.StartScript_btn.Click += new System.EventHandler(this.StartScript_btn_Click);
-            this.StartScript_btn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.StartScript_btn_MouseDown);
-            // 
             // contextMenuToStart
             // 
             this.contextMenuToStart.Name = "contextMenuToStart";
             this.contextMenuToStart.Size = new System.Drawing.Size(61, 4);
             // 
-            // SpeedChoise_cmb
+            // EditCommand_cmb
             // 
-            this.SpeedChoise_cmb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.SpeedChoise_cmb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.SpeedChoise_cmb.FormattingEnabled = true;
-            this.SpeedChoise_cmb.Items.AddRange(new object[] {
-            "низкая",
-            "средняя",
-            "высокая"});
-            this.SpeedChoise_cmb.Location = new System.Drawing.Point(615, 267);
-            this.SpeedChoise_cmb.Name = "SpeedChoise_cmb";
-            this.SpeedChoise_cmb.Size = new System.Drawing.Size(128, 21);
-            this.SpeedChoise_cmb.TabIndex = 18;
+            this.EditCommand_cmb.FormattingEnabled = true;
+            this.EditCommand_cmb.Location = new System.Drawing.Point(800, 224);
+            this.EditCommand_cmb.Name = "EditCommand_cmb";
+            this.EditCommand_cmb.Size = new System.Drawing.Size(148, 21);
+            this.EditCommand_cmb.TabIndex = 30;
+            this.EditCommand_cmb.Visible = false;
             // 
-            // speed_lbl
+            // panel2
             // 
-            this.speed_lbl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.speed_lbl.AutoSize = true;
-            this.speed_lbl.Location = new System.Drawing.Point(462, 273);
-            this.speed_lbl.Name = "speed_lbl";
-            this.speed_lbl.Size = new System.Drawing.Size(151, 13);
-            this.speed_lbl.TabIndex = 26;
-            this.speed_lbl.Text = "Скорость воспроизведения:";
+            this.panel2.Controls.Add(this.HidePanel2);
+            this.panel2.Controls.Add(this.search_gb);
+            this.panel2.Controls.Add(this.add_gb);
+            this.panel2.Controls.Add(this.del_gb);
+            this.panel2.Controls.Add(this.edit_gb);
+            this.panel2.Controls.Add(this.DeleteAll_btn);
+            this.panel2.Location = new System.Drawing.Point(804, 3);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1, 290);
+            this.panel2.TabIndex = 28;
             // 
-            // panel1
+            // HidePanel2
             // 
-            this.panel1.Controls.Add(this.panel3);
-            this.panel1.Controls.Add(this.speed_lbl);
-            this.panel1.Controls.Add(this.SpeedChoise_cmb);
-            this.panel1.Controls.Add(this.tabScripts);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 3);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(759, 299);
-            this.panel1.TabIndex = 27;
+            this.HidePanel2.Location = new System.Drawing.Point(6, 250);
+            this.HidePanel2.Name = "HidePanel2";
+            this.HidePanel2.Size = new System.Drawing.Size(236, 25);
+            this.HidePanel2.TabIndex = 22;
+            this.HidePanel2.Text = "Скрыть";
+            this.HidePanel2.UseVisualStyleBackColor = true;
+            this.HidePanel2.Visible = false;
+            this.HidePanel2.Click += new System.EventHandler(this.HidePanel2_Click);
             // 
-            // panel3
+            // search_gb
             // 
-            this.panel3.Controls.Add(this.OneStepForward_btn);
-            this.panel3.Controls.Add(this.StartScript_btn);
-            this.panel3.Controls.Add(this.OneStepBackward_btn);
-            this.panel3.Location = new System.Drawing.Point(219, 263);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(194, 32);
-            this.panel3.TabIndex = 27;
+            this.search_gb.Controls.Add(this.search_tb);
+            this.search_gb.Controls.Add(this.ClearSearch_btn);
+            this.search_gb.Controls.Add(this.Search_btn);
+            this.search_gb.Location = new System.Drawing.Point(3, 6);
+            this.search_gb.Name = "search_gb";
+            this.search_gb.Size = new System.Drawing.Size(245, 86);
+            this.search_gb.TabIndex = 17;
+            this.search_gb.TabStop = false;
+            this.search_gb.Text = "Введите слово для поиска в сценарии";
+            this.search_gb.Visible = false;
             // 
-            // tabScripts
+            // search_tb
             // 
-            this.tabScripts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabScripts.Controls.Add(this.tabTreeViewScript);
-            this.tabScripts.Controls.Add(this.tabTableScript);
-            this.tabScripts.Location = new System.Drawing.Point(3, 3);
-            this.tabScripts.Name = "tabScripts";
-            this.tabScripts.SelectedIndex = 0;
-            this.tabScripts.Size = new System.Drawing.Size(752, 255);
-            this.tabScripts.TabIndex = 18;
+            this.search_tb.Location = new System.Drawing.Point(6, 22);
+            this.search_tb.Name = "search_tb";
+            this.search_tb.Size = new System.Drawing.Size(152, 20);
+            this.search_tb.TabIndex = 13;
             // 
-            // tabTreeViewScript
+            // ClearSearch_btn
             // 
-            this.tabTreeViewScript.Controls.Add(this.TreeViewOfScript);
-            this.tabTreeViewScript.Location = new System.Drawing.Point(4, 22);
-            this.tabTreeViewScript.Name = "tabTreeViewScript";
-            this.tabTreeViewScript.Padding = new System.Windows.Forms.Padding(3);
-            this.tabTreeViewScript.Size = new System.Drawing.Size(744, 229);
-            this.tabTreeViewScript.TabIndex = 0;
-            this.tabTreeViewScript.Text = "Древовидно";
-            this.tabTreeViewScript.UseVisualStyleBackColor = true;
+            this.ClearSearch_btn.Location = new System.Drawing.Point(164, 50);
+            this.ClearSearch_btn.Name = "ClearSearch_btn";
+            this.ClearSearch_btn.Size = new System.Drawing.Size(75, 25);
+            this.ClearSearch_btn.TabIndex = 12;
+            this.ClearSearch_btn.Text = "Очистить";
+            this.ClearSearch_btn.UseVisualStyleBackColor = true;
+            this.ClearSearch_btn.Visible = false;
+            this.ClearSearch_btn.Click += new System.EventHandler(this.ClearSearch_btn_Click);
             // 
-            // TreeViewOfScript
+            // Search_btn
             // 
-            this.TreeViewOfScript.ContextMenuStrip = this.contextMenuToTreeView;
-            this.TreeViewOfScript.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TreeViewOfScript.Location = new System.Drawing.Point(3, 3);
-            this.TreeViewOfScript.Name = "TreeViewOfScript";
-            treeNode1.Name = "nameScript";
-            treeNode1.Text = "новый сценарий";
-            this.TreeViewOfScript.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
-            this.TreeViewOfScript.Size = new System.Drawing.Size(738, 223);
-            this.TreeViewOfScript.TabIndex = 17;
-            this.TreeViewOfScript.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TreeViewOfScript_MouseDown);
-            // 
-            // tabTableScript
-            // 
-            this.tabTableScript.Controls.Add(this.TableScript_dgv);
-            this.tabTableScript.Location = new System.Drawing.Point(4, 22);
-            this.tabTableScript.Name = "tabTableScript";
-            this.tabTableScript.Padding = new System.Windows.Forms.Padding(3);
-            this.tabTableScript.Size = new System.Drawing.Size(134, 161);
-            this.tabTableScript.TabIndex = 1;
-            this.tabTableScript.Text = "Таблично";
-            this.tabTableScript.UseVisualStyleBackColor = true;
-            // 
-            // TableScript_dgv
-            // 
-            this.TableScript_dgv.AllowUserToAddRows = false;
-            this.TableScript_dgv.AllowUserToOrderColumns = true;
-            this.TableScript_dgv.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.TableScript_dgv.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.TableScript_dgv.BackgroundColor = System.Drawing.SystemColors.Control;
-            this.TableScript_dgv.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.TableScript_dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.TableScript_dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.TableScript_dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.numberOfCommand,
-            this.nameOfCommand,
-            this.paramOfCommand,
-            this.descriptionOfCommand,
-            this.resultOfCommand,
-            this.BreakPointOfCommand});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.TableScript_dgv.DefaultCellStyle = dataGridViewCellStyle2;
-            this.TableScript_dgv.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TableScript_dgv.GridColor = System.Drawing.SystemColors.Control;
-            this.TableScript_dgv.Location = new System.Drawing.Point(3, 3);
-            this.TableScript_dgv.Name = "TableScript_dgv";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.TableScript_dgv.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.TableScript_dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.TableScript_dgv.Size = new System.Drawing.Size(128, 155);
-            this.TableScript_dgv.TabIndex = 7;
-            this.TableScript_dgv.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.TableScript_dgv_RowHeaderMouseClick);
-            // 
-            // numberOfCommand
-            // 
-            this.numberOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.numberOfCommand.FillWeight = 7F;
-            this.numberOfCommand.HeaderText = "№";
-            this.numberOfCommand.Name = "numberOfCommand";
-            this.numberOfCommand.ReadOnly = true;
-            this.numberOfCommand.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // nameOfCommand
-            // 
-            this.nameOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.nameOfCommand.FillWeight = 60F;
-            this.nameOfCommand.HeaderText = "Команда";
-            this.nameOfCommand.Name = "nameOfCommand";
-            this.nameOfCommand.ReadOnly = true;
-            // 
-            // paramOfCommand
-            // 
-            this.paramOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.paramOfCommand.FillWeight = 30F;
-            this.paramOfCommand.HeaderText = "Параметр";
-            this.paramOfCommand.Name = "paramOfCommand";
-            // 
-            // descriptionOfCommand
-            // 
-            this.descriptionOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.descriptionOfCommand.FillWeight = 80F;
-            this.descriptionOfCommand.HeaderText = "Описание";
-            this.descriptionOfCommand.Name = "descriptionOfCommand";
-            // 
-            // resultOfCommand
-            // 
-            this.resultOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.resultOfCommand.FillWeight = 25F;
-            this.resultOfCommand.HeaderText = "Результат";
-            this.resultOfCommand.Name = "resultOfCommand";
-            this.resultOfCommand.ReadOnly = true;
-            // 
-            // BreakPointOfCommand
-            // 
-            this.BreakPointOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.BreakPointOfCommand.FillWeight = 25F;
-            this.BreakPointOfCommand.HeaderText = "Точка останова";
-            this.BreakPointOfCommand.Name = "BreakPointOfCommand";
-            this.BreakPointOfCommand.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.BreakPointOfCommand.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // DeleteAll_btn
-            // 
-            this.DeleteAll_btn.Location = new System.Drawing.Point(167, 233);
-            this.DeleteAll_btn.Name = "DeleteAll_btn";
-            this.DeleteAll_btn.Size = new System.Drawing.Size(75, 25);
-            this.DeleteAll_btn.TabIndex = 21;
-            this.DeleteAll_btn.Text = "Очистить";
-            this.DeleteAll_btn.UseVisualStyleBackColor = true;
-            this.DeleteAll_btn.Visible = false;
-            this.DeleteAll_btn.Click += new System.EventHandler(this.DeleteAll_btn_Click);
-            // 
-            // edit_gb
-            // 
-            this.edit_gb.Controls.Add(this.EditComand_btn);
-            this.edit_gb.Controls.Add(this.EditCommand_tb);
-            this.edit_gb.Location = new System.Drawing.Point(6, 161);
-            this.edit_gb.Name = "edit_gb";
-            this.edit_gb.Size = new System.Drawing.Size(245, 73);
-            this.edit_gb.TabIndex = 15;
-            this.edit_gb.TabStop = false;
-            this.edit_gb.Text = "Редактирование";
-            this.edit_gb.Visible = false;
-            // 
-            // EditComand_btn
-            // 
-            this.EditComand_btn.Location = new System.Drawing.Point(164, 16);
-            this.EditComand_btn.Name = "EditComand_btn";
-            this.EditComand_btn.Size = new System.Drawing.Size(75, 25);
-            this.EditComand_btn.TabIndex = 3;
-            this.EditComand_btn.Text = "Изменить";
-            this.EditComand_btn.UseVisualStyleBackColor = true;
-            this.EditComand_btn.Click += new System.EventHandler(this.EditComand_btn_Click);
-            // 
-            // EditCommand_tb
-            // 
-            this.EditCommand_tb.Location = new System.Drawing.Point(10, 19);
-            this.EditCommand_tb.Name = "EditCommand_tb";
-            this.EditCommand_tb.Size = new System.Drawing.Size(148, 20);
-            this.EditCommand_tb.TabIndex = 2;
-            // 
-            // del_gb
-            // 
-            this.del_gb.Controls.Add(this.DeleteCommand_btn);
-            this.del_gb.Location = new System.Drawing.Point(6, 98);
-            this.del_gb.Name = "del_gb";
-            this.del_gb.Size = new System.Drawing.Size(245, 56);
-            this.del_gb.TabIndex = 14;
-            this.del_gb.TabStop = false;
-            this.del_gb.Text = "Удаление";
-            this.del_gb.Visible = false;
-            // 
-            // DeleteCommand_btn
-            // 
-            this.DeleteCommand_btn.Location = new System.Drawing.Point(164, 19);
-            this.DeleteCommand_btn.Name = "DeleteCommand_btn";
-            this.DeleteCommand_btn.Size = new System.Drawing.Size(75, 23);
-            this.DeleteCommand_btn.TabIndex = 12;
-            this.DeleteCommand_btn.Text = "Удалить";
-            this.DeleteCommand_btn.UseVisualStyleBackColor = true;
-            this.DeleteCommand_btn.Click += new System.EventHandler(this.DeleteCommand_btn_Click);
+            this.Search_btn.Location = new System.Drawing.Point(164, 19);
+            this.Search_btn.Name = "Search_btn";
+            this.Search_btn.Size = new System.Drawing.Size(75, 25);
+            this.Search_btn.TabIndex = 9;
+            this.Search_btn.Text = "Поиск";
+            this.Search_btn.UseVisualStyleBackColor = true;
+            this.Search_btn.Click += new System.EventHandler(this.Search_btn_Click);
             // 
             // add_gb
             // 
@@ -656,60 +443,294 @@
             this.Params_cmb.TabIndex = 10;
             this.Params_cmb.Visible = false;
             // 
-            // search_gb
+            // del_gb
             // 
-            this.search_gb.Controls.Add(this.search_tb);
-            this.search_gb.Controls.Add(this.ClearSearch_btn);
-            this.search_gb.Controls.Add(this.Search_btn);
-            this.search_gb.Location = new System.Drawing.Point(3, 6);
-            this.search_gb.Name = "search_gb";
-            this.search_gb.Size = new System.Drawing.Size(245, 86);
-            this.search_gb.TabIndex = 17;
-            this.search_gb.TabStop = false;
-            this.search_gb.Text = "Введите слово для поиска в сценарии";
-            this.search_gb.Visible = false;
+            this.del_gb.Controls.Add(this.DeleteCommand_btn);
+            this.del_gb.Location = new System.Drawing.Point(6, 98);
+            this.del_gb.Name = "del_gb";
+            this.del_gb.Size = new System.Drawing.Size(245, 56);
+            this.del_gb.TabIndex = 14;
+            this.del_gb.TabStop = false;
+            this.del_gb.Text = "Удаление";
+            this.del_gb.Visible = false;
             // 
-            // search_tb
+            // DeleteCommand_btn
             // 
-            this.search_tb.Location = new System.Drawing.Point(6, 22);
-            this.search_tb.Name = "search_tb";
-            this.search_tb.Size = new System.Drawing.Size(152, 20);
-            this.search_tb.TabIndex = 13;
+            this.DeleteCommand_btn.Location = new System.Drawing.Point(164, 19);
+            this.DeleteCommand_btn.Name = "DeleteCommand_btn";
+            this.DeleteCommand_btn.Size = new System.Drawing.Size(75, 23);
+            this.DeleteCommand_btn.TabIndex = 12;
+            this.DeleteCommand_btn.Text = "Удалить";
+            this.DeleteCommand_btn.UseVisualStyleBackColor = true;
+            this.DeleteCommand_btn.Click += new System.EventHandler(this.DeleteCommand_btn_Click);
             // 
-            // ClearSearch_btn
+            // edit_gb
             // 
-            this.ClearSearch_btn.Location = new System.Drawing.Point(164, 50);
-            this.ClearSearch_btn.Name = "ClearSearch_btn";
-            this.ClearSearch_btn.Size = new System.Drawing.Size(75, 25);
-            this.ClearSearch_btn.TabIndex = 12;
-            this.ClearSearch_btn.Text = "Очистить";
-            this.ClearSearch_btn.UseVisualStyleBackColor = true;
-            this.ClearSearch_btn.Visible = false;
-            this.ClearSearch_btn.Click += new System.EventHandler(this.ClearSearch_btn_Click);
+            this.edit_gb.Controls.Add(this.EditComand_btn);
+            this.edit_gb.Controls.Add(this.EditCommand_tb);
+            this.edit_gb.Location = new System.Drawing.Point(6, 161);
+            this.edit_gb.Name = "edit_gb";
+            this.edit_gb.Size = new System.Drawing.Size(245, 73);
+            this.edit_gb.TabIndex = 15;
+            this.edit_gb.TabStop = false;
+            this.edit_gb.Text = "Редактирование";
+            this.edit_gb.Visible = false;
             // 
-            // Search_btn
+            // EditComand_btn
             // 
-            this.Search_btn.Location = new System.Drawing.Point(164, 19);
-            this.Search_btn.Name = "Search_btn";
-            this.Search_btn.Size = new System.Drawing.Size(75, 25);
-            this.Search_btn.TabIndex = 9;
-            this.Search_btn.Text = "Поиск";
-            this.Search_btn.UseVisualStyleBackColor = true;
-            this.Search_btn.Click += new System.EventHandler(this.Search_btn_Click);
+            this.EditComand_btn.Location = new System.Drawing.Point(164, 16);
+            this.EditComand_btn.Name = "EditComand_btn";
+            this.EditComand_btn.Size = new System.Drawing.Size(75, 25);
+            this.EditComand_btn.TabIndex = 3;
+            this.EditComand_btn.Text = "Изменить";
+            this.EditComand_btn.UseVisualStyleBackColor = true;
+            this.EditComand_btn.Click += new System.EventHandler(this.EditComand_btn_Click);
             // 
-            // panel2
+            // EditCommand_tb
             // 
-            this.panel2.Controls.Add(this.HidePanel2);
-            this.panel2.Controls.Add(this.search_gb);
-            this.panel2.Controls.Add(this.add_gb);
-            this.panel2.Controls.Add(this.del_gb);
-            this.panel2.Controls.Add(this.edit_gb);
-            this.panel2.Controls.Add(this.DeleteAll_btn);
-            this.panel2.Location = new System.Drawing.Point(768, 3);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1, 290);
-            this.panel2.TabIndex = 28;
-            this.panel2.Visible = false;
+            this.EditCommand_tb.Location = new System.Drawing.Point(10, 19);
+            this.EditCommand_tb.Name = "EditCommand_tb";
+            this.EditCommand_tb.Size = new System.Drawing.Size(148, 20);
+            this.EditCommand_tb.TabIndex = 2;
+            // 
+            // DeleteAll_btn
+            // 
+            this.DeleteAll_btn.Location = new System.Drawing.Point(167, 233);
+            this.DeleteAll_btn.Name = "DeleteAll_btn";
+            this.DeleteAll_btn.Size = new System.Drawing.Size(75, 25);
+            this.DeleteAll_btn.TabIndex = 21;
+            this.DeleteAll_btn.Text = "Очистить";
+            this.DeleteAll_btn.UseVisualStyleBackColor = true;
+            this.DeleteAll_btn.Visible = false;
+            this.DeleteAll_btn.Click += new System.EventHandler(this.DeleteAll_btn_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.panel3);
+            this.panel1.Controls.Add(this.speed_lbl);
+            this.panel1.Controls.Add(this.SpeedChoise_cmb);
+            this.panel1.Controls.Add(this.tabScripts);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(3, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(795, 299);
+            this.panel1.TabIndex = 27;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.OneStepForward_btn);
+            this.panel3.Controls.Add(this.StartScript_btn);
+            this.panel3.Controls.Add(this.OneStepBackward_btn);
+            this.panel3.Location = new System.Drawing.Point(219, 263);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(194, 32);
+            this.panel3.TabIndex = 27;
+            // 
+            // OneStepForward_btn
+            // 
+            this.OneStepForward_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.OneStepForward_btn.Location = new System.Drawing.Point(116, 4);
+            this.OneStepForward_btn.Name = "OneStepForward_btn";
+            this.OneStepForward_btn.Size = new System.Drawing.Size(75, 25);
+            this.OneStepForward_btn.TabIndex = 23;
+            this.OneStepForward_btn.Text = "Вперед";
+            this.OneStepForward_btn.UseVisualStyleBackColor = true;
+            this.OneStepForward_btn.Click += new System.EventHandler(this.OneStepForward_btn_Click);
+            // 
+            // StartScript_btn
+            // 
+            this.StartScript_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.StartScript_btn.ContextMenuStrip = this.contextMenuToStart;
+            this.StartScript_btn.Location = new System.Drawing.Point(85, 4);
+            this.StartScript_btn.Name = "StartScript_btn";
+            this.StartScript_btn.Size = new System.Drawing.Size(25, 25);
+            this.StartScript_btn.TabIndex = 25;
+            this.StartScript_btn.Text = "▶";
+            this.StartScript_btn.UseVisualStyleBackColor = true;
+            this.StartScript_btn.Click += new System.EventHandler(this.StartScript_btn_Click);
+            this.StartScript_btn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.StartScript_btn_MouseDown);
+            // 
+            // OneStepBackward_btn
+            // 
+            this.OneStepBackward_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.OneStepBackward_btn.Location = new System.Drawing.Point(4, 4);
+            this.OneStepBackward_btn.Name = "OneStepBackward_btn";
+            this.OneStepBackward_btn.Size = new System.Drawing.Size(75, 25);
+            this.OneStepBackward_btn.TabIndex = 24;
+            this.OneStepBackward_btn.Text = "Назад";
+            this.OneStepBackward_btn.UseVisualStyleBackColor = true;
+            this.OneStepBackward_btn.Click += new System.EventHandler(this.OneStepBackward_btn_Click);
+            // 
+            // speed_lbl
+            // 
+            this.speed_lbl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.speed_lbl.AutoSize = true;
+            this.speed_lbl.Location = new System.Drawing.Point(498, 273);
+            this.speed_lbl.Name = "speed_lbl";
+            this.speed_lbl.Size = new System.Drawing.Size(151, 13);
+            this.speed_lbl.TabIndex = 26;
+            this.speed_lbl.Text = "Скорость воспроизведения:";
+            // 
+            // SpeedChoise_cmb
+            // 
+            this.SpeedChoise_cmb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.SpeedChoise_cmb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.SpeedChoise_cmb.FormattingEnabled = true;
+            this.SpeedChoise_cmb.Items.AddRange(new object[] {
+            "низкая",
+            "средняя",
+            "высокая"});
+            this.SpeedChoise_cmb.Location = new System.Drawing.Point(651, 267);
+            this.SpeedChoise_cmb.Name = "SpeedChoise_cmb";
+            this.SpeedChoise_cmb.Size = new System.Drawing.Size(128, 21);
+            this.SpeedChoise_cmb.TabIndex = 18;
+            // 
+            // tabScripts
+            // 
+            this.tabScripts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabScripts.Controls.Add(this.tabTreeViewScript);
+            this.tabScripts.Controls.Add(this.tabTableScript);
+            this.tabScripts.Location = new System.Drawing.Point(3, 3);
+            this.tabScripts.Name = "tabScripts";
+            this.tabScripts.SelectedIndex = 0;
+            this.tabScripts.Size = new System.Drawing.Size(788, 255);
+            this.tabScripts.TabIndex = 18;
+            // 
+            // tabTreeViewScript
+            // 
+            this.tabTreeViewScript.Controls.Add(this.TreeViewOfScript);
+            this.tabTreeViewScript.Location = new System.Drawing.Point(4, 22);
+            this.tabTreeViewScript.Name = "tabTreeViewScript";
+            this.tabTreeViewScript.Padding = new System.Windows.Forms.Padding(3);
+            this.tabTreeViewScript.Size = new System.Drawing.Size(780, 229);
+            this.tabTreeViewScript.TabIndex = 0;
+            this.tabTreeViewScript.Text = "Древовидно";
+            this.tabTreeViewScript.UseVisualStyleBackColor = true;
+            // 
+            // TreeViewOfScript
+            // 
+            this.TreeViewOfScript.ContextMenuStrip = this.contextMenuToTreeView;
+            this.TreeViewOfScript.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TreeViewOfScript.Location = new System.Drawing.Point(3, 3);
+            this.TreeViewOfScript.Name = "TreeViewOfScript";
+            treeNode1.Name = "nameScript";
+            treeNode1.Text = "новый сценарий";
+            this.TreeViewOfScript.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode1});
+            this.TreeViewOfScript.Size = new System.Drawing.Size(774, 223);
+            this.TreeViewOfScript.TabIndex = 17;
+            this.TreeViewOfScript.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TreeViewOfScript_MouseDown);
+            // 
+            // tabTableScript
+            // 
+            this.tabTableScript.Controls.Add(this.TableScript_dgv);
+            this.tabTableScript.Location = new System.Drawing.Point(4, 22);
+            this.tabTableScript.Name = "tabTableScript";
+            this.tabTableScript.Padding = new System.Windows.Forms.Padding(3);
+            this.tabTableScript.Size = new System.Drawing.Size(780, 229);
+            this.tabTableScript.TabIndex = 1;
+            this.tabTableScript.Text = "Таблично";
+            this.tabTableScript.UseVisualStyleBackColor = true;
+            // 
+            // TableScript_dgv
+            // 
+            this.TableScript_dgv.AllowUserToAddRows = false;
+            this.TableScript_dgv.AllowUserToOrderColumns = true;
+            this.TableScript_dgv.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.TableScript_dgv.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.TableScript_dgv.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.TableScript_dgv.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.TableScript_dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.TableScript_dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.TableScript_dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.numberOfCommand,
+            this.nameOfCommand,
+            this.paramOfCommand,
+            this.descriptionOfCommand,
+            this.resultOfCommand,
+            this.BreakPointOfCommand});
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.TableScript_dgv.DefaultCellStyle = dataGridViewCellStyle2;
+            this.TableScript_dgv.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TableScript_dgv.GridColor = System.Drawing.SystemColors.Control;
+            this.TableScript_dgv.Location = new System.Drawing.Point(3, 3);
+            this.TableScript_dgv.Name = "TableScript_dgv";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.TableScript_dgv.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.TableScript_dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.TableScript_dgv.Size = new System.Drawing.Size(774, 223);
+            this.TableScript_dgv.TabIndex = 7;
+            this.TableScript_dgv.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.TableScript_dgv_CellValueChanged);
+            this.TableScript_dgv.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.TableScript_dgv_RowHeaderMouseClick);
+            // 
+            // numberOfCommand
+            // 
+            this.numberOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.numberOfCommand.FillWeight = 7F;
+            this.numberOfCommand.HeaderText = "№";
+            this.numberOfCommand.Name = "numberOfCommand";
+            this.numberOfCommand.ReadOnly = true;
+            this.numberOfCommand.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // nameOfCommand
+            // 
+            this.nameOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nameOfCommand.FillWeight = 60F;
+            this.nameOfCommand.HeaderText = "Команда";
+            this.nameOfCommand.Name = "nameOfCommand";
+            this.nameOfCommand.ReadOnly = true;
+            // 
+            // paramOfCommand
+            // 
+            this.paramOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.paramOfCommand.FillWeight = 30F;
+            this.paramOfCommand.HeaderText = "Параметр";
+            this.paramOfCommand.Name = "paramOfCommand";
+            // 
+            // descriptionOfCommand
+            // 
+            this.descriptionOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.descriptionOfCommand.FillWeight = 80F;
+            this.descriptionOfCommand.HeaderText = "Описание";
+            this.descriptionOfCommand.Name = "descriptionOfCommand";
+            // 
+            // resultOfCommand
+            // 
+            this.resultOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.resultOfCommand.FillWeight = 25F;
+            this.resultOfCommand.HeaderText = "Результат";
+            this.resultOfCommand.Name = "resultOfCommand";
+            this.resultOfCommand.ReadOnly = true;
+            // 
+            // BreakPointOfCommand
+            // 
+            this.BreakPointOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.BreakPointOfCommand.FillWeight = 25F;
+            this.BreakPointOfCommand.HeaderText = "Точка останова";
+            this.BreakPointOfCommand.Name = "BreakPointOfCommand";
+            this.BreakPointOfCommand.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.BreakPointOfCommand.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // tableLayoutPanel
             // 
@@ -725,25 +746,15 @@
             this.tableLayoutPanel.Name = "tableLayoutPanel";
             this.tableLayoutPanel.RowCount = 1;
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel.Size = new System.Drawing.Size(765, 305);
+            this.tableLayoutPanel.Size = new System.Drawing.Size(801, 305);
             this.tableLayoutPanel.TabIndex = 29;
-            // 
-            // HidePanel2
-            // 
-            this.HidePanel2.Location = new System.Drawing.Point(6, 250);
-            this.HidePanel2.Name = "HidePanel2";
-            this.HidePanel2.Size = new System.Drawing.Size(236, 25);
-            this.HidePanel2.TabIndex = 22;
-            this.HidePanel2.Text = "Скрыть";
-            this.HidePanel2.UseVisualStyleBackColor = true;
-            this.HidePanel2.Visible = false;
-            this.HidePanel2.Click += new System.EventHandler(this.HidePanel2_Click);
             // 
             // DclTestFormWPy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(789, 354);
+            this.ClientSize = new System.Drawing.Size(825, 354);
+            this.Controls.Add(this.EditCommand_cmb);
             this.Controls.Add(this.tableLayoutPanel);
             this.Controls.Add(this.StatusStripNameOfFile);
             this.Controls.Add(this.fileName_lbl);
@@ -759,6 +770,14 @@
             this.scriptsTask_ms.PerformLayout();
             this.StatusStripNameOfFile.ResumeLayout(false);
             this.StatusStripNameOfFile.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.search_gb.ResumeLayout(false);
+            this.search_gb.PerformLayout();
+            this.add_gb.ResumeLayout(false);
+            this.add_gb.PerformLayout();
+            this.del_gb.ResumeLayout(false);
+            this.edit_gb.ResumeLayout(false);
+            this.edit_gb.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel3.ResumeLayout(false);
@@ -766,14 +785,6 @@
             this.tabTreeViewScript.ResumeLayout(false);
             this.tabTableScript.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.TableScript_dgv)).EndInit();
-            this.edit_gb.ResumeLayout(false);
-            this.edit_gb.PerformLayout();
-            this.del_gb.ResumeLayout(false);
-            this.add_gb.ResumeLayout(false);
-            this.add_gb.PerformLayout();
-            this.search_gb.ResumeLayout(false);
-            this.search_gb.PerformLayout();
-            this.panel2.ResumeLayout(false);
             this.tableLayoutPanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -795,21 +806,16 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuToTreeView;
         private System.Windows.Forms.StatusStrip StatusStripNameOfFile;
         private System.Windows.Forms.ToolStripStatusLabel fileName_statstrip;
-        private System.Windows.Forms.Button OneStepForward_btn;
-        private System.Windows.Forms.Button OneStepBackward_btn;
-        private System.Windows.Forms.Button StartScript_btn;
         private System.Windows.Forms.ContextMenuStrip contextMenuToStart;
         private System.Windows.Forms.ToolStripMenuItem редактированиеToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem поискToolStripMenuItem;
-        private System.Windows.Forms.ComboBox SpeedChoise_cmb;
-        private System.Windows.Forms.Label speed_lbl;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button DeleteAll_btn;
-        private System.Windows.Forms.GroupBox edit_gb;
-        private System.Windows.Forms.Button EditComand_btn;
-        private System.Windows.Forms.TextBox EditCommand_tb;
-        private System.Windows.Forms.GroupBox del_gb;
-        private System.Windows.Forms.Button DeleteCommand_btn;
+        private System.Windows.Forms.ComboBox EditCommand_cmb;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button HidePanel2;
+        private System.Windows.Forms.GroupBox search_gb;
+        private System.Windows.Forms.TextBox search_tb;
+        private System.Windows.Forms.Button ClearSearch_btn;
+        private System.Windows.Forms.Button Search_btn;
         private System.Windows.Forms.GroupBox add_gb;
         private System.Windows.Forms.Label y_lbl;
         private System.Windows.Forms.Label x_lbl;
@@ -820,11 +826,19 @@
         private System.Windows.Forms.TextBox Params_tb;
         private System.Windows.Forms.Button addCommand_btn;
         private System.Windows.Forms.ComboBox Params_cmb;
-        private System.Windows.Forms.GroupBox search_gb;
-        private System.Windows.Forms.TextBox search_tb;
-        private System.Windows.Forms.Button ClearSearch_btn;
-        private System.Windows.Forms.Button Search_btn;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.GroupBox del_gb;
+        private System.Windows.Forms.Button DeleteCommand_btn;
+        private System.Windows.Forms.GroupBox edit_gb;
+        private System.Windows.Forms.Button EditComand_btn;
+        private System.Windows.Forms.TextBox EditCommand_tb;
+        private System.Windows.Forms.Button DeleteAll_btn;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Button OneStepForward_btn;
+        private System.Windows.Forms.Button StartScript_btn;
+        private System.Windows.Forms.Button OneStepBackward_btn;
+        private System.Windows.Forms.Label speed_lbl;
+        private System.Windows.Forms.ComboBox SpeedChoise_cmb;
         private System.Windows.Forms.TabControl tabScripts;
         private System.Windows.Forms.TabPage tabTreeViewScript;
         private System.Windows.Forms.TreeView TreeViewOfScript;
@@ -836,8 +850,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn descriptionOfCommand;
         private System.Windows.Forms.DataGridViewTextBoxColumn resultOfCommand;
         private System.Windows.Forms.DataGridViewCheckBoxColumn BreakPointOfCommand;
-        private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
-        private System.Windows.Forms.Button HidePanel2;
     }
 }
