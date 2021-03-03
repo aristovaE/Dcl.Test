@@ -268,7 +268,7 @@ namespace DclTestFormWPy
         /// </summary>
         private void TableScript_dgv_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (TableScript_dgv.CurrentRow != null )
+            if (TableScript_dgv.CurrentRow != null)
             {
                 EditCommand_tb.Text = "";
                 EditCommand_tb.Text = TableScript_dgv.CurrentRow.Cells[1].Value.ToString();
@@ -654,7 +654,7 @@ namespace DclTestFormWPy
             add_gb.Visible = true;
             del_gb.Visible = true;
             edit_gb.Visible = true;
-            search_gb.Visible = false; 
+            search_gb.Visible = false;
             HidePanel2.Visible = true;
             Params_tb.Text = "";
             EditCommand_tb.Text = "";
@@ -670,7 +670,7 @@ namespace DclTestFormWPy
             foreach (string str in Command_cmb.Items)
                 EditCommand_cmb.Items.Add(str);
             EditCommand_cmb.Visible = true;
-            EditCommand_cmb.Location = new System.Drawing.Point(panel2.Location.X+28,panel2.Location.Y+207);
+            EditCommand_cmb.Location = new System.Drawing.Point(panel2.Location.X + 28, panel2.Location.Y + 207);
         }
 
         private void поискToolStripMenuItem_Click(object sender, EventArgs e)
@@ -745,12 +745,33 @@ namespace DclTestFormWPy
             panel2.Size = new System.Drawing.Size(0, 0);
             ClientSize = new System.Drawing.Size(WidthForm, HeightForm);
             редактированиеToolStripMenuItem.Enabled = true;
-            поискToolStripMenuItem.Enabled = true; 
+            поискToolStripMenuItem.Enabled = true;
             this.MinimumSize = new System.Drawing.Size(805, 375);
         }
 
         private void TableScript_dgv_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
+            bool IsWrong = true;
+            if (TableScript_dgv.SelectedRows.Count != 0)
+            {
+                if (TableScript_dgv.SelectedRows[0].Cells[1].Value.ToString() == "нажать")
+                {
+                    foreach (string str in Params_cmb.Items)
+                    {
+                        if (TableScript_dgv.SelectedRows[0].Cells[2].Value.ToString() == str)
+                        {
+                            IsWrong = false;
+                            break;
+                        }
+                    }//после форич вызывает почему то с начала функцию 
+                    if (IsWrong == true)
+                    {
+                        //показывает два раза
+                        MessageBox.Show("Для команды \'Нажать\' нужно ввести одну из заранее предложенных клавиш: (ENTER, ESC, ...)");
+                    }
+                    TableScript_dgv.SelectedRows[0].Cells[2].Value = "";
+                }
+            }
 
         }
     }
