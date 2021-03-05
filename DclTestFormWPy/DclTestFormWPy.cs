@@ -19,8 +19,13 @@ namespace DclTestFormWPy
             SpeedChoise_cmb.SelectedIndex = 1;
         }
 
-        int WidthForm = 765;
-        int HeightForm = 335;
+        const int WidthForm = 765;
+        const int HeightForm = 335;
+
+        //переменные, чтобы при добавлении новых команд в выпадающий списк Command_cmb не менять в коде позиции различных команд (с и без параметра / с параметром в списке / с параметром в поле)
+        const int index_CommandWithParams_First = 6;
+        const int index_CommandWithParams_Last = 13;
+        const int index_CommandWithTwoParams = 22;
         /// <summary>
         /// Очистка столбца Результат в таблице
         /// </summary>
@@ -142,7 +147,7 @@ namespace DclTestFormWPy
         /// </summary>
         void EditCommandToTextBox(object sender, EventArgs e)
         {
-            EditCommand_tb.Text = TreeViewOfScript.SelectedNode.Text;
+            //EditCommand_tb.Text = TreeViewOfScript.SelectedNode.Text;
         }
 
         /// <summary>
@@ -221,17 +226,25 @@ namespace DclTestFormWPy
         /// </summary>
         private void EditComand_btn_Click(object sender, EventArgs e)
         {
-            if (tabScripts.SelectedIndex == 1)
+            if (TableScript_dgv.SelectedRows.Count != 0)
             {
-                TableScript_dgv.CurrentRow.Cells[1].Value = EditCommand_cmb.SelectedItem.ToString();
-                TableScript_dgv.CurrentRow.Cells[3].Value = Commands.CheckDescription(EditCommand_cmb.SelectedItem.ToString());
+                if (tabScripts.SelectedIndex == 1)
+                {
+                    TableScript_dgv.CurrentRow.Cells[1].Value = EditCommand_cmb.SelectedItem.ToString();
+                    TableScript_dgv.CurrentRow.Cells[3].Value = Commands.CheckDescription(EditCommand_cmb.SelectedItem.ToString());
+                }
+                //else
+                //{
+                //TreeViewOfScript.SelectedNode.Text = EditCommand_tb.Text;
+                //TableScript_dgv.Rows[Convert.ToInt32(TreeViewOfScript.SelectedNode.Tag.ToString())].Cells[2].Value = EditCommand_tb.Text.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries)[1];
+                //}
             }
             else
             {
-                TreeViewOfScript.SelectedNode.Text = EditCommand_tb.Text;
-                TableScript_dgv.Rows[Convert.ToInt32(TreeViewOfScript.SelectedNode.Tag.ToString())].Cells[2].Value = EditCommand_tb.Text.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries)[1];
+                MessageBox.Show("Для редактирования необходимо выделить нужную для этого команду");
+                return;
             }
-            EditCommand_tb.Text = "";
+            EditCommand_cmb.SelectedIndex = -1;
         }
 
         /// <summary>
@@ -270,9 +283,31 @@ namespace DclTestFormWPy
         {
             if (TableScript_dgv.CurrentRow != null)
             {
-                EditCommand_tb.Text = "";
-                EditCommand_tb.Text = TableScript_dgv.CurrentRow.Cells[1].Value.ToString();
+                //EditCommand_tb.Text = "";
+                //EditCommand_tb.Text = TableScript_dgv.CurrentRow.Cells[1].Value.ToString();
                 EditCommand_cmb.SelectedItem = TableScript_dgv.CurrentRow.Cells[1].Value.ToString();
+                if (TableScript_dgv.CurrentRow.Cells[2].Value != null)
+                {
+                    if (TableScript_dgv.CurrentRow.Cells[2].Value.ToString() == "нажать")
+                    {
+                        EditParams_cmb.Visible = true;
+                        EditParams_cmb.Location = new System.Drawing.Point(panel2.Location.X + 28, panel2.Location.Y + 235);
+                        foreach (string str in Params_cmb.Items)
+                            EditParams_cmb.Items.Add(str);
+                        EditParams_cmb.SelectedItem = TableScript_dgv.CurrentRow.Cells[1].Value.ToString();
+                    }
+                    else
+                    {
+                        EditParams_tb.Visible = true;
+                        EditParams_tb.Location = new System.Drawing.Point(panel2.Location.X + 28, panel2.Location.Y + 235);
+                        EditParams_tb.Text = TableScript_dgv.CurrentRow.Cells[2].Value.ToString();
+                    }
+                }
+                else
+                {
+                    EditParams_tb.Visible = false;
+                    EditParams_cmb.Visible = false;
+                }
             }
         }
 
@@ -281,10 +316,7 @@ namespace DclTestFormWPy
         /// </summary>
         private void AddCommand_btn_Click(object sender, EventArgs e)
         {
-            //переменные, чтобы при добавлении новых команд в выпадающий списк Command_cmb не менять в коде позиции различных команд (с и без параметра / с параметром в списке / с параметром в поле)
-            int index_CommandWithParams_First = 6;
-            int index_CommandWithParams_Last = 13;
-            int index_CommandWithTwoParams = 22;
+           
 
             //добавление в таблицу
             //не выделена строка в таблице -> добавление в конец сценария
@@ -300,12 +332,20 @@ namespace DclTestFormWPy
                         {
                             if (Params_tb.Text != "")
                                 TableScript_dgv.Rows.Add(TableScript_dgv.RowCount + 1, Command_cmb.SelectedItem.ToString(), Params_tb.Text);
-                            else MessageBox.Show("Для данной команды необходимо ввести значение");
+                            else
+                            {
+                                MessageBox.Show("Для данной команды необходимо ввести значение");
+                                return;
+                            }
                         }
                         //параметр из выпадающего списка
                         else if (Params_cmb.SelectedIndex != -1)
                             TableScript_dgv.Rows.Add(TableScript_dgv.RowCount + 1, Command_cmb.SelectedItem.ToString(), Params_cmb.SelectedItem.ToString());
-                        else MessageBox.Show("Для данной команды необходимо выбрать значение");
+                        else
+                        {
+                            MessageBox.Show("Для данной команды необходимо выбрать значение");
+                            return;
+                        }
                     }
                     // команда "нажать в точке" с параметром Х и Y
                     else if (Command_cmb.SelectedIndex == index_CommandWithTwoParams)
@@ -314,9 +354,17 @@ namespace DclTestFormWPy
                         {
                             if (CoordX_tb.Text != "" && CoordY_tb.Text != "")
                                 TableScript_dgv.Rows.Add(TableScript_dgv.RowCount + 1, Command_cmb.SelectedItem.ToString(), CoordX_tb.Text.ToString() + ";" + CoordY_tb.Text.ToString());
-                            else MessageBox.Show("Для данной команды необходимо ввести значение");
+                            else
+                            {
+                                MessageBox.Show("Для данной команды необходимо ввести значение");
+                                return;
+                            }
                         }
-                        else MessageBox.Show("Для данной команды необходимо выбрать значения Х и Y");
+                        else
+                        {
+                            MessageBox.Show("Для данной команды необходимо выбрать значения Х и Y");
+                            return;
+                        }
                     }
                     //команда без параметра
                     else
@@ -339,19 +387,31 @@ namespace DclTestFormWPy
                             //параметр из текстового поля
                             if (Params_tb.Text != "")
                                 TableScript_dgv.Rows.Insert(TableScript_dgv.SelectedCells[0].RowIndex + 1, TableScript_dgv.Rows.Count + 1, Command_cmb.SelectedItem.ToString(), Params_tb.Text);
-                            else MessageBox.Show("Для данной команды необходимо ввести значение");
+                            else
+                            {
+                                MessageBox.Show("Для данной команды необходимо ввести значение");
+                                return;
+                            }
                         }
                         //параметр из выпадающего списка
                         else if (Params_cmb.SelectedIndex != -1)
                             TableScript_dgv.Rows.Insert(TableScript_dgv.SelectedCells[0].RowIndex + 1, TableScript_dgv.Rows.Count + 1, Command_cmb.SelectedItem.ToString(), Params_cmb.SelectedItem.ToString());
-                        else MessageBox.Show("Для данной команды необходимо выбрать значение");
+                        else
+                        {
+                            MessageBox.Show("Для данной команды необходимо выбрать значение");
+                            return;
+                        }
                     }
                     // команда "нажать в точке" с параметром Х и Y
                     else if (Command_cmb.SelectedIndex == index_CommandWithTwoParams)
                     {
                         if (CoordX_tb.Text != "" && CoordY_tb.Text != "")
                             TableScript_dgv.Rows.Insert(TableScript_dgv.SelectedCells[0].RowIndex + 1, TableScript_dgv.Rows.Count + 1, Command_cmb.SelectedItem.ToString(), CoordX_tb.Text.ToString() + ";" + CoordY_tb.Text.ToString());
-                        else MessageBox.Show("Для данной команды необходимо выбрать значения Х и Y");
+                        else
+                        {
+                            MessageBox.Show("Для данной команды необходимо выбрать значения Х и Y");
+                            return;
+                        }
                     }
                     //команда без параметра
                     else
@@ -371,6 +431,7 @@ namespace DclTestFormWPy
 
             TableScript_dgv.ClearSelection();
 
+            //ВНЕСТИ В КОД С ДОБАВЛЕНИЕМ В ТАБЛИЦУ !!!
             //добавление в тривью
             if (Command_cmb.SelectedItem != null)
             {
@@ -398,46 +459,56 @@ namespace DclTestFormWPy
         /// </summary>
         private void Command_cmb_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //команда требующая параметра, написанного вручную (нажать / ввести / найти / перейти / подождать / группа)
-            if (Command_cmb.SelectedIndex > 7 && Command_cmb.SelectedIndex < 13 || Command_cmb.SelectedIndex == 0)
+            if (Command_cmb.SelectedItem != null)
             {
-                Params_cmb.Visible = false;
-                Params_tb.Visible = true;
-                Params_tb.Text = "";
-                x_lbl.Visible = false;
-                y_lbl.Visible = false;
-                CoordX_tb.Visible = false;
-                CoordY_tb.Visible = false;
-            }
-            //команда требующая параметра, выбранного из списка (Нажать :Esc. Enter ...)
-            else if (Command_cmb.SelectedIndex == 7)
-            {
-                Params_tb.Visible = false;
-                Params_cmb.Visible = true;
-                Params_cmb.SelectedIndex = -1;
-                x_lbl.Visible = false;
-                y_lbl.Visible = false;
-                CoordX_tb.Visible = false;
-                CoordY_tb.Visible = false;
-            }
-            //команда не требующая параметра
-            else if (Command_cmb.SelectedIndex == 22)
-            {
-                Params_tb.Visible = false;
-                Params_cmb.Visible = false;
-                x_lbl.Visible = true;
-                y_lbl.Visible = true;
-                CoordX_tb.Visible = true;
-                CoordY_tb.Visible = true;
-            }
-            else
-            {
-                Params_cmb.Visible = false;
-                Params_tb.Visible = false;
-                x_lbl.Visible = false;
-                y_lbl.Visible = false;
-                CoordX_tb.Visible = false;
-                CoordY_tb.Visible = false;
+                if (Command_cmb.SelectedItem.ToString() != " ")
+                {
+                    addCommand_btn.Enabled = true;
+                }
+                else
+                    addCommand_btn.Enabled = false;
+
+                //команда требующая параметра, написанного вручную (ввести / найти / перейти / подождать / группа)
+                if (Command_cmb.SelectedIndex > 7 && Command_cmb.SelectedIndex < 13)
+                {
+                    Params_cmb.Visible = false;
+                    Params_tb.Visible = true;
+                    Params_tb.Text = "";
+                    x_lbl.Visible = false;
+                    y_lbl.Visible = false;
+                    CoordX_tb.Visible = false;
+                    CoordY_tb.Visible = false;
+                }
+                //команда требующая параметра, выбранного из списка (Нажать :Esc. Enter ...)
+                else if (Command_cmb.SelectedIndex == 7)
+                {
+                    Params_tb.Visible = false;
+                    Params_cmb.Visible = true;
+                    Params_cmb.SelectedIndex = -1;
+                    x_lbl.Visible = false;
+                    y_lbl.Visible = false;
+                    CoordX_tb.Visible = false;
+                    CoordY_tb.Visible = false;
+                }
+                //команда не требующая параметра
+                else if (Command_cmb.SelectedIndex == 22)
+                {
+                    Params_tb.Visible = false;
+                    Params_cmb.Visible = false;
+                    x_lbl.Visible = true;
+                    y_lbl.Visible = true;
+                    CoordX_tb.Visible = true;
+                    CoordY_tb.Visible = true;
+                }
+                else
+                {
+                    Params_cmb.Visible = false;
+                    Params_tb.Visible = false;
+                    x_lbl.Visible = false;
+                    y_lbl.Visible = false;
+                    CoordX_tb.Visible = false;
+                    CoordY_tb.Visible = false;
+                }
             }
         }
 
@@ -657,7 +728,7 @@ namespace DclTestFormWPy
             search_gb.Visible = false;
             HidePanel2.Visible = true;
             Params_tb.Text = "";
-            EditCommand_tb.Text = "";
+            //EditCommand_tb.Text = "";
             tableLayoutPanel.ColumnStyles[1].SizeType = SizeType.Absolute;
             tableLayoutPanel.ColumnStyles[1].Width = 273;
             panel1.Size = new System.Drawing.Size(panel1.Width, panel1.Height);
@@ -749,10 +820,11 @@ namespace DclTestFormWPy
             this.MinimumSize = new System.Drawing.Size(805, 375);
         }
 
+
         private void TableScript_dgv_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             bool IsWrong = true;
-            if (TableScript_dgv.SelectedRows.Count != 0)
+            if (TableScript_dgv.SelectedRows.Count != 0 && TableScript_dgv.SelectedRows[0].Cells[1].Value.ToString() != null)
             {
                 if (TableScript_dgv.SelectedRows[0].Cells[1].Value.ToString() == "нажать")
                 {
@@ -773,6 +845,42 @@ namespace DclTestFormWPy
                 }
             }
 
+        }
+
+        private void EditCommand_cmb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //index_CommandWithParams_First = 6;
+            //const int index_CommandWithParams_Last = 13;
+            //const int index_CommandWithTwoParams = 22;
+            if (EditCommand_cmb.SelectedItem != null)
+            {
+                if (EditCommand_cmb.SelectedItem.ToString() != " ")
+                {
+                    EditComand_btn.Enabled = true;
+                    if (EditCommand_cmb.SelectedItem.ToString() == "нажать")
+                    {
+                        EditParams_tb.Visible = false;
+                        EditParams_cmb.Visible = true;
+                        EditParams_cmb.Location = new System.Drawing.Point(panel2.Location.X + 28, panel2.Location.Y + 235);
+                        foreach (string str in Params_cmb.Items)
+                            EditParams_cmb.Items.Add(str);
+                        EditParams_cmb.SelectedIndex = -1;
+                    }
+                    else if (EditCommand_cmb.SelectedIndex >= index_CommandWithParams_First && EditCommand_cmb.SelectedIndex <= index_CommandWithParams_Last)
+                    {
+                        EditParams_cmb.Visible = false;
+                        EditParams_tb.Visible = true;
+                        EditParams_tb.Location = new System.Drawing.Point(panel2.Location.X + 28, panel2.Location.Y + 235);
+                        EditParams_tb.Text = " ";
+                    }
+                }
+                else
+                {
+                    EditComand_btn.Enabled = false;
+                    EditParams_cmb.Visible = false;
+                    EditParams_tb.Visible = false;
+                }
+            }
         }
     }
 }

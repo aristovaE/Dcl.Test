@@ -71,8 +71,8 @@
             this.DeleteCommand_btn = new System.Windows.Forms.Button();
             this.edit_gb = new System.Windows.Forms.GroupBox();
             this.EditComand_btn = new System.Windows.Forms.Button();
-            this.EditCommand_tb = new System.Windows.Forms.TextBox();
             this.DeleteAll_btn = new System.Windows.Forms.Button();
+            this.EditParams_tb = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.OneStepForward_btn = new System.Windows.Forms.Button();
@@ -92,6 +92,7 @@
             this.resultOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BreakPointOfCommand = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.EditParams_cmb = new System.Windows.Forms.ComboBox();
             this.scriptsTask_ms.SuspendLayout();
             this.StatusStripNameOfFile.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -227,12 +228,14 @@
             // 
             // EditCommand_cmb
             // 
+            this.EditCommand_cmb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.EditCommand_cmb.FormattingEnabled = true;
             this.EditCommand_cmb.Location = new System.Drawing.Point(800, 224);
             this.EditCommand_cmb.Name = "EditCommand_cmb";
             this.EditCommand_cmb.Size = new System.Drawing.Size(148, 21);
             this.EditCommand_cmb.TabIndex = 30;
             this.EditCommand_cmb.Visible = false;
+            this.EditCommand_cmb.SelectedIndexChanged += new System.EventHandler(this.EditCommand_cmb_SelectedIndexChanged);
             // 
             // panel2
             // 
@@ -378,28 +381,33 @@
             "открыть классификатор",
             "перейти вперед",
             "перейти назад",
-            "",
+            " ",
             "нажать",
             "ввести значение",
             "найти значение",
             "перейти к графе номер",
             "подождать секунд",
             "группа",
-            "",
+            " ",
             "добавить товар",
             "перейти к первому товару",
-            "",
+            " ",
             "проверка",
-            "",
+            " ",
             "в столбце",
             "в строке",
-            "",
+            " ",
             "нажать в точке",
-            "",
+            " ",
             "прочитать из XML",
             "записать в XML",
             "прочитать из СТМ",
-            "записать в СТМ"});
+            "записать в СТМ",
+            " ",
+            "если",
+            "то",
+            "иначе",
+            "выполнить в цикле"});
             this.Command_cmb.Location = new System.Drawing.Point(10, 22);
             this.Command_cmb.Name = "Command_cmb";
             this.Command_cmb.Size = new System.Drawing.Size(148, 21);
@@ -423,6 +431,7 @@
             this.addCommand_btn.Text = "Добавить";
             this.addCommand_btn.UseVisualStyleBackColor = true;
             this.addCommand_btn.Click += new System.EventHandler(this.AddCommand_btn_Click);
+            this.addCommand_btn.Enabled = false;
             // 
             // Params_cmb
             // 
@@ -467,7 +476,6 @@
             // edit_gb
             // 
             this.edit_gb.Controls.Add(this.EditComand_btn);
-            this.edit_gb.Controls.Add(this.EditCommand_tb);
             this.edit_gb.Location = new System.Drawing.Point(6, 161);
             this.edit_gb.Name = "edit_gb";
             this.edit_gb.Size = new System.Drawing.Size(245, 73);
@@ -485,13 +493,7 @@
             this.EditComand_btn.Text = "Изменить";
             this.EditComand_btn.UseVisualStyleBackColor = true;
             this.EditComand_btn.Click += new System.EventHandler(this.EditComand_btn_Click);
-            // 
-            // EditCommand_tb
-            // 
-            this.EditCommand_tb.Location = new System.Drawing.Point(10, 19);
-            this.EditCommand_tb.Name = "EditCommand_tb";
-            this.EditCommand_tb.Size = new System.Drawing.Size(148, 20);
-            this.EditCommand_tb.TabIndex = 2;
+            this.EditComand_btn.Enabled = false;
             // 
             // DeleteAll_btn
             // 
@@ -503,6 +505,14 @@
             this.DeleteAll_btn.UseVisualStyleBackColor = true;
             this.DeleteAll_btn.Visible = false;
             this.DeleteAll_btn.Click += new System.EventHandler(this.DeleteAll_btn_Click);
+            // 
+            // EditParams_tb
+            // 
+            this.EditParams_tb.Location = new System.Drawing.Point(800, 251);
+            this.EditParams_tb.Name = "EditParams_tb";
+            this.EditParams_tb.Size = new System.Drawing.Size(148, 20);
+            this.EditParams_tb.TabIndex = 31;
+            this.EditParams_tb.Visible = false;
             // 
             // panel1
             // 
@@ -749,11 +759,23 @@
             this.tableLayoutPanel.Size = new System.Drawing.Size(801, 305);
             this.tableLayoutPanel.TabIndex = 29;
             // 
+            // EditParams_cmb
+            // 
+            this.EditParams_cmb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.EditParams_cmb.FormattingEnabled = true;
+            this.EditParams_cmb.Location = new System.Drawing.Point(800, 271);
+            this.EditParams_cmb.Name = "EditParams_cmb";
+            this.EditParams_cmb.Size = new System.Drawing.Size(148, 21);
+            this.EditParams_cmb.TabIndex = 32;
+            this.EditParams_cmb.Visible = false;
+            // 
             // DclTestFormWPy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(825, 354);
+            this.Controls.Add(this.EditParams_cmb);
+            this.Controls.Add(this.EditParams_tb);
             this.Controls.Add(this.EditCommand_cmb);
             this.Controls.Add(this.tableLayoutPanel);
             this.Controls.Add(this.StatusStripNameOfFile);
@@ -777,7 +799,6 @@
             this.add_gb.PerformLayout();
             this.del_gb.ResumeLayout(false);
             this.edit_gb.ResumeLayout(false);
-            this.edit_gb.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel3.ResumeLayout(false);
@@ -830,7 +851,6 @@
         private System.Windows.Forms.Button DeleteCommand_btn;
         private System.Windows.Forms.GroupBox edit_gb;
         private System.Windows.Forms.Button EditComand_btn;
-        private System.Windows.Forms.TextBox EditCommand_tb;
         private System.Windows.Forms.Button DeleteAll_btn;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel3;
@@ -851,5 +871,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn resultOfCommand;
         private System.Windows.Forms.DataGridViewCheckBoxColumn BreakPointOfCommand;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
+        private System.Windows.Forms.TextBox EditParams_tb;
+        private System.Windows.Forms.ComboBox EditParams_cmb;
     }
 }
