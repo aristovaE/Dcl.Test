@@ -232,6 +232,10 @@ namespace DclTestFormWPy
                 {
                     TableScript_dgv.CurrentRow.Cells[1].Value = EditCommand_cmb.SelectedItem.ToString();
                     TableScript_dgv.CurrentRow.Cells[3].Value = Commands.CheckDescription(EditCommand_cmb.SelectedItem.ToString());
+                    if(EditParams_tb.Visible==true)
+                        TableScript_dgv.CurrentRow.Cells[2].Value = EditParams_tb.Text;
+                    else if (EditParams_cmb.Visible == true)
+                        TableScript_dgv.CurrentRow.Cells[2].Value = EditParams_cmb.SelectedItem.ToString();
                 }
                 //else
                 //{
@@ -288,16 +292,19 @@ namespace DclTestFormWPy
                 EditCommand_cmb.SelectedItem = TableScript_dgv.CurrentRow.Cells[1].Value.ToString();
                 if (TableScript_dgv.CurrentRow.Cells[2].Value != null)
                 {
-                    if (TableScript_dgv.CurrentRow.Cells[2].Value.ToString() == "нажать")
+                    if (TableScript_dgv.CurrentRow.Cells[1].Value.ToString() == "нажать")
                     {
+                        EditParams_tb.Visible = false;
                         EditParams_cmb.Visible = true;
                         EditParams_cmb.Location = new System.Drawing.Point(panel2.Location.X + 28, panel2.Location.Y + 235);
+                        EditParams_cmb.Items.Clear();
                         foreach (string str in Params_cmb.Items)
                             EditParams_cmb.Items.Add(str);
-                        EditParams_cmb.SelectedItem = TableScript_dgv.CurrentRow.Cells[1].Value.ToString();
+                        EditParams_cmb.SelectedItem = TableScript_dgv.CurrentRow.Cells[2].Value.ToString();
                     }
                     else
                     {
+                        EditParams_cmb.Visible = false;
                         EditParams_tb.Visible = true;
                         EditParams_tb.Location = new System.Drawing.Point(panel2.Location.X + 28, panel2.Location.Y + 235);
                         EditParams_tb.Text = TableScript_dgv.CurrentRow.Cells[2].Value.ToString();
@@ -738,6 +745,7 @@ namespace DclTestFormWPy
             //formEdit.Show();
             this.MinimumSize = new System.Drawing.Size(805 + 280, 375);
             редактированиеToolStripMenuItem.Enabled = false;
+            EditCommand_cmb.Items.Clear();
             foreach (string str in Command_cmb.Items)
                 EditCommand_cmb.Items.Add(str);
             EditCommand_cmb.Visible = true;
@@ -823,27 +831,27 @@ namespace DclTestFormWPy
 
         private void TableScript_dgv_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            bool IsWrong = true;
-            if (TableScript_dgv.SelectedRows.Count != 0 && TableScript_dgv.SelectedRows[0].Cells[1].Value.ToString() != null)
-            {
-                if (TableScript_dgv.SelectedRows[0].Cells[1].Value.ToString() == "нажать")
-                {
-                    foreach (string str in Params_cmb.Items)
-                    {
-                        if (TableScript_dgv.SelectedRows[0].Cells[2].Value.ToString() == str)
-                        {
-                            IsWrong = false;
-                            break;
-                        }
-                    }//после форич вызывает почему то с начала функцию 
-                    if (IsWrong == true)
-                    {
-                        //показывает два раза
-                        MessageBox.Show("Для команды \'Нажать\' нужно ввести одну из заранее предложенных клавиш: (ENTER, ESC, ...)");
-                    }
-                    TableScript_dgv.SelectedRows[0].Cells[2].Value = "";
-                }
-            }
+            //bool IsWrong = true;
+            //if (TableScript_dgv.SelectedRows.Count != 0 && TableScript_dgv.SelectedRows[0].Cells[1].Value.ToString() != null)
+            //{
+            //    if (TableScript_dgv.SelectedRows[0].Cells[1].Value.ToString() == "нажать")
+            //    {
+            //        foreach (string str in Params_cmb.Items)
+            //        {
+            //            if (TableScript_dgv.SelectedRows[0].Cells[2].Value.ToString() == str)
+            //            {
+            //                IsWrong = false;
+            //                break;
+            //            }
+            //        }//после форич вызывает почему то с начала функцию 
+            //        if (IsWrong == true)
+            //        {
+            //            //показывает два раза
+            //            MessageBox.Show("Для команды \'Нажать\' нужно ввести одну из заранее предложенных клавиш: (ENTER, ESC, ...)");
+            //        }
+            //        TableScript_dgv.SelectedRows[0].Cells[2].Value = "";
+            //    }
+            //}
 
         }
 
@@ -862,9 +870,12 @@ namespace DclTestFormWPy
                         EditParams_tb.Visible = false;
                         EditParams_cmb.Visible = true;
                         EditParams_cmb.Location = new System.Drawing.Point(panel2.Location.X + 28, panel2.Location.Y + 235);
+                        EditParams_cmb.Items.Clear(); 
                         foreach (string str in Params_cmb.Items)
                             EditParams_cmb.Items.Add(str);
-                        EditParams_cmb.SelectedIndex = -1;
+                        if(TableScript_dgv.CurrentRow!=null)
+                            //EditParams_cmb.SelectedItem = TableScript_dgv.CurrentRow.Cells[2].Value.ToString();
+                            EditParams_cmb.SelectedIndex = -1;
                     }
                     else if (EditCommand_cmb.SelectedIndex >= index_CommandWithParams_First && EditCommand_cmb.SelectedIndex <= index_CommandWithParams_Last)
                     {
