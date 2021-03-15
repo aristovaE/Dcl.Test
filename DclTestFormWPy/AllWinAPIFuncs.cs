@@ -202,6 +202,7 @@ namespace DclTestFormWPy
             string[] arguments;
             int num; int countOfRestart;
             string command = TableScript_dgv.Rows[numOfCommand].Cells[1].Value.ToString();
+            string param = TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString();
             //while ((long)GetForegroundWindow() == (long)FindWindow(null, "ВЭД-Декларант"))
             //{
             try
@@ -230,7 +231,7 @@ namespace DclTestFormWPy
                         break;
 
                     case "нажать":
-                        switch (TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString())
+                        switch (param)
                         {
                             case "ENTER":
                                 EnterShortcut(VK_RETURN);
@@ -277,7 +278,7 @@ namespace DclTestFormWPy
                     case "перейти вперед":
                         if (TableScript_dgv.Rows[numOfCommand].Cells[2].Value != null)
                         {
-                            for (int i = 0; i < Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString()); i++)
+                            for (int i = 0; i < Int32.Parse(param); i++)
                             { EnterShortcut(VK_TAB); }
                         }
                         else
@@ -305,40 +306,39 @@ namespace DclTestFormWPy
                         break;
 
                     case "перейти к графе номер":
-                        string numberField = TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString();
-                        FindField(numberField);
+                        FindField(param);
                         break;
 
                     case "подождать секунд":
-                        int secondsToSleep = Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
+                        int secondsToSleep = Int32.Parse(param);
                         Thread.Sleep(1000 * secondsToSleep);
                         break;
 
                     case "в столбце":
-                        for (int i = column; i < Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString()); i++)
+                        for (int i = column; i < Int32.Parse(param); i++)
                         {
                             EnterShortcut(VK_RIGHT);
                         }
-                        column = Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
+                        column = Int32.Parse(param);
                         break;
                     case "в строке":
-                        for (int i = row; i < Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString()); i++)
+                        for (int i = row; i < Int32.Parse(param); i++)
                         {
                             EnterShortcut(VK_DOWN);
                         }
-                        row = Int32.Parse(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
+                        row = Int32.Parse(param);
                         break;
                     case "найти значение":
                         EnterShortcut(VK_F4);
                         EnterShortcut(VK_F3);
-                        EnterText(GetForegroundWindow(), TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
+                        EnterText(GetForegroundWindow(), param);
                         EnterShortcut(VK_RETURN);
                         EnterShortcut(VK_ESCAPE);
                         EnterShortcut(VK_RETURN);
                         break;
 
                     case "ввести значение":
-                        EnterText(GetForegroundWindow(), TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
+                        EnterText(GetForegroundWindow(), param);
                         break;
 
                     case "ждать закрытия окна":
@@ -388,7 +388,7 @@ namespace DclTestFormWPy
                         }
                         windowFocus = hwnd;
                         //сделать проверку на то какое окно активное - и тогда подстраивать его под себя 
-                        arguments = TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString().Split(';');
+                        arguments = param.Split(';');
                         int x = Convert.ToInt32(arguments[0]);
                         int y = Convert.ToInt32(arguments[1]);
 
@@ -397,12 +397,12 @@ namespace DclTestFormWPy
 
                     case "если":
                         bool IsTrue;
-                        if (TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString().Contains("="))
-                            IsTrue = IfEqualScript('=', TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString(), windowFocus);
-                        else if (TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString().Contains(">"))
-                            IsTrue = IfBiggerScript('>', TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString(), windowFocus);
-                        else if (TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString().Contains("<"))
-                            IsTrue = IfSmallerScript('<', TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString(), windowFocus);
+                        if (param.Contains("="))
+                            IsTrue = IfEqualScript('=', param, windowFocus);
+                        else if (param.Contains(">"))
+                            IsTrue = IfBiggerScript('>', param, windowFocus);
+                        else if (param.Contains("<"))
+                            IsTrue = IfSmallerScript('<', param, windowFocus);
                         else break;
 
                         if (!IsTrue)
@@ -423,7 +423,7 @@ namespace DclTestFormWPy
                         }
                         else
                         {
-                            if (TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString() == "продолжить")
+                            if (param == "продолжить")
                             {
                                 numOfCommand++;
                             }
@@ -444,7 +444,7 @@ namespace DclTestFormWPy
                         else
                         {
 
-                            if (TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString() == "ошибка")
+                            if (param == "ошибка")
                             {
                                 MessageBox.Show(
                                     "Сценарий остановлен",
@@ -458,7 +458,7 @@ namespace DclTestFormWPy
 
                     case "выполнить в цикле":
                         num = numOfCommand;
-                        countOfRestart = Convert.ToInt32(TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString());
+                        countOfRestart = Convert.ToInt32(param);
                         if (TableScript_dgv.Rows[numOfCommand + 1].Cells[1].Value.ToString() == "начало цикла") //выполнить несколько команд в цикле
                         {
                             for (int count = 1; count < countOfRestart; count++)
@@ -487,7 +487,7 @@ namespace DclTestFormWPy
 
                     case "запустить ВД":
                         Process iStartVD = new Process(); // новый процесс
-                        iStartVD.StartInfo.FileName = @TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString(); // путь к запускаемому файлу
+                        iStartVD.StartInfo.FileName = @param; // путь к запускаемому файлу
                         iStartVD.Start(); // запускаем программу
                         break;
                 }
