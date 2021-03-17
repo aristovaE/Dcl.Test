@@ -202,7 +202,12 @@ namespace DclTestFormWPy
             string[] arguments;
             int num; int countOfRestart;
             string command = TableScript_dgv.Rows[numOfCommand].Cells[1].Value.ToString();
-            string param = TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString();
+            string param = "";
+            bool IsTransp=false;
+            if(TableScript_dgv.Rows[numOfCommand].Cells[2].Value!= null)
+            {
+                param = TableScript_dgv.Rows[numOfCommand].Cells[2].Value.ToString();
+            }
             //while ((long)GetForegroundWindow() == (long)FindWindow(null, "ВЭД-Декларант"))
             //{
             try
@@ -478,7 +483,7 @@ namespace DclTestFormWPy
                         else // выполнить одну команду в цикле
                         {
                             numOfCommand++;
-                            for (int index = 0; index < Convert.ToInt32(TableScript_dgv.Rows[numOfCommand-1].Cells[2].Value.ToString()); index++)
+                            for (int index = 0; index < Convert.ToInt32(TableScript_dgv.Rows[numOfCommand - 1].Cells[2].Value.ToString()); index++)
                             {
                                 IsStop = DoCommand(ref numOfCommand, ref column, ref row, windowFocus);
                             }
@@ -490,14 +495,21 @@ namespace DclTestFormWPy
                         iStartVD.StartInfo.FileName = @param; // путь к запускаемому файлу
                         iStartVD.Start(); // запускаем программу
                         break;
+
+                    case "перейти на строку":
+                        IsTransp = true;
+                        break;
                 }
                 //перелистывание в таблице
                 if (tabScripts.SelectedIndex == 1)
                 {
                     TableScript_dgv.ClearSelection();
                     TableScript_dgv.Rows[numOfCommand].Cells[4].Value = "успешно";
+                    if(IsTransp==true)
+                        numOfCommand = Convert.ToInt32(param) - 1;
                     if (numOfCommand + 1 < TableScript_dgv.Rows.Count)
                         TableScript_dgv.Rows[numOfCommand + 1].Selected = true;
+
                     TableScript_dgv.FirstDisplayedScrollingRowIndex = numOfCommand;
                     TableScript_dgv.Update();
                 }

@@ -85,14 +85,14 @@
             this.TreeViewOfScript = new System.Windows.Forms.TreeView();
             this.tabTableScript = new System.Windows.Forms.TabPage();
             this.TableScript_dgv = new System.Windows.Forms.DataGridView();
+            this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.EditParams_cmb = new System.Windows.Forms.ComboBox();
             this.numberOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nameOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.paramOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.descriptionOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.resultOfCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BreakPointOfCommand = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.EditParams_cmb = new System.Windows.Forms.ComboBox();
             this.scriptsTask_ms.SuspendLayout();
             this.StatusStripNameOfFile.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -424,6 +424,7 @@
             // 
             // addCommand_btn
             // 
+            this.addCommand_btn.Enabled = false;
             this.addCommand_btn.Location = new System.Drawing.Point(164, 19);
             this.addCommand_btn.Name = "addCommand_btn";
             this.addCommand_btn.Size = new System.Drawing.Size(75, 25);
@@ -431,7 +432,6 @@
             this.addCommand_btn.Text = "Добавить";
             this.addCommand_btn.UseVisualStyleBackColor = true;
             this.addCommand_btn.Click += new System.EventHandler(this.AddCommand_btn_Click);
-            this.addCommand_btn.Enabled = false;
             // 
             // Params_cmb
             // 
@@ -486,6 +486,7 @@
             // 
             // EditComand_btn
             // 
+            this.EditComand_btn.Enabled = false;
             this.EditComand_btn.Location = new System.Drawing.Point(164, 16);
             this.EditComand_btn.Name = "EditComand_btn";
             this.EditComand_btn.Size = new System.Drawing.Size(75, 25);
@@ -493,7 +494,6 @@
             this.EditComand_btn.Text = "Изменить";
             this.EditComand_btn.UseVisualStyleBackColor = true;
             this.EditComand_btn.Click += new System.EventHandler(this.EditComand_btn_Click);
-            this.EditComand_btn.Enabled = false;
             // 
             // DeleteAll_btn
             // 
@@ -694,54 +694,6 @@
             this.TableScript_dgv.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.TableScript_dgv_CellValueChanged);
             this.TableScript_dgv.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.TableScript_dgv_RowHeaderMouseClick);
             // 
-            // numberOfCommand
-            // 
-            this.numberOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.numberOfCommand.FillWeight = 7F;
-            this.numberOfCommand.HeaderText = "№";
-            this.numberOfCommand.Name = "numberOfCommand";
-            this.numberOfCommand.ReadOnly = true;
-            this.numberOfCommand.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // nameOfCommand
-            // 
-            this.nameOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.nameOfCommand.FillWeight = 60F;
-            this.nameOfCommand.HeaderText = "Команда";
-            this.nameOfCommand.Name = "nameOfCommand";
-            this.nameOfCommand.ReadOnly = true;
-            // 
-            // paramOfCommand
-            // 
-            this.paramOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.paramOfCommand.FillWeight = 30F;
-            this.paramOfCommand.HeaderText = "Параметр";
-            this.paramOfCommand.Name = "paramOfCommand";
-            // 
-            // descriptionOfCommand
-            // 
-            this.descriptionOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.descriptionOfCommand.FillWeight = 80F;
-            this.descriptionOfCommand.HeaderText = "Описание";
-            this.descriptionOfCommand.Name = "descriptionOfCommand";
-            // 
-            // resultOfCommand
-            // 
-            this.resultOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.resultOfCommand.FillWeight = 25F;
-            this.resultOfCommand.HeaderText = "Результат";
-            this.resultOfCommand.Name = "resultOfCommand";
-            this.resultOfCommand.ReadOnly = true;
-            // 
-            // BreakPointOfCommand
-            // 
-            this.BreakPointOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.BreakPointOfCommand.FillWeight = 25F;
-            this.BreakPointOfCommand.HeaderText = "Точка останова";
-            this.BreakPointOfCommand.Name = "BreakPointOfCommand";
-            this.BreakPointOfCommand.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.BreakPointOfCommand.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
             // tableLayoutPanel
             // 
             this.tableLayoutPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -768,6 +720,55 @@
             this.EditParams_cmb.Size = new System.Drawing.Size(148, 21);
             this.EditParams_cmb.TabIndex = 32;
             this.EditParams_cmb.Visible = false;
+            // 
+            // numberOfCommand
+            // 
+            this.numberOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.numberOfCommand.FillWeight = 7F;
+            this.numberOfCommand.HeaderText = "№";
+            this.numberOfCommand.Name = "numberOfCommand";
+            this.numberOfCommand.ReadOnly = true;
+            this.numberOfCommand.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // nameOfCommand
+            // 
+            this.nameOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nameOfCommand.FillWeight = 60F;
+            this.nameOfCommand.HeaderText = "Команда";
+            this.nameOfCommand.Name = "nameOfCommand";
+            this.nameOfCommand.ReadOnly = true;
+            // 
+            // paramOfCommand
+            // 
+            this.paramOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.paramOfCommand.FillWeight = 30F;
+            this.paramOfCommand.HeaderText = "Параметр";
+            this.paramOfCommand.Name = "paramOfCommand";
+            this.paramOfCommand.ReadOnly = true;
+            // 
+            // descriptionOfCommand
+            // 
+            this.descriptionOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.descriptionOfCommand.FillWeight = 80F;
+            this.descriptionOfCommand.HeaderText = "Описание";
+            this.descriptionOfCommand.Name = "descriptionOfCommand";
+            // 
+            // resultOfCommand
+            // 
+            this.resultOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.resultOfCommand.FillWeight = 25F;
+            this.resultOfCommand.HeaderText = "Результат";
+            this.resultOfCommand.Name = "resultOfCommand";
+            this.resultOfCommand.ReadOnly = true;
+            // 
+            // BreakPointOfCommand
+            // 
+            this.BreakPointOfCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.BreakPointOfCommand.FillWeight = 25F;
+            this.BreakPointOfCommand.HeaderText = "Точка останова";
+            this.BreakPointOfCommand.Name = "BreakPointOfCommand";
+            this.BreakPointOfCommand.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.BreakPointOfCommand.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // DclTestFormWPy
             // 
@@ -864,14 +865,14 @@
         private System.Windows.Forms.TreeView TreeViewOfScript;
         private System.Windows.Forms.TabPage tabTableScript;
         private System.Windows.Forms.DataGridView TableScript_dgv;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
+        private System.Windows.Forms.TextBox EditParams_tb;
+        private System.Windows.Forms.ComboBox EditParams_cmb;
         private System.Windows.Forms.DataGridViewTextBoxColumn numberOfCommand;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameOfCommand;
         private System.Windows.Forms.DataGridViewTextBoxColumn paramOfCommand;
         private System.Windows.Forms.DataGridViewTextBoxColumn descriptionOfCommand;
         private System.Windows.Forms.DataGridViewTextBoxColumn resultOfCommand;
         private System.Windows.Forms.DataGridViewCheckBoxColumn BreakPointOfCommand;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
-        private System.Windows.Forms.TextBox EditParams_tb;
-        private System.Windows.Forms.ComboBox EditParams_cmb;
     }
 }
