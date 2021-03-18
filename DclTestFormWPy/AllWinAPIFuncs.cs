@@ -506,7 +506,7 @@ namespace DclTestFormWPy
                     TableScript_dgv.ClearSelection();
                     TableScript_dgv.Rows[numOfCommand].Cells[4].Value = "успешно";
                     if(IsTransp==true)
-                        numOfCommand = Convert.ToInt32(param) - 1;
+                        numOfCommand = Convert.ToInt32(param) - 2;
                     if (numOfCommand + 1 < TableScript_dgv.Rows.Count)
                         TableScript_dgv.Rows[numOfCommand + 1].Selected = true;
 

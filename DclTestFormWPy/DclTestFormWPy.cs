@@ -24,7 +24,7 @@ namespace DclTestFormWPy
 
         //переменные, чтобы при добавлении новых команд в выпадающий списк Command_cmb не менять в коде позиции различных команд (с и без параметра / с параметром в списке / с параметром в поле)
         const int index_CommandWithParams_First = 6;
-        const int index_CommandWithParams_Last = 13;
+        const int index_CommandWithParams_Last = 16;
         const int index_CommandWithTwoParams = 22;
         /// <summary>
         /// Очистка столбца Результат в таблице
@@ -818,6 +818,9 @@ namespace DclTestFormWPy
             del_gb.Visible = false;
             edit_gb.Visible = false;
             search_gb.Visible = false;
+            EditCommand_cmb.Visible = false;
+            EditParams_cmb.Visible = false;
+            EditParams_tb.Visible = false;
             HidePanel2.Visible = false;
             tableLayoutPanel.ColumnStyles[1].SizeType = SizeType.Percent;
             tableLayoutPanel.ColumnStyles[1].Width = 0;

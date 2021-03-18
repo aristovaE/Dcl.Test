@@ -388,6 +388,11 @@
             "перейти к графе номер",
             "подождать секунд",
             "группа",
+            "если",
+            "то",
+            "иначе",
+            "выполнить в цикле",
+            "перейти на строку",
             " ",
             "добавить товар",
             "перейти к первому товару",
@@ -404,10 +409,7 @@
             "прочитать из СТМ",
             "записать в СТМ",
             " ",
-            "если",
-            "то",
-            "иначе",
-            "выполнить в цикле"});
+            "запустить ВД"});
             this.Command_cmb.Location = new System.Drawing.Point(10, 22);
             this.Command_cmb.Name = "Command_cmb";
             this.Command_cmb.Size = new System.Drawing.Size(148, 21);
@@ -597,8 +599,8 @@
             // 
             // tabScripts
             // 
-            this.tabScripts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.tabScripts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabScripts.Controls.Add(this.tabTreeViewScript);
             this.tabScripts.Controls.Add(this.tabTableScript);
@@ -696,8 +698,8 @@
             // 
             // tableLayoutPanel
             // 
-            this.tableLayoutPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.tableLayoutPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel.ColumnCount = 2;
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
